@@ -1,0 +1,301 @@
+@import "mocha.css";
+/* @import "/home/void/.cache/wal/colors-waybar.css"; */
+
+* {
+    border: none;
+    border-radius: 2px;
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: Iosevka Term Regular, Liberation Sans, Terminus Regular, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    /* min-height: 40px; */
+}
+
+window#waybar {
+    background: transparent;
+    border-radius: 8px;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces button {
+    padding: 0px;
+    border-radius: 8px;
+    background-color: @base;
+    color: @color1;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    background: @base;
+    color: @color1;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#workspaces button.active {
+    background-color: @base;
+    color: @color3;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#workspaces button.urgent {
+    background-color: @color6;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#custom-deadbeef,
+#tray,
+#mode,
+#idle_inhibitor,
+#mpd {
+    padding: 4px 8px;
+    margin: 0px 4px;
+    color: @white;
+}
+
+#workspaces {
+    background-color: @base;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-radius: 8px;
+    border: 1px solid @color1;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0px;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+    background-color: @base;
+    color: @white;
+    border-radius: 8px 0 0 8px;
+    border: 1px solid @color8;
+    border-right: 0;
+    margin-right: 0;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#battery {
+    background-color: @base;
+    color: @color6;
+    border-radius: 0 8px 8px 0;
+    border: 1px solid @color8;
+    border-left: 0;
+    margin-left: 0;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+#battery.charging, #battery.plugged {
+    color: @green;
+    background-color: @base;
+}
+
+@keyframes blink {
+    to {
+        background-color: @base;
+        color: @red;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: @base;
+    color: @red;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#taskbar {
+    background-color: @base;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: 8px;
+}
+
+#taskbar empty {
+    background-color: transparent;
+    padding: 0px;
+}
+
+#taskbar button {
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 4px;
+    margin-right: 0px;
+}
+
+#cpu {
+    background-color: @base;
+    /* color: @color4; */
+    border-radius:  8px 0 0 8px;
+    border: 1px solid @color5;
+    border-right: 0;
+    margin-right: 0;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+	
+
+#memory {
+    background-color: @base;
+    /* color: @color5; */
+	border-radius: 0 8px 8px 0;
+	border: 1px solid @color5;
+    border-left: 0;
+    margin-left: 0;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+#network {
+    background-color: @base;
+    /* color: @color5; */
+	border-radius: 0px;
+	border: 1px solid @color4;
+	border-left: 0;
+	border-right: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: bold;
+
+}
+
+#network.disconnected {
+    background-color: @base;
+    color: @red;
+    border: 1px solid @color4;
+    border-left: 0;
+	border-right: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+#wireplumber {
+    background-color: @base;
+    color: @color3;
+	border-radius: 0 8px 8px 0;
+	border: 1px solid @color4;
+    border-left: 0;
+    margin-left: 0;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+#wireplumber.muted {
+    background-color: @base;
+    color: @color1;
+    border: 1px solid @color4;
+}
+
+#custom-deadbeef {
+    background-color: @background;
+    color: @color6;
+	border-radius: 8px;
+	border: 1px solid @color6;
+	font-weight: bold;
+	margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#tray {
+    background-color: @base;
+	border-radius: 8px;
+	border: 1px solid @color6;
+	margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    /* -gtk-icon-effect: highlight; */
+    background-color: @red;
+}
+
+#idle_inhibitor {
+    background-color: @base;
+    color: @color3;
+	border-radius: 8px 0 0 8px;
+	border: 1px solid @color4;
+    border-right: 0;
+    margin-right: 0;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+#idle_inhibitor.activated {
+    background-color: @base;
+    color: @color6;
+	border-radius: 8px 0 0 8px;
+	border: 1px solid @color4;
+    border-right: 0;
+    margin-right: 0;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+tooltip {
+    border-radius: 8px;
+    background-color: @base;
+    border: 1px solid @color4;
+    opacity:0.8;
+    padding: 8px;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+tooltip label {
+    color: @white;
+}
