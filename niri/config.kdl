@@ -1,3 +1,5 @@
+// https://github.com/nebulosa2007/archinstallbtfrs/blob/master/dotfiles/niri_config/niri/config.kdl
+
 // This config is in the KDL format: https://kdl.dev
 // "/-" comments out the following node.
 // Check the wiki for a full description of the configuration:
@@ -219,6 +221,8 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
+
+spawn-at-startup "swaybg" "--image" "~/Pictures/wallpaper2.jpg" "--mode" "fill"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
