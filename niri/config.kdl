@@ -162,7 +162,7 @@ layout {
         // off
 
         // How many logical pixels the ring extends out from the windows.
-        width 2
+        width 5
 
         // Colors can be set in a variety of ways:
         // - CSS named colors: "red"
@@ -222,7 +222,7 @@ layout {
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
 
-spawn-at-startup "swaybg" "--image" "~/Pictures/wallpaper2.jpg" "--mode" "fill"
+spawn-at-startup "alacritty" "-e" "swaybg" "--image" "$HOME/Pictures/wallpaper3.jpg" "--mode" "fill"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -596,5 +596,5 @@ window-rule {
 window-rule {
     match app-id="virt-manager" title=r#"on QEMU/KVM$"#
     default-column-width { proportion 0.8; }
-    open-on-workspace "work"
+    // open-on-workspace "work"
 }
