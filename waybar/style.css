@@ -218,7 +218,7 @@ label:focus {
 
 #wireplumber {
     background-color: @base;
-    color: @color3;
+    color: @white;
 	border-radius: 0 8px 8px 0;
 	border: 1px solid @color4;
     border-left: 0;
@@ -227,11 +227,12 @@ label:focus {
     margin-bottom: 3px;
     font-weight: bold;
     margin-right: 15px;
+    padding: 10px;
 }
 
 #wireplumber.muted {
     background-color: @base;
-    color: @color1;
+    color: @red;
     border: 1px solid @color4;
 }
 
@@ -272,6 +273,7 @@ label:focus {
     margin-top: 3px;
     margin-bottom: 3px;
     font-weight: bold;
+    font-size: 80%;
 }
 
 #idle_inhibitor.activated {
@@ -285,6 +287,7 @@ label:focus {
     margin-bottom: 3px;
     font-weight: bold;
 }
+
 
 tooltip {
     border-radius: 8px;
