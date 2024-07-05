@@ -1,13 +1,13 @@
 {
     "layer": "top", // Waybar at top layer
-    "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 27, // Waybar height (to be removed for auto height)
+    "position": "right", // Waybar position (top|bottom|left|right)
+    // "width": 27, // Waybar height (to be removed for auto height)
     "margin": "2 3 2 3", // <top|left|bottom|right>
     // "width": 1280, // Waybar width
     "reload_style_on_change": true,
     // Choose the order of the modules
     "modules-left": ["idle_inhibitor", "network", "wireplumber"],
-    "modules-center": ["clock", "battery", "custom/niri_workspaces", "wlr/taskbar"],
+    "modules-center": ["custom/niri_workspaces", "clock", "battery", "wlr/taskbar"],
     "modules-right": ["custom/deadbeef", "cpu", "memory", "tray"],
     // Modules configuration
 
@@ -18,9 +18,9 @@
         "return-type": "json",
         "exec": "$HOME/.config/waybar/modules/workspaces.sh \"$WAYBAR_OUTPUT_NAME\"",
         "on-click": "fuzzel",
-        "on-click-right": "mpv --profile=notebook \"$(wl-paste | fuzzel --dmenu -l0 -w50 --prompt=\"Stream: $(wl-paste)\")\"",
-        "on-scroll-up": "$HOME/.config/waybar/modules/workspaces.sh up",
-        "on-scroll-down": "$HOME/.config/waybar/modules/workspaces.sh down",
+        // "on-click-right": "mpv --profile=notebook \"$(wl-paste | fuzzel --dmenu -l0 -w50 --prompt=\"Stream: $(wl-paste)\")\"",
+        // "on-scroll-up": "$HOME/.config/waybar/modules/workspaces.sh up",
+        // "on-scroll-down": "$HOME/.config/waybar/modules/workspaces.sh down",
         "signal": 8
     },
 
@@ -41,7 +41,7 @@
     },
 
     "clock": {
-        "format": "{:%a %d %b %H:%M}",
+        "format": "{:%H\n<span overline=\"single\">%M</span>}", // %a %d %b
         "format-alt": "Week {:%V of the %Y}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
@@ -137,11 +137,17 @@
         "format-alt": "{:%d-%m-%Y}"
     }, */
 
-
+    "cpu": {
+        "format": "",
+        "format-alt": "{usage}% ",
+        "tooltip-format": "{max_frequency}Ghz\n{usage}%",
+        "onclick": "konsole -e htop --sort-key PERCENT_CPU"
+    },
     "memory": {
         "format": "",
-        "format-alt": "{used} Gb ",
-        "tooltip-format": "{percentage}%"
+        "format-alt": "{used}Gb ",
+        "tooltip-format": "{percentage}%\n{used}Gb",
+        "onclick": "konsole -e htop --sort-key PERCENT_MEM"
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -200,12 +206,12 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "",
-        "format-ethernet": "",
+        "format-ethernet": "",
         "tooltip-format-wifi": "  {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz",
         "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        // "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "on-click-right": "$HOME/.config/waybar/modules/wifiselector.sh",
         "on-click-middle": "kgx -e '$HOME/.config/waybar/modules/vpn.sh wg0 && pkill -SIGRTMIN+4 waybar'"
     },
@@ -228,13 +234,13 @@
 
 
 
-    "cpu": {
+    /* "cpu": {
         "format": "{usage}% ",
         "tooltip": false
-    },
-    "memory": {
+    }, */
+    /* "memory": {
         "format": "{}% "
-    },
+    }, */
     "battery": {
         "states": {
             "good": 60,
@@ -249,7 +255,7 @@
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
-    "network": {
+    "network2": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ",
         "format-ethernet": "{ipaddr}/{cidr} ",

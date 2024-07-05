@@ -25,16 +25,16 @@ window#waybar.hidden {
     background-color: @base;
     color: @color1;
     font-weight: bold;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
     background: @base;
     color: @color1;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 #workspaces button.active {
@@ -65,38 +65,38 @@ window#waybar.hidden {
 #mode,
 #idle_inhibitor,
 #mpd {
-    padding: 4px 8px;
+    padding: 8px 4px;
     margin: 0px 4px;
     color: @white;
 }
 
 #workspaces {
     background-color: @base;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
     border-radius: 8px;
     border: 1px solid @color1;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
-    margin-left: 0px;
+    margin-top: 0px;
 }
 
 /* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
+    margin-bottom: 0;
 }
 
 #clock {
     background-color: @base;
     color: @white;
-    border-radius: 8px 0 0 8px;
+    border-radius: 8px 8px 0 0;
     border: 1px solid @color8;
-    border-right: 0;
-    margin-right: 0;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    border-bottom: 0;
+    margin-bottom: 0;
+    margin-left: 3px;
+    margin-right: 3px;
     font-weight: bold;
     padding: 10px;
 }
@@ -166,12 +166,12 @@ label:focus {
 #cpu {
     background-color: @base;
     /* color: @color4; */
-    border-radius:  8px 0 0 8px;
+    border-radius:  8px 8px 0 0;
     border: 1px solid @color5;
-    border-right: 0;
-    margin-right: 0;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    border-bottom: 0;
+    margin-bottom: 0;
+    margin-left: 3px;
+    margin-right: 3px;
     font-weight: bold;
 }
 	
@@ -179,12 +179,12 @@ label:focus {
 #memory {
     background-color: @base;
     /* color: @color5; */
-	border-radius: 0 8px 8px 0;
+	border-radius: 0 0 8px 8px;
 	border: 1px solid @color5;
-    border-left: 0;
-    margin-left: 0;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    border-top: 0;
+    margin-top: 0;
+    margin-left: 3px;
+    margin-right: 3px;
     font-weight: bold;
 }
 
@@ -193,12 +193,12 @@ label:focus {
     /* color: @color5; */
 	border-radius: 0px;
 	border: 1px solid @color4;
-	border-left: 0;
-	border-right: 0;
-	margin-left: 0;
-	margin-right: 0;
-	margin-top: 3px;
-    margin-bottom: 3px;
+	border-top: 0;
+	border-bottom: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 3px;
+    margin-right: 3px;
     font-weight: bold;
 
 }
@@ -207,24 +207,24 @@ label:focus {
     background-color: @base;
     color: @red;
     border: 1px solid @color4;
-    border-left: 0;
-	border-right: 0;
-	margin-left: 0;
-	margin-right: 0;
-	margin-top: 3px;
-    margin-bottom: 3px;
+    border-top: 0;
+    border-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 3px;
+    margin-right: 3px;
     font-weight: bold;
 }
 
 #wireplumber {
     background-color: @base;
     color: @white;
-	border-radius: 0 8px 8px 0;
+	border-radius: 0 0 8px 8px;
 	border: 1px solid @color4;
-    border-left: 0;
-    margin-left: 0;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    border-top: 0;
+    margin-top: 0;
+    margin-left: 3px;
+    margin-right: 3px;
     font-weight: bold;
     margin-right: 15px;
     padding: 10px;
@@ -248,10 +248,10 @@ label:focus {
 
 #tray {
     background-color: @base;
-	border-radius: 8px;
+	border-radius: 0 0 8px 8px;
 	border: 1px solid @color6;
-	margin-top: 3px;
-    margin-bottom: 3px;
+	margin-left: 3px;
+    margin-right: 3px;
 }
 
 #tray > .passive {
@@ -266,12 +266,12 @@ label:focus {
 #idle_inhibitor {
     background-color: @base;
     color: @color3;
-	border-radius: 8px 0 0 8px;
+	border-radius: 8px 8px 0 0;
 	border: 1px solid @color4;
-    border-right: 0;
-    margin-right: 0;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    border-bottom: 0;
+    margin-bottom: 0;
+    margin-left: 3px;
+    margin-right: 3px;
     font-weight: bold;
     font-size: 80%;
 }
