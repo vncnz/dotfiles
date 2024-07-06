@@ -6,9 +6,9 @@
     // "width": 1280, // Waybar width
     "reload_style_on_change": true,
     // Choose the order of the modules
-    "modules-left": ["idle_inhibitor", "network", "wireplumber"],
-    "modules-center": ["custom/niri_workspaces", "clock", "battery", "wlr/taskbar"],
-    "modules-right": ["custom/deadbeef", "cpu", "memory", "tray"],
+    "modules-left": ["idle_inhibitor", "network", "wireplumber", "battery"],
+    "modules-center": ["custom/niri_workspaces", "clock", "wlr/taskbar"],
+    "modules-right": ["custom/deadbeef", "custom/loadavg", "cpu", "memory", "tray", "temperature"],
     // Modules configuration
 
     // Install jq mpv mpv-mpris wl-clipboard fuzzel
@@ -17,7 +17,7 @@
         "interval": 2,
         "return-type": "json",
         "exec": "$HOME/.config/waybar/modules/workspaces.sh \"$WAYBAR_OUTPUT_NAME\"",
-        "on-click": "fuzzel",
+        // "on-click": "fuzzel",
         // "on-click-right": "mpv --profile=notebook \"$(wl-paste | fuzzel --dmenu -l0 -w50 --prompt=\"Stream: $(wl-paste)\")\"",
         // "on-scroll-up": "$HOME/.config/waybar/modules/workspaces.sh up",
         // "on-scroll-down": "$HOME/.config/waybar/modules/workspaces.sh down",
@@ -68,11 +68,12 @@
         }
     },
     "custom/loadavg": {
-        "format": "{}  ",
-        "interval": 10,
+        "rotate": 270,
+        "format": "{}  ",
+        "interval": 5,
         "return-type": "json",
         "exec": "$HOME/.config/waybar/modules/loadavg.sh",
-        "on-click": "kgx -e htop"
+        "on-click": "konsole -e htop"
     },
 
    "wlr/taskbar": {
@@ -138,13 +139,15 @@
     }, */
 
     "cpu": {
-        "format": "",
-        "format-alt": "{usage}% ",
+        "rotate": 270,
+        "format": "{usage}% ",
+        "format-alt": "{usage}% ",
         "tooltip-format": "{max_frequency}Ghz\n{usage}%",
         "onclick": "konsole -e htop --sort-key PERCENT_CPU"
     },
     "memory": {
-        "format": "",
+        "rotate": 270,
+        "format": "{percentage}% ",
         "format-alt": "{used}Gb ",
         "tooltip-format": "{percentage}%\n{used}Gb",
         "onclick": "konsole -e htop --sort-key PERCENT_MEM"
@@ -153,11 +156,11 @@
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
-        "format-critical": "  {temperatureC}°C {icon}",
+        "format-critical": " {icon}",
         "format": "{icon}",
-        "format-alt": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""],
-        "tooltip": false
+        "format-alt": "{temperatureC}°C",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip": "{temperatureC}°C",
     },
 
     // Install brightnessctl libnotify
@@ -242,12 +245,13 @@
         "format": "{}% "
     }, */
     "battery": {
+        "rotate": 270,
         "states": {
             "good": 60,
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}% {icon}",
+        "format": "{capacity}%{icon}",
         "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
@@ -265,6 +269,7 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "wireplumber": {
+        "rotate": 270,
         "format": "{volume}% {icon}",
         "format-muted": "0% ",
         "on-click": "helvum",

@@ -64,52 +64,52 @@ window#waybar.hidden {
 #tray,
 #mode,
 #idle_inhibitor,
-#mpd {
+#mpd,
+#wireplumber,
+#taskbar,
+#custom-loadavg {
     padding: 8px 4px;
-    margin: 0px 4px;
+    margin: 0px 3px;
     color: @white;
+    border: 1px solid @white;
+    border-radius: 8px;
+    background-color: @base;
+}
+
+
+#custom-loadavg {
+    border-radius: 8px 8px 0 0;
+    border-bottom: 0;
 }
 
 #workspaces {
-    background-color: @base;
-    margin-left: 3px;
-    margin-right: 3px;
     border-radius: 8px;
     border: 1px solid @color1;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
+/* .modules-left > widget:first-child > #workspaces {
     margin-top: 0px;
-}
+} */
 
 /* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
+/* .modules-right > widget:last-child > #workspaces {
     margin-bottom: 0;
-}
+} */
 
 #clock {
-    background-color: @base;
-    color: @white;
     border-radius: 8px 8px 0 0;
-    border: 1px solid @color8;
     border-bottom: 0;
     margin-bottom: 0;
-    margin-left: 3px;
-    margin-right: 3px;
     font-weight: bold;
     padding: 10px;
 }
 
 #battery {
-    background-color: @base;
     color: @color6;
-    border-radius: 0 8px 8px 0;
-    border: 1px solid @color8;
-    border-left: 0;
-    margin-left: 0;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    border-radius: 0 0 8px 8px;
+    border-top: 0;
+    margin: 0 3px;
     font-weight: bold;
 }
 
@@ -140,12 +140,10 @@ label:focus {
 }
 
 #taskbar {
-    background-color: @base;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    margin-left: 2px;
-    margin-right: 2px;
-    border-radius: 8px;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 0 0 8px 8px;
+    border-top: 0;
 }
 
 #taskbar empty {
@@ -154,86 +152,60 @@ label:focus {
 }
 
 #taskbar button {
-    background-color: transparent;
+    /* background-color: transparent; */
     padding: 5px;
     border-radius: 8px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    margin-left: 4px;
-    margin-right: 0px;
 }
 
 #cpu {
-    background-color: @base;
-    /* color: @color4; */
-    border-radius:  8px 8px 0 0;
-    border: 1px solid @color5;
+    border-radius: 0;
+    border-top: 0;
     border-bottom: 0;
     margin-bottom: 0;
-    margin-left: 3px;
-    margin-right: 3px;
     font-weight: bold;
 }
 	
 
 #memory {
-    background-color: @base;
     /* color: @color5; */
 	border-radius: 0 0 8px 8px;
 	border: 1px solid @color5;
     border-top: 0;
     margin-top: 0;
-    margin-left: 3px;
-    margin-right: 3px;
     font-weight: bold;
 }
 
 #network {
-    background-color: @base;
-    /* color: @color5; */
 	border-radius: 0px;
-	border: 1px solid @color4;
 	border-top: 0;
 	border-bottom: 0;
 	margin-top: 0;
 	margin-bottom: 0;
-	margin-left: 3px;
-    margin-right: 3px;
     font-weight: bold;
 
 }
 
 #network.disconnected {
-    background-color: @base;
     color: @red;
-    border: 1px solid @color4;
     border-top: 0;
     border-bottom: 0;
     margin-top: 0;
     margin-bottom: 0;
-    margin-left: 3px;
-    margin-right: 3px;
     font-weight: bold;
 }
 
 #wireplumber {
-    background-color: @base;
     color: @white;
-	border-radius: 0 0 8px 8px;
-	border: 1px solid @color4;
+    border-radius: 0;
     border-top: 0;
+    border-bottom: 0;
     margin-top: 0;
-    margin-left: 3px;
-    margin-right: 3px;
     font-weight: bold;
-    margin-right: 15px;
     padding: 10px;
 }
 
 #wireplumber.muted {
-    background-color: @base;
     color: @red;
-    border: 1px solid @color4;
 }
 
 #custom-deadbeef {
@@ -247,11 +219,7 @@ label:focus {
 }
 
 #tray {
-    background-color: @base;
 	border-radius: 0 0 8px 8px;
-	border: 1px solid @color6;
-	margin-left: 3px;
-    margin-right: 3px;
 }
 
 #tray > .passive {
@@ -264,14 +232,10 @@ label:focus {
 }
 
 #idle_inhibitor {
-    background-color: @base;
     color: @color3;
 	border-radius: 8px 8px 0 0;
-	border: 1px solid @color4;
     border-bottom: 0;
     margin-bottom: 0;
-    margin-left: 3px;
-    margin-right: 3px;
     font-weight: bold;
     font-size: 80%;
 }
@@ -279,20 +243,17 @@ label:focus {
 #idle_inhibitor.activated {
     background-color: @base;
     color: @color6;
-	border-radius: 8px 0 0 8px;
-	border: 1px solid @color4;
-    border-right: 0;
-    margin-right: 0;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    font-weight: bold;
+}
+
+#temperature.critical {
+    color: @red;
 }
 
 
 tooltip {
     border-radius: 8px;
     background-color: @base;
-    border: 1px solid @color4;
+    border: 1px solid @white;
     opacity:0.8;
     padding: 8px;
     margin: 0px;
