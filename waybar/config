@@ -4,8 +4,9 @@
     "position": "left",
     "height": 200,
     "margin-left": 10,
-    "modules-center": ["wlr/workspaces", "custom/niri_workspaces", "wlr/taskbar", "custom/spotify", "network", "custom/vpn", "pulseaudio", "pulseaudio#percentage", "battery","battery#percentage", "custom/calendar-icon", "clock", "clock#date", "custom/time-icon", "clock#time", "group/hardware", "group/power"],
+    "modules-center": ["custom/niri_workspaces", "wlr/taskbar", "custom/spotify", "network", "custom/vpn", "pulseaudio", "pulseaudio#percentage", "battery","battery#percentage", "custom/calendar-icon", "clock", "clock#date", "custom/time-icon", "clock#time", "group/hardware", "group/power"],
     // Modules configuration
+    /* non funziona
     "wlr/workspaces": {
         "format": "{icon}",
         "on-click": "activate",
@@ -21,7 +22,7 @@
             "8": "",
             "9": ""
         }
-    },
+    }, */
     // Install jq mpv mpv-mpris wl-clipboard fuzzel
     "custom/niri_workspaces": {
         "format": "{}",
