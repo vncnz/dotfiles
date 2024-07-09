@@ -1,32 +1,281 @@
-(defwindow powermenu
-  :monitor 0 ;; wayland users may need this
-  :stacking "fg"
-  :windowtype "normal"
-  :wm-ignore true
-  :geometry (geometry :width "94%" :height "100%")
-  (powermenu_layout))
+;; all icons are nf-md-...
 
-(defpoll time :interval "5s"
-  :initial `date +'{"hour":"%H","min":"%M"}'`
-  `date +'{"hour":"%H","min":"%M"}'`)
+(deflisten toggle_dashboard_with_rofi
+    :initial "closed"
+    "
+    dbus-monitor \
+        \"path='/org/freedesktop/Notifications',interface='com.github.ibonn.rofi',member='open'\" \
+        \"path='/org/freedesktop/Notifications',interface='com.github.ibonn.rofi',member='close'\" |
+        stdbuf -o0 awk \
+            -F '; ' \
+            -e '/interface=com.github.ibonn.rofi/ {print $NF}' |
+        while read -r line; do ./widgets/toggle_dashboard_with_rofi.nu $line; done
+    "
+)
+
+;; (include "./widgets/clock.yuck")
+(include "./widgets/notifications.yuck")
+(include "./widgets/spotify.yuck")
+
+;; (defwindow dashboard_monitor
+;;     :monitor 0 ;; wayland users may need this
+;;     :geometry (geometry
+;;         :height "100%"
+;;         :width "100%"
+;;         :anchor "top right"
+;;     )
+;;     :stacking "fg"
+;;     :namespace "eww_dashboard"
+;;     (dashboard)
+;; )
+
+;; (defwidget dashboard []
+;;     (centerbox
+;;         :class "dashboard"
+;;         :orientation "horizontal"
+;;         (box
+;;             :orientation "vertical"
+;;             :space-evenly true
+;;             (box)
+;;             (box
+;;                 :halign "center"
+;;                 :valign "center"
+;;                 (clock)
+;;             )
+;;         )
+;;         (box
+;;         )
+;;         (box
+;;             :style "padding-top: 25px;"
+;;             (sidebar)
+;;         )
+;;     )
+;; )
+
+(defwindow sidebar
+    :geometry (geometry
+        :y "25px"
+        :width "256px"
+        :anchor "top right"
+    )
+    :monitor 0
+    :namespace "eww_sidebar"
+    :stacking "fg";;"bottom"
+    (box
+        :class "sidebar"
+        :orientation "vertical"
+        (sidebar)
+        (label
+            :class "invisible"
+            :text "${toggle_dashboard_with_rofi}"
+        )
+    )
+)
+
+(defwidget sidebar []
+    (box
+        :orientation "vertical"
+        :spacing 32
+        :space-evenly false
+        (spotify)
+        (notifications)
+    )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(defwidget _battery [battery status one two three
+                    four five six seven charge]
+  (box :class "bat-box" :space-evenly false :spacing 8
+    (label :text {status == 'Charging' ? charge :
+      battery < 15 ? seven :
+        battery < 30 ? six :
+          battery < 45 ? five :
+            battery < 60 ? four :
+              battery < 75 ? three :
+                battery < 95 ? two : one})))
+
+
+
+
+
+
+
+
+
+;; all icons are nf-md-...
+
+(include "./widgets2/audio.yuck")
+(include "./widgets2/clock.yuck")
+(include "./widgets2/clipboard.yuck")
+(include "./widgets2/group_lock.yuck")
+;; (include "./widgets2/network.yuck")
+(include "./widgets2/screenshot.yuck")
+(include "./widgets2/recorder.yuck")
+(include "./widgets2/workspaces.yuck")
+
 (defpoll net :interval "100s"
   :initial `N/A`
   `nmcli -t -f SIGNAL,ACTIVE device wifi \
     | awk -F':' '{if($2=="yes")print$1}'`)
 
+(defwidget _network [strength offline excellent
+                    good okay slow]
+  (box :class "net-box"
+       :space-evenly false
+       :spacing 8
+    (label :text {strength == "" ? offline :
+      strength < 26 ? slow :
+        strength < 51 ? okay :
+          strength < 76 ? good : excellent})))
+
+(defwidget _battery [battery status one two three
+                    four five six seven charge]
+  (box :class "bat-box" :space-evenly false :spacing 8
+    (label :text {status == 'Charging' ? charge :
+      battery < 15 ? seven :
+        battery < 30 ? six :
+          battery < 45 ? five :
+            battery < 60 ? four :
+              battery < 75 ? three :
+                battery < 95 ? two : one})))
+
+(defwindow statusbar [stacking]
+    :geometry (geometry
+        :height "100%"
+        :anchor "center left"
+    )
+    :monitor 0
+    :exclusive true
+    :stacking { stacking }
+    :namespace "eww_statusbar"
+    (statusbar)
+)
+
+(defwidget statusbar []
+    (centerbox
+        :orientation "vertical"
+        (box
+            :orientation "horizontal"
+            :valign "start"
+            :space-evenly false
+        )
+        ;; (workspaces)
+        (box
+            :orientation "horizontal"
+            :valign "start"
+            :space-evenly false
+        )
+        (box
+            :orientation "horizontal"
+            :valign "end"
+            :space-evenly false
+            (box
+                :width 12
+            )
+            (box
+                :orientation "vertical"
+                :class "bottom"
+                :halign "fill"
+                :width 24
+                :space-evenly false
+                :spacing 25
+                (box
+                    :orientation "vertical"
+                    :class "container"
+                    :halign "fill"
+                    :valign "end"
+                    :space-evenly false
+                    ;; (clipboard)
+                    ;; (screenshot)
+                    ;; (recorder)
+                )
+                (box
+                    :orientation "vertical"
+                    :class "container"
+                    :space-evenly false
+                    :halign "fill"
+                    :valign "end"
+                    ;; (group_lock)
+                    ;; (audio)
+                )
+                (button :onclick "eww open powermenu" :class "open-btn" "")
+                (_network :strength net :offline "" :excellent "4" :good "3" :okay "2" :slow "1")
+                (_battery :status {EWW_BATTERY.BAT0.status}
+                    :battery {EWW_BATTERY.BAT0.capacity}
+                    :charge "" :one "" :two "" :three "" :four ""
+                    :five "" :six "" :seven "")
+                (clock)
+            )
+        )
+    )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(defwindow powermenu
+  :monitor 0 ;; wayland users may need this
+  :stacking "fg"
+  :wm-ignore true
+  :geometry (geometry :width "98%" :height "100%")
+  (powermenu_layout))
+
 (defwidget powermenu_layout []
   (box :class "layout-box" :space-evenly false :orientation "vertical"
        :style "background-image: url('/home/vncnz/Pictures/wallpaper3.jpg')"
-    (box :valign "start" :space-evenly false :spacing 25
-      (_sundial)
-      (_battery :status {EWW_BATTERY.BAT0.status}
-                :battery {EWW_BATTERY.BAT0.capacity}
-                :charge "" :one "" :two "" :three "" :four ""
-                :five "" :six "" :seven "")
-      (_network :strength net :offline "" :excellent "4" :good "3"
-                :okay "2" :slow "1")
-      (label :text "|" :class "sep")
-      (button :onclick "eww close powermenu" :class "close-btn" ""))
+    (box :valign "start" :halign "end" :space-evenly false :spacing 25
+        (box :space-evenly false :class "overlay-btns" :spacing 25
+        (_sundial)
+        (_battery :status {EWW_BATTERY.BAT0.status}
+                    :battery {EWW_BATTERY.BAT0.capacity}
+                    :charge "" :one "" :two "" :three "" :four ""
+                    :five "" :six "" :seven "")
+        (_network :strength net :offline "" :excellent "4" :good "3"
+                    :okay "2" :slow "1")
+        (label :text "|" :class "sep")
+        (button :onclick "eww close powermenu" :class "close-btn" ""))
+    )
     (box :space-evenly false :hexpand true :vexpand true
       (box :spacing 15 :class "tm-box" :space-evenly false
             :valign "end" :halign "start"

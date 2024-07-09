@@ -1,69 +1,10 @@
-* {
-all: unset;
-}
-
-.sidebar {
-    text-shadow: 2px 2px 2px #000000;
-}
-
-.container {
-    padding: 8px;
-    padding-right: 20px;
-    box-shadow: inset -3px 0 #61afef;
-
-    font-family: Inter;
-    font-size: 1rem;
-}
-
-.container-disabled {
-    padding: 8px;
-    padding-right: 20px;
-    box-shadow: inset -3px 0 #abb2bf;
-
-    font-family: Inter;
-    font-size: 1rem;
-}
-
-.highlight {
-    font-weight: 500;
-}
-
-.nerd-icon {
-    font-family: FiraCode Nerd Font Mono;
-    font-size: 2rem;
-}
-
-.progress_bar scale trough highlight {
-    all: unset;
-    background-color: white;
-    border-radius: 2px;
-}
-
-.progress_bar scale trough {
-    all: unset;
-    background-color: #21252b;
-    border-radius: 2px;
-    min-height: 3px;
-    min-width: 236px;
-}
-
-.invisible {
-    opacity: 0;
-    font-size: 1px;
-}
-
-
-
-
-
-
 $surface-darkgrey: #20252b;
 $surface-fg: #949494;
 $surface-lightgrey: #3d464e;
 $surface-grey: #2b3238;
 $surface-red: #f87070;
 
-/* * { all: unset; } */
+* { all: unset; }
 
 .layout-box {
     font-family: Phosphor, Koulen;
@@ -71,15 +12,6 @@ $surface-red: #f87070;
     background-size: contain;
     padding: 5em;
     color: rgba($surface-fg, 0.8);
-    opacity: .9;
-    background-size: cover;
-    background-position: 50% 100%;
-}
-
-.overlay-btns {
-    background: rgba(30, 30, 30, .9);
-    border-radius: 5px;
-    padding: 1em;
 }
 
 .net-box,
@@ -90,8 +22,7 @@ $surface-red: #f87070;
     }
 }
 
-.close-btn,
-.open-btn {
+.close-btn {
     font-size: 2em;
     &:hover {
         color: $surface-red;
