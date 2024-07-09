@@ -38,7 +38,7 @@
             )
             (button
                 :onclick "dunstctl close-all && dunstctl history-clear"
-                (label :text "󱏫")
+                (label :text "")
             )
         )
         (box

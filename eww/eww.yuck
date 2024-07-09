@@ -60,7 +60,7 @@
     )
     :monitor 0
     :namespace "eww_sidebar"
-    :stacking "fg";;"bottom"
+    :stacking "bottom"
     (box
         :class "sidebar"
         :orientation "vertical"
@@ -149,14 +149,17 @@
 
 (defwidget _battery [battery status one two three
                     four five six seven charge]
-  (box :class "bat-box" :space-evenly false :spacing 8
+  (box :class "bat-box" :orientation "vertical" :space-evenly false :spacing 8
     (label :text {status == 'Charging' ? charge :
       battery < 15 ? seven :
         battery < 30 ? six :
           battery < 45 ? five :
             battery < 60 ? four :
               battery < 75 ? three :
-                battery < 95 ? two : one})))
+                battery < 95 ? two : one})
+    (label :text "CC")
+  )
+)
 
 (defwindow statusbar [stacking]
     :geometry (geometry
@@ -171,19 +174,11 @@
 )
 
 (defwidget statusbar []
-    (centerbox
+    (box
         :orientation "vertical"
-        (box
-            :orientation "horizontal"
-            :valign "start"
-            :space-evenly false
-        )
+        :valign "end"
+        :halig "center"
         ;; (workspaces)
-        (box
-            :orientation "horizontal"
-            :valign "start"
-            :space-evenly false
-        )
         (box
             :orientation "horizontal"
             :valign "end"
@@ -194,29 +189,29 @@
             (box
                 :orientation "vertical"
                 :class "bottom"
-                :halign "fill"
-                :width 24
+                :halign "center"
+                :width 50
                 :space-evenly false
                 :spacing 25
-                (box
-                    :orientation "vertical"
-                    :class "container"
-                    :halign "fill"
-                    :valign "end"
-                    :space-evenly false
+                ;;(box
+                ;;    :orientation "vertical"
+                ;;    :class "container"
+                ;;    :halign "fill"
+                ;;    :valign "end"
+                ;;    :space-evenly false
                     ;; (clipboard)
                     ;; (screenshot)
                     ;; (recorder)
-                )
-                (box
-                    :orientation "vertical"
-                    :class "container"
-                    :space-evenly false
-                    :halign "fill"
-                    :valign "end"
+                ;;)
+                ;;(box
+                ;;    :orientation "vertical"
+                ;;    :class "container"
+                ;;    :space-evenly false
+                ;;    :halign "fill"
+                ;;    :valign "end"
                     ;; (group_lock)
                     ;; (audio)
-                )
+                ;;)
                 (button :onclick "eww open powermenu" :class "open-btn" "")
                 (_network :strength net :offline "" :excellent "4" :good "3" :okay "2" :slow "1")
                 (_battery :status {EWW_BATTERY.BAT0.status}
@@ -224,6 +219,7 @@
                     :charge "" :one "" :two "" :three "" :four ""
                     :five "" :six "" :seven "")
                 (clock)
+                (box :height 12)
             )
         )
     )
@@ -280,7 +276,9 @@
       (box :spacing 15 :class "tm-box" :space-evenly false
             :valign "end" :halign "start"
         (label :text "")
-        (label :text "${time.hour}  ${time.min}"))
+        (label :text "${time.hour}  ${time.min}")
+        (label :text "")
+        (label :text "${time.year}-${time.month}-${time.day}"))
       (_buttons :shutdown "poweroff" :reboot "reboot"
                 :logout "loginctl kill-session self"
                 :shutdown_icon "" :reboot_icon ""
