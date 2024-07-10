@@ -60,7 +60,7 @@
     )
     :monitor 0
     :namespace "eww_sidebar"
-    :stacking "fg" ;; "bottom"
+    :stacking "bottom"
     (box
         :class "sidebar"
         :orientation "vertical"
