@@ -60,7 +60,7 @@
     )
     :monitor 0
     :namespace "eww_sidebar"
-    :stacking "bottom"
+    :stacking "fg" ;; "bottom"
     (box
         :class "sidebar"
         :orientation "vertical"
@@ -102,23 +102,16 @@
 
 
 
-(defwidget _battery [battery status one two three
-                    four five six seven charge]
+(defwidget _battery [battery status bempty bquarter bhalf bthreequarters bfull charge]
   (box :class "bat-box" :space-evenly false :spacing 8
-    (label :text {status == 'Charging' ? charge :
-      battery < 15 ? seven :
-        battery < 30 ? six :
-          battery < 45 ? five :
-            battery < 60 ? four :
-              battery < 75 ? three :
-                battery < 95 ? two : one})))
-
-
-
-
-
-
-
+    (label :text {status == '' ? '' : status == 'Charging' ? charge :
+      battery < 15 ? bempty :
+        battery < 35 ? bquarter :
+          battery < 65 ? bhalf :
+            battery < 85 ? bthreequarters : bfull}
+    )
+  )
+)
 
 
 ;; all icons are nf-md-...
@@ -146,20 +139,6 @@
       strength < 26 ? slow :
         strength < 51 ? okay :
           strength < 76 ? good : excellent})))
-
-(defwidget _battery [battery status one two three
-                    four five six seven charge]
-  (box :class "bat-box" :orientation "vertical" :space-evenly false :spacing 8
-    (label :text {status == 'Charging' ? charge :
-      battery < 15 ? seven :
-        battery < 30 ? six :
-          battery < 45 ? five :
-            battery < 60 ? four :
-              battery < 75 ? three :
-                battery < 95 ? two : one})
-    (label :text "CC")
-  )
-)
 
 (defwindow statusbar [stacking]
     :geometry (geometry
@@ -213,12 +192,15 @@
                     ;; (audio)
                 ;;)
                 (button :onclick "eww open powermenu" :class "open-btn" "")
-                (_network :strength net :offline "" :excellent "4" :good "3" :okay "2" :slow "1")
-                (_battery :status {EWW_BATTERY.BAT0.status}
-                    :battery {EWW_BATTERY.BAT0.capacity}
-                    :charge "" :one "" :two "" :three "" :four ""
-                    :five "" :six "" :seven "")
-                (clock)
+                (box :valign "center" :halign "center" :orientation "horizontal"
+                  (_network :strength net :offline "" :excellent "4" :good "3" :okay "2" :slow "1")
+                )
+                (box :valign "center" :halign "center" :orientation "horizontal"
+                  (_battery :status {EWW_BATTERY.BAT0.status}
+                      :battery {EWW_BATTERY.BAT0.capacity}
+                      :charge "" :bempty "" :bquarter "" :bhalf "" :bthreequarters "" :bfull "")
+                )
+                (box :valign "center" :halign "center" :orientation "horizontal" (clock))
                 (box :height 12)
             )
         )
@@ -263,10 +245,8 @@
     (box :valign "start" :halign "end" :space-evenly false :spacing 25
         (box :space-evenly false :class "overlay-btns" :spacing 25
         (_sundial)
-        (_battery :status {EWW_BATTERY.BAT0.status}
-                    :battery {EWW_BATTERY.BAT0.capacity}
-                    :charge "" :one "" :two "" :three "" :four ""
-                    :five "" :six "" :seven "")
+        (_battery :status {EWW_BATTERY.BAT0.status} :battery {EWW_BATTERY.BAT0.capacity}
+                :charge "" :bempty "" :bquarter "" :bhalf "" :bthreequarters "" :bfull "")
         (_network :strength net :offline "" :excellent "4" :good "3"
                     :okay "2" :slow "1")
         (label :text "|" :class "sep")
@@ -283,17 +263,6 @@
                 :logout "loginctl kill-session self"
                 :shutdown_icon "" :reboot_icon ""
                 :logout_icon ""))))
-
-(defwidget _battery [battery status one two three
-                    four five six seven charge]
-  (box :class "bat-box" :space-evenly false :spacing 8
-    (label :text {status == 'Charging' ? charge :
-      battery < 15 ? seven :
-        battery < 30 ? six :
-          battery < 45 ? five :
-            battery < 60 ? four :
-              battery < 75 ? three :
-                battery < 95 ? two : one})))
 
 (defwidget _network [strength offline excellent
                     good okay slow]
