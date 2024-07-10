@@ -1,14 +1,14 @@
 (deflisten status
     :initial ''
-    `playerctl -p spotify --follow status`
+    `playerctl --follow status`
 )
 (deflisten song
     :initial '{"artist": "", "title": "", "length": "1"}'
-    `playerctl -p spotify --follow metadata --format '{"artist": "{{ artist }}", "title": "{{ title }}", "length": "{{ mpris:length }}"}'`
+    `playerctl --follow metadata --format '{"artist": "{{ artist }}", "title": "{{ title }}", "length": "{{ mpris:length }}"}'`
 )
 (deflisten progress
     :initial '{"current": "0"}'
-    `playerctl -p spotify --follow position --format '{"current": "{{ position }}"}'`
+    `playerctl --follow position --format '{"current": "{{ position }}"}'`
 )
 
 (defwidget spotify []
