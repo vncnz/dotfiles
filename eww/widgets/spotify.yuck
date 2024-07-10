@@ -44,7 +44,7 @@
             (label
                 :class "nerd-icon"
                 :halign "end"
-                :text ""
+                :text ""
             )
         )
         (box

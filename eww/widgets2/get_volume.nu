@@ -3,8 +3,7 @@
 let volume_icons = [
     [threshold icon];
     [0 ""]
-    [0.2 ""]
-    [0.5 ""]
+    [0.4 ""]
     [0.8 "󰕾"]
 ]
 

@@ -21,6 +21,25 @@
 )
 
 
+(defwidget mininotifications []
+    (box
+        :orientation "vertical"
+        :spacing 10
+        :space-evenly false
+        (button
+                :onclick "dunstctl set-paused toggle"
+                (label :text "${ notifications-paused ? '' : '' }")
+        )
+        (box
+                :halign "center"
+                :orientation "vertical"
+                :space-evenly false
+                :visible {arraylength(notifications['data'][0]) > 0}
+                (label :text "${arraylength(notifications['data'][0])}" :wrap true)
+        )
+    )
+)
+
 (defwidget notifications []
     (box
         :class "${ arraylength(notifications['data'][0]) == 0 ? 'container-disabled' : 'container' }"

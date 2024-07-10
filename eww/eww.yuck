@@ -157,7 +157,9 @@
         :orientation "vertical"
         :valign "end"
         :halig "center"
+        :class "bar"
         ;; (workspaces)
+        ;; (mininotifications)
         (box
             :orientation "horizontal"
             :valign "end"
@@ -191,14 +193,17 @@
                     ;; (group_lock)
                     ;; (audio)
                 ;;)
-                (button :onclick "eww open powermenu" :class "open-btn" "")
-                (box :valign "center" :halign "center" :orientation "horizontal"
-                  (_network :strength net :offline "" :excellent "4" :good "3" :okay "2" :slow "1")
+                (button :onclick "eww open --toggle powermenu" :class "open-btn" "")
+                (audio)
+                (box :valign "center" :halign "center" :orientation "vertical"
+                  (_network :strength net :offline "" :excellent "" :good "" :okay "" :slow "")
+                  (label :text "${net}%")
                 )
-                (box :valign "center" :halign "center" :orientation "horizontal"
+                (box :valign "center" :halign "center" :orientation "vertical"
                   (_battery :status {EWW_BATTERY.BAT0.status}
                       :battery {EWW_BATTERY.BAT0.capacity}
                       :charge "" :bempty "" :bquarter "" :bhalf "" :bthreequarters "" :bfull "")
+                  (label :text "${EWW_BATTERY.BAT0.capacity}%")
                 )
                 (box :valign "center" :halign "center" :orientation "horizontal" (clock))
                 (box :height 12)
@@ -236,7 +241,7 @@
   :monitor 0 ;; wayland users may need this
   :stacking "fg"
   :wm-ignore true
-  :geometry (geometry :width "98%" :height "100%")
+  :geometry (geometry :width "97%" :height "100%")
   (powermenu_layout))
 
 (defwidget powermenu_layout []
@@ -244,19 +249,25 @@
        :style "background-image: url('/home/vncnz/Pictures/wallpaper3.jpg')"
     (box :valign "start" :halign "end" :space-evenly false :spacing 25
         (box :space-evenly false :class "overlay-btns" :spacing 25
-        (_sundial)
-        (_battery :status {EWW_BATTERY.BAT0.status} :battery {EWW_BATTERY.BAT0.capacity}
-                :charge "" :bempty "" :bquarter "" :bhalf "" :bthreequarters "" :bfull "")
-        (_network :strength net :offline "" :excellent "4" :good "3"
-                    :okay "2" :slow "1")
+        (box :valign "center" :halign "center" :orientation "vertical"
+                  (_battery :status {EWW_BATTERY.BAT0.status}
+                      :battery {EWW_BATTERY.BAT0.capacity}
+                      :charge "" :bempty "" :bquarter "" :bhalf "" :bthreequarters "" :bfull "")
+                  (label :text "${EWW_BATTERY.BAT0.capacity}%")
+                )
+        (box :valign "center" :halign "center" :orientation "vertical"
+                  (_network :strength net :offline "" :excellent "" :good "" :okay "" :slow "")
+                  (label :text "${net}%")
+                )
         (label :text "|" :class "sep")
         (button :onclick "eww close powermenu" :class "close-btn" ""))
     )
     (box :space-evenly false :hexpand true :vexpand true
       (box :spacing 15 :class "tm-box" :space-evenly false
             :valign "end" :halign "start"
+        (_sundial)
         (label :text "")
-        (label :text "${time.hour}  ${time.min}")
+        (label :text "${time.hour}:${time.min}")
         (label :text "")
         (label :text "${time.year}-${time.month}-${time.day}"))
       (_buttons :shutdown "poweroff" :reboot "reboot"

@@ -52,6 +52,9 @@ all: unset;
     font-size: 1px;
 }
 
+.bar {
+    text-shadow: 2px 2px 2px #000000;
+}
 
 
 
@@ -73,10 +76,11 @@ $surface-red: #f87070;
     color: rgba($surface-fg, 0.8);
     opacity: .9;
     background-size: cover;
-    background-position: 50% 100%;
+    background-position: 58% 0%;
 }
 
-.overlay-btns {
+.overlay-btns,
+.tm-box {
     background: rgba(30, 30, 30, .9);
     border-radius: 5px;
     padding: 1em;
@@ -104,7 +108,7 @@ $surface-red: #f87070;
     button {
         padding: 0.4em;
         border-radius: 0.1em;
-        background-color: rgba($surface-darkgrey, 0.3);
+        background-color: rgba(30, 30, 30, .9);
 
         &:hover {
             transition: 200ms linear background-color, border-radius;
