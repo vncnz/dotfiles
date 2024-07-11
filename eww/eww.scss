@@ -140,3 +140,44 @@ $surface-red: #f87070;
 }
 
 // vim:ft=scss
+
+
+.metric .label {
+    font-size: 2rem;
+}
+
+slider {
+    all: unset;
+    color: #ffd5cd;
+}
+
+.metric scale trough highlight {
+    all: unset;
+    background-color: #D35D6E;
+    color: #000000;
+    border-radius: 10px;
+}
+.metric scale trough {
+    all: unset;
+    background-color: #4e4e4e;
+    border-radius: 50px;
+    min-height: 5px;
+    min-width: 50px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+.metric scale trough highlight {
+    all: unset;
+    background-color: #D35D6E;
+    color: #000000;
+    border-radius: 10px;
+}
+.metric scale trough {
+    all: unset;
+    background-color: #4e4e4e;
+    border-radius: 50px;
+    min-height: .4rem;
+    min-width: 10rem;
+    margin-left: 10px;
+    margin-right: 20px;
+}

@@ -13,44 +13,8 @@
     "
 )
 
-;; (include "./widgets/clock.yuck")
 (include "./widgets/notifications.yuck")
 (include "./widgets/spotify.yuck")
-
-;; (defwindow dashboard_monitor
-;;     :monitor 0 ;; wayland users may need this
-;;     :geometry (geometry
-;;         :height "100%"
-;;         :width "100%"
-;;         :anchor "top right"
-;;     )
-;;     :stacking "fg"
-;;     :namespace "eww_dashboard"
-;;     (dashboard)
-;; )
-
-;; (defwidget dashboard []
-;;     (centerbox
-;;         :class "dashboard"
-;;         :orientation "horizontal"
-;;         (box
-;;             :orientation "vertical"
-;;             :space-evenly true
-;;             (box)
-;;             (box
-;;                 :halign "center"
-;;                 :valign "center"
-;;                 (clock)
-;;             )
-;;         )
-;;         (box
-;;         )
-;;         (box
-;;             :style "padding-top: 25px;"
-;;             (sidebar)
-;;         )
-;;     )
-;; )
 
 (defwindow sidebar
     :geometry (geometry
@@ -129,6 +93,7 @@
   :initial `N/A`
   `nmcli -t -f SIGNAL,ACTIVE device wifi \
     | awk -F':' '{if($2=="yes")print$1}'`)
+(defpoll wired :interval "1000s" `nmcli device status | grep connected | grep -c Wired`)
 
 (defwidget _network [strength offline excellent
                     good okay slow]
@@ -174,30 +139,12 @@
                 :width 50
                 :space-evenly false
                 :spacing 25
-                ;;(box
-                ;;    :orientation "vertical"
-                ;;    :class "container"
-                ;;    :halign "fill"
-                ;;    :valign "end"
-                ;;    :space-evenly false
-                    ;; (clipboard)
-                    ;; (screenshot)
-                    ;; (recorder)
-                ;;)
-                ;;(box
-                ;;    :orientation "vertical"
-                ;;    :class "container"
-                ;;    :space-evenly false
-                ;;    :halign "fill"
-                ;;    :valign "end"
-                    ;; (group_lock)
-                    ;; (audio)
-                ;;)
                 (button :onclick "eww open --toggle powermenu" :class "open-btn" "")
                 (audio)
                 (box :valign "center" :halign "center" :orientation "vertical"
-                  (_network :strength net :offline "" :excellent "" :good "" :okay "" :slow "")
-                  (label :text "${net}%")
+                  ;; (_network :strength net :offline "" :excellent "" :good "" :okay "" :slow "")
+                  (label :class "nerd-icon" :text "${net == "" ? (wired == 1 ? "" : "") : ""}")
+                  (label :class "${wired == 1 ? true : false}" :text "${net}%")
                 )
                 (box :valign "center" :halign "center" :orientation "vertical"
                   (_battery :status {EWW_BATTERY.BAT0.status}
@@ -244,23 +191,46 @@
   :geometry (geometry :width "97%" :height "100%")
   (powermenu_layout))
 
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
 (defwidget powermenu_layout []
   (box :class "layout-box" :space-evenly false :orientation "vertical"
        :style "background-image: url('/home/vncnz/Pictures/wallpaper3.jpg')"
     (box :valign "start" :halign "end" :space-evenly false :spacing 25
         (box :space-evenly false :class "overlay-btns" :spacing 25
-        (box :valign "center" :halign "center" :orientation "vertical"
-                  (_battery :status {EWW_BATTERY.BAT0.status}
-                      :battery {EWW_BATTERY.BAT0.capacity}
-                      :charge "" :bempty "" :bquarter "" :bhalf "" :bthreequarters "" :bfull "")
-                  (label :text "${EWW_BATTERY.BAT0.capacity}%")
-                )
-        (box :valign "center" :halign "center" :orientation "vertical"
-                  (_network :strength net :offline "" :excellent "" :good "" :okay "" :slow "")
-                  (label :text "${net}%")
-                )
-        (label :text "|" :class "sep")
-        (button :onclick "eww close powermenu" :class "close-btn" ""))
+          (box :valign "center" :halign "center" :orientation "vertical" :spacing 15
+                (metric :label ""
+                        :value {EWW_RAM.used_mem_perc}
+                        :onchange "")
+                (metric :label ""
+                        :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+                        :onchange "")
+                (metric :label ""
+                        :value {EWW_BATTERY.BAT0.capacity}
+                        :onchange "")
+                (metric :label "${net == "" ? (wired == 1 ? "" : "") : ""}"
+                        :value {wired == 1 ? 100 : net}
+                        :onchange "")
+                (metric :label {volumeicon}
+                        :value volumevalue
+                        :onchange "amixer -D pulse sset Master {}%")
+          )
+
+
+
+
+          (label :text "|" :class "sep")
+          (button :onclick "eww close powermenu" :class "close-btn" "")
+        )
     )
     (box :space-evenly false :hexpand true :vexpand true
       (box :spacing 15 :class "tm-box" :space-evenly false
