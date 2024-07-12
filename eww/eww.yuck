@@ -13,8 +13,8 @@
     "
 )
 
-(include "./widgets/notifications.yuck")
-(include "./widgets/spotify.yuck")
+(include "./mywidgets/notifications.yuck")
+(include "./mywidgets/music.yuck")
 
 (defwindow sidebar
     :geometry (geometry
@@ -80,7 +80,7 @@
 
 ;; all icons are nf-md-...
 
-(include "./widgets2/audio.yuck")
+(include "./mywidgets/audio.yuck")
 (include "./widgets2/clock.yuck")
 (include "./widgets2/clipboard.yuck")
 (include "./widgets2/group_lock.yuck")
@@ -205,8 +205,8 @@
 (defwidget powermenu_layout []
   (box :class "layout-box" :space-evenly false :orientation "vertical"
        :style "background-image: url('/home/vncnz/Pictures/wallpaper3.jpg')"
-    (box :valign "start" :halign "end" :space-evenly false :spacing 25
-        (box :space-evenly false :class "overlay-btns" :spacing 25
+    (box :valign "start" :space-evenly true :hexpand true :spacing 25
+        (box :space-evenly false :class "overlay-btns" :spacing 25 :vexpand false :hexpand false :valign "center" :halign "start"
           (box :valign "center" :halign "center" :orientation "vertical" :spacing 15
                 (metric :label ""
                         :value {EWW_RAM.used_mem_perc}
@@ -224,11 +224,8 @@
                         :value volumevalue
                         :onchange "amixer -D pulse sset Master {}%")
           )
-
-
-
-
-          (label :text "|" :class "sep")
+        )
+        (box :class "overlay-btns" :valign "start" :halign "end"
           (button :onclick "eww close powermenu" :class "close-btn" "")
         )
     )
