@@ -22,12 +22,13 @@ percentage () {
 }
 
 is_muted () {
-  pacmd list-sinks | awk '/muted/ { print $2 }'
+  # pacmd list-sinks | awk '/muted/ { print $2 }'
+  wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c "MUTED"
 }
 
 get_percentage () {
   local muted=$(is_muted)
-  if [[ $muted == 'yes' ]]; then
+  if [[ $muted == '1' ]]; then
     echo 0%
   else
     per=$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')

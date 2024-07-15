@@ -1,9 +1,9 @@
 .slidersbox   {
-    border-radius: 2rem;
+    // border-radius: 2rem;
     padding: 1rem;
-    box-shadow: 0 0 4px 2px #000000;
+    // box-shadow: 0 0 4px 2px #000000;
     margin: 1rem;
-    background-color: rgba(46, 52, 64, 1);
+    // background-color: rgba(46, 52, 64, 1);
 
     .vol-slider {
         .vol-label {
@@ -21,10 +21,14 @@
             margin-left: 3px;
             & highlight {
             all: unset;
-            background: #73B580;
+            background: $primary;
             color: #000000;
             border-radius: 10px;
             }
+        }
+        & scale.fixed trough {
+            background-color: transparent;
+            border: 1px solid #3A404C;
         }
     }
 
@@ -32,9 +36,14 @@
         font-size : 16px;
         margin-bottom : 5px;
         margin-left : 15px;
-        color : #73B580;
+        color : $primary;
     }
 
+
+
+
+
+    
     .br-slider {
         .br-label {
             font-size: 16px;
