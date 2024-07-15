@@ -1,5 +1,11 @@
 ;; all icons are nf-md-...
 
+
+
+(deflisten network :initial '{"essid": "lo", "signal": "", "icon":"?"}' "./scripts/network.sh")
+(defpoll battery :interval "1000ms" :initial '{"percentage":"0", "icon":"?"}' "./scripts/battery.sh")
+
+
 (deflisten toggle_dashboard_with_rofi
     :initial "closed"
     "
@@ -61,49 +67,15 @@
 
 
 
-
-
-
-
-
-(defwidget _battery [battery status bempty bquarter bhalf bthreequarters bfull charge]
-  (box :class "bat-box" :space-evenly false :spacing 8
-    (label :text {status == '' ? '' : status == 'Charging' ? charge :
-      battery < 15 ? bempty :
-        battery < 35 ? bquarter :
-          battery < 65 ? bhalf :
-            battery < 85 ? bthreequarters : bfull}
-    )
-  )
-)
-
-
 ;; all icons are nf-md-...
 
 (include "./mywidgets/audio.yuck")
 (include "./widgets2/clock.yuck")
 (include "./widgets2/clipboard.yuck")
 (include "./widgets2/group_lock.yuck")
-;; (include "./widgets2/network.yuck")
 (include "./widgets2/screenshot.yuck")
 (include "./widgets2/recorder.yuck")
 (include "./widgets2/workspaces.yuck")
-
-(defpoll net :interval "100s"
-  :initial `N/A`
-  `nmcli -t -f SIGNAL,ACTIVE device wifi \
-    | awk -F':' '{if($2=="yes")print$1}'`)
-(defpoll wired :interval "1000s" `nmcli device status | grep connected | grep -c Wired`)
-
-(defwidget _network [strength offline excellent
-                    good okay slow]
-  (box :class "net-box"
-       :space-evenly false
-       :spacing 8
-    (label :text {strength == "" ? offline :
-      strength < 26 ? slow :
-        strength < 51 ? okay :
-          strength < 76 ? good : excellent})))
 
 (defwindow statusbar [stacking]
     :geometry (geometry
@@ -142,15 +114,12 @@
                 (button :onclick "eww open --toggle powermenu" :class "open-btn" "")
                 (audio)
                 (box :valign "center" :halign "center" :orientation "vertical"
-                  ;; (_network :strength net :offline "" :excellent "" :good "" :okay "" :slow "")
-                  (label :class "nerd-icon" :text "${net == "" ? (wired == 1 ? "" : "") : ""}")
-                  (label :class "${wired == 1 ? true : false}" :text "${net}%")
+                  (label :class "nerd-icon" :text "${network.icon}")
+                  (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
                 )
                 (box :valign "center" :halign "center" :orientation "vertical"
-                  (_battery :status {EWW_BATTERY.BAT0.status}
-                      :battery {EWW_BATTERY.BAT0.capacity}
-                      :charge "" :bempty "" :bquarter "" :bhalf "" :bthreequarters "" :bfull "")
-                  (label :text "${EWW_BATTERY.BAT0.capacity}%")
+                  (label :class "nerd-icon" :text {battery.icon})
+                  (label :text "${battery.percentage}%")
                 )
                 (box :valign "center" :halign "center" :orientation "horizontal" (clock))
                 (box :height 12)
@@ -179,12 +148,11 @@
 
 
 
-
-
-
+;(deflisten current_theme :initial "dark" "../scripts/material.py --current")
 
 (include "./mywidgets/musiccc.yuck")
 (include "./mywidgets/sliders.yuck")
+(include "./mywidgets/quick_settings.yuck")
 
 (defwindow powermenu
   :monitor 0 ;; wayland users may need this
@@ -193,6 +161,7 @@
   :geometry (geometry :width "97%" :height "100%")
   (powermenu_layout))
 
+; not used for now, replaced by "slider" defined in sliders.yuck
 (defwidget metric [label value onchange]
   (box :orientation "h"
        :class "metric"
@@ -209,30 +178,31 @@
        :style "background-image: url('/home/vncnz/Pictures/wallpaper3.jpg')"
     (box :valign "start" :space-evenly true :hexpand true :spacing 25
         (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
-          (box :valign "center" :halign "center" :orientation "vertical" :spacing 15 :class "overlay-btns"
-                (metric :label ""
-                        :value {EWW_RAM.used_mem_perc}
-                        :onchange "")
-                (metric :label ""
-                        :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
-                        :onchange "")
-                (metric :label ""
-                        :value {EWW_BATTERY.BAT0.capacity}
-                        :onchange "")
-                (metric :label "${net == "" ? (wired == 1 ? "" : "") : ""}"
-                        :value {wired == 1 ? 100 : net}
-                        :onchange "")
-                (metric :label {volumeicon}
-                        :value volumevalue
-                        :onchange "amixer -D pulse sset Master {}%")
-          )
+          ;(box :valign "center" :halign "center" :orientation "vertical" :spacing 15 :class "overlay-btns"
+                ;(metric :label ""
+                ;        :value {EWW_RAM.used_mem_perc}
+                ;        :onchange "")
+                ;(metric :label ""
+                ;        :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+                ;        :onchange "")
+                ;(metric :label ""
+                ;        :value {EWW_BATTERY.BAT0.capacity}
+                ;        :onchange "")
+                ;(metric :label "${net == "" ? (wired == 1 ? "" : "") : ""}"
+                ;        :value {wired == 1 ? 100 : net}
+                ;        :onchange "")
+                ;(metric :label {volumeicon}
+                ;        :value volumevalue
+                ;        :onchange "amixer -D pulse sset Master {}%")
+          ;)
           (box :class "overlay-btns" :valign "start" :halign "end"
                 :vexpand true :hexpand true
             (sliders)
           )
-          (box :class "overlay-btns" :valign "start" :halign "end"
+          (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
             (music)
           )
+          (quick_settings)
         )
         (box :class "overlay-btns" :valign "start" :halign "end"
           (button :onclick "eww close powermenu" :class "close-btn" "")
@@ -247,20 +217,10 @@
         (label :text "")
         (label :text "${time.year}-${time.month}-${time.day}"))
       (sessionbuttons :shutdown "poweroff" :reboot "reboot"
-                :logout "loginctl kill-session self" 
+                :logout "loginctl terminate-user $USER" 
                 :lock "swaylock -i /home/vncnz/Pictures/wallpaper3.jpg --indicator-idle-visible"
                 :shutdown_icon "" :reboot_icon ""
                 :logout_icon "" :lock_icon ""))))
-
-(defwidget _network [strength offline excellent
-                    good okay slow]
-  (box :class "net-box"
-       :space-evenly false
-       :spacing 8
-    (label :text {strength == "" ? offline :
-      strength < 26 ? slow :
-        strength < 51 ? okay :
-          strength < 76 ? good : excellent})))
 
 (defwidget sessionbuttons [shutdown shutdown_icon reboot
                     reboot_icon logout logout_icon lock lock_icon]
