@@ -183,6 +183,8 @@
 
 
 
+(include "./mywidgets/musiccc.yuck")
+(include "./mywidgets/sliders.yuck")
 
 (defwindow powermenu
   :monitor 0 ;; wayland users may need this
@@ -206,8 +208,8 @@
   (box :class "layout-box" :space-evenly false :orientation "vertical"
        :style "background-image: url('/home/vncnz/Pictures/wallpaper3.jpg')"
     (box :valign "start" :space-evenly true :hexpand true :spacing 25
-        (box :space-evenly false :class "overlay-btns" :spacing 25 :vexpand false :hexpand false :valign "center" :halign "start"
-          (box :valign "center" :halign "center" :orientation "vertical" :spacing 15
+        (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
+          (box :valign "center" :halign "center" :orientation "vertical" :spacing 15 :class "overlay-btns"
                 (metric :label ""
                         :value {EWW_RAM.used_mem_perc}
                         :onchange "")
@@ -224,6 +226,13 @@
                         :value volumevalue
                         :onchange "amixer -D pulse sset Master {}%")
           )
+          (box :class "overlay-btns" :valign "start" :halign "end"
+                :vexpand true :hexpand true
+            (sliders)
+          )
+          (box :class "overlay-btns" :valign "start" :halign "end"
+            (music)
+          )
         )
         (box :class "overlay-btns" :valign "start" :halign "end"
           (button :onclick "eww close powermenu" :class "close-btn" "")
@@ -237,10 +246,11 @@
         (label :text "${time.hour}:${time.min}")
         (label :text "")
         (label :text "${time.year}-${time.month}-${time.day}"))
-      (_buttons :shutdown "poweroff" :reboot "reboot"
-                :logout "loginctl kill-session self"
+      (sessionbuttons :shutdown "poweroff" :reboot "reboot"
+                :logout "loginctl kill-session self" 
+                :lock "swaylock -i /home/vncnz/Pictures/wallpaper3.jpg --indicator-idle-visible"
                 :shutdown_icon "" :reboot_icon ""
-                :logout_icon ""))))
+                :logout_icon "" :lock_icon ""))))
 
 (defwidget _network [strength offline excellent
                     good okay slow]
@@ -252,15 +262,16 @@
         strength < 51 ? okay :
           strength < 76 ? good : excellent})))
 
-(defwidget _buttons [shutdown shutdown_icon reboot
-                    reboot_icon logout logout_icon]
+(defwidget sessionbuttons [shutdown shutdown_icon reboot
+                    reboot_icon logout logout_icon lock lock_icon]
   (box :class "btns-box" :spacing 5
        :vexpand true :hexpand true
        :valign "end" :halign "end"
        :space-evenly false
     (button :onclick shutdown shutdown_icon)
     (button :onclick reboot reboot_icon)
-    (button :onclick logout logout_icon)))
+    (button :onclick logout logout_icon)
+    (button :onclick lock lock_icon)))
 
 (defwidget _sundial []
   (label :class "sundial-lbl" :halign "end" :hexpand true
