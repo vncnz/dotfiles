@@ -272,6 +272,8 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "alacritty"; }
     Mod+D { spawn "fuzzel"; }
+    Mod+P { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
+    // printf "yes\nno" | fuzzel -p "Are you sure?" -d
     Super+Alt+L { spawn "swaylock" "-i" "/home/vncnz/Pictures/wallpaper3.jpg" "--indicator-idle-visible"; } // /u fa l'opposto dell'ultimo parametro, nasconde sempre l'indicatore'
 
     // You can also use a shell:

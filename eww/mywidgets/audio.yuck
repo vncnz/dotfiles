@@ -1,28 +1,10 @@
-;;(defpoll volume
-;;    :interval "250ms"
-;;    :initial '{ "icon": "", "volume": 1, "muted": false }'
-;;    "./widgets/get_volume.nu"
-;;)
-
-(defpoll volumeicon
-    :interval "250ms"
-    :initial ''
-    "./mywidgets/get_volume_icon.sh"
-)
-(defpoll volumevalue
-    :interval "250ms"
-    :initial ''
-    "./mywidgets/get_volume.sh"
-)
-
 (defwidget audio []
-(box :valign "center" :halign "center" :orientation "vertical"
-    (eventbox
-        :onclick "niri msg action spawn -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        :onrightclick "niri msg action spawn -- pavucontrol"
-        ;; (label :class "nerd-icon ${volume.muted ? 'warning' : ''}" :text "${volume.icon}")
-        (label :class "nerd-icon" :text volumeicon)
+    (box :valign "center" :halign "center" :orientation "vertical"
+        (eventbox
+            :onclick "niri msg action spawn -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            :onrightclick "niri msg action spawn -- pavucontrol"
+            (label :class "nerd-icon" :text volume_icon)
+        )
+        (label :text volume_value)
     )
-    (label :text volumevalue)
-)
 )

@@ -20,7 +20,7 @@
     "
 )
 
-
+;; To be continued...
 (defwidget mininotifications []
     (box
         :orientation "vertical"

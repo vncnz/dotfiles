@@ -31,6 +31,9 @@ get_icon () {
 signal=$(nmcli -f in-use,signal dev wifi | rg "\*" | awk '{ print $2 }')
 essid=$(nmcli -t -f NAME connection show --active | head -n1 | sed 's/\"/\\"/g')
 wired=$(nmcli device status | grep connected | grep -c Wired)
+if [ "$wired" == "1" ]; then
+  signal="100"
+fi
 icon=$(get_icon)
 echo '{"essid": "'"$essid"'", "signal": "'"$signal"'", "icon": "'"$icon"'", "wired": "'"$wired"'"}'
 
@@ -38,6 +41,9 @@ ip monitor link | while read -r line; do
     signal=$(nmcli -f in-use,signal dev wifi | rg "\*" | awk '{ print $2 }')
     essid=$(nmcli -t -f NAME connection show --active | head -n1 | sed 's/\"/\\"/g')
     wired=$(nmcli device status | grep connected | grep -c Wired)
+    if [ "$wired" == "1" ]; then
+      signal="100"
+    fi
     icon=$(get_icon)
     echo '{"essid": "'"$essid"'", "signal": "'"$signal"'", "icon": "'"$icon"'", "wired": "'"$wired"'"}'
 done

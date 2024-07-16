@@ -12,6 +12,54 @@ $primary: #61afbf;
 @import "styles/musiccc.scss";
 @import "styles/sliders.scss";
 
+.batteryborder {
+    color: green;
+    // margin-left: 10px;
+
+    .slider {
+        border: 1px solid white;
+
+        .label {
+            font-size: 8px;
+            color: white;
+            margin-left: 1px;
+            margin-bottom: 3px;
+        }
+        & scale trough {
+            all: unset;
+            border-radius: 10px;
+            background-color: #3A404C;
+            border: 1px solid white;
+            min-height: 0px;
+            min-width: 6px;
+
+            & highlight {
+                all: unset;
+                background: $primary;
+                color: #000000;
+                border-radius: 10px;
+            }
+        }
+        & scale.full highlight,
+        & scale.full trough {
+            background-color: rgba($primary, .15);
+            border-color: rgba(255, 255, 255, .4);
+        }
+        & scale.charging highlight {
+            background-color: $primary;
+        }
+        & scale.normal highlight {
+            background-color: lightgreen;
+        }
+        & scale.medium highlight {
+            background-color: orange;
+        }
+        & scale.low highlight {
+            background-color: red;
+        }
+    }
+}
+
 .sidebar {
     text-shadow: 2px 2px 2px #000000;
 }

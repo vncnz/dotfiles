@@ -1,6 +1,4 @@
-(defpoll volume_icon :interval "1s" "~/.config/eww/scripts/volume.sh icon")
-(defpoll volume_value :interval "1s" "~/.config/eww/scripts/volume.sh vol")
-(defpoll is_muted :interval "1s" "~/.config/eww/scripts/volume.sh muted")
+
 
 
 (defpoll br_icon :interval "1s" "~/.config/eww/scripts/brightness.sh icon")
@@ -54,16 +52,9 @@
     (slider :icon br_icon :text "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
     (slider :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc} :class "br-label" :onchange "")
     (slider :icon "" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)} :onchange "")
-    (slider :icon {EWW_BATTERY.BAT0.status == '' ? '' : EWW_BATTERY.BAT0.status == 'Charging' ? "" :
-      EWW_BATTERY.BAT0.capacity < 15 ? "" :
-        EWW_BATTERY.BAT0.capacity < 35 ? "" :
-          EWW_BATTERY.BAT0.capacity < 65 ? "" :
-            EWW_BATTERY.BAT0.capacity < 85 ? "" : ""}
-            :text "${round(EWW_BATTERY.BAT0.capacity, 0)}%" :value {round(EWW_BATTERY.BAT0.capacity, 0)} :onchange "")
-    (slider :icon {net == "" ? "" :
-      net < 26 ? "" :
-        net < 51 ? "" :
-          net < 76 ? "" : "" }
-            :text "${net}%" :value {round(net, 0)} :onchange "")
+    (slider :icon {battery.icon}
+            :text "${battery.percentage}%" :value {battery.percentage} :onchange "")
+    (slider :icon {network.icon}
+            :text "${network.signal}%" :value {network.signal} :onchange "")
   )
 )

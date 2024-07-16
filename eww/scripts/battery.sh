@@ -30,6 +30,8 @@ get_icon () {
         echo ""
     elif [ "$state" == "unknown" ]; then
         echo ""
+    elif [ "$state" == "nobattery" ]; then
+        echo ""
     else
         echo $(percentage "$PERCENTAGE" "" "" "" "" "")
     fi
@@ -42,6 +44,12 @@ CAPACITY=$(awk '/capacity/ {print $NF}' <<< $INFORMATION)
 UPDATED=$(awk -F '(' '/updated/ {print $NF}' <<< $INFORMATION | sed -r 's/\)//')
 TIME_TO_EMPTY=$(awk -F ':' '/time to empty/ {print $NF}' <<< $INFORMATION | sed -r 's/\s{2,}//g')
 state=$(awk '/state/ {print $NF}' <<< $INFORMATION)
+
+if [ "$PERCENTAGE" == "ignored)" ]; then
+  PERCENTAGE="100"
+  CAPACITY="0"
+  state="nobattery"
+fi
 
 icon=$(get_icon)
 
