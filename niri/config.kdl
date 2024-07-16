@@ -188,8 +188,8 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        // left 64
-        // right 64
+        left 20
+        right 20
         // top 64
         // bottom 64
     }
@@ -202,7 +202,8 @@ layout {
 
 spawn-at-startup "swaybg" "--image" "/home/vncnz/Pictures/wallpaper3.jpg" "--mode" "fill"
 // spawn-at-startup "waybar"
-spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
+// spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
+spawn-at-startup "eww" "open" "batteryborder"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -470,7 +471,7 @@ binds {
     // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
-
+    Mod+S { screenshot; }
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
