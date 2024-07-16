@@ -7,7 +7,7 @@
     (box
         :orientation "vertical"
         :space-evenly false
-        :style "font-size: 2rem"
+        :class "clock"
         (label
             :class "highlight"
             :text "${time.hour}"
