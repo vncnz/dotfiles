@@ -67,6 +67,7 @@
 
 
 
+(include "./panels/batteryborder.yuck")
 
 (defwindow batteryborder
     :geometry (geometry
@@ -78,47 +79,6 @@
     :stacking "fg"
     :namespace "eww_batteryborder"
     (batteryborder)
-)
-
-(defwidget batteryborder []
-  ;;(box
-  ;;    :orientation "vertical"
-  ;;    :valign "start"
-  ;;    :halig "start"
-  ;;    :class "batteryborder"
-  ;;    (box
-  ;;        :orientation "vertical"
-  ;;        :valign "center"
-  ;;        :halign "center"
-  ;;        :width 30
-  ;;        :height { battery.percentage / 2 }
-  ;;        :space-evenly false
-  ;;        :spacing 1
-  ;;        ;; :style {true ? `background: red;` : `background: green;`}
-  ;;    )
-  (box :orientation "h"
-          :halign "end"
-          :space-evenly "false"
-          :class "slider"
-          :width 10
-          ;; :class {battery.state == "fully-charged" ? "full-slider" : "slider"}
-          :valign "center"
-    (overlay
-      :height 500
-      :orientation "vertical"
-      :valign "start"
-          (scale :value { battery.percentage }
-                  :class {(battery.state == "nobattery" || battery.state == "fully-charged") ? "full" : battery.state == "charging" ? "charging" : (battery.percentage < 25 ? `low` : (battery.percentage < 50 ? `medium` : `normal`))}
-                  :orientation "v"
-                  :flipped true
-                  :min 0
-                  :max 101)
-          (label :class "label"
-                  :text {battery.icon}
-                  :valign "end")
-    )
-  )
-  
 )
 
 

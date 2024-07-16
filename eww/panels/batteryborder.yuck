@@ -1,0 +1,61 @@
+(defwidget batteryborder []
+
+  (box :orientation "v"
+          :halign "end"
+          :space-evenly "false"
+          :class "slider"
+          :width 30
+          ;; :class {battery.state == "fully-charged" ? "full-slider" : "slider"}
+          :valign "center"
+          :spacing 25
+    
+    (box :valign "center" :halign "center" :orientation "horizontal" (clock))
+    (button :onclick "eww open --toggle powermenu" :class "mini-btn" "")
+    
+    (box
+      :height 200
+      :orientation "vertical"
+      :valign "start"
+      :space-evenly false
+          (scale :value { volume_value }
+                  :vexpand true
+                  :class {(is_muted == "1") ? "full" : (volume_value > 55 ? `low` : (volume_value > 25 ? `medium` : `normal`))}
+                  :orientation "v"
+                  :flipped true
+                  :min 0
+                  :max 101)
+          (label :class "label" :text {volume_icon} )
+    )
+
+    (box
+      :space-evenly false
+      :height 460
+      :orientation "vertical"
+      :valign "start"
+          (scale :value { battery.percentage }
+                  :vexpand true
+                  :class {(battery.state == "nobattery" || battery.state == "fully-charged") ? "full" : battery.state == "charging" ? "charging" : (battery.percentage < 25 ? `low` : (battery.percentage < 50 ? `medium` : `normal`))}
+                  :orientation "v"
+                  :flipped true
+                  :min 0
+                  :max 101)
+          (label :class "label" :text {battery.icon} )
+    )
+
+    (box
+      :space-evenly false
+      :height 200
+      :orientation "vertical"
+      :valign "start"
+          (scale :value { network.signal }
+                  :vexpand true
+                  :class {(network.essid == "lo") ? "full" : network.wired == "1" ? "charging" : (network.signal < 25 ? `low` : (network.signal < 50 ? `medium` : `normal`))}
+                  :orientation "v"
+                  :flipped true
+                  :min 0
+                  :max 101)
+          (label :class "label" :text {network.icon} )
+    )
+  )
+  
+)
