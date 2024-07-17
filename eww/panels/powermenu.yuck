@@ -59,7 +59,7 @@
         (label :text "${time.year}-${time.month}-${time.day}"))
       (sessionbuttons :shutdown "poweroff" :reboot "reboot"
                 :logout "loginctl terminate-user $USER"
-                :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg --indicator-idle-visible"
+                :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
                 :shutdown_icon "" :reboot_icon ""
                 :logout_icon "" :lock_icon ""))))
 
