@@ -192,110 +192,12 @@
 
 ;(deflisten current_theme :initial "dark" "../scripts/material.py --current")
 
-(include "./mywidgets/musiccc.yuck")
-(include "./mywidgets/sliders.yuck")
-(include "./mywidgets/quick_settings.yuck")
+(include "./panels/powermenu.yuck")
 
 (defwindow powermenu
   :monitor 0 ;; wayland users may need this
   :stacking "fg"
   :wm-ignore true
   :geometry (geometry :width "97%" :height "100%")
-  (powermenu_layout))
-
-; not used for now, replaced by "slider" defined in sliders.yuck
-(defwidget metric [label value onchange]
-  (box :orientation "h"
-       :class "metric"
-       :space-evenly false
-    (box :class "label" label)
-    (scale :min 0
-           :max 101
-           :active {onchange != ""}
-           :value value
-           :onchange onchange)))
-
-(defwidget powermenu_layout []
-  (box :class "layout-box" :space-evenly false :orientation "vertical"
-       :style "background-image: url('/home/vncnz/Pictures/wallpaper3.jpg')"
-    (box :valign "start" :space-evenly true :hexpand true :spacing 25
-        (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
-          ;(box :valign "center" :halign "center" :orientation "vertical" :spacing 15 :class "overlay-btns"
-                ;(metric :label ""
-                ;        :value {EWW_RAM.used_mem_perc}
-                ;        :onchange "")
-                ;(metric :label ""
-                ;        :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
-                ;        :onchange "")
-                ;(metric :label ""
-                ;        :value {EWW_BATTERY.BAT0.capacity}
-                ;        :onchange "")
-                ;(metric :label "${net == "" ? (wired == 1 ? "" : "") : ""}"
-                ;        :value {wired == 1 ? 100 : net}
-                ;        :onchange "")
-                ;(metric :label {volumeicon}
-                ;        :value volumevalue
-                ;        :onchange "amixer -D pulse sset Master {}%")
-          ;)
-          (box :class "overlay-btns" :valign "start" :halign "end"
-                :vexpand true :hexpand true
-            (sliders)
-          )
-          (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
-            (music)
-          )
-          (quick_settings)
-        )
-        (box :class "overlay-btns" :valign "start" :halign "end"
-          (button :onclick "eww close powermenu" :class "close-btn" "")
-        )
-    )
-    (box :space-evenly false :hexpand true :vexpand true
-      (box :spacing 15 :class "tm-box" :space-evenly false
-            :valign "end" :halign "start"
-        (_sundial)
-        (label :text "")
-        (label :text "${time.hour}:${time.min}")
-        (label :text "")
-        (label :text "${time.year}-${time.month}-${time.day}"))
-      (sessionbuttons :shutdown "poweroff" :reboot "reboot"
-                :logout "loginctl terminate-user $USER"
-                :lock "swaylock -i /home/vncnz/Pictures/wallpaper3.jpg --indicator-idle-visible"
-                :shutdown_icon "" :reboot_icon ""
-                :logout_icon "" :lock_icon ""))))
-
-(defwidget sessionbuttons [shutdown shutdown_icon reboot
-                    reboot_icon logout logout_icon lock lock_icon]
-  (box :class "btns-box" :spacing 5
-       :vexpand true :hexpand true
-       :valign "end" :halign "end"
-       :space-evenly false
-    (button :onclick shutdown shutdown_icon)
-    (button :onclick reboot reboot_icon)
-    (button :onclick logout logout_icon)
-    (button :onclick lock lock_icon)))
-
-(defwidget _sundial []
-  (label :class "sundial-lbl" :halign "end" :hexpand true
-         :text {time.hour >= 2 && time.hour <= 4 ? "Early Morning" :
-               time.hour <= 5 ? "Dawn" :
-               time.hour >= 6
-                && (time.hour <= 8 && time.min <= 59)
-                  ? "Morning" :
-               time.hour >= 9
-                 && (time.hour <= 11 && time.min <= 59)
-                   ? "Late Morning" :
-               time.hour == 12 && time.min <= 29
-                 ? "Midday" :
-               time.hour >= 12 && time.hour <= 16
-                 ? "Afternoon" :
-               time.hour > 16 && time.hour <= 17
-                 ? "Late Afternoon" :
-               (time.hour >= 17 && time.min <= 1)
-                 || (time.hour <= 18 && time.min <= 20)
-                   ? "Early Evening" :
-               time.hour >= 18 && time.hour <= 19
-                 ? "Dusk" :
-               time.hour > 19 && time.hour <= 21
-                 ? "Late Evening" :
-               time.hour > 21 ? "Night" : "Midnight"}))
+  (powermenu_layout)
+)
