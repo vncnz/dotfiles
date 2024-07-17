@@ -200,7 +200,8 @@ layout {
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
 
-spawn-at-startup "swaybg" "--image" "/home/vncnz/Pictures/wallpaper3.jpg" "--mode" "fill"
+// spawn-at-startup "swaybg" "--image" "/home/vncnz/Pictures/wallpaper3.jpg" "--mode" "fill"
+spawn-at-startup "/home/vncnz/.config/change_bg.sh"
 // spawn-at-startup "waybar"
 // spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
 spawn-at-startup "eww" "open" "batteryborder"
@@ -275,7 +276,7 @@ binds {
     Mod+D { spawn "fuzzel"; }
     Mod+P { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
-    Super+Alt+L { spawn "swaylock" "-i" "/home/vncnz/Pictures/wallpaper3.jpg" "--indicator-idle-visible"; } // /u fa l'opposto dell'ultimo parametro, nasconde sempre l'indicatore'
+    Super+Alt+L { spawn "swaylock" "-i" "/home/vncnz/Pictures/wallpaper.jpg" "--indicator-idle-visible"; } // /u fa l'opposto dell'ultimo parametro, nasconde sempre l'indicatore'
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }

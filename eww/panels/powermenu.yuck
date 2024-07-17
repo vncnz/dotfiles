@@ -16,7 +16,7 @@
 
 (defwidget powermenu_layout []
   (box :class "layout-box" :space-evenly false :orientation "vertical"
-       :style "background-image: url('/home/vncnz/Pictures/wallpaper3.jpg')"
+       :style "background-image: url('/home/vncnz/Pictures/wallpaper.jpg')"
     (box :valign "start" :space-evenly true :hexpand true :spacing 25
         (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
           ;(box :valign "center" :halign "center" :orientation "vertical" :spacing 15 :class "overlay-btns"
@@ -59,7 +59,7 @@
         (label :text "${time.year}-${time.month}-${time.day}"))
       (sessionbuttons :shutdown "poweroff" :reboot "reboot"
                 :logout "loginctl terminate-user $USER"
-                :lock "swaylock -i /home/vncnz/Pictures/wallpaper3.jpg --indicator-idle-visible"
+                :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg --indicator-idle-visible"
                 :shutdown_icon "" :reboot_icon ""
                 :logout_icon "" :lock_icon ""))))
 
