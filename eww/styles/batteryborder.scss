@@ -1,0 +1,68 @@
+.batteryborder {
+    background-color: rgba(0, 0, 0, .7);
+    margin-right: 0px;
+    margin-left: 0px;
+    // background-color: rgba(black, .15);
+
+    .mini-btn {
+        font-size: 20px;
+        color: white;
+        text-shadow: 1px 1px 2px #000000;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+
+    .clock {
+        font-size: 18px;
+        text-shadow: 1px 1px 2px #000000;
+    }
+
+    .slider {
+        // border: 1px solid white;
+        // background-color: rgba(black, .15);
+
+        .label {
+            font-size: 14px;
+            color: white;
+            margin-left: 2px;
+            margin-top: 3px;
+            text-shadow: 1px 1px 2px #000000;
+            // background-color: rgba(black, .75);
+            // border-radius: 50%;
+        }
+        & scale trough {
+            all: unset;
+            border-radius: 10px;
+            background-color: #3A404C;
+            border: 1px solid white;
+            min-height: 0px;
+            min-width: 6px;
+
+            & highlight {
+                all: unset;
+                background: $primary;
+                color: #000000;
+                border-radius: 10px;
+            }
+        }
+        & scale.full highlight,
+        & scale.full trough {
+            background-color: rgba($primary, .15);
+            border-color: rgba(255, 255, 255, .4);
+        }
+        & scale.charging highlight {
+            background-color: $primary;
+        }
+        & scale.normal highlight {
+            background-color: lightgreen;
+        }
+        & scale.medium highlight {
+            background-color: orange;
+        }
+        & scale.low highlight {
+            background-color: red;
+        }
+    }
+}

@@ -11,75 +11,7 @@ $primary: #61afbf;
 
 @import "styles/musiccc.scss";
 @import "styles/sliders.scss";
-
-.batteryborder {
-    background-color: rgba(0, 0, 0, .7);
-    margin-right: 0px;
-    margin-left: 0px;
-    // background-color: rgba(black, .15);
-
-    .mini-btn {
-        font-size: 20px;
-        color: white;
-        text-shadow: 1px 1px 2px #000000;
-
-        &:hover {
-            color: $primary;
-        }
-    }
-
-    .clock {
-        font-size: 18px;
-        text-shadow: 1px 1px 2px #000000;
-    }
-
-    .slider {
-        // border: 1px solid white;
-        // background-color: rgba(black, .15);
-
-        .label {
-            font-size: 14px;
-            color: white;
-            margin-left: 2px;
-            margin-top: 3px;
-            text-shadow: 1px 1px 2px #000000;
-            // background-color: rgba(black, .75);
-            // border-radius: 50%;
-        }
-        & scale trough {
-            all: unset;
-            border-radius: 10px;
-            background-color: #3A404C;
-            border: 1px solid white;
-            min-height: 0px;
-            min-width: 6px;
-
-            & highlight {
-                all: unset;
-                background: $primary;
-                color: #000000;
-                border-radius: 10px;
-            }
-        }
-        & scale.full highlight,
-        & scale.full trough {
-            background-color: rgba($primary, .15);
-            border-color: rgba(255, 255, 255, .4);
-        }
-        & scale.charging highlight {
-            background-color: $primary;
-        }
-        & scale.normal highlight {
-            background-color: lightgreen;
-        }
-        & scale.medium highlight {
-            background-color: orange;
-        }
-        & scale.low highlight {
-            background-color: red;
-        }
-    }
-}
+@import "styles/batteryborder.scss";
 
 .clock {
     font-size: 2rem;
@@ -151,18 +83,20 @@ $primary: #61afbf;
     font-family: Phosphor, Koulen;
     background-repeat: no-repeat;
     background-size: contain;
-    padding: 5em;
+    padding: 1em;
     color: rgba($surface-fg, 0.8);
     opacity: .9;
     background-size: cover;
     background-position: 50% 50%;
+    background-color: rgba(30, 30, 30, .95);
 }
 
 .overlay-btns,
 .tm-box {
-    background: rgba(30, 30, 30, .9);
+    background: rgba(30, 30, 30, .95);
     border-radius: 5px;
     padding: 1em;
+    box-shadow: 0px 0px 2px white;
 }
 
 .net-box,
@@ -187,7 +121,9 @@ $primary: #61afbf;
     button {
         padding: 0.4em;
         border-radius: 0.1em;
-        background-color: rgba(30, 30, 30, .9);
+        background-color: rgba(30, 30, 30, .95);
+        // border: 1px solid white;
+        box-shadow: 0px 0px 2px white;
 
         &:hover {
             transition: 200ms linear background-color, border-radius;
@@ -205,7 +141,7 @@ $primary: #61afbf;
     padding-top: 0.15em;
     padding-left: 0.2em;
     padding-right: 0.2em;
-    font-family: Iosevka;
+    // font-family: Iosevka;
     font-weight: 400;
 }
 
@@ -259,4 +195,29 @@ slider {
     min-width: 10rem;
     margin-left: 10px;
     margin-right: 20px;
+}
+
+
+.mininotifications {
+    .bell {
+        font-size: 18px;
+    }
+    .badge-red,
+    .badge-primary,
+    .badge-empty {
+        border-radius: 50%;
+        min-width: 10px;
+        font-size: 7px;
+        font-weight: bold;
+    }
+    .badge-red { background-color: red; }
+    .badge-primary { background-color: $primary; }
+    .badge-empty { background-color: black; border: 1px solid white; }
+}
+
+.notificationspanel {
+    .notif {
+        box-shadow: inset 3px 0 $primary;
+        padding-left: 10px;
+    }
 }

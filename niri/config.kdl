@@ -202,6 +202,7 @@ layout {
 
 // spawn-at-startup "swaybg" "--image" "/home/vncnz/Pictures/wallpaper3.jpg" "--mode" "fill"
 spawn-at-startup "/home/vncnz/.config/niri/change_bg.sh"
+spawn-at-startup "dunst" "&"
 // spawn-at-startup "waybar"
 // spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
 spawn-at-startup "eww" "open" "batteryborder"
@@ -473,6 +474,7 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
     Mod+S { screenshot; }
+    Mod+Shift+S { screenshot-screen; }
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }

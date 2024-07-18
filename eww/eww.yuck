@@ -1,7 +1,5 @@
 ;; all icons are nf-md-...
 
-
-
 (deflisten network :initial '{"essid": "lo", "signal": "", "icon":"?"}' "./scripts/network.sh")
 (defpoll battery :interval "1000ms" :initial '{"percentage":"0", "icon":"?"}' "./scripts/battery.sh")
 
@@ -22,7 +20,8 @@
 ;    "
 ;)
 
-(include "./mywidgets/notifications.yuck")
+;; (include "./mywidgets/notifications.yuck")
+(include "./mywidgets/notifications2.yuck")
 (include "./mywidgets/music.yuck")
 
 (defwindow sidebar
@@ -56,17 +55,6 @@
 )
 
 
-
-
-
-
-
-
-
-
-
-
-
 (include "./panels/batteryborder.yuck")
 
 (defwindow batteryborder
@@ -85,36 +73,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ;; all icons are nf-md-...
 
 (include "./mywidgets/audio.yuck")
 (include "./mywidgets/clock.yuck")
+(include "./panels/statusbar.yuck")
 ;;(include "./widgets2/screenshot.yuck")
 ;;(include "./widgets2/recorder.yuck")
 ;;(include "./widgets2/workspaces.yuck")
@@ -131,58 +94,6 @@
     (statusbar)
 )
 
-(defwidget statusbar []
-    (box
-        :orientation "vertical"
-        :valign "end"
-        :halig "center"
-        :class "bar"
-        ;; (workspaces)
-        ;; (mininotifications)
-        (box
-            :orientation "horizontal"
-            :valign "end"
-            :space-evenly false
-            (box
-                :width 12
-            )
-            (box
-                :orientation "vertical"
-                :class "bottom"
-                :halign "center"
-                :width 50
-                :space-evenly false
-                :spacing 25
-                (button :onclick "eww open --toggle powermenu" :class "open-btn" "")
-                (audio)
-                (box :valign "center" :halign "center" :orientation "vertical"
-                  (label :class "nerd-icon" :text "${network.icon}")
-                  (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
-                )
-                (box :valign "center" :halign "center" :orientation "vertical"
-                  (label :class "nerd-icon" :text {battery.icon})
-                  (label :text "${battery.percentage}%")
-                )
-                (box :valign "center" :halign "center" :orientation "horizontal" (clock))
-                (box :height 12)
-            )
-        )
-    )
-)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -198,6 +109,19 @@
   :monitor 0 ;; wayland users may need this
   :stacking "fg"
   :wm-ignore true
-  :geometry (geometry :width "97%" :height "100%")
+  :geometry (geometry :width "40%" :height "100%" :anchor "center right")
   (powermenu_layout)
+)
+
+
+
+(defwindow notificationsoverlay
+  :monitor 0 ;; wayland users may need this
+  :stacking "fg"
+  :wm-ignore true
+  :geometry (geometry :width "16%" :height "98%" :x "1%" :anchor "center right" )
+  (box :class "overlay-btns" :valign "start" :halign "end"
+            :vexpand true :hexpand true
+        (notifications-dashboard)
+    )
 )

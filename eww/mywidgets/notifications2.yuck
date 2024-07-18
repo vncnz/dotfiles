@@ -1,0 +1,225 @@
+(deflisten notifications
+    :initial '{ "data": [[]] }'
+    "
+    dunstctl history | jq -r tostring
+
+    dbus-monitor \
+        \"path='/org/freedesktop/Notifications',interface='org.freedesktop.Notifications',member='NotificationClosed'\" \
+        \"path='/org/freedesktop/Notifications',interface='org.dunstproject.cmd0',member='NotificationClearHistory'\" \
+        \"path='/org/freedesktop/Notifications',interface='org.dunstproject.cmd0',member='NotificationRemoveFromHistory'\" |
+        while read -r line; do dunstctl history | jq -r tostring; done
+    "
+)
+(deflisten notif_count
+    :initial '{ "data": [[]] }'
+    "
+    dunstctl count history
+
+    dbus-monitor \
+        \"path='/org/freedesktop/Notifications',interface='org.freedesktop.Notifications',member='NotificationClosed'\" \
+        \"path='/org/freedesktop/Notifications',interface='org.dunstproject.cmd0',member='NotificationClearHistory'\" \
+        \"path='/org/freedesktop/Notifications',interface='org.dunstproject.cmd0',member='NotificationRemoveFromHistory'\" |
+        while read -r line; do dunstctl count history; done
+    "
+)
+(deflisten notifications-paused
+    :initial 'false'
+    "
+    dunstctl is-paused
+
+    dbus-monitor \"path='/org/freedesktop/Notifications',member='PropertiesChanged'\" |
+        while read -r line; do dunstctl is-paused; done
+    "
+)
+
+;; To be continued...
+(defwidget mininotifications []
+    (eventbox
+        :orientation "vertical"
+        :spacing 10
+        :class "mininotifications"
+        :space-evenly false
+        ;; :onclick "dunstctl set-paused toggle"
+        ;; :onrightclick "dunstctl close-all && dunstctl history-clear"
+        :onclick "eww open --toggle notificationsoverlay"
+        :onrightclick "dunstctl set-paused toggle"
+
+        (overlay
+            (label  :class "bell"
+                    :valign "center"
+                    :halign "center"
+                    :text "${ notifications-paused ? '' : '' }"
+            )
+            (label  :class "${ notif_count > 0 ? (notifications-paused ? 'badge-primary' : 'badge-red') : "badge-empty" }"
+                    :text "${notif_count}"
+                    :valign "end"
+                    :halign "end"
+            )
+        )
+    )
+)
+
+
+(defwidget notifications-dashboard []
+    (box
+        :class "notificationspanel"
+        :orientation "vertical"
+        :spacing 10
+        :space-evenly false
+        :vexpand false
+        :hexpand false
+        (box
+            :class "nerd-icon"
+            :halign "end"
+            :orientation "horizontal"
+            :spacing 20
+            :space-evenly false
+            ;;(button
+            ;;    :onclick "dunstctl set-paused toggle"
+            ;;    (label :text "${ notifications-paused ? '' : '' }")
+            ;;)
+            (box
+                :halign "start"
+                :orientation "vertical"
+                :space-evenly false
+                :visible {arraylength(notifications['data'][0]) == 0}
+                (label :text "No Notifications." :wrap true)
+            )
+            (eventbox
+                :halign "start"
+                :orientation "vertical"
+                :space-evenly false
+                :visible {arraylength(notifications['data'][0]) > 0}
+                :onclick "dunstctl history-pop"
+                (label :text "${arraylength(notifications['data'][0])} notification(s)" :wrap true)
+            )
+            (button
+                :onclick "dunstctl close-all && dunstctl history-clear"
+                (label :text "")
+            )
+        )
+        (box
+            :orientation "vertical"
+            :spacing 22
+            :space-evenly false
+            
+            (for notification in {notifications['data'][0]}
+                (notification-dashboard-entry :notification notification)
+            )
+        )
+    )
+)
+
+(defwidget notification-dashboard-entry [notification]
+    (eventbox
+        :onclick "dunstctl history-rm ${notification['id']['data']}" ;; dunstctl history-pop ${notification['id']['data']} && dunstctl action 0 && dunstctl close"
+        (box
+            :class "notif"
+            :orientation "vertical"
+            :spacing 4
+            :space-evenly false
+            (label
+                :class "highlight"
+                :halign "start"
+                :wrap true
+                :text {notification['summary']['data']}
+            )
+            (label
+                :halign "end"
+                :wrap true
+                :markup {notification['body']['data']}
+            )
+        )
+    )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(defwidget notifications []
+    (box
+        :class "${ arraylength(notifications['data'][0]) == 0 ? 'container-disabled' : 'container' }"
+        :orientation "vertical"
+        :spacing 10
+        :space-evenly false
+        (box
+            :class "nerd-icon"
+            :halign "end"
+            :orientation "horizontal"
+            :spacing 20
+            :space-evenly false
+            (button
+                :onclick "dunstctl set-paused toggle"
+                (label :text "${ notifications-paused ? '' : '' }")
+            )
+            (button
+                :onclick "dunstctl close-all && dunstctl history-clear"
+                (label :text "")
+            )
+        )
+        (box
+            :orientation "vertical"
+            :spacing 22
+            :space-evenly false
+            (box
+                :halign "end"
+                :orientation "vertical"
+                :space-evenly false
+                :visible {arraylength(notifications['data'][0]) == 0}
+                (label :text "No Notifications." :wrap true)
+            )
+            (eventbox
+                :halign "end"
+                :orientation "vertical"
+                :space-evenly false
+                :visible {arraylength(notifications['data'][0]) > 0}
+                :onclick "dunstctl history-pop"
+                (label :text "${arraylength(notifications['data'][0])} notification(s)" :wrap true)
+            )
+            (for notification in {notifications['data'][0]}
+                (notification-entry :notification notification)
+            )
+        )
+    )
+)
+
+(defwidget notification-entry [notification]
+    (eventbox
+        :onclick "dunstctl history-rm ${notification['id']['data']}" ;; dunstctl history-pop ${notification['id']['data']} && dunstctl action 0 && dunstctl close"
+        (box
+            :orientation "vertical"
+            :spacing 4
+            :space-evenly false
+            (label
+                :class "highlight"
+                :halign "end"
+                :wrap true
+                :text {notification['summary']['data']}
+            )
+            (label
+                :halign "true"
+                :wrap true
+                :markup {notification['body']['data']}
+            )
+        )
+    )
+)

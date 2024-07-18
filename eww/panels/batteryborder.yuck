@@ -11,6 +11,7 @@
     
     (box :valign "center" :halign "center" :orientation "horizontal" (clock))
     (button :onclick "eww open --toggle powermenu" :class "mini-btn" "")
+    (mininotifications)
     
     (box
       :height 200
@@ -35,7 +36,7 @@
 
     (box
       :space-evenly false
-      :height 380
+      :height 340
       :orientation "vertical"
       :valign "start"
       :class "slider"
