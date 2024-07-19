@@ -24,19 +24,19 @@
 (include "./mywidgets/notifications2.yuck")
 (include "./mywidgets/music.yuck")
 
-(defwindow sidebar
+(defwindow bg_music_notif
     :geometry (geometry
         :y "25px"
         :width "256px"
         :anchor "top right"
     )
     :monitor 0
-    :namespace "eww_sidebar"
+    :namespace "eww_bg_music_notif"
     :stacking "bottom"
     (box
-        :class "sidebar"
+        :class "bg_music_notif"
         :orientation "vertical"
-        (sidebar)
+        (bg_music_notif)
         ;(label
         ;    :class "invisible"
         ;    :text "${toggle_dashboard_with_rofi}"
@@ -44,7 +44,7 @@
     )
 )
 
-(defwidget sidebar []
+(defwidget bg_music_notif []
     (box
         :orientation "vertical"
         :spacing 32
@@ -77,12 +77,12 @@
 
 (include "./mywidgets/audio.yuck")
 (include "./mywidgets/clock.yuck")
-(include "./panels/statusbar.yuck")
+(include "./panels/leftstatusbar.yuck")
 ;;(include "./widgets2/screenshot.yuck")
 ;;(include "./widgets2/recorder.yuck")
 ;;(include "./widgets2/workspaces.yuck")
 
-(defwindow statusbar [stacking]
+(defwindow leftstatusbar [stacking]
     :geometry (geometry
         :height "100%"
         :anchor "center left"
@@ -90,8 +90,8 @@
     :monitor 0
     :exclusive true
     :stacking { stacking }
-    :namespace "eww_statusbar"
-    (statusbar)
+    :namespace "eww_leftstatusbar"
+    (leftstatusbar)
 )
 
 
@@ -125,3 +125,24 @@
         (notifications-dashboard)
     )
 )
+
+
+
+
+;; TODO: idea is to have two bars with height 100% and width 3px, positioned on the sides of the desktop and indicating battery and connection status
+(include "./panels/veryminimal.yuck")
+
+(defwindow veryminimalleft
+  :monitor 0 ;; wayland users may need this
+  :stacking "fg"
+  :wm-ignore true
+  :geometry (geometry :width "3px" :height "100%")
+  (veryminimalleft_layout)
+)
+;;(defwindow veryminimalright
+;;  :monitor 0 ;; wayland users may need this
+;;  :stacking "fg"
+;;  :wm-ignore true
+;;  :geometry (geometry :width "3px" :height "100%" :anchor "center right")
+;;  (veryminimalright_layout)
+;;)

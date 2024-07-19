@@ -12,12 +12,13 @@ $primary: #61afbf;
 @import "styles/musiccc.scss";
 @import "styles/sliders.scss";
 @import "styles/batteryborder.scss";
+@import "styles/veryminimal.scss";
 
 .clock {
     font-size: 2rem;
 }
 
-.sidebar {
+.bg_music_notif {
     text-shadow: 2px 2px 2px #000000;
 }
 

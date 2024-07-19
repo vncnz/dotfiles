@@ -32,7 +32,6 @@
     "
 )
 
-;; To be continued...
 (defwidget mininotifications []
     (eventbox
         :orientation "vertical"
@@ -69,7 +68,6 @@
         :vexpand false
         :hexpand false
         (box
-            :class "nerd-icon"
             :halign "end"
             :orientation "horizontal"
             :spacing 20
@@ -89,13 +87,21 @@
                 :halign "start"
                 :orientation "vertical"
                 :space-evenly false
-                :visible {arraylength(notifications['data'][0]) > 0}
+                :visible {arraylength(notifications['data'][0]) == 1}
                 :onclick "dunstctl history-pop"
-                (label :text "${arraylength(notifications['data'][0])} notification(s)" :wrap true)
+                (label :text "Only one notification" :wrap true)
+            )
+            (eventbox
+                :halign "start"
+                :orientation "vertical"
+                :space-evenly false
+                :visible {arraylength(notifications['data'][0]) > 1}
+                :onclick "dunstctl history-pop"
+                (label :text "${arraylength(notifications['data'][0])} notifications" :wrap true)
             )
             (button
                 :onclick "dunstctl close-all && dunstctl history-clear"
-                (label :text "")
+                (label :class "nerd-icon" :text "")
             )
         )
         (box

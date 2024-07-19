@@ -159,7 +159,8 @@ layout {
         // defaulting to 180 (top-to-bottom gradient).
         // You can use any CSS linear-gradient tool on the web to set these up.
         //
-        active-gradient from="#70c8ff" to="#fb7755" angle=315
+        // active-gradient from="#70c8ff" to="#fb7755" angle=315
+        active-gradient from="#ce1270" to="#dba3e6" angle=45
 
         // You can also color the gradient relative to the entire view
         // of the workspace, rather than relative to just the window itself.
@@ -175,10 +176,10 @@ layout {
         off
 
         width 4
-        active-color "#ffc87f"
+        // active-color "#ffc87f"
         inactive-color "#505050"
 
-        // active-gradient from="#ffbb66" to="#ffc880" angle=45 relative-to="workspace-view"
+        active-gradient from="#ffbb66" to="#ffc880" angle=45 relative-to="workspace-view"
         // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
@@ -200,8 +201,8 @@ layout {
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
 
-// spawn-at-startup "swaybg" "--image" "/home/vncnz/Pictures/wallpaper3.jpg" "--mode" "fill"
-spawn-at-startup "/home/vncnz/.config/niri/change_bg.sh"
+spawn-at-startup "swaybg" "--image" "/home/vncnz/Pictures/wallpaper.jpg" "--mode" "fill"
+// spawn-at-startup "/home/vncnz/.config/niri/change_bg.sh"
 spawn-at-startup "dunst" "&"
 // spawn-at-startup "waybar"
 // spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
