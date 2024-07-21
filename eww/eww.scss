@@ -222,3 +222,11 @@ slider {
         padding-left: 10px;
     }
 }
+
+.panel {
+    border-left: 1px solid white;
+    padding: 1em;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgba(0, 0, 0, .95);
+}
