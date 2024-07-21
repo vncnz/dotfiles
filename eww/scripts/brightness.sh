@@ -47,4 +47,5 @@ fi
 
 if [[ $1 == "set" ]]; then
   brightnessctl set $2"%"
+  $(~/.config/eww/scripts/dunstbrightness.sh)
 fi
