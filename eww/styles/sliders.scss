@@ -16,8 +16,13 @@
 .vol-slider {
     .vol-label {
         font-size: 16px;
-        color: #000000;
+        color: $primary;
         margin-left: 10px;
+    }
+    .vol-icon {
+        font-size: 20px;
+        color: $primary;
+        margin-right: 10px;
     }
     & scale trough {
         all: unset;
@@ -53,9 +58,14 @@
 
 
 .br-slider {
+    .br-icon {
+        font-size: 16px;
+        color: $primary;
+        margin-right: 10px;
+    }
     .br-label {
         font-size: 16px;
-        color: #000000;
+        color: $primary;
         margin-left: 10px;
     }
     & scale trough {

@@ -30,7 +30,7 @@
 
 (defwidget networkbox []
   (box :class "box" :spacing 5
-       :valign "center" :halign "center"
+       :valign "center" :hexpand "true"
        :space-evenly false
        :orientation "v"
     (box :orientation "h" :hexpand true
@@ -44,7 +44,7 @@
 
 (defwidget meteobox []
   (box :class "box" :spacing 5
-       :valign "center" :halign "center"
+       :valign "center" :hexpand "true"
        :space-evenly false
        :orientation "v"
     (box :orientation "h" :halign "center"
@@ -62,7 +62,7 @@
 )
 
 (defwidget _sundial []
-  (label :class "sundial-lbl" :halign "end" :hexpand true
+  (label :class "sundial-lbl" :halign "start" :hexpand true
          :text {time.hour >= 2 && time.hour <= 4 ? "Early Morning" :
                time.hour <= 5 ? "Dawn" :
                time.hour >= 6
@@ -103,7 +103,7 @@
     (box :halign "center" :spacing 25 :orientation "h"
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
         (box :spacing 15 :class "tm-box" :space-evenly false
-              :valign "end" :halign "start"
+              :valign "end" :hexpand "true"
           (_sundial)
           (label :text "")
           (label :text "${time.hour}:${time.min}")
@@ -114,33 +114,39 @@
           (calendar :show-week-numbers "true")
         )
         (meteobox)
-        (box :class "box"
-          (label :width 100 :wrap "true" :text "Frase del giorno (TODO)")
+        (music)
+        (box :class "box" :orientation "v"
+          (label :width 100 :wrap "true" :text "My shadow's the only one that walks beside me")
+          (label :width 100 :wrap "true" :class "author" :halign "end" :text "Green day")
         )
       )
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
         (networkbox)
-        (music)
         (box :orientation "h"
           (graphbox :text "CPU" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
           (graphbox :text "RAM" :value {EWW_RAM.used_mem_perc})
           (graphbox :text "DISK" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
+          (graphbox :text "TEMP (${EWW_TEMPS.AMDGPU_EDGE}°C)" :value {EWW_TEMPS.AMDGPU_EDGE})
         )
         (box :class "box" :orientation "v"
           (label :text "systray (TODO)")
           (systray)
         )
+        (box :class "box"
+          (sliders)
+        )
+        (box :space-evenly false :hexpand true :vexpand true
+      
+          (sessionbuttons :shutdown "poweroff" :reboot "reboot"
+                    :logout "loginctl terminate-user $USER"
+                    :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
+                    :shutdown_icon "" :reboot_icon ""
+                    :logout_icon "" :lock_icon "")
+        )
       )
     )
     (box :valign "start" :space-evenly true :hexpand true :spacing 25
         (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
-          (box :class "overlay-btns" :valign "start" :halign "end"
-                :vexpand true :hexpand true
-            (sliders)
-          )
-          (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
-            
-          )
           (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
             (label :text {EWW_TEMPS})
           )
@@ -150,10 +156,5 @@
           (button :onclick "eww close powermenu" :class "close-btn" "")
         )
     )
-    (box :space-evenly false :hexpand true :vexpand true
-      
-      (sessionbuttons :shutdown "poweroff" :reboot "reboot"
-                :logout "loginctl terminate-user $USER"
-                :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
-                :shutdown_icon "" :reboot_icon ""
-                :logout_icon "" :lock_icon ""))))
+  )
+)

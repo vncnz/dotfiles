@@ -9,7 +9,7 @@
   `nmcli -t -f SIGNAL,ACTIVE device wifi | awk -F':' '{if($2=="yes")print$1}'`)
 (defpoll wired :interval "1000s" `nmcli device status | grep connected | grep -c Wired`)
 
-(defwidget slider_inner_icon [icon text value onchange]
+(defwidget slider [icon text value onchange]
   (box :orientation "h"
           :space-evenly "false"
           :class "vol-slider"
@@ -27,24 +27,19 @@
     )
     (label :class "vol-text" :valign "end" :halign "end" :text text)
   )
-)
 
-(defwidget slider [icon text value onchange]
-  (box :orientation "h"
-          :space-evenly "false"
-          :class "vol-slider"
-    (label :class "vol-icon"
-            :text icon
-            :valign "top"
-            :halign "start")
-    (scale :value value
-            :active {onchange != ""}
-            :class {onchange != "" ? "active" : "fixed"}
-            :onchange onchange
-            :min 0
-            :max 101)
-    (label :class "vol-text" :valign "end" :halign "end" :text text)
-  )
+
+  ;(box :orientation "h"
+  ;     :class "metric"
+  ;     :space-evenly false
+  ;  (box :class "label" label)
+  ;  (scale :min 0
+  ;         :max 101
+  ;         :active {onchange != ""}
+  ;         :value value
+  ;         :onchange onchange
+  ;  )
+  ;)
 )
 
 (defwidget sliders []
@@ -55,10 +50,12 @@
     (slider :icon volume_icon :text "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
     ;; "amixer -D pulse sset Master {}%"
     (slider :icon br_icon :text "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
-    ;; (slider :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc} :class "br-label" :onchange "")
-    ;; (slider :icon "" :text "${round(EWW_CPU.avg, 0)}%" :value {EWW_CPU.avg} :class "br-label" :onchange "")
-    ;; (slider :icon "" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)} :onchange "")
-    (slider :icon {battery.icon} :text "${battery.percentage}%" :value {battery.percentage} :onchange "")
-    ;; (slider :icon {network.icon} :text "${network.signal}%" :value {network.signal} :onchange "")
+    (slider :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc} :class "br-label" :onchange "")
+    (slider :icon "" :text "${round(EWW_CPU.avg, 0)}%" :value {EWW_CPU.avg} :class "br-label" :onchange "")
+    (slider :icon "" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)} :onchange "")
+    (slider :icon {battery.icon}
+            :text "${battery.percentage}%" :value {battery.percentage} :onchange "")
+    (slider :icon {network.icon}
+            :text "${network.signal}%" :value {network.signal} :onchange "")
   )
 )

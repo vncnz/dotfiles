@@ -274,7 +274,7 @@ slider {
     }
 
     .wallpaper {
-        opacity: .5;
+        opacity: .7;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: 50% 50%;
@@ -287,5 +287,9 @@ slider {
         background-color: rgba(30, 30, 30, .95);
         // border: 1px solid white;
         box-shadow: 0px 0px 2px white;
+    }
+
+    .author {
+        font-style: italic;
     }
 }
