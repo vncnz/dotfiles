@@ -7,6 +7,10 @@
 (defpoll volume_value :interval "1s" "~/.config/eww/scripts/volume.sh vol")
 (defpoll is_muted :interval "1s" "~/.config/eww/scripts/volume.sh muted")
 
+(defpoll winfocus :interval "1s" "~/.config/eww/scripts/miscellaneous.sh win")
+
+(defpoll meteo :interval "10s" "~/.config/eww/scripts/meteo.sh")
+
 ;(deflisten toggle_dashboard_with_rofi
 ;    :initial "closed"
 ;    "
@@ -109,7 +113,8 @@
   :monitor 0 ;; wayland users may need this
   :stacking "fg"
   :wm-ignore true
-  :geometry (geometry :width "40%" :height "100%" :anchor "center right")
+  ;; :geometry (geometry :width "40%" :height "100%" :anchor "center right")
+  :geometry (geometry :width "100%" :height "100%" :anchor "center")
   (powermenu_layout)
 )
 
@@ -146,3 +151,27 @@
 ;;  :geometry (geometry :width "3px" :height "100%" :anchor "center right")
 ;;  (veryminimalright_layout)
 ;;)
+
+
+
+;; test purpose
+(defwindow wintitle
+  :monitor 0 ;; wayland users may need this
+  :stacking "fg"
+  :wm-ignore true
+  :geometry (geometry :height "2px")
+  (wintitle_layout)
+)
+
+(defwidget wintitle_layout []
+
+  (box :orientation "h"
+      :valign "start"
+      :halign "center"
+      :space-evenly "false"
+      :class "window"
+      :height 20
+      :spacing 20
+    (label :text "-${winfocus.title}-")
+  )
+)

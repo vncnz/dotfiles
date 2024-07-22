@@ -15,8 +15,8 @@ input {
             // For more information, see xkeyboard-config(7).
 
             // For example:
-            layout "it, us"
-            variant "intl"
+            layout "us, it"
+            // variant "intl"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
 
@@ -299,6 +299,7 @@ binds {
     XF86AudioStop { spawn "playerctl" "stop"; }
 
     XF86Favorites { spawn "eww" "open" "powermenu" "--toggle"; }
+    Mod+grave { spawn "eww" "open" "powermenu" "--toggle"; }
 
     Mod+Q { close-window; }
 
@@ -548,7 +549,7 @@ workspace "default"
 // workspace "work"
 
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 5
     clip-to-geometry true
 }
 
@@ -582,7 +583,7 @@ window-rule {
 
 window-rule {
     match is-active=false
-    opacity 0.95
+    opacity 0.9
 }
 
 window-rule {

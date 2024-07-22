@@ -230,3 +230,62 @@ slider {
     border-bottom-left-radius: 10px;
     background-color: rgba(0, 0, 0, .95);
 }
+
+.window {
+    min-width: 100px;
+    background-color: red;
+}
+
+
+
+
+
+.dashboard {
+    padding: 2px;
+    // font-family: Phosphor, Koulen;
+    color: rgba($surface-fg, 0.8);
+    // background-color: rgba(30, 30, 30, .95);
+
+    .vol-slider {
+        .vol-label {
+            font-size: 16px;
+            color: #000000;
+            margin-left: 10px;
+        }
+        & scale trough {
+            all: unset;
+            border-radius: 10px;
+            background-color: #3A404C;
+            border: none;
+            min-height: 5px;
+            min-width: 300px;
+            margin-left: 3px;
+            & highlight {
+            all: unset;
+            background: $primary;
+            color: #000000;
+            border-radius: 10px;
+            }
+        }
+        & scale.fixed trough {
+            background-color: transparent;
+            border: 1px solid #3A404C;
+        }
+    }
+
+    .wallpaper {
+        opacity: .5;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+
+    .box {
+        font-size: 1.5rem;
+        padding: 0.4em;
+        border-radius: 0.1em;
+        background-color: rgba(30, 30, 30, .95);
+        // border: 1px solid white;
+        box-shadow: 0px 0px 2px white;
+    }
+}

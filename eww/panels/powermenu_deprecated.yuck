@@ -13,59 +13,50 @@
            :active {onchange != ""}
            :value value
            :onchange onchange)))
+;(metric :label ""
+;        :value {EWW_BATTERY.BAT0.capacity}
+;        :onchange "")
 
 (defwidget powermenu_layout []
   (box :class "layout-box" :space-evenly false :orientation "vertical"
-       :style "background-image: url('/home/vncnz/Pictures/wallpaper.jpg')"
-    (box :valign "start" :space-evenly true :hexpand true :spacing 25
-        (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
-          ;(box :valign "center" :halign "center" :orientation "vertical" :spacing 15 :class "overlay-btns"
-                ;(metric :label ""
-                ;        :value {EWW_RAM.used_mem_perc}
-                ;        :onchange "")
-                ;(metric :label ""
-                ;        :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
-                ;        :onchange "")
-                ;(metric :label ""
-                ;        :value {EWW_BATTERY.BAT0.capacity}
-                ;        :onchange "")
-                ;(metric :label "${net == "" ? (wired == 1 ? "" : "") : ""}"
-                ;        :value {wired == 1 ? 100 : net}
-                ;        :onchange "")
-                ;(metric :label {volumeicon}
-                ;        :value volumevalue
-                ;        :onchange "amixer -D pulse sset Master {}%")
-          ;)
-          (box :class "overlay-btns" :valign "start" :halign "end"
-                :vexpand true :hexpand true
-            (sliders)
-          )
-          (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
-            (music)
-          )
-          (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
-            (label :text {EWW_TEMPS})
-          )
-          (quick_settings)
-        )
-        (box :class "overlay-btns" :valign "start" :halign "end"
-          (button :onclick "eww close powermenu" :class "close-btn" "")
-        )
-    )
-    (box :space-evenly false :hexpand true :vexpand true
+       :valign "start" :halign "end" :vexpand true
+       ;; :style "background-image: url('/home/vncnz/Pictures/wallpaper.jpg')"
+       :spacing 15
+    (box :spacing 15 :valign "start" :vexpand false :hexpand false :space-evenly false
       (box :spacing 15 :class "tm-box" :space-evenly false
-            :valign "end" :halign "start"
+        :valign "start" :halign "start"
         (_sundial)
         (label :text "")
         (label :text "${time.hour}:${time.min}")
         (label :text "")
-        (label :text "${time.year}-${time.month}-${time.day}"))
-      (sessionbuttons :shutdown "poweroff" :reboot "reboot"
-                :logout "loginctl terminate-user $USER"
-                :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
-                :shutdown_icon "" :reboot_icon ""
-                :logout_icon "" :lock_icon ""))))
+        (label :text "${time.year}-${time.month}-${time.day}")
+      )
+      (box :class "overlay-btns" :hexpand false
+        (button :onclick "eww close powermenu" :class "close-btn" "")
+      )
+    )
+    (box :class "overlay-btns" :valign "start" :halign "end"
+          :vexpand true :hexpand true
+      (sliders)
+    )
+    (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
+      (music)
+    )
+    (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
+      (label :text {EWW_TEMPS})
+    )
+    (quick_settings)
 
+    (box :space-evenly false :hexpand true :vexpand true
+  
+      (sessionbuttons :shutdown "poweroff" :reboot "reboot"
+            :logout "loginctl terminate-user $USER"
+            :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
+            :shutdown_icon "" :reboot_icon ""
+            :logout_icon "" :lock_icon "")
+    )
+  )
+)
 (defwidget sessionbuttons [shutdown shutdown_icon reboot
                     reboot_icon logout logout_icon lock lock_icon]
   (box :class "btns-box" :spacing 5
@@ -75,7 +66,10 @@
     (button :onclick shutdown shutdown_icon)
     (button :onclick reboot reboot_icon)
     (button :onclick logout logout_icon)
-    (button :onclick lock lock_icon)))
+    (button :onclick lock lock_icon)
+    (button :onclick "niri msg action spawn -- /home/vncnz/.config/niri/change_bg.sh" "")
+  )
+)
 
 (defwidget _sundial []
   (label :class "sundial-lbl" :halign "end" :hexpand true
