@@ -1,6 +1,5 @@
 (include "./mywidgets/musiccc.yuck")
 (include "./mywidgets/sliders.yuck")
-(include "./mywidgets/quick_settings.yuck")
 
 ; not used for now, replaced by "slider" defined in sliders.yuck
 (defwidget metric [label value onchange]
@@ -26,7 +25,10 @@
     (button :onclick shutdown shutdown_icon)
     (button :onclick reboot reboot_icon)
     (button :onclick logout logout_icon)
-    (button :onclick lock lock_icon)))
+    (button :onclick lock lock_icon)
+    (button :onclick "eww close powermenu" "") ;; "")
+  )
+)
 
 (defwidget networkbox []
   (box :class "box" :spacing 5
@@ -39,6 +41,15 @@
     )
     (slider :icon "" :text "${network.signal}%" :value {network.signal} :onchange "")
     
+  )
+)
+
+(defwidget bluetoothbox []
+  (box :class "box" :spacing 5
+       :valign "center" :hexpand "true"
+       :space-evenly false
+       :orientation "v"
+    (label :text "Bluetooth (TODO)")
   )
 )
 
@@ -91,7 +102,8 @@
       :valign "center" :halign "center"
       :space-evenly false
       :orientation "v"
-      (graph :width 100 :height 140 :value value :time-range "60s" :min "0" :max "100" :thickness "2")
+      :width 100 :height 100
+      (graph :vexpand "true" :value {value ?: 0} :time-range "60s" :min "0" :max "100" :thickness "2")
       (label :text text)
   )
 )
@@ -114,7 +126,18 @@
           (calendar :show-week-numbers "true")
         )
         (meteobox)
-        (music)
+        (box :orientation "h" :space-evenly "false" :spacing 25
+          (music)
+          (box :class "box" :width 100 :height 100 :hexpand "false"
+            (overlay
+              (circular-progress :value {battery.percentage} :start-at 25 :thickness 5 )
+              (box :orientation "v" :valign "center"
+                (label :text {battery.icon})
+                (label :text "${battery.percentage}%")
+              )
+            )
+          )
+        )
         (box :class "box" :orientation "v"
           (label :width 100 :wrap "true" :text "My shadow's the only one that walks beside me")
           (label :width 100 :wrap "true" :class "author" :halign "end" :text "Green day")
@@ -122,11 +145,12 @@
       )
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
         (networkbox)
-        (box :orientation "h"
+        (bluetoothbox)
+        (box :orientation "h" :space-evenly "true"
           (graphbox :text "CPU" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
           (graphbox :text "RAM" :value {EWW_RAM.used_mem_perc})
           (graphbox :text "DISK" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
-          (graphbox :text "TEMP (${EWW_TEMPS.AMDGPU_EDGE}°C)" :value {EWW_TEMPS.AMDGPU_EDGE})
+          (graphbox :text "TEMP (${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C)" :value {EWW_TEMPS.AMDGPU_EDGE})
         )
         (box :class "box" :orientation "v"
           (label :text "systray (TODO)")
@@ -142,6 +166,7 @@
                     :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
                     :shutdown_icon "" :reboot_icon ""
                     :logout_icon "" :lock_icon "")
+          
         )
       )
     )
@@ -150,10 +175,6 @@
           (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
             (label :text {EWW_TEMPS})
           )
-          (quick_settings)
-        )
-        (box :class "overlay-btns" :valign "start" :halign "end"
-          (button :onclick "eww close powermenu" :class "close-btn" "")
         )
     )
   )
