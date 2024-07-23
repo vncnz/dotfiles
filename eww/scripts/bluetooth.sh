@@ -73,14 +73,16 @@ battery() {
         fi
 }
 
-if [[ $1 == "--status" ]]; then
+if [[ $1 == "all" ]]; then
+        echo '{"status": "'"$status"'"}'
+elif [[ $1 == "status" ]]; then
         status
-elif [[ $1 == "--icon" ]]; then
+elif [[ $1 == "icon" ]]; then
         icon
-elif [[ $1 == "--toggle" ]]; then
+elif [[ $1 == "toggle" ]]; then
         toggle
-elif [[ $1 == "--class" ]]; then
-    class
-elif [[ $1 == "--battery" ]]; then
-    battery
+elif [[ $1 == "class" ]]; then
+        class
+elif [[ $1 == "battery" ]]; then
+        battery
 fi
