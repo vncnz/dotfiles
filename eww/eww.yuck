@@ -163,6 +163,52 @@
 ;;  (veryminimalright_layout)
 ;;)
 
+(defwidget microstatusbar_layout []
+  (box
+    :orientation "h"
+    :valign "end"
+    :halig "start"
+    :class "minibar"
+    (box
+        :orientation "v"
+        :halign "start"
+        :space-evenly false
+        (box
+            :orientation "h"
+            :class "bottom"
+            :halign "center"
+            :width "100%"
+            :space-evenly false
+            :spacing 10
+            ;; (audio)
+            (fullclock)
+            (box :valign "center" :halign "center" :orientation "h"
+              (label :class "icon" :text {battery.icon})
+              (label :text "${battery.percentage}%")
+            )
+            (box :valign "center" :halign "center" :orientation "h"
+              (label :class "icon" :text "${network.icon}")
+              (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
+            )
+            (micronotifications)
+            ;;(box :valign "center" :halign "center" :orientation "horizontal" (clock))
+            ;;(box :height 12)
+        )
+        (box
+            :height 1
+        )
+    )
+  )
+)
+
+(defwindow microstatusbar
+  :monitor 0 ;; wayland users may need this
+  :stacking "bottom"
+  :wm-ignore true
+  :geometry (geometry :width "100%" :height "20px" :anchor "bottom center")
+  (microstatusbar_layout)
+)
+
 
 
 ;; test purpose

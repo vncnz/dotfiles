@@ -1,6 +1,6 @@
 (defpoll time
     :initial '{"hour":"00","min":"00"}'
-    :interval "1s" `date +'{"weekday-name":"%A","day":"%d","month":"%m","year":"%Y","hour":"%H","min":"%M"}'`
+    :interval "1s" `date +'{"weekdayname":"%a","day":"%d","month":"%m","year":"%Y","hour":"%H","min":"%M"}'`
 )
 
 (defwidget clock []
@@ -16,5 +16,14 @@
             :class "highlight"
             :text "${time.min}"
         )
+    )
+)
+
+(defwidget fullclock []
+    (box
+        :orientation "h"
+        :space-evenly false
+        :class "fullclock"
+        (label :text "${time.weekdayname} ${time.year}-${time.month}-${time.day} ${time.hour}:${time.min}")
     )
 )
