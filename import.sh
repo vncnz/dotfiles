@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 rm -rf ~/.config_bck
-mkdir -p ~/.config_bck
+mkdir -p ~/.config_bck/dunst
 cp -r ~/.config/niri ~/.config_bck/niri
 cp -r ~/.config/eww ~/.config_bck/eww
 cp ~/.config/dunst/dunstrc ~/.config_bck/dunst/dunstrc
