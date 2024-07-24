@@ -15,8 +15,8 @@
 
 
 (defwidget music []
-  (box :class "box" :orientation "h" :space-evenly "false" :vexpand "false"
-    (box :class "musicart" :style {musicartlink != "" ? `background-image: url("${musicartlink}"); min-height:84px; min-width: 84px; margin-right: 10px;` :  `min-height:0px; min-width: 0px; border:unset;`})
+  (box :class "box" :orientation "h" :space-evenly "false" :vexpand "false" :hexpand "true"
+    (box :class "musicart" :style {musicartlink != "" ? `background-image: url("${musicartlink}"); min-height:84px; min-width: 84px; margin-right: 10px;` :  `background-image: url("/home/vncnz/.config/eww/images/nomusic.jpg"); min-height:84px; min-width: 84px; margin-right: 10px;`})
     (box :class "musiccontrols" :orientation "v" :space-evenly "false" :spacing 5 :valign "start" :halign "center"
       (label :class "musictitle" :text {musicshort ?: "Not listening"} :valign "start" :halign "center")
       (box :orientation "h"

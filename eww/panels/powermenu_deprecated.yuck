@@ -1,6 +1,5 @@
 (include "./mywidgets/musiccc.yuck")
 (include "./mywidgets/sliders.yuck")
-(include "./mywidgets/quick_settings.yuck")
 
 ; not used for now, replaced by "slider" defined in sliders.yuck
 (defwidget metric [label value onchange]
@@ -45,7 +44,6 @@
     (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
       (label :text {EWW_TEMPS})
     )
-    (quick_settings)
 
     (box :space-evenly false :hexpand true :vexpand true
   
