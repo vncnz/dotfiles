@@ -299,7 +299,8 @@ binds {
     XF86AudioStop { spawn "playerctl" "stop"; }
 
     XF86Favorites { spawn "eww" "open" "powermenu" "--toggle"; }
-    Mod+grave { spawn "eww" "open" "powermenu" "--toggle"; }
+    // Mod+grave { spawn "eww" "open" "powermenu" "--toggle"; }
+    Mod+grave { spawn "eww" "open" "dashboard_light" "--toggle"; }
 
     Mod+Q { close-window; }
 
