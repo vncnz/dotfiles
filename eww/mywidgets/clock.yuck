@@ -1,6 +1,6 @@
 (defpoll time
     :initial '{"hour":"00","min":"00"}'
-    :interval "1s" `date +'{"weekdayname":"%a","day":"%d","month":"%m","year":"%Y","hour":"%H","min":"%M"}'`
+    :interval "1s" `date +'{"weekdaynameshort":"%a","weekdaynamelong":"%A","day":"%d","month":"%m","year":"%Y","hour":"%H","min":"%M"}'`
 )
 
 (defwidget clock []

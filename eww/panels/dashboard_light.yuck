@@ -1,4 +1,21 @@
 
+(defwidget circle_img [path]
+  (box :class "circle_img"
+    (image :class "icon_light" :image-width 50 :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
+  )
+)
+
+(defwidget circle_progress [value icon text]
+  (overlay :class "circle-progress" :width 70 :height 70
+    (circular-progress :value value :start-at 25 :thickness 5 )
+    (box :orientation "v" :valign "center"
+      (label :text icon)
+      (label :text text)
+    )
+  )
+)
+
+
 (defwidget meteobox_light []
   (box :class "box_light" :spacing 5
        :valign "center" :hexpand "true"
@@ -11,6 +28,18 @@
         ;;(label :text "${meteo.temp_real}${meteo.temp_unit}")
         ;;(label :text "${meteo.temp}${meteo.temp_unit}")
         (label :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}")
+    )
+  )
+)
+
+(defwidget meteobox_light_noicon []
+  (box :class "box_light" :spacing 5
+       :valign "center" :hexpand "true"
+       :space-evenly false
+       :orientation "h"
+    (box :orientation "v"
+        (label :text "${meteo.text}" :halign "start")
+        (label :class "small_text" :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}")
     )
   )
 )
@@ -44,43 +73,54 @@
   (overlay :class "dashboard_light" :space-evenly false
     (box :class "wallpaper" :style "background-image: url('/home/vncnz/Pictures/wallpaper.jpg')")
     (box :halign "center" :spacing 25 :orientation "h"
-      (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
-        (meteobox_light)
-        (timebox_light)
+      (box :orientation "v" :spacing 25 :valign "center" :space-evenly false :vexpand "false" :hexpand "false"
+        (circle_img :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
+        (circle_progress :value {battery.percentage} :icon {battery.icon} :text "${battery.percentage}%")
+        (circle_progress :value {network.signal} :icon {network.icon} :text "${network.signal}%")
+        (circle_progress :value {EWW_TEMPS.AMDGPU_EDGE ?: 100} :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C"
+            :icon "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+        )
+        (circle_progress :icon "" :text "${round(EWW_CPU.avg / arraylength(EWW_CPU.cores), 0)}%" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
+        (circle_progress :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc})
+        (circle_progress :icon "" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
+      )
+      (box :orientation "v" 
+           :spacing 25 
+           :valign "center" 
+           :halign "start" 
+           :space-evenly false 
+           :vexpand "false" 
+           :hexpand "false"
+           :class "infos"
+        
+        (meteobox_light_noicon)
+        (box :class "color_bg" :halign "start" (_sundial))
+        (box :class "color_fg big_text" (label :text "${time.weekdaynamelong}"))
+        (box
+          (label :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
+        )
+        (box :orientation "h" :class "small_text"
+          (label :text "${network.icon} ${network.essid}")
+          (label :text "${EWW_NET.enp0s3.NET_UP} ${EWW_NET.enp0s3.NET_DOWN}")
+        )
+        (box :orientation "v" :class "small_text"
+          (label :text " Bluetooth (TODO)")
+          (label :text " Esempio dispositivo (TODO)")
+        )
+      )
+      
 
+
+      
+      (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
         (box :valign "center" :halign "start" :orientation "h" :spacing 25 :space-evenly "false"
-            (box :valign "center" :halign "center" :orientation "h"
-              (label :class "icon" :text {battery.icon})
-              (label :text "${battery.percentage}%")
-            )
-            (box :valign "center" :halign "center" :orientation "h"
-              (label :class "icon" :text "${network.icon}")
-              (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
-            )
             (micronotifications2)
-            (label :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
         )
         (box :valign "center" :halign "start" :orientation "v" :spacing 15 :space-evenly "false"
-            (box :valign "center" :halign "start" :orientation "h" :space-evenly "false"
-              (label :class "icon" :text {battery.icon})
-              (label :text "${battery.percentage}%")
-              (label :text "(Stato batteria)")
-            )
-            (box :halign "start" :orientation "h" :space-evenly "false"
-              (label :class "icon" :text "${network.icon}")
-              (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
-              (label :text "(Nome connessione)")
-            )
             (micronotifications)
-            (label :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
         )
 
 
-        (graphbox_light :text "CPU" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
-        (graphbox_light :text "RAM" :value {EWW_RAM.used_mem_perc})
-        (box :class "box"
-          (calendar :show-week-numbers "true")
-        )
         (box :orientation "h" :space-evenly "false" :spacing 25
           (music)
           (box :class "box" :width 100 :height 100 :hexpand "false"
@@ -97,10 +137,7 @@
           (label :width 100 :wrap "true" :text "My shadow's the only one that walks beside me")
           (label :width 100 :wrap "true" :class "author" :halign "end" :text "Green day")
         )
-      )
-      (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
-        (networkbox)
-        (bluetoothbox)
+
         (box :orientation "h" :space-evenly "true"
           ;; (graphbox :text "CPU" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
           ;; (graphbox :text "RAM" :value {EWW_RAM.used_mem_perc})

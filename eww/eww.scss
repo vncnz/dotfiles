@@ -151,14 +151,6 @@ $primary: #61afbf;
     font-weight: 400;
 }
 
-.sundial-lbl {
-    font-size: 1.5em;
-    font-weight: bold;
-    border-radius: 0.2em;
-    padding: 0.4em;
-    padding-bottom: 0.5em;
-    font-family: "Poiret One";
-}
 
 // vim:ft=scss
 
@@ -243,14 +235,29 @@ slider {
 
 
 
-
-
 .dashboard,
 .dashboard_light {
     padding: 2px;
     // font-family: Phosphor, Koulen;
     color: rgba($surface-fg, 0.8);
     // background-color: rgba(30, 30, 30, .95);
+
+    .infos {
+        label {
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 0.2em;
+            padding: 0.4em;
+            padding-bottom: 0.5em;
+            font-family: "Poiret One";
+        }
+        .big_text {
+            font-size: 3em;
+        }
+        .small_text {
+            font-size: 80%;
+        }
+    }
 
     .vol-slider {
         .vol-label {
@@ -304,4 +311,13 @@ slider {
 .dashboard_light {
     color: white;
     text-shadow: 2px 2px 2px #000000;
+
+    .color_bg {
+        background-color: $primary;
+        color: white;
+        border-radius: 5px;
+    }
+    .color_fg {
+        color: $primary;
+    }
 }
