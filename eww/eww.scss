@@ -245,7 +245,8 @@ slider {
 
 
 
-.dashboard {
+.dashboard,
+.dashboard_light {
     padding: 2px;
     // font-family: Phosphor, Koulen;
     color: rgba($surface-fg, 0.8);
@@ -298,4 +299,9 @@ slider {
     .author {
         font-style: italic;
     }
+}
+
+.dashboard_light {
+    color: white;
+    text-shadow: 2px 2px 2px #000000;
 }

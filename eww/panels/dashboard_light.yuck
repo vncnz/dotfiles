@@ -41,12 +41,41 @@
 )
 
 (defwidget dashboard_light_layout []
-  (overlay :class "dashboard" :space-evenly false
+  (overlay :class "dashboard_light" :space-evenly false
     (box :class "wallpaper" :style "background-image: url('/home/vncnz/Pictures/wallpaper.jpg')")
     (box :halign "center" :spacing 25 :orientation "h"
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
         (meteobox_light)
         (timebox_light)
+
+        (box :valign "center" :halign "start" :orientation "h" :spacing 25 :space-evenly "false"
+            (box :valign "center" :halign "center" :orientation "h"
+              (label :class "icon" :text {battery.icon})
+              (label :text "${battery.percentage}%")
+            )
+            (box :valign "center" :halign "center" :orientation "h"
+              (label :class "icon" :text "${network.icon}")
+              (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
+            )
+            (micronotifications2)
+            (label :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
+        )
+        (box :valign "center" :halign "start" :orientation "v" :spacing 15 :space-evenly "false"
+            (box :valign "center" :halign "start" :orientation "h" :space-evenly "false"
+              (label :class "icon" :text {battery.icon})
+              (label :text "${battery.percentage}%")
+              (label :text "(Stato batteria)")
+            )
+            (box :halign "start" :orientation "h" :space-evenly "false"
+              (label :class "icon" :text "${network.icon}")
+              (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
+              (label :text "(Nome connessione)")
+            )
+            (micronotifications)
+            (label :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
+        )
+
+
         (graphbox_light :text "CPU" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
         (graphbox_light :text "RAM" :value {EWW_RAM.used_mem_perc})
         (box :class "box"

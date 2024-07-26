@@ -68,7 +68,7 @@
         :onclick "eww open --toggle notificationsoverlay"
         :onrightclick "dunstctl set-paused toggle"
 
-        (box :orientation "h"
+        (box :orientation "h" :space-evenly "false"
             (label
                     :text "${ notifications-paused ? '' : '' }"
             )
@@ -81,6 +81,23 @@
             (label  :visible "${ notif_count == 0 }"
                     :text "Nessuna notifica"
             )
+        )
+    )
+)
+
+(defwidget micronotifications2 []
+    (eventbox
+        :orientation "vertical"
+        :class "mininotifications"
+        :space-evenly false
+        ;; :onclick "dunstctl set-paused toggle"
+        ;; :onrightclick "dunstctl close-all && dunstctl history-clear"
+        :onclick "eww open --toggle notificationsoverlay"
+        :onrightclick "dunstctl set-paused toggle"
+
+        (box :valign "center" :halign "center" :orientation "h"
+            (label :class "icon" :text "${ notifications-paused ? '' : '' }")
+            (label :visible "${ notif_count > 0 }" :text "${notif_count}")
         )
     )
 )
