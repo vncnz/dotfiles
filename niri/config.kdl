@@ -15,7 +15,7 @@ input {
             // For more information, see xkeyboard-config(7).
 
             // For example:
-            layout "us, it"
+            layout "it, us"
             // variant "intl"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
@@ -277,6 +277,8 @@ binds {
     Mod+T { spawn "alacritty"; }
     Mod+D { spawn "fuzzel"; }
     Mod+P { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
+    Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
+
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
     Super+Alt+L { spawn "swaylock" "-i" "/home/vncnz/Pictures/wallpaper.jpg"; }
 
@@ -290,15 +292,15 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness2.sh" "set" "10%-"; }
 
     XF86AudioPlay { spawn "playerctl" "play-pause"; }
     XF86AudioNext { spawn "playerctl" "next"; }
     XF86AudioPrev { spawn "playerctl" "previous"; }
     XF86AudioStop { spawn "playerctl" "stop"; }
 
-    XF86Favorites { spawn "eww" "open" "powermenu" "--toggle"; }
+    XF86Favorites { spawn "eww" "open" "dashboard_light" "--toggle"; }
     // Mod+grave { spawn "eww" "open" "powermenu" "--toggle"; }
     Mod+grave { spawn "eww" "open" "dashboard_light" "--toggle"; }
 

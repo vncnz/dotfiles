@@ -1,51 +1,42 @@
 #!/bin/bash
 
-# @requires: brightnessctl
+# Change brightness level with `light`.
+# You can call this script like this:
+# brightness.sh [up|down]
 
-percentage () {
-  local val=$(echo $1 | tr '%' ' ' | awk '{print $1}')
-  local icon1=$2
-  local icon2=$3
-  local icon3=$4
-  local icon4=$5
-  if [ "$val" -le 15 ]; then
-    echo $icon1
-  elif [ "$val" -le 30 ]; then
-    echo $icon2
-  elif [ "$val" -le 60 ]; then
-    echo $icon3
-  else
-    echo $icon4
-  fi
+function get_brightness {
+    var=`light -G`
+    echo "${var##* }" | sed 's/[^0-9][^.]*//g'
 }
 
-get_brightness () {
-  (( br = $(brightnessctl get) * 100 / $(brightnessctl max) ))
-  echo $br
+function send_notification {
+    DIR=`dirname "$0"`
+    brightness=`get_brightness`
+    icon_name="${HOME}/.config/rice_assets/Icons/b.png"
+
+    # Send the notification
+    dunstify "Brightness: $brightness%" -h int:value:$brightness -i "$icon_name" -t 1000 --replace=555 -u critical
 }
 
-get_percent () {
-  echo $(get_brightness)%
-}
-
-get_icon () {
-  local br=$(get_percent)
-  echo $(percentage "$br" "" "" "" "")
-}
-
-if [[ $1 == "br" ]]; then
-  get_brightness
-fi
-
-if [[ $1 == "percent" ]]; then
-  get_percent
-fi
-
-if [[ $1 == "icon" ]]; then
-  get_icon
-fi
-
-if [[ $1 == "set" ]]; then
-  brightnessctl set $2"%"
-  $(~/.config/eww/scripts/dunstbrightness.sh)
-fi
+case $1 in
+    up)
+    	# Raise the brightness (+ 5%)
+	    brightness=`get_brightness`
+	    rem=$(( (brightness + 5) % 5 ))
+	    inc=$(( 5 - rem ))
+        brightness=$(( brightness + inc ))
+        [[ $brightness -eq 0 ]] && brightness=1
+	    light -S $brightness  > /dev/null
+	    send_notification
+	;;
+    down)
+        # Lower the brightness (- 5%)              
+        brightness=`get_brightness`             
+        rem=$(( (brightness - 5) % 5 ))         
+        inc=$(( 5 + rem ))                                    
+        brightness=$(( brightness - inc ))    
+        [[ $brightness -eq 0 ]] && brightness=1    
+        light -S $brightness > /dev/null
+	    send_notification
+	;;
+esac

@@ -15,7 +15,6 @@
   )
 )
 
-
 (defwidget meteobox_light []
   (box :class "box_light" :spacing 5
        :valign "center" :hexpand "true"
@@ -37,6 +36,7 @@
        :valign "center" :hexpand "true"
        :space-evenly false
        :orientation "h"
+       :visible {meteo.text != ""}
     (box :orientation "v"
         (label :text "${meteo.text}" :halign "start")
         (label :class "small_text" :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}")
