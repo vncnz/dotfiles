@@ -11,4 +11,4 @@ brightmax="$(brightnessctl m)"
 brightpercent=$(awk "BEGIN {print int(${brightnow}/${brightmax}*100)}")
 
 dunstify -a "Brightness" -u low -r "$msgId" \
-	-h int:value:"$brightpercent" "Brightness: ${brightpercent}%"
+	-h int:transient:1 -h int:value:"$brightpercent" "Brightness: ${brightpercent}%"

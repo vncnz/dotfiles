@@ -24,6 +24,6 @@
         :orientation "h"
         :space-evenly false
         :class "fullclock"
-        (label :text "${time.weekdayname} ${time.year}-${time.month}-${time.day} ${time.hour}:${time.min}")
+        (label :text "${time.weekdaynameshort} ${time.year}-${time.month}-${time.day} ${time.hour}:${time.min}")
     )
 )

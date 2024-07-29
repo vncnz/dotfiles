@@ -33,13 +33,22 @@
 
 (defwidget meteobox_light_noicon []
   (box :class "box_light" :spacing 5
-       :valign "center" :hexpand "true"
+       :valign "center"
+       :halign "start"
+       :hexpand "false"
        :space-evenly false
        :orientation "h"
-       :visible {meteo.text != ""}
     (box :orientation "v"
+       :halign "start"
+       :hexpand "false"
+        :visible {meteo.text != ""}
         (label :text "${meteo.text}" :halign "start")
         (label :class "small_text" :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}")
+    )
+    (box :orientation "v"
+        :visible {meteo.text == ""}
+        (label :text "No meteo info" :halign "start")
+        (label :class "small_text" :text "Check your connection!")
     )
   )
 )
@@ -55,23 +64,22 @@
   )
 )
 
-
-(defwidget timebox_light []
-    (box :class "box_light" :spacing 5
-       :valign "center" :hexpand "true"
-       :space-evenly false
-       :orientation "h"
-    (label :class "icon_light" :text "")
-    (box :orientation "v"
-        (_sundial)
-        (label :text "${time.hour}:${time.min} ${time.year}-${time.month}-${time.day}")
-    )
-  )
-)
-
 (defwidget dashboard_light_layout []
   (overlay :class "dashboard_light" :space-evenly false
     (box :class "wallpaper" :style "background-image: url('/home/vncnz/Pictures/wallpaper.jpg')")
+
+    (box :width "100%" :height "100%" :valign "start" :halign "end"
+      (bg_music_notif)
+    )
+
+    (box :space-evenly false :hexpand true :vexpand true :class "sessionbuttonspanel"
+      (sessionbuttons :shutdown "poweroff" :reboot "reboot"
+                :logout "loginctl terminate-user $USER"
+                :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
+                :shutdown_icon "" :reboot_icon ""
+                :logout_icon "" :lock_icon "") 
+    )
+
     (box :halign "center" :spacing 25 :orientation "h"
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly false :vexpand "false" :hexpand "false"
         (circle_img :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
@@ -87,10 +95,7 @@
       (box :orientation "v" 
            :spacing 25 
            :valign "center" 
-           :halign "start" 
            :space-evenly false 
-           :vexpand "false" 
-           :hexpand "false"
            :class "infos"
         
         (meteobox_light_noicon)
@@ -107,59 +112,46 @@
           (label :text " Bluetooth (TODO)")
           (label :text " Esempio dispositivo (TODO)")
         )
+        (overlay :class "citation"
+          (box :valign "start" :halign "start" :vexpand "true" :hexpand "true" (label :text ""))
+          (box :valign "end" :halign "end" :vexpand "true" :hexpand "true" (label :text ""))
+          (box :orientation "v" :class "text"
+            (label :width 200 :wrap "true" :text "My shadow's the only one that walks beside me")
+            (label :width 200 :wrap "true" :class "author" :halign "end" :text "Green day")
+          )
+        )
+        (slider :icon volume_icon :text "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
+        (slider :icon br_icon :text "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
       )
-      
-
 
       
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
-        (box :valign "center" :halign "start" :orientation "h" :spacing 25 :space-evenly "false"
-            (micronotifications2)
-        )
-        (box :valign "center" :halign "start" :orientation "v" :spacing 15 :space-evenly "false"
-            (micronotifications)
-        )
+        ;;(box :orientation "h" :space-evenly "false" :spacing 25
+        ;;  (music)
+        ;;  (box :class "box" :width 100 :height 100 :hexpand "false"
+        ;;    (overlay
+        ;;      (circular-progress :value {battery.percentage} :start-at 25 :thickness 5 )
+        ;;      (box :orientation "v" :valign "center"
+        ;;        (label :text {battery.icon})
+        ;;        (label :text "${battery.percentage}%")
+        ;;      )
+        ;;    )
+        ;;  )
+        ;;)
 
-
-        (box :orientation "h" :space-evenly "false" :spacing 25
-          (music)
-          (box :class "box" :width 100 :height 100 :hexpand "false"
-            (overlay
-              (circular-progress :value {battery.percentage} :start-at 25 :thickness 5 )
-              (box :orientation "v" :valign "center"
-                (label :text {battery.icon})
-                (label :text "${battery.percentage}%")
-              )
-            )
-          )
-        )
-        (box :class "box" :orientation "v"
-          (label :width 100 :wrap "true" :text "My shadow's the only one that walks beside me")
-          (label :width 100 :wrap "true" :class "author" :halign "end" :text "Green day")
-        )
-
-        (box :orientation "h" :space-evenly "true"
+        ;;(box :orientation "h" :space-evenly "true"
           ;; (graphbox :text "CPU" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
           ;; (graphbox :text "RAM" :value {EWW_RAM.used_mem_perc})
-          (graphbox :text "DISK" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
-          (graphbox :text "TEMP (${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C)" :value {EWW_TEMPS.AMDGPU_EDGE})
-        )
-        (box :class "box" :orientation "v"
-          (label :text "systray (TODO)")
-          (systray)
-        )
-        (box :class "box"
-          (sliders)
-        )
-        (box :space-evenly false :hexpand true :vexpand true
-      
-          (sessionbuttons :shutdown "poweroff" :reboot "reboot"
-                    :logout "loginctl terminate-user $USER"
-                    :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
-                    :shutdown_icon "" :reboot_icon ""
-                    :logout_icon "" :lock_icon "")
-          
-        )
+          ;; (graphbox :text "DISK" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
+          ;;(graphbox :text "TEMP (${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C)" :value {EWW_TEMPS.AMDGPU_EDGE})
+        ;;)
+        ;;(box :class "box" :orientation "v"
+        ;;  (label :text "systray (TODO)")
+        ;;  (systray)
+        ;;)
+        ;;(box :class "box"
+        ;;  (sliders)
+        ;;)
       )
     )
     (box :valign "start" :space-evenly true :hexpand true :spacing 25

@@ -3,12 +3,32 @@
     `playerctl --follow status`
 )
 (deflisten song
-    :initial '{"artist": "", "title": "", "length": "1"}'
-    `playerctl --follow metadata --format '{"artist": "{{ artist }}", "title": "{{ title }}", "length": "{{ mpris:length }}"}'`
+    :initial '{"artist": "", "title": "", "length": "1", "musicartlink": "", "playerName": ""}'
+    `playerctl --follow metadata --format '{"artist": "{{ artist }}", "title": "{{ title }}", "length": "{{ mpris:length }}", "musicartlink": "{{ mpris:artUrl }}", "playerName": "{{ playerName }}"}'`
 )
+;;(defpoll musicartlink :interval "1s"
+;;`playerctl metadata --format "{{ mpris:artUrl }}" | sed 's/b273/1e02/'`)
 (deflisten progress
-    :initial '{"current": "0"}'
-    `playerctl --follow position --format '{"current": "{{ position }}"}'`
+    :initial '{"current": "0", "currentHuman": "0:00"}'
+    `playerctl --follow position --format '{"current": "{{ position }}", "currentHuman": "{{ duration(position) }}"}'`
+)
+
+(defwidget spotify_plaintext []
+    (box
+        :orientation "vertical"
+        :halign "end"
+        :spacing 5
+        :space-evenly false
+        (label
+            :class "highlight"
+            :halign "end"
+            ;; :limit-width 40
+            :show-truncated true
+            :visible "${status != '' && song.title != ''}"
+            :text "[${status}] ${song.title} (${song.artist}) in ${song.playerName}" ;;  (${progress.currentHuman})
+        )
+        ;;(box :class "musicart" :style {song.musicartlink != "" ? `background-image: url("${song.musicartlink}"); min-height:84px; min-width: 84px; margin-right: 10px;` :  `background-image: url("/home/vncnz/.config/eww/images/nomusic.jpg"); min-height:84px; min-width: 84px; margin-right: 10px;`})
+    )
 )
 
 (defwidget spotify []
@@ -28,24 +48,25 @@
                 (label
                     :class "highlight"
                     :halign "end"
-                    :limit-width 27
+                    :limit-width 40
                     :show-truncated true
                     :visible "${status != '' && song.title != ''}"
                     :text "${song.title}"
                 )
                 (label
                     :halign "end"
-                    :limit-width 27
+                    :limit-width 40
                     :show-truncated true
                     :visible "${status != '' && song.artist != ''}"
                     :text "${song.artist}"
                 )
             )
-            (label
-                :class "nerd-icon"
-                :halign "end"
-                :text ""
-            )
+            ;;(label
+            ;;    :class "nerd-icon"
+            ;;    :halign "end"
+            ;;    :text ""
+            ;;)
+            (box :class "musicart" :style {song.musicartlink != "" ? `background-image: url("${song.musicartlink}"); min-height:84px; min-width: 84px; margin-right: 10px;` :  `background-image: url("/home/vncnz/.config/eww/images/nomusic.jpg"); min-height:84px; min-width: 84px; margin-right: 10px;`})
         )
         (box
             :class "progress_bar"

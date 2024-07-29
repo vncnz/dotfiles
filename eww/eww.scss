@@ -320,4 +320,24 @@ slider {
     .color_fg {
         color: $primary;
     }
+
+    .citation {
+        // color: $primary;
+        font-size: 2rem;
+        color:rgba(255, 255, 255, .25);
+
+        .text {
+            color: white;
+            padding: 2rem;
+            font-size: 1rem;
+
+            .author {
+                font-size: 95%;
+            }
+        }
+    }
+
+    .sessionbuttonspanel {
+        padding: 1rem;
+    }
 }

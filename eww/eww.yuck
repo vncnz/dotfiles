@@ -53,6 +53,7 @@
         :orientation "vertical"
         :spacing 32
         :space-evenly false
+        :width "256px"
         (spotify)
         (notifications)
     )
@@ -193,6 +194,7 @@
             (micronotifications)
             ;;(box :valign "center" :halign "center" :orientation "horizontal" (clock))
             ;;(box :height 12)
+            (spotify_plaintext)
         )
         (box
             :height 1

@@ -26,7 +26,8 @@
     (button :onclick reboot reboot_icon)
     (button :onclick logout logout_icon)
     (button :onclick lock lock_icon)
-    (button :onclick "eww close powermenu" "") ;; "")
+    (button :onclick "/home/vncnz/.config/niri/change_bg.sh" "")
+    (button :onclick "eww close dashboard_light" "") ;; ""
   )
 )
 

@@ -14,9 +14,8 @@ input {
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
 
-            // For example:
-            layout "it, us"
-            // variant "intl"
+            layout "us,it"
+            variant "intl"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
 
@@ -27,11 +26,15 @@ input {
     // Omitting settings disables them, or leaves them at their default values.
     touchpad {
         tap
-        dwt
-        dwtp
+        dwt // Disable While Typing
+        // dwtp Disable White TrackPointing
         natural-scroll
         // accel-speed 0.2
         // accel-profile "flat"
+        scroll-method "two-finger"
+        tap-button-map "left-right-middle"
+        click-method "clickfinger"
+        // middle-emulation
     }
 
     mouse {
