@@ -37,6 +37,23 @@ get_icon () {
     fi
 }
 
+get_class () {
+    # local br=$(get_percent)
+    if [ "$state" == "fully-charged" ]; then
+        echo ""
+    elif [ "$state" == "charging" ]; then
+        echo "primary-color"
+    elif [ "$state" == "pending-charge" ]; then
+        echo "warn-color"
+    elif [ "$state" == "unknown" ]; then
+        echo "red-color"
+    elif [ "$state" == "nobattery" ]; then
+        echo "red"
+    else
+        echo $(percentage "$PERCENTAGE" "red-color" "warn-color" "ok-color" "ok-color" "ok-color")
+    fi
+}
+
 DEVICE_PATH="/org/freedesktop/UPower/devices/battery_BAT0"
 INFORMATION=$(upower -i "$DEVICE_PATH" 2> /dev/null)
 PERCENTAGE=$(awk '/percentage/ {print $NF}' <<< $INFORMATION)
@@ -52,6 +69,7 @@ if [ "$PERCENTAGE" == "ignored)" ]; then
 fi
 
 icon=$(get_icon)
+class=$(get_class)
 
 PERCENTAGE=$(echo $PERCENTAGE | tr '%' ' ' | awk '{print $1}')
 CAPACITY=$(echo $CAPACITY | tr '%' ' ' | awk '{print $1}')

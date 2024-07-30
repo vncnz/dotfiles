@@ -72,8 +72,8 @@ $primary: #61afbf;
     text-shadow: 2px 2px 2px #000000;
 }
 
-.minibar {
-    font-size: 10px;
+.microbar {
+    font-size: 14px;
     text-shadow: 2px 2px 2px #000000;
 }
 
@@ -341,4 +341,20 @@ $primary: #61afbf;
         margin-left: 10px;
         margin-right: 20px;
     }
+}
+
+.nodata-color {
+    opacity: .5;
+}
+.primary-color {
+    color: $primary;
+}
+.ok-color {
+    color: lightgreen;
+}
+.warn-color {
+    color: orange;
+}
+.err-color {
+    color: red;
 }

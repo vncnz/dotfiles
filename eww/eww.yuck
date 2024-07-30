@@ -169,7 +169,7 @@
     :orientation "h"
     :valign "end"
     :halig "start"
-    :class "minibar"
+    :class "microbar"
     (box
         :orientation "v"
         :halign "start"
@@ -184,7 +184,9 @@
             ;; (audio)
             (fullclock)
             (box :valign "center" :halign "center" :orientation "h"
-              (label :class "icon" :text {battery.icon})
+              (label ;; :class "icon"
+              :class {battery.state == "nobattery" ? "nodata-color" : (battery.state == "fully-charged") ? "" : battery.state == "charging" ? "primary-color" : (battery.percentage < 25 ? `err-color` : (battery.percentage < 50 ? `warn-color` : `ok-color`))}
+              :text {battery.icon})
               (label :text "${battery.percentage}%")
             )
             (box :valign "center" :halign "center" :orientation "h"
