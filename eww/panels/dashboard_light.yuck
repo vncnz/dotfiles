@@ -5,6 +5,18 @@
   )
 )
 
+(defwidget metric [label icon value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "icon" :width 40 icon)
+    (box :class "label" :width 60 label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
 (defwidget circle_progress [value icon text]
   (overlay :class "circle-progress" :width 70 :height 70
     (circular-progress :value value :start-at 25 :thickness 5 )
@@ -120,11 +132,11 @@
             (label :width 200 :wrap "true" :class "author" :halign "end" :text "Green day")
           )
         )
-        (slider :icon volume_icon :text "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
-        (slider :icon br_icon :text "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
+        (metric :icon volume_icon :label "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
+        (metric :icon br_icon :label "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
       )
 
-      
+
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
         ;;(box :orientation "h" :space-evenly "false" :spacing 25
         ;;  (music)

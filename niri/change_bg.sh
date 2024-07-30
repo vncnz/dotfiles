@@ -1,5 +1,5 @@
 
-cp $(find ~/Pictures/wallpapers | shuf -n1) ~/Pictures/wallpaper.jpg
+cp "$(find ~/Pictures/wallpapers | shuf -n1)" ~/Pictures/wallpaper.jpg
 sleep 0.1
 OLD_PID=$(ps axf | grep swaybg | grep -v grep | awk '{print $1}')
 nohup swaybg --image ~/Pictures/wallpaper.jpg --mode fill &

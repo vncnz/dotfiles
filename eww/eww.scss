@@ -154,48 +154,6 @@ $primary: #61afbf;
 
 // vim:ft=scss
 
-
-.metric .label {
-    font-size: 2rem;
-}
-
-slider {
-    all: unset;
-    color: #ffd5cd;
-}
-
-.metric scale trough highlight {
-    all: unset;
-    background-color: $primary;
-    color: #000000;
-    border-radius: 10px;
-}
-.metric scale trough {
-    all: unset;
-    background-color: #4e4e4e;
-    border-radius: 50px;
-    min-height: 5px;
-    min-width: 50px;
-    margin-left: 10px;
-    margin-right: 20px;
-}
-.metric scale trough highlight {
-    all: unset;
-    background-color: $primary;
-    color: #000000;
-    border-radius: 10px;
-}
-.metric scale trough {
-    all: unset;
-    background-color: #4e4e4e;
-    border-radius: 50px;
-    min-height: .4rem;
-    min-width: 10rem;
-    margin-left: 10px;
-    margin-right: 20px;
-}
-
-
 .mininotifications {
     .bell {
         font-size: 18px;
@@ -233,32 +191,7 @@ slider {
     background-color: red;
 }
 
-
-
-.dashboard,
-.dashboard_light {
-    padding: 2px;
-    // font-family: Phosphor, Koulen;
-    color: rgba($surface-fg, 0.8);
-    // background-color: rgba(30, 30, 30, .95);
-
-    .infos {
-        label {
-            font-size: 1.5em;
-            font-weight: bold;
-            border-radius: 0.2em;
-            padding: 0.4em;
-            padding-bottom: 0.5em;
-            font-family: "Poiret One";
-        }
-        .big_text {
-            font-size: 3em;
-        }
-        .small_text {
-            font-size: 80%;
-        }
-    }
-
+.dashboard {
     .vol-slider {
         .vol-label {
             font-size: 16px;
@@ -283,6 +216,31 @@ slider {
         & scale.fixed trough {
             background-color: transparent;
             border: 1px solid #3A404C;
+        }
+    }
+}
+
+.dashboard,
+.dashboard_light {
+    padding: 2px;
+    // font-family: Phosphor, Koulen;
+    color: rgba($surface-fg, 0.8);
+    // background-color: rgba(30, 30, 30, .95);
+
+    .infos {
+        label {
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 0.2em;
+            padding: 0.4em;
+            padding-bottom: 0.5em;
+            font-family: "Poiret One";
+        }
+        .big_text {
+            font-size: 3em;
+        }
+        .small_text {
+            font-size: 80%;
         }
     }
 
@@ -339,5 +297,48 @@ slider {
 
     .sessionbuttonspanel {
         padding: 1rem;
+    }
+
+    .metric .label {
+        font-size: 1rem;
+    }
+    .metric .icon {
+        font-size: 1rem;
+    }
+    
+    slider {
+        all: unset;
+        color: #ffd5cd;
+    }
+    
+    .metric scale trough highlight {
+        all: unset;
+        background-color: $primary;
+        color: #000000;
+        border-radius: 10px;
+    }
+    .metric scale trough {
+        all: unset;
+        background-color: rgba(255,255,255,.35); // #4e4e4e;
+        border-radius: 50px;
+        min-height: 5px;
+        min-width: 50px;
+        margin-left: 10px;
+        margin-right: 20px;
+    }
+    .metric scale trough highlight {
+        all: unset;
+        background-color: white;
+        color: #000000;
+        border-radius: 10px;
+    }
+    .metric scale trough {
+        all: unset;
+        background-color: rgba($primary, .65);
+        border-radius: 50px;
+        min-height: .4rem;
+        min-width: 10rem;
+        margin-left: 10px;
+        margin-right: 20px;
     }
 }

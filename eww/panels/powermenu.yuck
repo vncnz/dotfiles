@@ -2,16 +2,7 @@
 (include "./mywidgets/sliders.yuck")
 
 ; not used for now, replaced by "slider" defined in sliders.yuck
-(defwidget metric [label value onchange]
-  (box :orientation "h"
-       :class "metric"
-       :space-evenly false
-    (box :class "label" label)
-    (scale :min 0
-           :max 101
-           :active {onchange != ""}
-           :value value
-           :onchange onchange)))
+
 ;(metric :label {volumeicon}
 ;        :value volumevalue
 ;        :onchange "amixer -D pulse sset Master {}%")

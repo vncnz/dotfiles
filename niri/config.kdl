@@ -295,8 +295,8 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "up"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness2.sh" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness3.sh" "up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "10%-"; }
 
     XF86AudioPlay { spawn "playerctl" "play-pause"; }
     XF86AudioNext { spawn "playerctl" "next"; }
