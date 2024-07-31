@@ -185,7 +185,8 @@
             (fullclock)
             (box :valign "center" :halign "center" :orientation "h"
               (label ;; :class "icon"
-              :class {battery.state == "nobattery" ? "nodata-color" : (battery.state == "fully-charged") ? "" : battery.state == "charging" ? "primary-color" : (battery.percentage < 25 ? `err-color` : (battery.percentage < 50 ? `warn-color` : `ok-color`))}
+              ;; :class {battery.state == "nobattery" ? "nodata-color" : (battery.state == "fully-charged") ? "" : battery.state == "charging" ? "primary-color" : (battery.percentage < 25 ? `err-color` : (battery.percentage < 50 ? `warn-color` : `ok-color`))}
+              :class {battery.clazz}
               :text {battery.icon})
               (label :text "${battery.percentage}%")
             )

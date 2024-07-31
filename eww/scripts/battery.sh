@@ -40,7 +40,7 @@ get_icon () {
 get_class () {
     # local br=$(get_percent)
     if [ "$state" == "fully-charged" ]; then
-        echo ""
+        echo "fully"
     elif [ "$state" == "charging" ]; then
         echo "primary-color"
     elif [ "$state" == "pending-charge" ]; then
@@ -48,7 +48,7 @@ get_class () {
     elif [ "$state" == "unknown" ]; then
         echo "red-color"
     elif [ "$state" == "nobattery" ]; then
-        echo "red"
+        echo "nodata-color"
     else
         echo $(percentage "$PERCENTAGE" "red-color" "warn-color" "ok-color" "ok-color" "ok-color")
     fi
@@ -69,9 +69,9 @@ if [ "$PERCENTAGE" == "ignored)" ]; then
 fi
 
 icon=$(get_icon)
-class=$(get_class)
+clazz=$(get_class)
 
 PERCENTAGE=$(echo $PERCENTAGE | tr '%' ' ' | awk '{print $1}')
 CAPACITY=$(echo $CAPACITY | tr '%' ' ' | awk '{print $1}')
 
-echo '{"percentage": "'"$PERCENTAGE"'", "capacity": "'"$CAPACITY"'", "updated": "'"$UPDATED"'", "eta": "'"$TIME_TO_EMPTY"'", "icon": "'"$icon"'", "state": "'"$state"'"}'
+echo '{"percentage": "'"$PERCENTAGE"'", "capacity": "'"$CAPACITY"'", "updated": "'"$UPDATED"'", "eta": "'"$TIME_TO_EMPTY"'", "icon": "'"$icon"'", "state": "'"$state"'", "clazz": "'"$clazz"'"}'
