@@ -1,11 +1,14 @@
 #!/bin/bash
 
-url="https://api.open-meteo.com/v1/forecast?latitude=45.457692&longitude=10.570684&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,weather_code&timezone=auto&forecast_days=1"
+# Malmö (Sweden): 55.60587, 13.00073
+# Desenzano D/G: 45.457692 10.570684
+
+url="https://api.open-meteo.com/v1/forecast?latitude="$2"&longitude="$3"&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,weather_code&timezone=auto&forecast_days=1"
 
 data=$(curl -s "$url")
 nrows=$(echo $data | wc -l)
 if [ $nrows -eq 0 ]; then
-    echo '{"icon": "", "text": "No network", "temp": "", "temp_real": "" "temp_unit": "", "day": "0"}'
+    echo '{"icon": "", "text": "No network", "temp": "", "temp_real": "" "temp_unit": "", "day": "0", "locality": "'"$1"'"}'
 else
     weather=$(jq -r '.current.weather_code' <<< $data)
     temp=$(echo $data | jq -r '.current.apparent_temperature' | awk '{print int($1+0.5)}')
@@ -152,4 +155,4 @@ else
     # echo '' $temp$temp_unit
 fi
 
-echo '{"icon": "'"$icon"'", "text": "'"$text"'", "temp": "'"$temp"'", "temp_real": "'"$temp_real"'", "temp_unit": "'"$temp_unit"'", "day": "'"$day"'", "icon_name": "'"$icon_name"'"}'
+echo '{"icon": "'"$icon"'", "text": "'"$text"'", "temp": "'"$temp"'", "temp_real": "'"$temp_real"'", "temp_unit": "'"$temp_unit"'", "day": "'"$day"'", "icon_name": "'"$icon_name"'", "locality": "'"$1"'"}'

@@ -1,7 +1,7 @@
 
 (defwidget circle_img [path]
   (box :class "circle_img"
-    (image :class "icon_light" :image-width 50 :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
+    (image :class "icon_light" :image-width 50 :path path)
   )
 )
 
@@ -27,7 +27,7 @@
   )
 )
 
-(defwidget meteobox_light []
+(defwidget meteobox_light [meteo]
   (box :class "box_light" :spacing 5
        :valign "center" :hexpand "true"
        :space-evenly false
@@ -43,7 +43,7 @@
   )
 )
 
-(defwidget meteobox_light_noicon []
+(defwidget meteobox_light_noicon [meteo]
   (box :class "box_light" :spacing 5
        :valign "center"
        :halign "start"
@@ -80,9 +80,9 @@
   (overlay :class "dashboard_light" :space-evenly false
     (box :class "wallpaper" :style "background-image: url('/home/vncnz/Pictures/wallpaper.jpg')")
 
-    (box :width "100%" :height "100%" :valign "start" :halign "end"
-      (bg_music_notif)
-    )
+    ;;(box :width "100%" :height "100%" :valign "start" :halign "end"
+    ;;  (bg_music_notif)
+    ;;)
 
     (box :space-evenly false :hexpand true :vexpand true :class "sessionbuttonspanel"
       (sessionbuttons :shutdown "poweroff" :reboot "reboot"
@@ -92,9 +92,10 @@
                 :logout_icon "" :lock_icon "") 
     )
 
-    (box :halign "center" :spacing 25 :orientation "h"
-      (box :orientation "v" :spacing 25 :valign "center" :space-evenly false :vexpand "false" :hexpand "false"
-        (circle_img :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
+    (box :halign "start" :spacing 25 :orientation "h" :space-evenly "false" :width "100%"
+      (box :width 100)
+      (box :orientation "v" :spacing 25 :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+        (circle_img :path "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}")
         (circle_progress :value {battery.percentage} :icon {battery.icon} :text "${battery.percentage}%")
         (circle_progress :value {network.signal} :icon {network.icon} :text "${network.signal}%")
         (circle_progress :value {EWW_TEMPS.AMDGPU_EDGE ?: 100} :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C"
@@ -104,74 +105,55 @@
         (circle_progress :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc})
         (circle_progress :icon "" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
       )
+      
       (box :orientation "v" 
            :spacing 25 
            :valign "center" 
-           :space-evenly false 
+           :halign "start"
+           :hexpand "true"
+           :space-evenly "false"
            :class "infos"
         
-        (meteobox_light_noicon)
+        (meteobox_light_noicon :meteo meteo1)
         (box :class "color_bg" :halign "start" (_sundial))
-        (box :class "color_fg big_text" (label :text "${time.weekdaynamelong}"))
-        (box
+        (box :class "color_fg big_text" :halign "start" (label :text "${time.weekdaynamelong}"))
+        (box :halign "start"
           (label :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
         )
-        (box :orientation "h" :class "small_text"
+        (box :orientation "h" :class "small_text" :halign "start"
           (label :text "${network.icon} ${network.essid}")
           (label :text "${EWW_NET.enp0s3.NET_UP} ${EWW_NET.enp0s3.NET_DOWN}")
         )
-        (box :orientation "v" :class "small_text"
-          (label :text " Bluetooth (TODO)")
-          (label :text " Esempio dispositivo (TODO)")
+        (box :orientation "v" :class "small_text" :halign "start"
+          (label :text " Bluetooth (TODO)" :halign "start")
+          (label :text " Esempio dispositivo (TODO)" :halign "start")
         )
-        (overlay :class "citation"
+        (overlay :class "citation" :width 700
           (box :valign "start" :halign "start" :vexpand "true" :hexpand "true" (label :text ""))
           (box :valign "end" :halign "end" :vexpand "true" :hexpand "true" (label :text ""))
           (box :orientation "v" :class "text"
-            (label :width 200 :wrap "true" :text "My shadow's the only one that walks beside me")
-            (label :width 200 :wrap "true" :class "author" :halign "end" :text "Green day")
+            (label :wrap "true" :text "My shadow's the only one that walks beside me")
+            (label :wrap "true" :class "author" :halign "end" :text "Green day")
           )
         )
         (metric :icon volume_icon :label "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
         (metric :icon br_icon :label "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
       )
-
-
-      (box :orientation "v" :spacing 25 :valign "center" :space-evenly false
-        ;;(box :orientation "h" :space-evenly "false" :spacing 25
-        ;;  (music)
-        ;;  (box :class "box" :width 100 :height 100 :hexpand "false"
-        ;;    (overlay
-        ;;      (circular-progress :value {battery.percentage} :start-at 25 :thickness 5 )
-        ;;      (box :orientation "v" :valign "center"
-        ;;        (label :text {battery.icon})
-        ;;        (label :text "${battery.percentage}%")
-        ;;      )
-        ;;    )
-        ;;  )
-        ;;)
-
-        ;;(box :orientation "h" :space-evenly "true"
-          ;; (graphbox :text "CPU" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
-          ;; (graphbox :text "RAM" :value {EWW_RAM.used_mem_perc})
-          ;; (graphbox :text "DISK" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
-          ;;(graphbox :text "TEMP (${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C)" :value {EWW_TEMPS.AMDGPU_EDGE})
-        ;;)
-        ;;(box :class "box" :orientation "v"
-        ;;  (label :text "systray (TODO)")
-        ;;  (systray)
-        ;;)
-        ;;(box :class "box"
-        ;;  (sliders)
-        ;;)
+      (box :orientation "v" 
+           :spacing 25 
+           :valign "center" 
+           :halign "start"
+           :hexpand "false"
+           :space-evenly "false"
+        (bg_music_notif)
       )
     )
-    (box :valign "start" :space-evenly true :hexpand true :spacing 25
-        (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
-          (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
-            (label :text {EWW_TEMPS})
-          )
-        )
-    )
+    ;;(box :valign "start" :space-evenly true :hexpand true :spacing 25
+    ;;    (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
+    ;;      (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
+    ;;        (label :text {EWW_TEMPS})
+    ;;      )
+    ;;    )
+    ;;)
   )
 )

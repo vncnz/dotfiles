@@ -45,7 +45,7 @@
   )
 )
 
-(defwidget meteobox []
+(defwidget meteobox [meteo]
   (box :class "box" :spacing 5
        :valign "center" :hexpand "true"
        :space-evenly false
@@ -117,7 +117,7 @@
         (box :class "box"
           (calendar :show-week-numbers "true")
         )
-        (meteobox)
+        (meteobox :meteo meteo1)
         (box :orientation "h" :space-evenly "false" :spacing 25
           (music)
           (box :class "box" :width 100 :height 100 :hexpand "false"
