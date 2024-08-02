@@ -81,6 +81,7 @@ fi
 
 if [[ $1 == "toggle-muted" ]]; then
   pactl set-sink-mute $SINK toggle
+  $(~/.config/eww/scripts/dunstvolume.sh)
 fi
 
 if [[ $1 == "set" ]]; then
