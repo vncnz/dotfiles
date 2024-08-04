@@ -94,7 +94,7 @@
                 :logout_icon "" :lock_icon "")
     )
 
-    (box :halign "start" :spacing 25 :orientation "h" :space-evenly "false" :width "100%"
+    (box :halign "start" :spacing 5 :orientation "h" :space-evenly "false" :width "100%"
       (box :width 100)
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
         (circle_img :path "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}")
@@ -109,7 +109,7 @@
       )
       
       (box :orientation "v" 
-           :spacing 25 
+           :spacing 5
            :valign "center" 
            :halign "start"
            :hexpand "true"
@@ -118,9 +118,9 @@
         
         (meteobox_light_noicon :meteo meteo1)
         (box :class "color_bg" :halign "start" (_sundial))
-        (box :class "color_fg big_text" :halign "start" (label :text "${time.weekdaynamelong}"))
-        (box :halign "start"
-          (label :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
+        (box :orientation "v" :halign "start"
+          (box :class "color_fg day debugrect" :halign "start" (label :text "${time.weekdaynamelong}"))
+          (label :halign "end" :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
         )
         (box :orientation "h" :class "small_text" :halign "start"
           (label :text "${network.icon} ${network.essid}")

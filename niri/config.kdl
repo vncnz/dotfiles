@@ -284,7 +284,7 @@ binds {
     Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
-    Super+Alt+L { spawn "swaylock" "-i" "/home/vncnz/Pictures/wallpaper.jpg"; }
+    Super+L { spawn "swaylock" "-i" "/home/vncnz/Pictures/wallpaper.jpg"; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
@@ -322,10 +322,10 @@ binds {
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
-    Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
+    // Mod+H     { focus-column-left; }
+    // Mod+J     { focus-window-down; }
+    // Mod+K     { focus-window-up; }
+    // Mod+L     { focus-column-right; }
 
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }
