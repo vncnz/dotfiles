@@ -228,7 +228,6 @@ $primary: #61afbf;
     // background-color: rgba(30, 30, 30, .95);
 
     .infos {
-        border: 1px dashed red;
         margin-left: 30px;
         padding-left: 30px;
         border-left: 1px solid white;
@@ -361,4 +360,8 @@ $primary: #61afbf;
 }
 .err-color {
     color: red;
+}
+
+.debugrect {
+    border: 2px dashed red;
 }

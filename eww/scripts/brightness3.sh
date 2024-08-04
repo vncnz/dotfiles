@@ -5,8 +5,10 @@
 # brightness.sh [up|down]
 
 function get_brightness {
-    var=`light -G`
-    echo "${var##* }" | sed 's/[^0-9][^.]*//g'
+    # var=`light -G`
+    # echo "${var##* }" | sed 's/[^0-9][^.]*//g'
+    (( br = $(brightnessctl get) * 100 / $(brightnessctl max) ))
+    echo $br
 }
 
 function send_notification {
@@ -36,7 +38,8 @@ case $1 in
         inc=$(( 5 + rem ))                                    
         brightness=$(( brightness - inc ))    
         [[ $brightness -eq 0 ]] && brightness=1    
-        light -S $brightness > /dev/null
+        # light -S $brightness > /dev/null
+
 	    send_notification
 	;;
 esac

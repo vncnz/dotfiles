@@ -72,14 +72,15 @@
             (label
                     :text "${ notifications-paused ? '' : '' }"
             )
+            (box :width 5)
             (label  :visible "${ notif_count > 1 }"
-                    :text "${notif_count} notifiche"
+                    :text "${notif_count}"
             )
             (label  :visible "${ notif_count == 1 }"
-                    :text "${notif_count} notifica"
+                    :text "One"
             )
             (label  :visible "${ notif_count == 0 }"
-                    :text "Nessuna notifica"
+                    :text "Zero"
             )
         )
     )

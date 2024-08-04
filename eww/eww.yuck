@@ -10,7 +10,10 @@
 (defpoll winfocus :interval "1s" "~/.config/eww/scripts/miscellaneous.sh win")
 
 (defpoll meteo1 :interval "60s" "~/.config/eww/scripts/meteo.sh 'Desenzano Del Garda' 45.457692 10.570684")
-(defpoll meteo2 :interval "60s" "~/.config/eww/scripts/meteo.sh 'Malmö' 55.60587 13.00073")
+;; (defpoll meteo2 :interval "60s" "~/.config/eww/scripts/meteo.sh 'Malmö' 55.60587 13.00073")
+
+(defpoll bluetooth :interval "1s" "~/.config/eww/scripts/bluetooth.sh all")
+(defpoll bluetooth_devices :interval "1s" "~/.config/eww/scripts/bluetooth.py")
 
 ;(deflisten toggle_dashboard_with_rofi
 ;    :initial "closed"
@@ -29,7 +32,7 @@
 (include "./mywidgets/notifications2.yuck")
 (include "./mywidgets/music.yuck")
 
-(defwindow bg_music_notif
+(defwindow bg_music_notifw
     :geometry (geometry
         :y "25px"
         :width "256px"
@@ -51,10 +54,11 @@
 
 (defwidget bg_music_notif []
     (box
-        :orientation "vertical"
+        :orientation "v"
         :spacing 32
         :space-evenly false
-        :width "256px"
+        ;; :width "256px"
+        :hexpand true
         (spotify)
         (notifications)
     )
@@ -183,6 +187,9 @@
             :space-evenly false
             :spacing 10
             ;; (audio)
+            (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
+            (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
+            (box :width 20)
             (fullclock)
             (box :valign "center" :halign "center" :orientation "h"
               (label ;; :class "icon"

@@ -1,26 +1,30 @@
 #!/bin/bash
+msgId="3378839"
+# ttf-nerd-fonts-symbols-mono
+# https://www.nerdfonts.com/cheat-sheet
+
 
 toggle() {
     STATUS="$(bluetoothctl show | grep Powered | awk '{print $2}')"
     if [ $STATUS == "yes" ]; then
         bluetoothctl power off
-        dunstify --icon=bluetooth-disabled --appname=Bluetooth --urgency=normal "Bluetooth" "Bluetooth has been turned off."
+        dunstify -r "$msgId" --icon=bluetooth-disabled --appname=Bluetooth --urgency=normal "Bluetooth" "Bluetooth has been turned off."
     else
         bluetoothctl power on
-        dunstify --icon=bluetooth --appname=Bluetooth --urgency=normal "Bluetooth" "Bluetooth has been turned on."
+        dunstify -r "$msgId" --icon=bluetooth --appname=Bluetooth --urgency=normal "Bluetooth" "Bluetooth has been turned on."
     fi
 }
 
-icon() {
+get_icon() {
         # not connected
         if [ $(bluetoothctl show | grep "Powered: yes" | wc -c) -eq 0 ]; then
-                echo ""
+                echo "󰂲"
         else
                 # on
                 if [ $(echo info | bluetoothctl | grep 'Device' | wc -c) -eq 0 ]; then
                         echo ""
                 else
-                        echo ""
+                        echo "󰂯"
                 fi
         fi
 }
@@ -42,18 +46,19 @@ class() {
     fi
 }
 
-status() {
+get_status() {
         # not connected
         if [ $(bluetoothctl show | grep "Powered: yes" | wc -c) -eq 0 ]; then
-                echo "Bluetooth"
+                echo "off"
         else
                 # on
                 if [ $(echo info | bluetoothctl | grep 'Device' | wc -c) -eq 0 ]; then
-                        echo "Bluetooth"
+                        echo "on"
                 else
                         # get device alias
-                        DEVICE=$(echo info | bluetoothctl | grep 'Alias:' | awk -F:  '{ print $2 }')
-                        echo "$DEVICE"
+                        # DEVICE=$(echo info | bluetoothctl | grep 'Alias:' | awk -F:  '{ print $2 }')
+                        # echo "$DEVICE"
+                        echo "on"
                 fi
         fi
 }
@@ -74,11 +79,13 @@ battery() {
 }
 
 if [[ $1 == "all" ]]; then
-        echo '{"status": "'"$status"'"}'
+        status=$(get_status)
+        icon=$(get_icon)
+        echo '{"status": "'"$status"'", "icon": "'"$icon"'"}'
 elif [[ $1 == "status" ]]; then
-        status
+        get_status
 elif [[ $1 == "icon" ]]; then
-        icon
+        get_icon
 elif [[ $1 == "toggle" ]]; then
         toggle
 elif [[ $1 == "class" ]]; then
