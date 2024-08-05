@@ -111,7 +111,7 @@
            :hexpand "true"
            :space-evenly "false"
            :class "infos"
-        
+
         (meteobox_light_noicon :meteo meteo1)
         (box :class "color_bg" :halign "start" (_sundial))
         (box :orientation "v" :halign "start" :space-evently false :class "datetime"

@@ -17,13 +17,14 @@
             :space-evenly false
             :spacing 10
             ;; (audio)
-            (box :spacing 3 :hexpand false :halign "start"
+            (box :spacing 5 :hexpand false :halign "start" :space-evenly false
+                :valign "end"
               (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
               (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
               (spotify_plaintext)
             )
             (clock_time)
-            (box :hexpand false :halign "end"
+            (box :hexpand false :halign "end" :valign "end"
               (box :valign "center" :halign "center" :orientation "h"
                 (label :text "${battery.percentage}%")
                 (label ;; :class "icon"

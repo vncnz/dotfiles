@@ -69,10 +69,6 @@
         :onrightclick "dunstctl set-paused toggle"
 
         (box :orientation "h" :space-evenly "false"
-            (label
-                    :text "${ notifications-paused ? '' : '' }"
-            )
-            (box :width 5)
             (label  :visible "${ notif_count > 1 }"
                     :text "${notif_count}"
             )
@@ -81,6 +77,10 @@
             )
             (label  :visible "${ notif_count == 0 }"
                     :text "Zero"
+            )
+            (box :width 5)
+            (label
+                    :text "${ notifications-paused ? '' : '' }"
             )
         )
     )

@@ -110,7 +110,7 @@
 
 (defwindow microstatusbar
   :monitor 0 ;; wayland users may need this
-  :stacking "bottom"
+  :stacking "fg"
   :wm-ignore true
   :geometry (geometry :width "100%" :height "20px" :anchor "bottom center")
   (microstatusbar_layout)

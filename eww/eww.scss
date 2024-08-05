@@ -73,6 +73,12 @@ $primary: #61afbf;
 .microbar {
     font-size: 14px;
     text-shadow: 2px 2px 2px #000000;
+    // border-top: 1px solid red;
+
+    .clock_time {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
 }
 
 
@@ -301,7 +307,7 @@ $primary: #61afbf;
     }
 
     .sessionbuttonspanel {
-        padding: 1rem 3.5rem;
+        padding: 2rem 2rem;
     }
 
     .metric .label {
