@@ -211,7 +211,8 @@ spawn-at-startup "swaybg" "--image" "/home/vncnz/Pictures/wallpaper.jpg" "--mode
 spawn-at-startup "dunst" "&"
 // spawn-at-startup "waybar"
 // spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
-spawn-at-startup "eww" "open" "batteryborder"
+// spawn-at-startup "eww" "open" "batteryborder"
+spawn-at-startup "eww" "open" "microstatusbar"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
