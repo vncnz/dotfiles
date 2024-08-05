@@ -1,7 +1,0 @@
-;; (include "./mywidgets/sliders.yuck")
-
-(defwidget volume_indicator_layout []
-  (box :class "box" :space-evenly false
-    (slider :icon volume_icon :text "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
-  )
-)

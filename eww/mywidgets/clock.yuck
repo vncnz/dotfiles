@@ -27,3 +27,12 @@
         (label :text "${time.weekdaynameshort} ${time.year}-${time.month}-${time.day} ${time.hour}:${time.min}")
     )
 )
+
+(defwidget clock_time []
+    (box
+        :orientation "h"
+        :space-evenly false
+        :class "clock_time"
+        (label :text "${time.hour}:${time.min}")
+    )
+)

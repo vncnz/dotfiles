@@ -1,5 +1,5 @@
 * {
-all: unset;
+    all: unset;
 }
 
 $surface-darkgrey: #20252b;
@@ -27,7 +27,6 @@ $primary: #61afbf;
     padding-right: 20px;
     box-shadow: inset -3px 0 #61afef;
 
-    font-family: Inter;
     font-size: 1rem;
 }
 
@@ -36,7 +35,6 @@ $primary: #61afbf;
     padding-right: 20px;
     box-shadow: inset -3px 0 #abb2bf;
 
-    font-family: Inter;
     font-size: 1rem;
 }
 
@@ -45,7 +43,7 @@ $primary: #61afbf;
 }
 
 .nerd-icon {
-    font-family: FiraCode Nerd Font Mono;
+    font-family: "Symbols Nerd Font";
     font-size: 2rem;
 }
 
@@ -86,7 +84,6 @@ $primary: #61afbf;
 /* * { all: unset; } */
 
 .layout-box {
-    font-family: Phosphor, Koulen;
     background-repeat: no-repeat;
     background-size: contain;
     padding: 1em;
@@ -147,7 +144,6 @@ $primary: #61afbf;
     padding-top: 0.15em;
     padding-left: 0.2em;
     padding-right: 0.2em;
-    // font-family: Iosevka;
     font-weight: 400;
 }
 
@@ -223,7 +219,6 @@ $primary: #61afbf;
 .dashboard,
 .dashboard_light {
     padding: 2px;
-    // font-family: Phosphor, Koulen;
     color: rgba($surface-fg, 0.8);
     // background-color: rgba(30, 30, 30, .95);
 
@@ -237,7 +232,6 @@ $primary: #61afbf;
             border-radius: 0.2em;
             padding: 0.4em;
             padding-bottom: 0.5em;
-            font-family: "Poiret One";
         }
         .big_text {
             font-size: 3em;
@@ -284,17 +278,25 @@ $primary: #61afbf;
 
     .citation {
         // color: $primary;
-        font-size: 2rem;
+        font-size: 3rem;
         color:rgba(255, 255, 255, .25);
 
         .text {
             color: white;
-            padding: 2rem;
+            padding: 2rem 0;
             font-size: 1rem;
 
             .author {
                 font-size: 95%;
             }
+        }
+        .open {
+            margin-top: -2rem;
+            margin-right: -2rem;
+        }
+        .close {
+            margin-left: -2rem;
+            margin-bottom: -2rem;
         }
     }
 
@@ -343,6 +345,19 @@ $primary: #61afbf;
         min-width: 10rem;
         margin-left: 10px;
         margin-right: 20px;
+    }
+
+    .datetime {
+        .day {
+            font-size: 2.5rem;
+            margin: -1.3rem;
+            margin-bottom: -3.85rem;
+            padding: 0;
+        }
+        .other {
+            margin-top: -1rem;
+            font-size: 100%;
+        }
     }
 }
 

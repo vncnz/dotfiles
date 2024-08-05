@@ -20,11 +20,11 @@ percentage () {
 get_icon () {
     # local br=$(get_percent)
     if [ "$essid" == "lo" ]; then
-        echo ""
+        echo "󰞃"
     elif [ "$wired" == "1" ]; then
-        echo ""
+        echo "󰈀"
     else
-        echo $(percentage "$signal" "" "" "" "")
+        echo $(percentage "$signal" "󰢿" "󰢼" "󰢽" "󰢾")
     fi
 }
 

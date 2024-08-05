@@ -1,0 +1,48 @@
+(defwidget microstatusbar_layout []
+  (box
+    :orientation "h"
+    :valign "end"
+    :halig "center"
+    :class "microbar"
+    (box
+        :orientation "v"
+        :width "100%"
+        :hexpand true
+        :space-evenly false
+        (centerbox
+            :orientation "h"
+            :class "bottom"
+            :width "100%"
+            :hexpand true
+            :space-evenly false
+            :spacing 10
+            ;; (audio)
+            (box :spacing 3 :hexpand false :halign "start"
+              (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
+              (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
+              (spotify_plaintext)
+            )
+            (clock_time)
+            (box :hexpand false :halign "end"
+              (box :valign "center" :halign "center" :orientation "h"
+                (label :text "${battery.percentage}%")
+                (label ;; :class "icon"
+                  ;; :class {battery.state == "nobattery" ? "nodata-color" : (battery.state == "fully-charged") ? "" : battery.state == "charging" ? "primary-color" : (battery.percentage < 25 ? `err-color` : (battery.percentage < 50 ? `warn-color` : `ok-color`))}
+                  :class {battery.clazz}
+                  :text {battery.icon})
+              )
+              (box :valign "center" :halign "center" :orientation "h"
+                (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
+                (label :class "icon" :text "${network.icon}")
+              )
+              (micronotifications)
+            )
+            ;;(box :valign "center" :halign "center" :orientation "horizontal" (clock))
+            ;;(box :height 12)
+        )
+        (box
+            :height 1
+        )
+    )
+  )
+)

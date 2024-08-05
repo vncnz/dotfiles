@@ -87,11 +87,7 @@
     )
 
     (box :space-evenly false :hexpand true :vexpand true :class "sessionbuttonspanel"
-      (sessionbuttons :shutdown "poweroff" :reboot "reboot"
-                :logout "loginctl terminate-user $USER"
-                :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
-                :shutdown_icon "" :reboot_icon ""
-                :logout_icon "" :lock_icon "")
+      (sessionbuttons)
     )
 
     (box :halign "start" :spacing 5 :orientation "h" :space-evenly "false" :width "100%"
@@ -105,7 +101,7 @@
         )
         (circle_progress :icon "" :text "${round(EWW_CPU.avg / arraylength(EWW_CPU.cores), 0)}%" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
         (circle_progress :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc})
-        (circle_progress :icon "" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
+        (circle_progress :icon "󰋊" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
       )
       
       (box :orientation "v" 
@@ -118,39 +114,31 @@
         
         (meteobox_light_noicon :meteo meteo1)
         (box :class "color_bg" :halign "start" (_sundial))
-        (box :orientation "v" :halign "start"
-          (box :class "color_fg day debugrect" :halign "start" (label :text "${time.weekdaynamelong}"))
-          (label :halign "end" :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
+        (box :orientation "v" :halign "start" :space-evently false :class "datetime"
+          (box :class "color_fg day" :halign "start" (label :text "${time.weekdaynamelong}"))
+          (label :class "other" :halign "end" :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
         )
         (box :orientation "h" :class "small_text" :halign "start"
           (label :text "${network.icon} ${network.essid}")
           (label :text "${EWW_NET.enp0s3.NET_UP} ${EWW_NET.enp0s3.NET_DOWN}")
         )
-        (box :orientation "v" :class "small_text" :halign "start"
-          (label :text "${bluetooth.icon} Bluetooth ${bluetooth.status}" :halign "start")
-          (for bdevice in {bluetooth_devices}
-                (bluetooth-entry :device bdevice)
-          )
-        )
-        (overlay :class "citation" :width 700
-          (box :valign "start" :halign "start" :vexpand "true" :hexpand "true" (label :text ""))
-          (box :valign "end" :halign "end" :vexpand "true" :hexpand "true" (label :text ""))
+        ;;(box :orientation "v" :class "small_text" :halign "start"
+        ;;  (label :text "${bluetooth.icon} Bluetooth ${bluetooth.status}" :halign "start")
+        ;;  (for bdevice in {bluetooth_devices}
+        ;;        (bluetooth-entry :device bdevice)
+        ;;  )
+        ;;)
+        (label :halign "start" :text "󰚰 ${updates_count} pending updates")
+        (box :orientation "h" :class "citation" :hexpand "true" :space-evenly false
+          (box :class "open" :valign "start" :halign "start" :vexpand false :hexpand "true" (label :text ""))
           (box :orientation "v" :class "text"
             (label :wrap "true" :text "My shadow's the only one that walks beside me")
             (label :wrap "true" :class "author" :halign "end" :text "Green day")
           )
+          (box :class "close" :valign "end" :halign "end" :vexpand false :hexpand "true" (label :text ""))
         )
         (metric :icon volume_icon :label "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
         (metric :icon br_icon :label "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
-      )
-      (box :orientation "v" 
-           :spacing 25 
-           :valign "center" 
-           :halign "end"
-           :vexpand true
-           :hexpand true
-           :class "debugrect"
-        ;;(bg_music_notif)
       )
     )
     ;;(box :valign "start" :space-evenly true :hexpand true :spacing 25

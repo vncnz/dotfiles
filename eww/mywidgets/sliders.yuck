@@ -1,8 +1,8 @@
 
 
 
-(defpoll br_icon :interval "1s" "~/.config/eww/scripts/brightness.sh icon")
-(defpoll br :interval "1s" "~/.config/eww/scripts/brightness.sh br")
+
+
 
 (defpoll net :interval "100s"
   :initial `N/A`

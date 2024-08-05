@@ -146,7 +146,7 @@
             )
             (button
                 :onclick "dunstctl close-all && dunstctl history-clear"
-                (label :class "nerd-icon" :text "")
+                (label :class "nerd-icon" :text "󰺝")
             )
         )
         (box
@@ -225,7 +225,7 @@
             )
             (button
                 :onclick "dunstctl close-all && dunstctl history-clear"
-                (label :text "")
+                (label :text "󰺝")
             )
         )
         (box

@@ -1,40 +1,12 @@
 (include "./mywidgets/musiccc.yuck")
 (include "./mywidgets/sliders.yuck")
+(include "./mywidgets/networkbox.yuck")
 
 ; not used for now, replaced by "slider" defined in sliders.yuck
 
 ;(metric :label {volumeicon}
 ;        :value volumevalue
 ;        :onchange "amixer -D pulse sset Master {}%")
-
-(defwidget sessionbuttons [shutdown shutdown_icon reboot
-                    reboot_icon logout logout_icon lock lock_icon]
-  (box :class "btns-box" :spacing 5
-       :vexpand true :hexpand true
-       :valign "end" :halign "end"
-       :space-evenly false
-    (button :onclick shutdown shutdown_icon)
-    (button :onclick reboot reboot_icon)
-    (button :onclick logout logout_icon)
-    (button :onclick lock lock_icon)
-    (button :onclick "/home/vncnz/.config/niri/change_bg.sh" "")
-    (button :onclick "eww close dashboard_light" "") ;; ""
-  )
-)
-
-(defwidget networkbox []
-  (box :class "box" :spacing 5
-       :valign "center" :hexpand "true"
-       :space-evenly false
-       :orientation "v"
-    (box :orientation "h" :hexpand true
-      (label :hexpand true :text "${network.icon} ${network.essid}")
-      (label :halign "right" :text "${EWW_NET.enp0s3.NET_UP} ${EWW_NET.enp0s3.NET_DOWN}")
-    )
-    (slider :icon "" :text "${network.signal}%" :value {network.signal} :onchange "")
-    
-  )
-)
 
 (defwidget bluetoothbox []
   (box :class "box" :spacing 5
@@ -63,31 +35,6 @@
     ;; (slider :icon "" :text "${network.signal}%" :value {network.signal} :onchange "")
   )
 )
-
-(defwidget _sundial []
-  (label :class "sundial-lbl" :halign "start" :hexpand true
-         :text {time.hour >= 2 && time.hour <= 4 ? "Early Morning" :
-               time.hour <= 5 ? "Dawn" :
-               time.hour >= 6
-                && (time.hour <= 8 && time.min <= 59)
-                  ? "Morning" :
-               time.hour >= 9
-                 && (time.hour <= 11 && time.min <= 59)
-                   ? "Late Morning" :
-               time.hour == 12 && time.min <= 29
-                 ? "Midday" :
-               time.hour >= 12 && time.hour <= 16
-                 ? "Afternoon" :
-               time.hour > 16 && time.hour <= 17
-                 ? "Late Afternoon" :
-               (time.hour >= 17 && time.min <= 1)
-                 || (time.hour <= 18 && time.min <= 20)
-                   ? "Early Evening" :
-               time.hour >= 18 && time.hour <= 19
-                 ? "Dusk" :
-               time.hour > 19 && time.hour <= 21
-                 ? "Late Evening" :
-               time.hour > 21 ? "Night" : "Midnight"}))
 
 (defwidget graphbox [text value]
   (box :class "box" :spacing 5
@@ -152,13 +99,7 @@
           (sliders)
         )
         (box :space-evenly false :hexpand true :vexpand true
-      
-          (sessionbuttons :shutdown "poweroff" :reboot "reboot"
-                    :logout "loginctl terminate-user $USER"
-                    :lock "swaylock -i /home/vncnz/Pictures/wallpaper.jpg"
-                    :shutdown_icon "" :reboot_icon ""
-                    :logout_icon "" :lock_icon "")
-          
+          (sessionbuttons)
         )
       )
     )

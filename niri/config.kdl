@@ -14,7 +14,7 @@ input {
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
 
-            layout "it,us"
+            layout "us"
             variant "intl"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
@@ -163,7 +163,8 @@ layout {
         // You can use any CSS linear-gradient tool on the web to set these up.
         //
         // active-gradient from="#70c8ff" to="#fb7755" angle=315
-        active-gradient from="#ce1270" to="#dba3e6" angle=45
+        // active-gradient from="#ce1270" to="#dba3e6" angle=45
+        active-gradient from="#e59c19" to="#c88414" angle=45
 
         // You can also color the gradient relative to the entire view
         // of the workspace, rather than relative to just the window itself.
@@ -314,7 +315,7 @@ binds {
 
     XF86Favorites { spawn "eww" "open" "dashboard_light" "--toggle"; }
     // Mod+grave { spawn "eww" "open" "powermenu" "--toggle"; }
-    Mod+grave { spawn "eww" "open" "dashboard_light" "--toggle"; }
+    Mod+dead_grave { spawn "eww" "open" "dashboard_light" "--toggle"; }
 
     Mod+Q { close-window; }
 

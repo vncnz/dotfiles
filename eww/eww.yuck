@@ -7,6 +7,10 @@
 (defpoll volume_value :interval "1s" "~/.config/eww/scripts/volume.sh vol")
 (defpoll is_muted :interval "1s" "~/.config/eww/scripts/volume.sh muted")
 
+(defpoll updates_count :interval "600s" "checkupdates | wc -l")
+(defpoll br_icon :interval "1s" "~/.config/eww/scripts/brightness.sh icon")
+(defpoll br :interval "1s" "~/.config/eww/scripts/brightness.sh br")
+
 (defpoll winfocus :interval "1s" "~/.config/eww/scripts/miscellaneous.sh win")
 
 (defpoll meteo1 :interval "60s" "~/.config/eww/scripts/meteo.sh 'Desenzano Del Garda' 45.457692 10.570684")
@@ -15,42 +19,10 @@
 (defpoll bluetooth :interval "1s" "~/.config/eww/scripts/bluetooth.sh all")
 (defpoll bluetooth_devices :interval "1s" "~/.config/eww/scripts/bluetooth.py")
 
-;(deflisten toggle_dashboard_with_rofi
-;    :initial "closed"
-;    "
-;    dbus-monitor \
-;        \"path='/org/freedesktop/Notifications',interface='com.github.ibonn.rofi',member='open'\" \
-;        \"path='/org/freedesktop/Notifications',interface='com.github.ibonn.rofi',member='close'\" |
-;        stdbuf -o0 awk \
-;            -F '; ' \
-;            -e '/interface=com.github.ibonn.rofi/ {print $NF}' |
-;        while read -r line; do ./widgets/toggle_dashboard_with_rofi.nu $line; done
-;    "
-;)
-
-;; (include "./mywidgets/notifications.yuck")
 (include "./mywidgets/notifications2.yuck")
 (include "./mywidgets/music.yuck")
-
-(defwindow bg_music_notifw
-    :geometry (geometry
-        :y "25px"
-        :width "256px"
-        :anchor "top right"
-    )
-    :monitor 0
-    :namespace "eww_bg_music_notif"
-    :stacking "bottom"
-    (box
-        :class "bg_music_notif"
-        :orientation "vertical"
-        (bg_music_notif)
-        ;(label
-        ;    :class "invisible"
-        ;    :text "${toggle_dashboard_with_rofi}"
-        ;)
-    )
-)
+(include "./mywidgets/sessionbuttons.yuck")
+(include "./mywidgets/sundial.yuck")
 
 (defwidget bg_music_notif []
     (box
@@ -63,7 +35,6 @@
         (notifications)
     )
 )
-
 
 (include "./panels/batteryborder.yuck")
 
@@ -113,29 +84,16 @@
 
 ;(deflisten current_theme :initial "dark" "../scripts/material.py --current")
 
-(include "./panels/powermenu.yuck")
+;;(include "./panels/powermenu.yuck")
 
-(defwindow powermenu
-  :monitor 0 ;; wayland users may need this
-  :stacking "fg"
-  :wm-ignore true
-  ;; :geometry (geometry :width "40%" :height "100%" :anchor "center right")
-  :geometry (geometry :width "100%" :height "100%" :anchor "center")
-  (powermenu_layout)
-)
-
-
-(include "./panels/volumeindicator.yuck")
-
-(defwindow volume_indicator
-  :monitor 0 ;; wayland users may need this
-  :stacking "fg"
-  :wm-ignore true
-  ;; :geometry (geometry :width 100 :height "30" :anchor "center right")
-  :geometry (geometry :width 100 :height 30 :anchor "bottom right")
-  (volume_indicator_layout)
-)
-
+;;(defwindow powermenu
+;;  :monitor 0 ;; wayland users may need this
+;;  :stacking "fg"
+;;  :wm-ignore true
+;;  ;; :geometry (geometry :width "40%" :height "100%" :anchor "center right")
+;;  :geometry (geometry :width "100%" :height "100%" :anchor "center")
+;;  (powermenu_layout)
+;;)
 
 (defwindow notificationsoverlay
   :monitor 0 ;; wayland users may need this
@@ -148,71 +106,7 @@
     )
 )
 
-
-
-
-;; TODO: idea is to have two bars with height 100% and width 3px, positioned on the sides of the desktop and indicating battery and connection status
-(include "./panels/veryminimal.yuck")
-
-(defwindow veryminimalleft
-  :monitor 0 ;; wayland users may need this
-  :stacking "fg"
-  :wm-ignore true
-  :geometry (geometry :width "3px" :height "100%")
-  (veryminimalleft_layout)
-)
-;;(defwindow veryminimalright
-;;  :monitor 0 ;; wayland users may need this
-;;  :stacking "fg"
-;;  :wm-ignore true
-;;  :geometry (geometry :width "3px" :height "100%" :anchor "center right")
-;;  (veryminimalright_layout)
-;;)
-
-(defwidget microstatusbar_layout []
-  (box
-    :orientation "h"
-    :valign "end"
-    :halig "start"
-    :class "microbar"
-    (box
-        :orientation "v"
-        :halign "start"
-        :space-evenly false
-        (box
-            :orientation "h"
-            :class "bottom"
-            :halign "center"
-            :width "100%"
-            :space-evenly false
-            :spacing 10
-            ;; (audio)
-            (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
-            (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
-            (box :width 20)
-            (fullclock)
-            (box :valign "center" :halign "center" :orientation "h"
-              (label ;; :class "icon"
-              ;; :class {battery.state == "nobattery" ? "nodata-color" : (battery.state == "fully-charged") ? "" : battery.state == "charging" ? "primary-color" : (battery.percentage < 25 ? `err-color` : (battery.percentage < 50 ? `warn-color` : `ok-color`))}
-              :class {battery.clazz}
-              :text {battery.icon})
-              (label :text "${battery.percentage}%")
-            )
-            (box :valign "center" :halign "center" :orientation "h"
-              (label :class "icon" :text "${network.icon}")
-              (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
-            )
-            (micronotifications)
-            ;;(box :valign "center" :halign "center" :orientation "horizontal" (clock))
-            ;;(box :height 12)
-            (spotify_plaintext)
-        )
-        (box
-            :height 1
-        )
-    )
-  )
-)
+(include "./panels/microstatusbar.yuck")
 
 (defwindow microstatusbar
   :monitor 0 ;; wayland users may need this
