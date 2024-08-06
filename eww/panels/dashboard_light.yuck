@@ -44,7 +44,7 @@
 )
 
 (defwidget meteobox_light_noicon [meteo]
-  (box :class "box_light" :spacing 5
+  (box :class "box_light meteobox_noicon" :spacing 5
        :valign "center"
        :halign "start"
        :hexpand "false"
@@ -113,8 +113,8 @@
            :class "infos"
 
         (meteobox_light_noicon :meteo meteo1)
-        (box :class "color_bg" :halign "start" (_sundial))
         (box :orientation "v" :halign "start" :space-evently false :class "datetime"
+          (_sundial)
           (box :class "color_fg day" :halign "start" (label :text "${time.weekdaynamelong}"))
           (label :class "other" :halign "end" :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
         )

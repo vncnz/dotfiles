@@ -354,15 +354,26 @@ $primary: #61afbf;
     }
 
     .datetime {
+        .sundial-lbl {
+            margin-bottom: -1rem;
+        }
+
         .day {
             font-size: 2.5rem;
             margin: -1.3rem;
+            margin-top: -3.85rem;
             margin-bottom: -3.85rem;
             padding: 0;
         }
         .other {
             margin-top: -1rem;
             font-size: 100%;
+        }
+    }
+
+    .meteobox_noicon {
+        .small_text {
+            margin-top: -1.4rem;
         }
     }
 }
