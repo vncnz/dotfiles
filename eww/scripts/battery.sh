@@ -42,7 +42,7 @@ get_class () {
     if [ "$state" == "fully-charged" ]; then
         echo "fully"
     elif [ "$state" == "charging" ]; then
-        echo "primary-color"
+        echo "azure-color"
     elif [ "$state" == "pending-charge" ]; then
         echo "warn-color"
     elif [ "$state" == "unknown" ]; then

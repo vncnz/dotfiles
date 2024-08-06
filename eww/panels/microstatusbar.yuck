@@ -34,7 +34,7 @@
               )
               (box :valign "center" :halign "center" :orientation "h"
                 (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
-                (label :class "icon" :text "${network.icon}")
+                (label :class {network.class} :text "${network.icon}")
               )
               (micronotifications)
             )
