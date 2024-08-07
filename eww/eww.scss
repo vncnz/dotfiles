@@ -6,8 +6,8 @@ $surface-darkgrey: #20252b;
 $surface-fg: #949494;
 $surface-lightgrey: #3d464e;
 $surface-grey: #2b3238;
-$surface-red: #e53619; // #f87070;
-$primary:  	#1962e5; // #61afbf;
+$surface-red: #f87070; // #e53619;
+$primary: #61afbf; // #1962e5
 
 @import "styles/musiccc.scss";
 @import "styles/sliders.scss";
@@ -307,7 +307,7 @@ $primary:  	#1962e5; // #61afbf;
     }
 
     .sessionbuttonspanel {
-        padding: 2rem 2rem;
+        padding: 2rem .5rem;
     }
 
     .metric .label {

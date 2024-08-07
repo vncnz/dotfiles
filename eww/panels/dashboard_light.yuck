@@ -1,7 +1,7 @@
 
 (defwidget circle_img [path]
   (box :class "circle_img"
-    (image :class "icon_light" :image-width 50 :path path)
+    (image :class "icon_light" :image-width 70 :path path)
   )
 )
 
