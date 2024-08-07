@@ -4,7 +4,7 @@
     font = "Font Awesome 5 Free Regular 14, Ubuntu Light 13"
     allow_markup = yes
     markup = yes
-    format = "<span foreground='#5bb1b4'><b>%s</b></span>\n%b"
+    format = "<span foreground='#1962e5'><b>%s</b></span>\n%b"
     sort = yes
     indicate_hidden = yes
     bounce_freq = 0
@@ -24,7 +24,7 @@
     separator_color = "#3c4549"
     separator_width = 1
     startup_notification = false
-    corner_radius = 15
+    corner_radius = 5
     frame_color = "#3c4549"
     frame_width = 1
     width = 400
@@ -39,6 +39,13 @@
     alignment = left
     vertical_alignment = center
     #offset = 12x67
+    mouse_left_click = do_action
+    mouse_right_click = close_current
+    mouse_middle_click = close_all
+
+[transient_history_ignore]
+    match_transient = yes
+    history_ignore = yes
 
 [shortcuts]
     close = ctrl+space
@@ -56,7 +63,7 @@
     background = "#131519"
     foreground = "#ffffff"
     highlight = "#5bb1b4"
-    timeout = 20
+    timeout = 10
 
 [urgency_critical]
     background = "#131519"
