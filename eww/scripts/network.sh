@@ -34,7 +34,7 @@ get_class () {
     elif [ "$wired" == "1" ]; then
         echo ""
     else
-        echo $(percentage "$signal" "red-color" "warn-color" "" "")
+        echo $(percentage "$signal" "err-color" "warn-color" "" "")
     fi
 }
 
@@ -42,7 +42,7 @@ signal=$(nmcli -f in-use,signal dev wifi | rg "\*" | awk '{ print $2 }')
 essid=$(nmcli -t -f NAME connection show --active | head -n1 | sed 's/\"/\\"/g')
 wired=$(nmcli device status | grep connected | grep -c Wired)
 if [ "$wired" == "1" ]; then
-  signal="100"
+  signal="0"
 fi
 icon=$(get_icon)
 class=$(get_class)
