@@ -4,7 +4,7 @@
     font = "Font Awesome 5 Free Regular 14, Ubuntu Light 13"
     allow_markup = yes
     markup = yes
-    format = "<span foreground='#1962e5'><b>%s</b></span>\n%b"
+    format = "<span foreground='#61afbf'><b>%s</b></span>\n%b"
     sort = yes
     indicate_hidden = yes
     bounce_freq = 0
