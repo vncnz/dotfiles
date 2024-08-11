@@ -30,7 +30,7 @@ get_icon () {
 
 get_class () {
     if [ "$essid" == "lo" ]; then
-        echo "red-color"
+        echo "err-color"
     elif [ "$wired" == "1" ]; then
         echo ""
     else

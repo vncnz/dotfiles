@@ -168,7 +168,7 @@ $primary: #61afbf; // #1962e5
         font-size: 7px;
         font-weight: bold;
     }
-    .badge-red { background-color: red; }
+    .badge-red { background-color: $surface-red; }
     .badge-primary { background-color: $primary; }
     .badge-empty { background-color: black; border: 1px solid white; }
 }
@@ -391,7 +391,8 @@ $primary: #61afbf; // #1962e5
     color: orange;
 }
 .err-color {
-    color: red;
+    color: $surface-red;
+    text-shadow: 1px 1px 3px red, 1px 1px 5px red;
 }
 .azure-color {
     color: #61afbf;

@@ -32,8 +32,8 @@
                   :class {battery.clazz}
                   :text {battery.icon})
               )
-              (box :valign "center" :halign "center" :orientation "h"
-                (label :visible "${network.signal > 0 ? true : false}" :text "${network.signal}%")
+              (box :valign "center" :halign "center" :orientation "h" :visible "network.signal != ''"
+                (label :visible {network.signal != ''} :text "${network.signal}%")
                 (label :class "${network.class}" :text "${network.icon}")
               )
               (micronotifications)
