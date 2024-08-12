@@ -56,5 +56,6 @@ ip monitor link | while read -r line; do
       signal="100"
     fi
     icon=$(get_icon)
+    class=$(get_class)
     echo '{"essid": "'"$essid"'", "signal": "'"$signal"'", "icon": "'"$icon"'", "wired": "'"$wired"'", "class": "'"$class"'"}'
 done
