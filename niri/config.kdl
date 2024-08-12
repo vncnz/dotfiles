@@ -575,6 +575,11 @@ window-rule {
 }
 
 window-rule {
+    match app-id="org.freedesktop.Xwayland"
+    open-maximized true
+}
+
+window-rule {
     match app-id=r#"(firefox|org.gnome.Meld)"#
     exclude title=r#"(Open File|Save As|File Upload)"#
     open-maximized true
