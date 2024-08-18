@@ -8,6 +8,11 @@
 // Input device configuration.
 // Find the full list of options on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
+
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+}
+
 input {
     keyboard {
         xkb {
