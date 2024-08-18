@@ -24,7 +24,10 @@
               (spotify_plaintext)
             )
             (clock_time)
-            (box :hexpand false :halign "end" :valign "end"
+            (box :hexpand false :halign "end" :valign "end" :space-evenly false :spacing 10
+              (box :width 100 :vexpand "true"
+                (graph :width 100 :vexpand "true" :value {EWW_CPU.avg} :time-range "60s" :min "0" :max "100" :thickness "1")
+              )
               (box :valign "center" :halign "center" :orientation "h"
                 (label :text "${battery.percentage}%")
                 (label ;; :class "icon"
@@ -42,7 +45,7 @@
             ;;(box :height 12)
         )
         (box
-            :height 1
+            :height 0
         )
     )
   )
