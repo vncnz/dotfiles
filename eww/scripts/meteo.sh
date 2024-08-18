@@ -10,7 +10,7 @@ data=$(curl -s "$url")
 
 nrows=$(echo $data | wc -l)
 if [ $nrows -eq 0 ]; then
-    echo '{"icon": "", "text": "No network", "temp": "", "temp_real": "" "temp_unit": "", "day": "0", "sunrise": "", "sunset": "", "daylight": "", "locality": "'"$1"'"}'
+    echo '{"icon": "", "text": "No network", "temp": "", "temp_real": "" "temp_unit": "", "day": "0", "sunrise": "", "sunset": "", "sunrise_mins": 0, "sunset_mins": 0, "daylight": "", "locality": "'"$1"'"}'
 else
     weather=$(jq -r '.current.weather_code' <<< $data)
     temp=$(echo $data | jq -r '.current.apparent_temperature' | awk '{print int($1+0.5)}')
@@ -20,6 +20,10 @@ else
     sunrise=$(echo $data | jq -r '.daily.sunrise[0]' )
     sunset=$(echo $data | jq -r '.daily.sunset[0]' )
     daylight=$(echo $data | jq -r '.daily.daylight_duration[0]' )
+    sunrise_mins=$(echo $sunrise | awk -F'T|:|-' '{print $4*60 + $5}')
+    sunset_mins=$(echo $sunset | awk -F'T|:|-' '{print $4*60 + $5}')
+    sunrise_time=$(echo $sunrise | awk -F'T|:|-' '{print $4":"$5}')
+    sunset_time=$(echo $sunset | awk -F'T|:|-' '{print $4":"$5}')
     icon=''
     icon_name=''
 
@@ -160,4 +164,4 @@ else
     # echo '' $temp$temp_unit
 fi
 
-echo '{"icon": "'"$icon"'", "text": "'"$text"'", "temp": "'"$temp"'", "temp_real": "'"$temp_real"'", "temp_unit": "'"$temp_unit"'", "day": "'"$day"'", "icon_name": "'"$icon_name"'", "sunrise": "'"$sunrise"'", "sunset": "'"$sunset"'", "daylight": "'"$daylight"'", "locality": "'"$1"'"}'
+echo '{"icon": "'"$icon"'", "text": "'"$text"'", "temp": "'"$temp"'", "temp_real": "'"$temp_real"'", "temp_unit": "'"$temp_unit"'", "day": "'"$day"'", "icon_name": "'"$icon_name"'", "sunrise": "'"$sunrise_time"'", "sunset": "'"$sunset_time"'", "sunrise_mins": '"$sunrise_mins"', "sunset_mins": '"$sunset_mins"', "daylight": "'"$daylight"'", "locality": "'"$1"'"}'

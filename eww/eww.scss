@@ -377,6 +377,15 @@ $primary: #61afbf; // #1962e5
             margin-top: -1.4rem;
         }
     }
+
+    .meteodaygraph {
+        .day {
+            background-color: #e59c19;
+        }
+        .night {
+            background-color: $primary;
+        }
+    }
 }
 
 .nodata-color {
@@ -397,6 +406,20 @@ $primary: #61afbf; // #1962e5
 }
 .azure-color {
     color: #61afbf;
+}
+
+.primary-bg {
+    background-color: $primary;
+}
+.ok-bg {
+    background-color: lightgreen;
+}
+.warn-bg {
+    background-color: orange;
+}
+.err-bg {
+    background-color: $surface-red;
+    box-shadow: 1px 1px 3px red, 1px 1px 5px red;
 }
 
 .debugrect {

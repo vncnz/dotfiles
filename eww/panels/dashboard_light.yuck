@@ -27,6 +27,52 @@
   )
 )
 
+(defwidget genericgraph_row [value icon class text]
+  (box :class "line" :height 10 :spacing 5 :space-evenly false
+    (box :class "dayline" :orientation "h" :spacing 2 :space-evenly false
+      (box :class class :width {round(value, 0)} :height 2 :vexpand false :valign "center")
+      (label :text icon)
+      (box :class "primary-bg" :width {round((100 - value), 0)} :height 2 :expand false :valign "center")
+    )
+    (label :class "small_text" :halign "start" :text text :hexpand false)
+  )
+)
+
+(defwidget meteodaygraph_row [meteo]
+  (box :class "line" :height 10 :spacing 5 :space-evenly false
+    (box :class "dayline" :orientation "h" :spacing 2 :space-evenly false
+      (box :class "night" :width {round(meteo.sunrise_mins / 3, 0)} :height 2 :vexpand false :valign "center")
+      (label :text " ${meteo.sunrise}")
+      (box :class "day" :width {round((meteo.sunset_mins - meteo.sunrise_mins) / 3, 0)} :height 2 :expand false :valign "center")
+      (label :text " ${meteo.sunset}")
+      (box :class "night" :width {round((1440 - meteo.sunset_mins) / 3, 0)} :height 2 :expand false :valign "center")
+    )
+    (label :class "small_text" :halign "start" :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}" :hexpand false)
+    (image :class "icon_light" :image-width 20 :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
+    (label :text "${meteo.text} in ${meteo.locality}" :halign "start")
+  )
+)
+
+(defwidget meteodaygraph []
+  (box
+    (box :class "box_light meteodaygraph" :spacing 5
+        :valign "center"
+        :width 400
+        :space-evenly false
+        :orientation "v"
+          :visible {meteo1.text != ""}
+      (meteodaygraph_row :meteo meteo1)
+      (meteodaygraph_row :meteo meteo2)
+      (meteodaygraph_row :meteo meteo3)
+    )
+    (box :orientation "v"
+          :visible {meteo1.text == ""}
+          (label :text "No meteo info" :halign "start")
+          (label :class "small_text" :text "Check your connection!")
+      )
+  )
+)
+
 (defwidget meteobox_light [meteo]
   (box :class "box_light meteobox" :spacing 5
        :valign "center" :hexpand "true"
@@ -119,7 +165,7 @@
            :space-evenly "false"
            :class "infos"
 
-        (meteobox_light_noicon :meteo meteo1)
+        ;; (meteobox_light_noicon :meteo meteo1)
         (box :orientation "v" :halign "start" :space-evently false :class "datetime"
           (_sundial)
           (box :class "color_fg day" :halign "start" (label :text "${time.weekdaynamelong}"))
@@ -144,10 +190,33 @@
           )
           (box :class "close" :valign "end" :halign "end" :vexpand false :hexpand "true" (label :text ""))
         )
-        (meteobox_light_noicon :meteo meteo2)
+        ;; (meteobox_light_noicon :meteo meteo2)
+        ;; (meteobox_light_noicon :meteo meteo3)
         (metric :icon volume_icon :label "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
         (metric :icon br_icon :label "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
       )
+    )
+    (box :valign "start" :halign "start" :orientation "v" :space-evenly false
+      (meteodaygraph)
+      ;;(genericgraph_row
+      ;;  :value {EWW_TEMPS.AMDGPU_EDGE ?: 100}
+      ;;  :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C"
+      ;;  :icon "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+      ;;  :class "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "ok-bg" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "ok-bg" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "ok-bg" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "warn-bg" : "err-bg")))}"
+      ;;)
+      ;;(genericgraph_row
+      ;;  :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc}
+      ;;  :class "${EWW_RAM.used_mem_perc < 80 ? "ok-bg" : (EWW_RAM.used_mem_perc < 95 ? "warn-bg" : "err-bg")}"
+      ;;)
+      ;;(genericgraph_row
+      ;;  :icon "" :text "${round(EWW_CPU.avg / arraylength(EWW_CPU.cores), 0)}%" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)}
+      ;;  :class "${EWW_CPU.avg / arraylength(EWW_CPU.cores) < 70 ? "ok-bg" : (EWW_CPU.avg / arraylength(EWW_CPU.cores) < 85 ? "warn-bg" : "err-bg")}"
+      ;;)
+      ;;(genericgraph_row
+      ;;  :icon "󰋊" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100}
+      ;;  :class "${EWW_DISK["/"].free / EWW_DISK["/"].total > 0.3 ? "ok-bg" : (EWW_DISK["/"].free / EWW_DISK["/"].total > 0.15 ? "warn-bg" : "err-bg")}"
+      ;;)
+      
     )
     ;;(box :valign "start" :space-evenly true :hexpand true :spacing 25
     ;;    (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
