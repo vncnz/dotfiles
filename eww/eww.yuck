@@ -13,8 +13,9 @@
 
 (defpoll winfocus :interval "1s" "~/.config/eww/scripts/miscellaneous.sh win")
 
-(defpoll meteo1 :interval "60s" "~/.config/eww/scripts/meteo.sh 'Desenzano Del Garda' 45.457692 10.570684")
-(defpoll meteo2 :interval "60s" "~/.config/eww/scripts/meteo.sh 'Malmö' 55.60587 13.00073")
+(defpoll meteo1 :interval "120s" "~/.config/eww/scripts/meteo.sh 'Desenzano Del Garda' 45.457692 10.570684")
+(defpoll meteo2 :interval "120s" "~/.config/eww/scripts/meteo.sh 'Malmö' 55.60587 13.00073")
+(defpoll meteo3 :interval "120s" "~/.config/eww/scripts/meteo.sh 'Oslo' 59.911491 10.757933")
 
 (defpoll bluetooth :interval "1s" "~/.config/eww/scripts/bluetooth.sh all")
 (defpoll bluetooth_devices :interval "1s" "~/.config/eww/scripts/bluetooth.py")
