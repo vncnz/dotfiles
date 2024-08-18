@@ -45,6 +45,7 @@
             :halign "end"
             (box
                 :orientation "vertical"
+                :valign "center"
                 (label
                     :class "highlight"
                     :halign "end"
