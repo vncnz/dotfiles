@@ -152,7 +152,6 @@
         (circle_progress :value {EWW_TEMPS.AMDGPU_EDGE ?: 100} :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C"
             :icon "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
         )
-        (circle_progress :icon "" :text "${round(EWW_CPU.avg / arraylength(EWW_CPU.cores), 0)}%" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)})
         (circle_progress :icon "" :text "${round(EWW_CPU.avg, 0)}%" :value {EWW_CPU.avg})
         (circle_progress :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc})
         (circle_progress :icon "󰋊" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
