@@ -3,16 +3,16 @@
         :orientation "vertical"
         :valign "end"
         :halig "center"
-        :class "bar"
+        :vexpand true
+        :space-evenly false
         ;; (workspaces)
         ;; (mininotifications)
         (box
             :orientation "horizontal"
             :valign "end"
+            :vexpand false
             :space-evenly false
-            (box
-                :width 12
-            )
+            :class "lsbar"
             (box
                 :orientation "vertical"
                 :class "bottom"
@@ -20,7 +20,8 @@
                 :width 50
                 :space-evenly false
                 :spacing 25
-                (button :onclick "eww open --toggle dashboard_light" :class "open-btn" "")
+                (box :height 12)
+                ;; (button :onclick "eww open --toggle dashboard_light" :class "open-btn" "")
                 (leftnotifications)
                 (audio)
                 (box :valign "center" :halign "center" :orientation "vertical" :visible "network.signal != ''"
@@ -35,5 +36,6 @@
                 (box :height 12)
             )
         )
+        (box :height 24)
     )
 )
