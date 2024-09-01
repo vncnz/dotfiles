@@ -20,14 +20,15 @@
                 :width 50
                 :space-evenly false
                 :spacing 25
-                (button :onclick "eww open --toggle powermenu" :class "open-btn" "")
+                (button :onclick "eww open --toggle dashboard_light" :class "open-btn" "")
+                (leftnotifications)
                 (audio)
-                (box :valign "center" :halign "center" :orientation "vertical"
-                  (label :class "nerd-icon" :text "${network.icon}")
-                  (label :class "${network.wired == 1 ? true : false}" :text "${network.signal}%")
+                (box :valign "center" :halign "center" :orientation "vertical" :visible "network.signal != ''"
+                  (label :class "nerd-icon ${network.class}" :text "${network.icon}")
+                  (label :visible {network.signal != ''} :text "${network.signal}%")
                 )
                 (box :valign "center" :halign "center" :orientation "vertical"
-                  (label :class "nerd-icon" :text {battery.icon})
+                  (label :class "nerd-icon ${battery.clazz}" :text {battery.icon})
                   (label :text "${battery.percentage}%")
                 )
                 (box :valign "center" :halign "center" :orientation "horizontal" (clock))

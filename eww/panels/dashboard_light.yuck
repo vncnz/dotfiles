@@ -175,12 +175,12 @@
           (label :text "${network.icon} ${network.essid}")
           (label :text "${EWW_NET.enp0s3.NET_UP} ${EWW_NET.enp0s3.NET_DOWN}")
         )
-        ;;(box :orientation "v" :class "small_text" :halign "start"
-        ;;  (label :text "${bluetooth.icon} Bluetooth ${bluetooth.status}" :halign "start")
-        ;;  (for bdevice in {bluetooth_devices}
-        ;;        (bluetooth-entry :device bdevice)
-        ;;  )
-        ;;)
+        (box :orientation "v" :class "small_text" :halign "start"
+          (label :text "${bluetooth.icon} Bluetooth ${bluetooth.status}" :halign "start")
+          (for bdevice in {bluetooth_devices}
+                (bluetooth-entry :device bdevice)
+          )
+        )
         (label :halign "start" :text "󰚰 ${updates_count} pending updates")
         (box :orientation "h" :class "citation" :hexpand "true" :space-evenly false
           (box :class "open" :valign "start" :halign "start" :vexpand false :hexpand "true" (label :text ""))
@@ -194,6 +194,10 @@
         ;; (meteobox_light_noicon :meteo meteo3)
         (metric :icon volume_icon :label "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
         (metric :icon br_icon :label "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
+
+        (box :orientation "h" :hexpand false :halign "left"
+          (systray :height 50 :pack_direction "ltr" :hexpand false :halign "left")
+        )
       )
     )
     (box :valign "start" :halign "start" :orientation "v" :space-evenly false

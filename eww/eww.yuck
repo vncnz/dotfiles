@@ -64,14 +64,15 @@
 ;;(include "./widgets2/recorder.yuck")
 ;;(include "./widgets2/workspaces.yuck")
 
-(defwindow leftstatusbar [stacking]
+(defwindow leftstatusbar [] ;; [stacking]
     :geometry (geometry
         :height "100%"
         :anchor "center left"
     )
     :monitor 0
     :exclusive true
-    :stacking { stacking }
+    ;; :stacking { stacking }
+    :stacking "fg"
     :namespace "eww_leftstatusbar"
     (leftstatusbar)
 )

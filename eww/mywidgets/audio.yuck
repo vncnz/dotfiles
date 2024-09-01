@@ -5,6 +5,7 @@
             :onrightclick "niri msg action spawn -- pavucontrol"
             (label :class "nerd-icon" :text volume_icon)
         )
-        (label :text volume_value)
+        (label :visible {volume_value != 0} :text volume_value)
+        (label :visible {volume_value == 0} :text "Muted")
     )
 )
