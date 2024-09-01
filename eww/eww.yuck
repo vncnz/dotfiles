@@ -77,7 +77,16 @@
     (leftstatusbar)
 )
 
-
+(defwindow leftbaraddons
+  :monitor 0 ;; wayland users may need this
+  :stacking "overlay"
+  :wm-ignore true
+  :geometry (geometry
+      :height "100%"
+      :anchor "center left"
+  )
+  (leftbar_addons_layout)
+)
 
 
 
