@@ -61,3 +61,51 @@
     )
   )
 )
+
+(defwidget microaddons_layout []
+(centerbox
+    :orientation "h"
+    :valign "center"
+    :halig "center"
+    :vexpand true
+    :hexpand true
+    :space-evenly false
+    :class "lsbar"
+    :width 1000
+    (box
+        :valign "center"
+        :halign "start"
+        :space-evenly false
+        :spacing 25
+
+        (box :width 12)
+        (box :valign "center" :halign "center" :orientation "vertical"
+          (label :class "nerd-icon ${battery.clazz}" :text {battery.icon})
+          (label :text "${battery.percentage}%")
+        )
+        (box :valign "center" :halign "center" :orientation "vertical" :visible "network.signal != ''"
+          (label :class "nerd-icon ${network.class}" :text "${network.icon}")
+          (label :visible {network.signal != ''} :text "${network.signal}%")
+        )
+        (audio)
+        (leftnotifications)
+        (box :width 12)
+    )
+
+    (box :orientation "v" :halign "center"
+      (box :class "color_fg day" :halign "center" (label :text "${time.weekdaynamelong}"))
+      (label :class "other" :halign "end" :text "${time.year}-${time.month}-${time.day}")
+    )
+
+    (box
+      (box :width 12)
+      (for bdevice in {bluetooth_devices}
+        (box :valign "center" :halign "center" :orientation "vertical"
+          (label :class "nerd-icon" :text {bdevice.icon})
+          (label :visible {bdevice.battery != ''} :text "${bdevice.battery}%")
+        )
+      )
+      (box :width 12)
+    )
+  )
+)

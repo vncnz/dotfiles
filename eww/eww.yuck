@@ -87,6 +87,17 @@
   )
   (leftbar_addons_layout)
 )
+(defwindow microaddons
+  :monitor 0 ;; wayland users may need this
+  :stacking "overlay"
+  :wm-ignore true
+  :geometry (geometry
+      :anchor "bottom center"
+      :width "20%"
+      :y 26
+  )
+  (microaddons_layout)
+)
 
 
 

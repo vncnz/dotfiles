@@ -39,6 +39,7 @@
 )
 
 (defwidget leftbar_addons_layout []
+    ;; TODO
     (box
             :orientation "vertical"
             :valign "end"
