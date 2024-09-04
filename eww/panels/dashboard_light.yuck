@@ -148,9 +148,9 @@
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
         (circle_img :path "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}")
         (circle_progress :value {battery.percentage} :icon {battery.icon} :text "${battery.percentage}%")
-        (circle_progress :value {network.signal} :icon {network.icon} :text "${network.signal}%")
+        (circle_progress :value {network.signal} :icon {network.icon} :text "${network.wired == '1' ? 'Wired' : '${network.signal}%'}")
         (circle_progress :value {EWW_TEMPS.AMDGPU_EDGE ?: 100} :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C"
-            :icon "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+            :icon "${EWW_TEMPS.AMDGPU_EDGE == '' ? "󱔱" : EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
         )
         (circle_progress :icon "" :text "${round(EWW_CPU.avg, 0)}%" :value {EWW_CPU.avg})
         (circle_progress :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc})
