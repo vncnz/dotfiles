@@ -23,7 +23,9 @@
               (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
               (spotify_plaintext)
             )
-            (clock_time)
+            (eventbox :onclick "eww open microaddons --toggle"
+              (clock_time)
+            )
             (box :hexpand false :halign "end" :valign "end" :space-evenly false :spacing 10
               (box :width 100 :vexpand "true"
                 (graph :width 100 :vexpand "true" :value {EWW_CPU.avg} :time-range "60s" :min "0" :max "100" :thickness "1")
@@ -85,7 +87,8 @@
         )
         (box :valign "center" :halign "center" :orientation "vertical" :visible "network.signal != ''"
           (label :class "nerd-icon ${network.class}" :text "${network.icon}")
-          (label :visible {network.signal != ''} :text "${network.signal}%")
+          (label :visible {network.signal != '0'} :text "${network.signal}%")
+          (label :visible {network.wired == '1'} :text "Wired")
         )
         (audio)
         (leftnotifications)
@@ -104,6 +107,22 @@
           (label :class "nerd-icon" :text {bdevice.icon})
           (label :visible {bdevice.battery != ''} :text "${bdevice.battery}%")
         )
+      )
+      (box :valign "center" :halign "center" :orientation "vertical"
+        (label :class "nerd-icon" :text "")
+        (label :text "${round(EWW_CPU.avg, 0)}%")
+      )
+      (box :valign "center" :halign "center" :orientation "vertical"
+        (label :class "nerd-icon" :text "")
+        (label :text "${round(EWW_RAM.used_mem_perc, 0)}%")
+      )
+      (box :valign "center" :halign "center" :orientation "vertical"
+        (label :class "nerd-icon" :text "󰋊")
+        (label :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%")
+      )
+      (box :valign "center" :halign "center" :orientation "vertical"
+        (label :class "nerd-icon" :text "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}")
+        (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C")
       )
       (box :width 12)
     )
