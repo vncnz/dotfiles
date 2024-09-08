@@ -29,7 +29,7 @@ updateTail () {
   # check whether timer is expired
   if timerSet
   then
-    if { timerPaused && [ $(minutesLeftWhenPaused) -le 0 ] ; } || { ! timerPaused && [ $(minutesLeft) -le 0 ] ; }
+    if { timerPaused && [ $(minutesLeftWhenPaused) -lt 0 ] ; } || { ! timerPaused && [ $(minutesLeft) -lt 0 ] ; }
     then
       eval $(timerAction)
       killTimer
@@ -42,9 +42,16 @@ updateTail () {
   then
     if timerPaused
     then
-      echo "{\"text\": \"$(minutesLeftWhenPaused)m$(secondsLeftWhenPausedMod60)s\", \"alt\": \"paused\", \"tooltip\": \"Timer paused\", \"class\": \"timer\", \"icon\":\"󱫫\" }"
+        class=""
+      echo "{\"text\": \"$(minutesLeftWhenPaused)m$(secondsLeftWhenPausedMod60)s\", \"alt\": \"paused\", \"tooltip\": \"Timer paused\", \"class\": \"${class}\", \"icon\":\"󱫫\", \"m\": \"$(minutesLeftWhenPaused)m\", \"s\": \"$(secondsLeftWhenPausedMod60)s\" }"
     else
-      echo "{\"text\": \"$(minutesLeft)m$(secondsLeftMod60)s\", \"alt\": \"running\", \"tooltip\": \"Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)\", \"class\": \"timer\", \"icon\":\"󱤥\" }"
+        class="ok-color"
+        if (( $(minutesLeft) < 1 )); then
+            class="err-color"
+        elif (( $(minutesLeft) < 2 )); then
+            class="warn-color"
+        fi
+      echo "{\"text\": \"$(minutesLeft)m$(secondsLeftMod60)s\", \"alt\": \"running\", \"tooltip\": \"Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)\", \"class\": \"${class}\", \"icon\":\"󱤥\", \"m\": \"$(minutesLeft)m\", \"s\": \"$(secondsLeftMod60)s\" }"
     fi
   else
     echo "{\"text\": \"0\", \"alt\": \"standby\", \"tooltip\": \"No timer set\", \"class\": \"timer\", \"icon\":\"󰔞\" }"
@@ -54,6 +61,27 @@ updateTail () {
 ## MAIN CODE
 
 case $1 in
+  insert)
+    v=$(echo -e "1m0s\n2m0s\n5m0s\n25m0s\n60m0s" | fuzzel --dmenu --prompt="")
+    #echo $v
+    if [ -z $v ]; then
+        exit 1
+    fi
+    if timerSet
+    then
+        killTimer
+    fi
+    mkdir /tmp/waybar-timer
+    minutes=$(echo "$v" | sed -n 's/\([0-9]\+\)m.*/\1/p')
+    seconds=$(echo "$v" | sed -n 's/.*m\([0-9]\+\)s/\1/p')
+    if [ -z $seconds ]; then
+        seconds=0
+    fi
+    # echo "$(( 60*${minutes} + ${seconds} ))"
+    echo "$(( $(now) + 60*${minutes} + ${seconds} ))" > /tmp/waybar-timer/expiry
+    echo "${3}" > /tmp/waybar-timer/action
+    printExpiryTime
+  ;;
   updateandprint)
     updateTail
     ;;

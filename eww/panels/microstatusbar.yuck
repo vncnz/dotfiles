@@ -5,70 +5,70 @@
     :halig "center"
     :class "microbar"
     (box
-        :orientation "v"
+      :orientation "v"
+      :width "100%"
+      :hexpand true
+      :space-evenly false
+      (centerbox
+        :orientation "h"
+        :class "bottom"
         :width "100%"
         :hexpand true
         :space-evenly false
-        (centerbox
-            :orientation "h"
-            :class "bottom"
-            :width "100%"
-            :hexpand true
-            :space-evenly false
-            :spacing 10
-            ;; (audio)
-            (box :spacing 5 :hexpand false :halign "start" :space-evenly false
-                :valign "end"
-              (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
-              (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
-              (spotify_plaintext)
-            )
-            (box :orientation "h" :halign "center" :space-evenly false :spacing 20
-              (eventbox :onclick "eww open microaddons --toggle" :hexpand "false"
-                (clock_time)
-              )
-              (timer)
-            )
-            (box :hexpand false :halign "end" :valign "end" :space-evenly false :spacing 10
-              (box :width 100 :vexpand "true"
-                (graph :width 100 :vexpand "true" :value {EWW_CPU.avg} :time-range "60s" :min "0" :max "100" :thickness "1")
-              )
-              (box :valign "center" :halign "center" :orientation "h" :visible {EWW_RAM.used_mem_perc > 75}
-                (label :text "${round(EWW_RAM.used_mem_perc, 0)}%")
-                (label :text ""
-                      :class "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}"
-                )
-              )
-              (box :valign "center" :halign "center" :orientation "h" :visible {EWW_TEMPS.AMDGPU_EDGE > 55}
-                (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
-                (label :text "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
-                      :class "${EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"
-                )
-              )
-              (box :valign "center" :halign "center" :orientation "h"
-                (label :text "${battery.percentage}%")
-                (label ;; :class "icon"
-                  :class {battery.clazz}
-                  :text {battery.icon})
-              )
-              (box :valign "center" :halign "center" :orientation "h" :visible "network.signal != ''"
-                (label :visible {network.signal != ''} :text "${network.signal}%")
-                (label :class "${network.class}" :text "${network.icon}")
-              )
-              (micronotifications)
-            )
-            ;;(box :valign "center" :halign "center" :orientation "horizontal" (clock))
-            ;;(box :height 12)
+        :spacing 10
+        ;; (audio)
+        (box :spacing 5 :hexpand false :halign "start" :space-evenly false
+          :valign "end"
+          (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
+          (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
+          (spotify_plaintext)
         )
-        (box
-            :height 0
+        (box :orientation "h" :halign "center" :space-evenly false :spacing 20
+          (eventbox :onclick "eww open microaddons --toggle" :hexpand "false"
+            (clock_time)
+          )
+          (timer)
         )
+        (box :hexpand false :halign "end" :valign "end" :space-evenly false :spacing 10
+          (box :width 100 :vexpand "true"
+            (graph :width 100 :vexpand "true" :value {EWW_CPU.avg} :time-range "60s" :min "0" :max "100" :thickness "1")
+          )
+          (box :valign "center" :halign "center" :orientation "h" :visible {EWW_RAM.used_mem_perc > 75}
+            (label :text "${round(EWW_RAM.used_mem_perc, 0)}%")
+            (label :text ""
+              :class "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}"
+            )
+          )
+          (box :valign "center" :halign "center" :orientation "h" :visible {EWW_TEMPS.AMDGPU_EDGE > 55}
+            (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
+            (label :text "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+              :class "${EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"
+            )
+          )
+          (box :valign "center" :halign "center" :orientation "h"
+            (label :text "${battery.percentage}%")
+            (label ;; :class "icon"
+              :class {battery.clazz}
+            :text {battery.icon})
+          )
+          (box :valign "center" :halign "center" :orientation "h" :visible "network.signal != ''"
+            (label :visible {network.signal != ''} :text "${network.signal}%")
+            (label :class "${network.class}" :text "${network.icon}")
+          )
+          (micronotifications)
+        )
+        ;;(box :valign "center" :halign "center" :orientation "horizontal" (clock))
+        ;;(box :height 12)
+      )
+      (box
+        :height 0
+      )
     )
   )
 )
 
 (defwidget microaddons_layout []
-(centerbox
+  (centerbox
     :orientation "h"
     :valign "center"
     :halig "center"
@@ -78,31 +78,31 @@
     :class "lsbar"
     :width 1000
     (box
-        :valign "center"
-        :halign "start"
-        :space-evenly false
-        :spacing 25
-
-        (box :width 12)
-        (box :valign "center" :halign "center" :orientation "vertical"
-          (label :class "nerd-icon ${battery.clazz}" :text {battery.icon})
-          (label :text "${battery.percentage}%")
-        )
-        (box :valign "center" :halign "center" :orientation "vertical" :visible "network.signal != ''"
-          (label :class "nerd-icon ${network.class}" :text "${network.icon}")
-          (label :visible {network.signal != '0'} :text "${network.signal}%")
-          (label :visible {network.wired == '1'} :text "Wired")
-        )
-        (audio)
-        (leftnotifications)
-        (box :width 12)
+      :valign "center"
+      :halign "start"
+      :space-evenly false
+      :spacing 25
+      
+      (box :width 12)
+      (box :valign "center" :halign "center" :orientation "vertical"
+        (label :class "nerd-icon ${battery.clazz}" :text {battery.icon})
+        (label :text "${battery.percentage}%")
+      )
+      (box :valign "center" :halign "center" :orientation "vertical" :visible "network.signal != ''"
+        (label :class "nerd-icon ${network.class}" :text "${network.icon}")
+        (label :visible {network.signal != '0'} :text "${network.signal}%")
+        (label :visible {network.wired == '1'} :text "Wired")
+      )
+      (audio)
+      (leftnotifications)
+      (box :width 12)
     )
-
+    
     (box :orientation "h" :halign "center"
       (box :class "color_fg day" :halign "center" (label :text "${time.weekdaynamelong}"))
       (label :class "other" :halign "end" :text "${time.year}-${time.month}-${time.day}")
     )
-
+    
     (box
       (box :width 12)
       (for bdevice in {bluetooth_devices}
