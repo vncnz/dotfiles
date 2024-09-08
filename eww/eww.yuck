@@ -24,6 +24,7 @@
 (include "./mywidgets/music.yuck")
 (include "./mywidgets/sessionbuttons.yuck")
 (include "./mywidgets/sundial.yuck")
+(include "./mywidgets/timer.yuck")
 
 (defwidget bg_music_notif []
     (box

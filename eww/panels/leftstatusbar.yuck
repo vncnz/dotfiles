@@ -20,6 +20,7 @@
                 :spacing 25
                 (box :height 12)
                 ;; (button :onclick "eww open --toggle dashboard_light" :class "open-btn" "")
+                (timer2)
                 (leftnotifications)
                 (audio)
                 (box :valign "center" :halign "center" :orientation "vertical" :visible "network.signal != ''"

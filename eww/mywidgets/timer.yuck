@@ -1,0 +1,48 @@
+;; (defvar timer_value "0")
+;; (defvar timer_action "stop")
+
+(defpoll timer_value :interval "1000ms" :initial '{"percentage":"0", "icon":"?"}' "./scripts/timer.sh updateandprint")
+
+(defwidget timer []
+  (box :orientation "h"
+       :class "timer-widget"
+       :halign "center"
+       :valign "center"
+       ;; (label :text {timer_value.alt})
+       (eventbox :onclick "~/.config/eww/scripts/timer.sh new 25 'notify-send \"Timer expired\"'" :visible {timer_value.alt == 'standby'}
+        (label :class "timer-label" :text "${timer_value.icon} ${timer_value.text}" :tooltip {timer_value.tooltip})
+       )
+       (eventbox :onclick "~/.config/eww/scripts/timer.sh togglepause" :visible {timer_value.alt != 'standby'}
+        (label :class "timer-label" :text "${timer_value.icon} ${timer_value.text}" :tooltip {timer_value.tooltip})
+       )
+       (box :orientation "h"
+            (button :onclick "~/.config/eww/scripts/timer.sh cancel" "󱫦")
+            (button :onclick "~/.config/eww/scripts/timer.sh increase 30" "󰶖")
+            (button :onclick "~/.config/eww/scripts/timer.sh increase -30" "󰴆")
+       )
+  )
+)
+
+(defwidget timer2 []
+  (box :orientation "v"
+       :class "timer-widget"
+       :halign "center"
+       :valign "center"
+       ;; (label :text {timer_value.alt})
+       (box :valign "center" :halign "center" :orientation "vertical"
+            (box :orientation "h" :spacing 2
+                    (button :onclick "~/.config/eww/scripts/timer.sh increase 30" "󰶖")
+                    (button :onclick "~/.config/eww/scripts/timer.sh increase -30" "󰴆")
+            )
+            (eventbox :onclick "~/.config/eww/scripts/timer.sh new 25 'notify-send \"Timer expired\"'" :visible {timer_value.alt == 'standby'}
+                    :onrightclick "~/.config/eww/scripts/timer.sh cancel"
+                (label :class "nerd-icon" :text "${timer_value.icon}" :tooltip {timer_value.tooltip})
+            )
+            (eventbox :onclick "~/.config/eww/scripts/timer.sh togglepause" :visible {timer_value.alt != 'standby'}
+                    :onrightclick "~/.config/eww/scripts/timer.sh cancel"
+                (label :class "nerd-icon" :text "${timer_value.icon}" :tooltip {timer_value.tooltip})
+            )
+            (label :text {timer_value.text})
+       )
+  )
+)

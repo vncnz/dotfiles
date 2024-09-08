@@ -23,8 +23,11 @@
               (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
               (spotify_plaintext)
             )
-            (eventbox :onclick "eww open microaddons --toggle"
-              (clock_time)
+            (box :orientation "h" :halign "center" :space-evenly false :spacing 20
+              (eventbox :onclick "eww open microaddons --toggle" :hexpand "false"
+                (clock_time)
+              )
+              (timer)
             )
             (box :hexpand false :halign "end" :valign "end" :space-evenly false :spacing 10
               (box :width 100 :vexpand "true"
@@ -95,7 +98,7 @@
         (box :width 12)
     )
 
-    (box :orientation "v" :halign "center"
+    (box :orientation "h" :halign "center"
       (box :class "color_fg day" :halign "center" (label :text "${time.weekdaynamelong}"))
       (label :class "other" :halign "end" :text "${time.year}-${time.month}-${time.day}")
     )
