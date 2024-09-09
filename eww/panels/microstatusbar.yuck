@@ -39,7 +39,7 @@
               :class "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}"
             )
           )
-          (box :valign "center" :halign "center" :orientation "h" :visible {EWW_TEMPS.AMDGPU_EDGE > 55}
+          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 55}
             (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
             (label :text "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
               :class "${EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"

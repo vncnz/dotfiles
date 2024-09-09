@@ -457,13 +457,14 @@ $primary: #61afbf; // #1962e5
 }
 
 .timer-widget {
-    background-color: #1e1e2e;
+    // background-color: #1e1e2e;
     // padding: 20px;
-    border-radius: 10px;
+    // border-radius: 10px;
     // font-family: "JetBrains Mono", monospace;
-    color: #f8f8f2;
+    // color: #f8f8f2;
 
     .timer-label {
+        padding: 0 10px;
         // font-size: 10px;
         // margin-bottom: 10px;
     }
