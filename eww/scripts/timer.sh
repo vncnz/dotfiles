@@ -54,7 +54,7 @@ updateTail () {
       echo "{\"text\": \"$(minutesLeft)m$(secondsLeftMod60)s\", \"alt\": \"running\", \"tooltip\": \"Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)\", \"class\": \"${class}\", \"icon\":\"󱤥\", \"m\": \"$(minutesLeft)m\", \"s\": \"$(secondsLeftMod60)s\" }"
     fi
   else
-    echo "{\"text\": \"0\", \"alt\": \"standby\", \"tooltip\": \"No timer set\", \"class\": \"timer\", \"icon\":\"󰔞\" }"
+    echo "{\"text\": \"Timer\", \"alt\": \"standby\", \"tooltip\": \"No timer set\", \"class\": \"timer\", \"icon\":\"󰔞\" }"
   fi
 }
 

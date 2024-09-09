@@ -39,21 +39,32 @@
               :class "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}"
             )
           )
-          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 55}
+          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 50}
             (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
             (label :text "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
-              :class "${EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"
+              :class "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
             )
+          )
+          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4}
+            (label :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%")
+            (label :text "󰋊" :class {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : ""})
           )
           (box :valign "center" :halign "center" :orientation "h"
             (label :text "${battery.percentage}%")
-            (label ;; :class "icon"
-              :class {battery.clazz}
-            :text {battery.icon})
+            (label :class {battery.clazz} :text {battery.icon})
           )
           (box :valign "center" :halign "center" :orientation "h" :visible "network.signal != ''"
             (label :visible {network.signal != ''} :text "${network.signal}%")
             (label :class "${network.class}" :text "${network.icon}")
+          )
+          (eventbox
+            :onclick "niri msg action spawn -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            :onrightclick "niri msg action spawn -- pavucontrol"
+            (box :valign "center" :halign "center" :orientation "h"
+              (label :visible {volume_value != 0} :text " ${volume_value}%")
+              (label :visible {volume_value == 0} :text "Muted")
+              (label :text volume_icon)
+            )
           )
           (micronotifications)
         )
