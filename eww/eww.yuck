@@ -2,6 +2,7 @@
 
 (deflisten network :initial '{"essid": "lo", "signal": "", "icon":"?"}' "./scripts/network.sh")
 (defpoll battery :interval "1000ms" :initial '{"percentage":"0", "icon":"?"}' "./scripts/battery.sh")
+(defpoll avgload :interval "1000ms" :initial '"(AVG LOAD)"' "uptime | awk -F'[a-z]:' '{ print $2}'")
 
 (defpoll volume_icon :interval "1s" "~/.config/eww/scripts/volume.sh icon")
 (defpoll volume_value :interval "1s" "~/.config/eww/scripts/volume.sh vol")
