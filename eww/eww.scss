@@ -477,3 +477,11 @@ $primary: #61afbf; // #1962e5
         // border-radius: 5px;
     }
 }
+
+tooltip {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 1px 1px 2px black;
+    border: 1px solid white;
+}
