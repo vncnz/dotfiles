@@ -29,8 +29,8 @@
           (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
           (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
           (box :space-evenly true :spacing 3
-            (label :text "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
-              :class "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
+            (label :text "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 60 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+              :class "${EWW_TEMPS.AMDGPU_EDGE < 60 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
               :tooltip "cpu_proximity ${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
 
             (label :tooltip "RAM ${round(EWW_RAM.used_mem_perc, 0)}%" :text "" 
@@ -49,6 +49,19 @@
           (timer)
         )
         (box :hexpand false :halign "end" :valign "end" :space-evenly false :spacing 20
+          (smallbox :text "${round(EWW_RAM.used_mem_perc, 0)}%" :icon "" 
+            :iconclass "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}" :visible {EWW_RAM.used_mem_perc > 75})
+
+          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 59}
+            (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
+            (label :text "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+              :class "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
+            )
+          )
+          (smallbox :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :icon "󰋊"
+            :iconclass {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : ""}
+            :visible {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4})
+
           (box :width 100 :vexpand "true"
             (graph :width 100 :vexpand "true" :value {EWW_CPU.avg} :time-range "60s" :min "0" :max "100" :thickness "1")
           )
@@ -60,19 +73,12 @@
               (smallbox :text "${bdevice.battery ?: '--'}%" :icon "${bdevice.icon}")
             )
           )
-          (smallbox :text "${round(EWW_RAM.used_mem_perc, 0)}%" :icon "" 
-            :iconclass "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}" :visible {EWW_RAM.used_mem_perc > 75})
-
-          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 50}
-            (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
-            (label :text "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
-              :class "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
-            )
-          )
-          (smallbox :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :icon "󰋊"
-            :iconclass {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : ""}
-            :visible {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4})
           
+          (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 4
+            (label :text "${meteo1.temp}${meteo1.temp_unit}")
+            (image :image-width 20 :path "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}")
+          )
+
           (eventbox
             :onclick "niri msg action spawn -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             :onrightclick "niri msg action spawn -- pavucontrol"
