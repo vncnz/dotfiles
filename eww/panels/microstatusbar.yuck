@@ -24,10 +24,12 @@
         :space-evenly false
         :spacing 10
         ;; (audio)
-        (box :spacing 5 :hexpand false :halign "start" :space-evenly false
+        (box :spacing 10 :hexpand false :halign "start" :space-evenly false
           :valign "end"
-          (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
-          (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
+          (box :spacing 4
+            (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
+            (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
+          )
           (box :space-evenly true :spacing 3
             (label :text "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 60 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
               :class "${EWW_TEMPS.AMDGPU_EDGE < 60 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
@@ -38,7 +40,12 @@
 
             (label :tooltip "DISK USED ${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :text "󰋊"
               :class {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : (EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4 ? "warn-color" : "ok-color"})
-
+          )
+          (box
+            (for bdevice in {bluetooth_devices}
+              ;;(label :text "${bdevice.battery ?: '--'}% ${bdevice.icon}")
+              (smallbox :text "${bdevice.battery ?: '--'}%" :icon "${bdevice.icon}")
+            )
           )
           (spotify_plaintext)
         )
@@ -66,13 +73,6 @@
             (graph :width 100 :vexpand "true" :value {EWW_CPU.avg} :time-range "60s" :min "0" :max "100" :thickness "1")
           )
           (smallbox :text {avgload} :icon "󰬢")
-
-          (box
-            (for bdevice in {bluetooth_devices}
-              ;;(label :text "${bdevice.battery ?: '--'}% ${bdevice.icon}")
-              (smallbox :text "${bdevice.battery ?: '--'}%" :icon "${bdevice.icon}")
-            )
-          )
           
           (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 4
             (label :text "${meteo1.temp}${meteo1.temp_unit}")
