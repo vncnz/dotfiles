@@ -32,11 +32,18 @@
           )
           (box :space-evenly true :spacing 3
 
-            (label :text "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 60 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
-              :class "${EWW_TEMPS.AMDGPU_EDGE < 60 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
-              :tooltip "cpu_proximity ${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C"
-              :visible {EWW_TEMPS.AMDGPU_EDGE > 0})
+            (tooltip
+              ;; (label :text {EWW_TEMPS})
+              (box :orientation "v"
+                (label :text "cpu_proximity       ${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
+                (label :text "nvme_composite ${round(EWW_TEMPS.NVME_COMPOSITE_SAMSUNG_SSD_970_EVO_PLUS_1TB_TEMP1 ?: 0, 0)}°C")
+                (label :text "K10_TCTL                ${round(EWW_TEMPS.K10TEMP_TCTL ?: 0, 0)}°C")
+              )
+              (label :text "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 60 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+                :class "${EWW_TEMPS.AMDGPU_EDGE < 60 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
+                :visible {EWW_TEMPS.AMDGPU_EDGE > 0})
             ;; (label :text "󱔱" :visible (not (EWW_TEMPS.AMDGPU_EDGE > 0)))
+            )
 
             (label :tooltip "RAM ${round(EWW_RAM.used_mem_perc, 0)}%" :text "" 
               :class "${EWW_RAM.used_mem_perc < 50 ? 'ok-color' : EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}")
