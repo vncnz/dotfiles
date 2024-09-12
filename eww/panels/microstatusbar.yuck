@@ -31,9 +31,12 @@
             (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
           )
           (box :space-evenly true :spacing 3
+
             (label :text "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 60 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
               :class "${EWW_TEMPS.AMDGPU_EDGE < 60 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
-              :tooltip "cpu_proximity ${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
+              :tooltip "cpu_proximity ${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C"
+              :visible {EWW_TEMPS.AMDGPU_EDGE > 0})
+            (label :text "󱔱" :visible (not (EWW_TEMPS.AMDGPU_EDGE > 0)))
 
             (label :tooltip "RAM ${round(EWW_RAM.used_mem_perc, 0)}%" :text "" 
               :class "${EWW_RAM.used_mem_perc < 50 ? 'ok-color' : EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}")
