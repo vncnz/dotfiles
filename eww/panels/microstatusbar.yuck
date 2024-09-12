@@ -36,7 +36,7 @@
               :class "${EWW_TEMPS.AMDGPU_EDGE < 60 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
               :tooltip "cpu_proximity ${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C"
               :visible {EWW_TEMPS.AMDGPU_EDGE > 0})
-            (label :text "󱔱" :visible (not (EWW_TEMPS.AMDGPU_EDGE > 0)))
+            ;; (label :text "󱔱" :visible (not (EWW_TEMPS.AMDGPU_EDGE > 0)))
 
             (label :tooltip "RAM ${round(EWW_RAM.used_mem_perc, 0)}%" :text "" 
               :class "${EWW_RAM.used_mem_perc < 50 ? 'ok-color' : EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}")
@@ -76,10 +76,13 @@
             (graph :width 100 :vexpand "true" :value {EWW_CPU.avg} :time-range "60s" :min "0" :max "100" :thickness "1")
           )
           (smallbox :text {avgload} :icon "󰬢")
-          
-          (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 4
-            (label :text "${meteo1.temp}${meteo1.temp_unit}")
-            (image :image-width 20 :path "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}")
+
+          (tooltip
+            (meteodaygraph)
+            (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 4
+              (label :text "${meteo1.temp}${meteo1.temp_unit}")
+              (image :image-width 20 :path "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}")
+            )
           )
 
           (eventbox

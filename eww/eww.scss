@@ -384,14 +384,14 @@ $primary: #61afbf; // #1962e5
             margin-top: -1.4rem;
         }
     }
+}
 
-    .meteodaygraph {
-        .day {
-            background-color: #e59c19;
-        }
-        .night {
-            background-color: $primary;
-        }
+.meteodaygraph {
+    .day {
+        background-color: #e59c19;
+    }
+    .night {
+        background-color: $primary;
     }
 }
 
