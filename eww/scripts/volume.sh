@@ -37,11 +37,16 @@ get_percentage () {
 }
 
 get_icon () {
-  local vol=$(get_percentage)
-  if [[ $vol == "0%" ]]; then
-    echo ""
+  local headphones=$(pactl list sinks | grep "Active Port" | grep "headphones" | wc -l)
+  if [[ $headphones == "1" ]]; then
+    echo ""
   else
-    echo $(percentage "$vol" "" "" "" "")
+    local vol=$(get_percentage)
+    if [[ $vol == "0%" ]]; then
+      echo ""
+    else
+      echo $(percentage "$vol" "" "" "" "")
+    fi
   fi
 }
 
