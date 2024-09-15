@@ -40,7 +40,7 @@
                 (label :text "K10_TCTL                ${round(EWW_TEMPS.K10TEMP_TCTL ?: 0, 0)}°C")
               )
               (label :text "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 60 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
-                :class "${EWW_TEMPS.AMDGPU_EDGE < 60 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
+                :class "${EWW_TEMPS.AMDGPU_EDGE < 60 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"
                 :visible {EWW_TEMPS.AMDGPU_EDGE > 0})
             ;; (label :text "󱔱" :visible (not (EWW_TEMPS.AMDGPU_EDGE > 0)))
             )
@@ -71,8 +71,8 @@
 
           (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 59}
             (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
-            (label :text "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
-              :class "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : EWW_TEMPS.AMDGPU_EDGE < 65 ? "warn-color" : "err-color"}"
+            (label :text "${EWW_TEMPS.AMDGPU_EDGE < 50 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+              :class "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"
             )
           )
           (smallbox :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :icon "󰋊"
@@ -103,6 +103,7 @@
           )
 
           (box :valign "center" :halign "center" :orientation "h" :visible "network.signal != ''" :space-evenly false :spacing 4
+            :tooltip "${network.essid}"
             (label :visible {network.signal != ''} :text "${network.signal}%")
             (label :class "${network.class}" :text "${network.icon}")
           )
