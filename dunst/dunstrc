@@ -44,7 +44,7 @@
     mouse_middle_click = close_all
 
 [transient_history_ignore]
-    match_transient = yes
+    history_ignore_transient = yes
     history_ignore = yes
 
 [shortcuts]
