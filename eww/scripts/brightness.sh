@@ -45,6 +45,9 @@ send_notif () {
 
   dunstify -a "Brightness" -u low -r "$msgId" -h int:transient:1 -h int:value:"$brightpercent" "Brightness: ${brightpercent}%"
   # notify-send -t $notification_timeout -h string:x-dunst-stack-tag:brightness_notif -h int:transient:1 -h int:value:$brightness "$brightness_icon $brightness%"
+
+  # icon_name="${HOME}/.config/rice_assets/Icons/b.png"
+  # dunstify "Brightness: $brightpercent%" -h int:transient:1 -h int:value:$brightpercent -i "$icon_name" -t 1000 --replace=555 -u critical
 }
 
 get_json () {
@@ -71,8 +74,30 @@ if [[ $1 == "icon" ]]; then
 fi
 
 if [[ $1 == "set" ]]; then
-  brightnessctl set $2"%"
+  brightnessctl set $2
   data=$(get_json)
   $(/usr/bin/eww update brightness="$data")
   send_notif
+fi
+
+if [[ $1 == "delta" ]]; then
+  per=$( get_brightness )
+  rem=$(( per % $2 ))
+  half=$(( $2 / 2 ))
+  echo $2
+  echo $rem
+  echo $half
+  val=$((per + $2 - $rem))
+  if [[ "$rem" -ge "$half" ]]; then
+    if [[ "$half" -ge "0" ]]; then
+      echo "qui"
+      val=$(( $val + $2 ))
+    fi
+  fi
+  echo $val
+  brightnessctl set $val"%"
+  data=$(get_json)
+  echo $data
+  $(/usr/bin/eww update brightness="$data")
+  # send_notif
 fi
