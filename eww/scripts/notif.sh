@@ -1,7 +1,6 @@
 #!/bin/bash
 
 volume_step=5
-brightness_step=5
 max_volume=100
 notification_timeout=1500
 download_album_art=true
@@ -18,13 +17,6 @@ function get_mute {
     pactl get-sink-mute @DEFAULT_SINK@ | grep -Po '(?<=Mute: )(yes|no)'
 }
 
-# Uses regex to get brightness from xbacklight
-function get_brightness {
-    # sudo light | grep -Po '[0-9]{1,3}' | head -n 1
-    (( br = $(brightnessctl get) * 100 / $(brightnessctl max) ))
-    echo $br
-}
-
 # Returns a mute icon, a volume-low icon, or a volume-high icon, depending on the volume
 function get_volume_icon {
     volume=$(get_volume)
@@ -36,11 +28,6 @@ function get_volume_icon {
     else
         volume_icon=""
     fi
-}
-
-# Always returns the same icon - I couldn't get the brightness-low icon to work with fontawesome
-function get_brightness_icon {
-    brightness_icon=""
 }
 
 function get_album_art {
@@ -108,14 +95,6 @@ function show_music_notif {
     notify-send -t $notification_timeout -h string:x-dunst-stack-tag:music_notif -h int:transient:1 -i "$album_art" "$song_title" "$song_artist - $song_album"
 }
 
-# Displays a brightness notification using dunstify
-function show_brightness_notif {
-    brightness=$(get_brightness)
-    get_brightness_icon
-    notify-send -t $notification_timeout -h string:x-dunst-stack-tag:brightness_notif -h int:transient:1 -h int:value:$brightness "$brightness_icon $brightness%"
-}
-
-# Main function - Takes user input, "volume_up", "volume_down", "brightness_up", or "brightness_down"
 case $1 in
     volume_up)
     # Unmutes and increases volume, then displays the notification
@@ -147,20 +126,6 @@ case $1 in
     show_mic_notif
     ;;
 
-    brightness_up)
-    # Increases brightness and displays the notification
-    # sudo light -A $brightness_step 
-    brightnessctl set $brightness_step"%+"
-    show_brightness_notif
-    ;;
-
-    brightness_down)
-    # Decreases brightness and displays the notification
-    # sudo light -U $brightness_step
-    brightnessctl set $brightness_step"%-"
-    show_brightness_notif
-    ;;
-
     next_track)
     # Skips to the next song and displays the notification
     playerctl next
@@ -182,10 +147,6 @@ case $1 in
 
     show_volume)
     show_volume_notif
-    ;;
-
-    show_brightness)
-    show_brightness_notif
     ;;
 
     show_music)

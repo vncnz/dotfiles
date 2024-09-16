@@ -312,11 +312,11 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "volume_mute"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "mic_mute"; }
 
-    // XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "10%+"; }
-    // XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "5%+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "5%-"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "brightness_up"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "brightness_down"; }
+    // XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "brightness_up"; }
+    // XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "brightness_down"; }
 
     XF86AudioPlay { spawn "playerctl" "play-pause"; }
     XF86AudioNext { spawn "playerctl" "next"; }

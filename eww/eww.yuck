@@ -11,6 +11,7 @@
 (defpoll updates_count :interval "600s" "checkupdates | wc -l")
 (defpoll br_icon :interval "1s" "~/.config/eww/scripts/brightness.sh icon")
 (defpoll br :interval "1s" "~/.config/eww/scripts/brightness.sh br")
+(defpoll brightness :interval "5s" "~/.config/eww/scripts/brightness.sh json")
 
 (defpoll winfocus :interval "1s" "~/.config/eww/scripts/miscellaneous.sh win")
 

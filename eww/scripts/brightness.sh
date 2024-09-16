@@ -30,8 +30,33 @@ get_percent () {
 
 get_icon () {
   local br=$(get_percent)
-  echo $(percentage "$br" "" "" "" "")
+  echo $(percentage "$br" "" "󰃞" "󰃟" "")
 }
+
+send_notif () {
+  msgId="3378455"
+
+  brightnessctl "$@" > /dev/null
+
+  brightnow="$(brightnessctl g)"
+  brightmax="$(brightnessctl m)"
+
+  brightpercent=$(awk "BEGIN {print int(${brightnow}/${brightmax}*100)}")
+
+  dunstify -a "Brightness" -u low -r "$msgId" -h int:transient:1 -h int:value:"$brightpercent" "Brightness: ${brightpercent}%"
+  # notify-send -t $notification_timeout -h string:x-dunst-stack-tag:brightness_notif -h int:transient:1 -h int:value:$brightness "$brightness_icon $brightness%"
+}
+
+get_json () {
+  PERCENTAGE=$(get_brightness)
+  ICON=$(get_icon)
+  CLAZZ=""
+  echo '{"percentage": "'"$PERCENTAGE"'", "icon": "'"$ICON"'", "clazz": "'"$CLAZZ"'"}'
+}
+
+if [[ $1 == "json" ]]; then
+  get_json
+fi
 
 if [[ $1 == "br" ]]; then
   get_brightness
@@ -47,5 +72,7 @@ fi
 
 if [[ $1 == "set" ]]; then
   brightnessctl set $2"%"
-  $(~/.config/eww/scripts/dunstbrightness.sh)
+  data=$(get_json)
+  $(/usr/bin/eww update brightness="$data")
+  send_notif
 fi
