@@ -119,8 +119,9 @@
         :orientation "vertical"
         :spacing 10
         :space-evenly false
-        :vexpand false
+        :vexpand true
         :hexpand false
+        :height "100%"
         (box
             :halign "end"
             :orientation "horizontal"
@@ -154,14 +155,20 @@
                 (label :text "${arraylength(notifications['data'][0])} notifications" :wrap true)
             )
             (button
-                :onclick "dunstctl close-all && dunstctl history-clear"
+                :onclick "dunstctl close-all && dunstctl history-clear && eww close notificationsoverlay"
                 (label :class "nerd-icon" :text "󰺝")
+            )
+            (button
+                :onclick "eww close notificationsoverlay"
+                (label :class "nerd-icon" :text "󰢥")
             )
         )
         (box
             :orientation "vertical"
             :spacing 22
             :space-evenly false
+            :vexpand true
+            :height "100%"
             
             (for notification in {notifications['data'][0]}
                 (notification-dashboard-entry :notification notification)

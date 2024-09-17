@@ -125,8 +125,8 @@
   :monitor 0 ;; wayland users may need this
   :stacking "fg"
   :wm-ignore true
-  :geometry (geometry :width "16%" :height "98%" :x 20 :anchor "center right" )
-  (box :class "panel" :valign "start" :halign "end"
+  :geometry (geometry :width "16%" :height "98%" :x 0 :anchor "center right" )
+  (box :valign "start" :halign "end"
             :vexpand true :hexpand true
         (notifications-panel)
     )

@@ -181,6 +181,8 @@ $primary: #61afbf; // #1962e5
 }
 
 .notificationspanel {
+    background-color: rgba(30,30,30,0.7);
+
     .notif {
         box-shadow: inset 3px 0 $primary;
         padding-left: 10px;
