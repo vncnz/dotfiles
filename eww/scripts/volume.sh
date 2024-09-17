@@ -64,6 +64,17 @@ get_vol () {
   echo $percent | tr -d '%'
 }
 
+get_json () {
+  PERCENTAGE=$(get_vol)
+  ICON=$(get_icon)
+  CLAZZ=$(get_class)
+  echo '{"value": '$PERCENTAGE', "icon": "'"$ICON"'", "clazz": "'"$CLAZZ"'"}'
+}
+
+if [[ $1 == "json" ]]; then
+  get_json
+fi
+
 if [[ $1 == "icon" ]]; then
   get_icon
 fi
@@ -89,7 +100,20 @@ if [[ $1 == "toggle-muted" ]]; then
   $(~/.config/eww/scripts/dunstvolume.sh)
 fi
 
-if [[ $1 == "set" ]]; then
+if [[ $1 == "up" ]]; then
+  pactl set-sink-volume @DEFAULT_SINK@ +5%
+  data=$(get_json)
+  $(/usr/bin/eww update volume="$data")
+  # send_notif
+fi
+if [[ $1 == "down" ]]; then
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
+  data=$(get_json)
+  $(/usr/bin/eww update volume="$data")
+  # send_notif
+fi
+
+if [[ $1 == "set________" ]]; then
   val=$(echo $2 | tr '.' ' ' | awk '{print $1}')
   if test $val -gt 100; then
     val=100

@@ -6,6 +6,7 @@
 
 (defpoll volume_icon :interval "1s" "~/.config/eww/scripts/volume.sh icon")
 (defpoll volume_value :interval "1s" "~/.config/eww/scripts/volume.sh vol")
+(defpoll volume :interval "1s" "~/.config/eww/scripts/volume.sh json")
 (defpoll is_muted :interval "1s" "~/.config/eww/scripts/volume.sh muted")
 
 (defpoll updates_count :interval "600s" "checkupdates | wc -l")

@@ -96,9 +96,9 @@
             :onclick "niri msg action spawn -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             :onrightclick "niri msg action spawn -- pavucontrol"
             (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 4
-              (label :visible {volume_value != 0} :text " ${volume_value}%")
-              (label :visible {volume_value == 0} :text "Muted")
-              (label :text volume_icon)
+              (label :visible {volume.value != 0} :text "${volume.value}%")
+              (label :visible {volume.value == 0} :text "Muted")
+              (label :text {volume.icon})
             )
           )
 
