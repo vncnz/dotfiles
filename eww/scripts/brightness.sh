@@ -77,7 +77,7 @@ if [[ $1 == "set" ]]; then
   brightnessctl set $2
   data=$(get_json)
   $(/usr/bin/eww update brightness="$data")
-  send_notif
+  # send_notif
 fi
 
 if [[ $1 == "delta" ]]; then
