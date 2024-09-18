@@ -45,7 +45,7 @@
 
 [transient_history_ignore]
     history_ignore_transient = yes
-    history_ignore = yes
+    history_ignore = no
 
 [shortcuts]
     close = ctrl+space
