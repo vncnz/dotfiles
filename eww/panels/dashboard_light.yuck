@@ -62,6 +62,7 @@
         :orientation "v"
           :visible {meteo1.text != ""}
       (meteodaygraph_row :meteo meteo1)
+      (meteodaygraph_row :meteo meteoBosco)
       (meteodaygraph_row :meteo meteo2)
       (meteodaygraph_row :meteo meteo3)
     )
