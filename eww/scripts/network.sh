@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# cat /sys/class/net/enp0s3/
+
 percentage () {
   local val=$(echo $1 | tr '%' ' ' | awk '{print $1}')
   local icon1=$2
