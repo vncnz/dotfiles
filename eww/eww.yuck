@@ -24,6 +24,8 @@
 (defpoll bluetooth :interval "1s" "~/.config/eww/scripts/bluetooth.sh all")
 (defpoll bluetooth_devices :interval "1s" "~/.config/eww/scripts/bluetooth.py")
 
+(defpoll windows :interval "1s" "niri msg -j windows")
+
 (include "./mywidgets/notifications2.yuck")
 (include "./mywidgets/music.yuck")
 (include "./mywidgets/sessionbuttons.yuck")

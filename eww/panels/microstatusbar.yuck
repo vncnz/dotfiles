@@ -51,6 +51,18 @@
             (label :tooltip "DISK USED ${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :text "󰋊"
               :class {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : (EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4 ? "warn-color" : "ok-color"})
           )
+          (tooltip
+            (box :orientation "v" :halign "left"
+              (for w in {windows}
+                (box :orientation "h" :space-evenly false :spacing 10
+                  (label :text "${w.is_focused ? '󰁕' : ''}")
+                  (label :text "W${w.workspace_id}: ${w.app_id} / ${w.title}" :halign "start" :hexpand true)
+                )
+                ;;(smallbox :text "${bdevice.battery ?: '--'}%" :icon "${bdevice.icon}")
+              )
+            )
+            (label :text "")
+          )
           (box
             (for bdevice in {bluetooth_devices}
               ;;(label :text "${bdevice.battery ?: '--'}% ${bdevice.icon}")
@@ -110,7 +122,13 @@
             (label :class "${network.class}" :text "${network.icon}")
           )
 
-          (smallbox :text "${battery.percentage}%" :icon {battery.icon} :iconclass {battery.clazz})
+          (tooltip
+            (box :orientation "v"
+              (label :text "Capacity: ${round(battery.capacity, 0)}%")
+              (label :text "Eta: ${battery.eta}")
+            )
+            (smallbox :text "${battery.percentage}%" :icon {battery.icon} :iconclass {battery.clazz})
+          )
           (micronotifications)
         )
         ;;(box :valign "center" :halign "center" :orientation "horizontal" (clock))
