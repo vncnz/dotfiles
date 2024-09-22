@@ -44,8 +44,8 @@
     mouse_middle_click = close_all
 
 [transient_history_ignore]
-    history_ignore_transient = yes
-    history_ignore = no
+    match_transient = yes
+    history_ignore = yes
 
 [shortcuts]
     close = ctrl+space
