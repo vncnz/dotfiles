@@ -21,7 +21,7 @@ percentage () {
 
 get_brightness () {
   (( br = $(brightnessctl get) * 100 / $(brightnessctl max) ))
-  echo $br
+  printf "%.0f\n" $br
 }
 
 get_percent () {
@@ -82,18 +82,18 @@ fi
 
 if [[ $1 == "delta" ]]; then
   per=$( get_brightness )
-  rem=$(( per % $2 ))
-  half=$(( $2 / 2 ))
-  echo $2
-  echo $rem
-  echo $half
-  val=$((per + $2 - $rem))
-  if [[ "$rem" -ge "$half" ]]; then
-    if [[ "$half" -ge "0" ]]; then
-      echo "qui"
-      val=$(( $val + $2 ))
-    fi
-  fi
+  # half=$(( $2 / 2 ))
+  # rem=$(( ($per + $half) % $2 ))
+  # echo $2
+  # echo $rem
+  # echo $half
+  val=$(( ((per+1) / $2) * $2 + $2))
+  #if [[ "$rem" -ge "$half" ]]; then
+  #  if [[ "$half" -ge "0" ]]; then
+  #    echo "qui"
+  #    val=$(( $val + $2 ))
+  #  fi
+  #fi
   echo $val
   brightnessctl set $val"%"
   data=$(get_json)
