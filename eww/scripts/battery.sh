@@ -60,6 +60,7 @@ PERCENTAGE=$(awk '/percentage/ {print $NF}' <<< $INFORMATION)
 CAPACITY=$(awk '/capacity/ {print $NF}' <<< $INFORMATION)
 UPDATED=$(awk -F '(' '/updated/ {print $NF}' <<< $INFORMATION | sed -r 's/\)//')
 TIME_TO_EMPTY=$(awk -F ':' '/time to empty/ {print $NF}' <<< $INFORMATION | sed -r 's/\s{2,}//g')
+TIME_TO_FULL=$(awk -F ':' '/time to full/ {print $NF}' <<< $INFORMATION | sed -r 's/\s{2,}//g')
 state=$(awk '/state/ {print $NF}' <<< $INFORMATION)
 
 if [ "$PERCENTAGE" == "ignored)" ]; then
@@ -74,4 +75,11 @@ clazz=$(get_class)
 PERCENTAGE=$(echo $PERCENTAGE | tr '%' ' ' | awk '{print $1}')
 CAPACITY=$(echo $CAPACITY | tr '%' ' ' | awk '{print $1}')
 
-echo '{"percentage": "'"$PERCENTAGE"'", "capacity": "'"$CAPACITY"'", "updated": "'"$UPDATED"'", "eta": "'"$TIME_TO_EMPTY"'", "icon": "'"$icon"'", "state": "'"$state"'", "clazz": "'"$clazz"'"}'
+TIME=$TIME_TO_EMPTY
+if [[ $TIME -eq '' ]]; then
+  TIME=$TIME_TO_FULL
+fi
+if [[ $TIME -eq '' ]]; then
+  TIME="unknown"
+fi
+echo '{"percentage": "'"$PERCENTAGE"'", "capacity": "'"$CAPACITY"'", "updated": "'"$UPDATED"'", "eta": "'"$TIME"'", "icon": "'"$icon"'", "state": "'"$state"'", "clazz": "'"$clazz"'"}'
