@@ -46,7 +46,7 @@
             )
 
             (label :tooltip "RAM ${round(EWW_RAM.used_mem_perc, 0)}%" :text "" 
-              :class "${EWW_RAM.used_mem_perc < 50 ? 'ok-color' : EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}")
+              :class "${EWW_RAM.used_mem_perc < 65 ? 'ok-color' : EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}")
 
             (label :tooltip "DISK USED ${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :text "󰋊"
               :class {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : (EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4 ? "warn-color" : "ok-color"})
