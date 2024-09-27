@@ -12,7 +12,7 @@ do_operation () {
 
 
 operation=$(printf "suspend\nshutdown\nreboot\nnothing" | fuzzel -d)
-if [ "$operation" != "nothing" ]; then
+if [ "$operation" != "nothing" ] && [ "$operation" != "" ]; then
     confirmed=$(printf "confirm\nundo" | fuzzel -p "Are you sure?" -d)
     if [ "$confirmed" == "confirm" ]; then
         do_operation
