@@ -4,7 +4,7 @@ do_operation () {
     if [ "$operation" == "suspend" ]; then
         systemctl suspend
     elif [ "$operation" == "shutdown" ]; then
-        shutdown
+        shutdown now
     elif [ "$operation" == "reboot" ]; then
         reboot
     fi
