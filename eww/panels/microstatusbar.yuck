@@ -45,8 +45,14 @@
             ;; (label :text "󱔱" :visible (not (EWW_TEMPS.AMDGPU_EDGE > 0)))
             )
 
-            (label :tooltip "RAM ${round(EWW_RAM.used_mem_perc, 0)}%" :text "" 
-              :class "${EWW_RAM.used_mem_perc < 65 ? 'ok-color' : EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}")
+            (tooltip
+              (box :orientation "v"
+                (label :text "RAM ${round(EWW_RAM.used_mem_perc, 0)}% of ${round(EWW_RAM.total_mem/1024/1024, 0)}Mb")
+                (label :text "SWAP ${round(100 - EWW_RAM.free_swap/EWW_RAM.total_swap*100, 0)}% of ${round(EWW_RAM.total_swap/1024/1024, 0)}Mb")
+                ;; total_mem, free_mem, total_swap, free_swap
+              )
+              (label :text "" :class "${EWW_RAM.used_mem_perc < 65 ? 'ok-color' : EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}")
+            )
 
             (label :tooltip "DISK USED ${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :text "󰋊"
               :class {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : (EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4 ? "warn-color" : "ok-color"})
