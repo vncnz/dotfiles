@@ -292,10 +292,10 @@ binds {
     Mod+T { spawn "alacritty"; }
     Mod+D { spawn "fuzzel"; }
     Mod+P { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
-    Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
+    // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
-    Super+L { spawn "swaylock" "-i" "/home/vncnz/Pictures/wallpaper.jpg"; }
+    Super+L { spawn "swaylock" "-i" "/home/vncnz/Pictures/wallpaper.jpg" "--show-keyboard-layout" "--show-failed-attempts"; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
@@ -330,8 +330,8 @@ binds {
     Mod+Q { close-window; }
 
     Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-down; }
-    Mod+Up    { focus-window-up; }
+    Mod+Down  { focus-window-or-workspace-down; } // { focus-window-down; }
+    Mod+Up    { focus-window-or-workspace-up; } // { focus-window-up; }
     Mod+Right { focus-column-right; }
     // Mod+H     { focus-column-left; }
     // Mod+J     { focus-window-down; }
@@ -339,8 +339,8 @@ binds {
     // Mod+L     { focus-column-right; }
 
     Mod+Ctrl+Left  { move-column-left; }
-    Mod+Ctrl+Down  { move-window-down; }
-    Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Down  { move-window-down-or-to-workspace-down; } // { move-window-down; }
+    Mod+Ctrl+Up    { move-window-up-or-to-workspace-up; } // { move-window-up; }
     Mod+Ctrl+Right { move-column-right; }
     Mod+Ctrl+H     { move-column-left; }
     Mod+Ctrl+J     { move-window-down; }
