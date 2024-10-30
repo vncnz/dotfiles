@@ -9,8 +9,8 @@
 ;;(defpoll musicartlink :interval "1s"
 ;;`playerctl metadata --format "{{ mpris:artUrl }}" | sed 's/b273/1e02/'`)
 (deflisten progress
-    :initial '{"current": "0", "currentHuman": "0:00"}'
-    `playerctl --follow position --format '{"current": "{{ position }}", "currentHuman": "{{ duration(position) }}"}'`
+    :initial '{"current": "0", "currentHuman": "0:00", "length": "0"}'
+    `playerctl metadata --follow position --format '{"current": "{{ position }}", "currentHuman": "{{ duration(position) }}", "length": "{{ mpris:length }}"}'`
 )
 
 (defwidget spotify_plaintext []
