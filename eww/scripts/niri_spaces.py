@@ -20,8 +20,8 @@ for mo in mons:
         applications.append(f'{wo['is_focused'] and '󰁕' or ' '} Workspace {wo['name'] or wo['id']}')
         wi = filter(lambda w: wo['id'] == w['workspace_id'], wins)
         for w in wi:
-            applications.append(f'   {w['is_focused'] and '󰁕' or ' '} {w['title']} (appid {w['id']})')
+            applications.append(f'{w['id']:3}   {w['is_focused'] and '󰁕' or ' '} {w["app_id"]} / {w['title']}'[:60])
         #print(list(wi))
 
 print('\n'.join(applications))
-exec(f'echo "{applications}" | fuzzel --dmenu --prompt=""')
+# exec(f'echo "{applications}" | fuzzel --dmenu --prompt=""')

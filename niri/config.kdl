@@ -93,7 +93,7 @@ output "eDP-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=0 y=0
+    position x=1920 y=0
 }
 
 output "Virtual-1" {
@@ -287,10 +287,12 @@ binds {
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Shift+BackSlash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "alacritty"; }
     Mod+D { spawn "fuzzel"; }
+    Mod+O { spawn "/home/vncnz/.config/eww/scripts/niri_spaces.sh"; }
     Mod+P { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
     // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
 
@@ -603,11 +605,6 @@ window-rule {
 }
 
 window-rule {
-    match app-id="org.gnome.Nautilus"
-    default-column-width { proportion 0.53; }
-}
-
-window-rule {
     match app-id=r#"libreoffice-(calc|draw|impress|math|writer)"#
     open-maximized true
 }
@@ -626,4 +623,30 @@ window-rule {
     match app-id="virt-manager" title=r#"on QEMU/KVM$"#
     default-column-width { proportion 0.8; }
     // open-on-workspace "work"
+}
+
+window-rule {
+  match app-id="firefox"
+  exclude title="Open File"
+  exclude title="About"
+  exclude title="Library"
+  exclude title="Preferences"
+//  match app-id="com.raggesilver.BlackBox"
+//  match app-id="google-chrome"
+//  match app-id="org.telegram.desktop"
+//  match app-id="libreoffice-calc"
+//  match app-id="libreoffice-writer"
+//  default-column-width { proportion 1.0; }
+  open-maximized true
+  focus-ring {
+        // Colors can be set in a variety of ways:
+        // - CSS named colors: "red"
+        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
+        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
+
+        // Color of the ring on the active monitor.
+        // active-color "#ffc8ff"
+        // Color of the ring on inactive monitors.
+        // inactive-color "#805050"
+  }
 }

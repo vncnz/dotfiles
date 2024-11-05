@@ -20,4 +20,9 @@ applications=$("/home/vncnz/.config/eww/scripts/niri_spaces.py")
 
 # Mostra il risultato con fuzzel
 c=$(echo "$applications" | fuzzel --dmenu --prompt="" --width 60)
-echo $c
+numero=$(echo $c | grep -o '^[0-9]*' | head -n 1)
+echo $numero
+
+if [[ -n "$numero" ]]; then
+    $(niri msg action focus-window --id $numero)
+fi
