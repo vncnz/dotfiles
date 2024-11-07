@@ -29,7 +29,7 @@ updateTail () {
   # check whether timer is expired
   if timerSet
   then
-    if { timerPaused && [ $(minutesLeftWhenPaused) -lt 0 ] ; } || { ! timerPaused && [ $(minutesLeft) -lt 0 ] ; }
+    if { timerPaused && [ $(secondsLeftWhenPaused) -lt 0 ] ; } || { ! timerPaused && [ $(secondsLeft) -lt 0 ] ; }
     then
       eval $(timerAction)
       killTimer
