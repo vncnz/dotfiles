@@ -132,6 +132,7 @@
             (box :orientation "v"
               (label :text "Capacity: ${round(battery.capacity, 0)}%")
               (label :text "Eta: ${battery.eta}")
+              (label :text "From battery: ${consumption}W")
             )
             (smallbox :text "${battery.percentage}%" :icon {battery.icon} :iconclass {battery.clazz})
           )
