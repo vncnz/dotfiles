@@ -31,6 +31,7 @@ updateTail () {
   then
     if { timerPaused && [ $(secondsLeftWhenPaused) -lt 0 ] ; } || { ! timerPaused && [ $(secondsLeft) -lt 0 ] ; }
     then
+      $(notify-send -u critical -r 12345 "Timer expired at $( date -d "$(secondsLeft) sec" +%H:%M)")
       eval $(timerAction)
       killTimer
       removePrinting
