@@ -85,13 +85,21 @@ function show_mic_notif {
 function show_music_notif {
     song_title=$(playerctl -f "{{title}}" metadata)
     song_artist=$(playerctl -f "{{artist}}" metadata)
-    song_album=$(playerctl -f "{{album}}" metadata)
+    # song_album=$(playerctl -f "{{album}}" metadata)
+    player=$(playerctl -f "{{playerName}}" metadata)
+    status=$(playerctl -f "{{status}}" metadata)
 
     if [[ $show_album_art == "true" ]]; then
         get_album_art
     fi
 
-    notify-send -t $notification_timeout -h string:x-dunst-stack-tag:music_notif -h int:transient:1 -h string:synchronous:song -i "$album_art" "$song_title" "$song_artist - $song_album"
+    if [[ -n $song_artist ]]; then
+        full_message="$song_title - $song_artist"
+    else
+        full_message="$song_title"
+    fi
+
+    notify-send -t $notification_timeout -h string:x-dunst-stack-tag:music_notif -h int:transient:1 -h string:synchronous:song -i "$album_art" "[$status in $player]" "$full_message"
 }
 
 case $1 in
