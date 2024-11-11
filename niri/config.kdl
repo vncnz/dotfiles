@@ -173,7 +173,7 @@ layout {
         //
         // active-gradient from="#70c8ff" to="#fb7755" angle=315
         // active-gradient from="#ce1270" to="#dba3e6" angle=45
-        active-gradient from="#e59c19" to="#c88414" angle=45 in="oklch shorter hue"
+        active-gradient from="#e59c19" to="#c88414" angle=45 in="oklch longer hue"
 
         // You can also color the gradient relative to the entire view
         // of the workspace, rather than relative to just the window itself.
