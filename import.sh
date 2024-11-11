@@ -15,5 +15,6 @@ cp -r ~/Repositories/dotfiles/niri/* ~/.config/niri/
 # cp -r ~/Repositories/dotfiles/waybar/* ~/.config/waybar/
 cp -r ~/Repositories/dotfiles/eww/* ~/.config/eww/
 cp ~/Repositories/dotfiles/dunst/dunstrc ~/.config/dunst/dunstrc
+cp -r ~/Repositories/dotfiles/swaync/* ~/.config/swaync/
 cp -r ~/Repositories/dotfiles/networkmanager-dmenu/* ~/.config/networkmanager-dmenu/
 echo "Copied from repository to current config in .config"
