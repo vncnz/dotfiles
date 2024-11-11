@@ -223,6 +223,7 @@ spawn-at-startup "swaync"
 // spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
 // spawn-at-startup "eww" "open" "batteryborder"
 spawn-at-startup "eww" "open" "microstatusbar"
+spawn-at-startup "/home/vncnz/.config/eww/scripts/music_notifier.sh"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
