@@ -6,7 +6,7 @@ cp -r ~/.config/niri/* ~/Repositories/dotfiles/niri/
 rm -r ~/Repositories/dotfiles/eww/*
 cp -r ~/.config/eww/* ~/Repositories/dotfiles/eww/
 cp ~/.config/dunst/dunstrc ~/Repositories/dotfiles/dunst/dunstrc
-cp -r ~/.config/swaync ~/Repositories/dotfiles/swaync
+cp -r ~/.config/swaync/* ~/Repositories/dotfiles/swaync/
 cp -r ~/.config/networkmanager-dmenu/* ~/Repositories/dotfiles/networkmanager-dmenu/
 
 echo "Copied from .config to repository folder"
