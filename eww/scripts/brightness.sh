@@ -43,11 +43,8 @@ send_notif () {
 
   brightpercent=$(awk "BEGIN {print int(${brightnow}/${brightmax}*100)}")
 
-  dunstify -a "Brightness" -u low -r "$msgId" -h int:transient:1 -h int:value:"$brightpercent" "Brightness: ${brightpercent}%"
-  # notify-send -t $notification_timeout -h string:x-dunst-stack-tag:brightness_notif -h int:transient:1 -h int:value:$brightness "$brightness_icon $brightness%"
-
-  # icon_name="${HOME}/.config/rice_assets/Icons/b.png"
-  # dunstify "Brightness: $brightpercent%" -h int:transient:1 -h int:value:$brightpercent -i "$icon_name" -t 1000 --replace=555 -u critical
+  notify-send -h int:transient:1 -h string:x-dunst-stack-tag:brightness -h int:value:$brightpercent -h string:synchronous:brightness "Brightness: ${brightpercent}%"
+  # dunstify -a "Brightness" -u low -r "$msgId" -h int:transient:1 -h string:synchronous:brightness -h int:value:"$brightpercent" "Brightness: ${brightpercent}%"
 }
 
 get_json () {

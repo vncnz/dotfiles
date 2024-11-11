@@ -70,10 +70,9 @@ function show_volume_notif {
         if [[ $show_album_art == "true" ]]; then
             get_album_art
         fi
-
-        notify-send -t $notification_timeout -h string:x-dunst-stack-tag:volume_notif -h int:value:$volume -i "$album_art" "$volume_icon $volume%" "$current_song"
+        notify-send -t $notification_timeout -h int:transient:1 -h string:x-dunst-stack-tag:volume_notif -h int:value:$volume -h string:synchronous:volume -i "$album_art" "$volume_icon $volume%" "$current_song"
     else
-        notify-send -t $notification_timeout -h string:x-dunst-stack-tag:volume_notif -h int:value:$volume "$volume_icon $volume%"
+        notify-send -t $notification_timeout -h int:transient:1 -h string:x-dunst-stack-tag:volume_notif -h int:value:$volume -h string:synchronous:volume "$volume_icon $volume%"
     fi
 }
 
@@ -92,7 +91,7 @@ function show_music_notif {
         get_album_art
     fi
 
-    notify-send -t $notification_timeout -h string:x-dunst-stack-tag:music_notif -h int:transient:1 -i "$album_art" "$song_title" "$song_artist - $song_album"
+    notify-send -t $notification_timeout -h string:x-dunst-stack-tag:music_notif -h int:transient:1 -h string:synchronous:song -i "$album_art" "$song_title" "$song_artist - $song_album"
 }
 
 case $1 in
@@ -144,12 +143,11 @@ case $1 in
     # Pauses/resumes playback and displays the notification
     ;;
 
-
     show_volume)
     show_volume_notif
     ;;
 
     show_music)
-    show_music
+    show_music_notif
     ;;
 esac
