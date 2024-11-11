@@ -58,6 +58,49 @@
     )
 )
 
+(defpoll notif_count_swaync
+    :interval "1s"
+    "swaync-client -c"
+)
+;(deflisten notifications-paused-swaync
+;    :initial 'false'
+;    "
+;    swaync-client -D
+;
+;    dbus-monitor \"path='/org/freedesktop/Notifications',member='PropertiesChanged'\" |
+;        while read -r line; do swaync-client -D; done
+;    "
+;)
+(defpoll notifications-paused-swaync
+    :interval "1s" "swaync-client -D")
+(defwidget micronotifications_swaync []
+    (eventbox
+        :orientation "vertical"
+        :class "mininotifications"
+        :space-evenly false
+        ;; :onclick "dunstctl set-paused toggle"
+        ;; :onrightclick "dunstctl close-all && dunstctl history-clear"
+        :onclick "swaync-client -t"
+        :onrightclick "swaync-client -d"
+
+        (box :orientation "h" :space-evenly "false"
+            (label  :visible "${ notif_count_swaync > 1 }"
+                    :text "${notif_count_swaync}"
+            )
+            (label  :visible "${ notif_count_swaync == 1 }"
+                    :text "One"
+            )
+            (label  :visible "${ notif_count_swaync == 0 }"
+                    :text "Zero"
+            )
+            (box :width 5)
+            (label
+                    :text "${ notifications-paused-swaync == true ? '' : '' }"
+            )
+        )
+    )
+)
+
 (defwidget micronotifications []
     (eventbox
         :orientation "vertical"

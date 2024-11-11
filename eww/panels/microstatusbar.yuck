@@ -1,7 +1,8 @@
-(defwidget smallbox [text icon ?iconclass ?visible]
+(defwidget smallbox [text icon ?iconclass ?visible ?righttext]
   (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 6 :visible "${visible != false}"
     (label :text text)
     (label :text icon :class iconclass)
+    (label :text righttext :visible {righttext != ""} )
   )
 )
 
@@ -134,9 +135,9 @@
               (label :text "Eta: ${battery.eta}")
               (label :text "From battery: ${consumption}W")
             )
-            (smallbox :text "${battery.percentage}%" :icon {battery.icon} :iconclass {battery.clazz})
+            (smallbox :text "${battery.percentage}%" :icon {battery.icon} :iconclass {battery.clazz} :righttext {consumption > 0 ? "${round(consumption, 0)}W" : ""} )
           )
-          (micronotifications)
+          (micronotifications_swaync)
         )
         ;;(box :valign "center" :halign "center" :orientation "horizontal" (clock))
         ;;(box :height 12)
