@@ -1,5 +1,6 @@
 @define-color cc-bg rgba(46, 46, 46, 0.7);
 @define-color noti-border-color rgba(255, 255, 255, 0.15);
+@define-color noti-border-color-lighten rgba(255, 255, 255, 0.5);
 @define-color noti-bg rgba(48, 48, 48, 0.8);
 @define-color noti-bg-opaque rgb(48, 48, 48);
 @define-color noti-bg-darker rgb(38, 38, 38);
@@ -11,6 +12,10 @@
 @define-color text-color rgb(255, 255, 255);
 @define-color text-color-disabled rgb(150, 150, 150);
 @define-color bg-selected rgb(0, 128, 255);
+@define-color myred rgb(248, 112, 112);
+@define-color myred-bg rgba(150, 70, 70, .85);
+@define-color mygreen lightgreen;
+
 .notification-row {
   outline: none;
 }
@@ -20,7 +25,7 @@
 }
 
 .notification-row .notification-background {
-  padding: 6px 12px;
+  padding: 8px;
 }
 
 .notification-row .notification-background .close-button {
@@ -48,7 +53,7 @@
 .notification-row .notification-background .notification {
   /* The actual notification */
   border-radius: 12px;
-  border: 1px solid @noti-border-color;
+  border: 4px solid @noti-border-color;
   padding: 0;
   transition: background 0.15s ease-in-out;
   background: @noti-bg;
@@ -60,10 +65,15 @@
 
 .notification-row .notification-background .notification.normal {
   /* Normal Priority Notification */
+  border-color: @noti-border-color-lighten;
+  /* box-shadow: 0 0 4px 2px @noti-border-color-lighten; */
 }
 
 .notification-row .notification-background .notification.critical {
   /* Critical Priority Notification */
+  border-color: @myred;
+  /*background-color: @myred-bg;*/
+  box-shadow: 0 0 4px 2px @myred;
 }
 
 .notification-row .notification-background .notification .notification-action, .notification-row .notification-background .notification .notification-default-action {
@@ -95,7 +105,7 @@
 .notification-row .notification-background .notification .notification-default-action .notification-content {
   background: transparent;
   border-radius: 12px;
-  padding: 4px;
+  padding: 12px;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .image {
