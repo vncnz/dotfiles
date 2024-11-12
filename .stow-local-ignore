@@ -1,0 +1,16 @@
+# Stuff
+README.md
+\.git
+\.gitignore
+wallpaper[\d]+.jpg
+
+# Scripts
+wallpaper_download.py
+openkwrite.sh
+import.sh
+export.sh
+
+# Dots of uninstalled software
+waybar
+dunst
+networkmanager-dmenu

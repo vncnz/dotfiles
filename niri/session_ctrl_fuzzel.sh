@@ -23,7 +23,7 @@ SELECTION="$(printf "1 - Lock\n2 - Suspend\n3 - Log out\n4 - Reboot\n5 - Reboot 
 
 case $SELECTION in
 	*"Lock")
-		swaylock -i /home/vncnz/Pictures/wallpaper.jpg;;
+		swaylock -i /home/vncnz/.config/wallpaper.jpg;;
 	*"Suspend")
 		systemctl suspend;;
 	*"Log out")

@@ -215,7 +215,7 @@ layout {
 // spawn-at-startup "alacritty" "-e" "fish"
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
-spawn-at-startup "swaybg" "--image" "/home/vncnz/Pictures/wallpaper.jpg" "--mode" "fill"
+spawn-at-startup "swaybg" "--image" "/home/vncnz/.config/wallpaper.jpg" "--mode" "fill"
 // spawn-at-startup "/home/vncnz/.config/niri/change_bg.sh"
 // spawn-at-startup "dunst" "&"
 spawn-at-startup "swaync"
@@ -301,7 +301,7 @@ binds {
     // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
-    Super+L { spawn "swaylock" "-i" "/home/vncnz/Pictures/wallpaper.jpg" "--show-keyboard-layout" "--show-failed-attempts"; }
+    Super+L { spawn "swaylock" "-i" "/home/vncnz/.config/wallpaper.jpg" "--show-keyboard-layout" "--show-failed-attempts"; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
