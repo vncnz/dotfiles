@@ -1,7 +1,19 @@
 # dotfiles
 A simple repository for my dotfiles
 
-Using stow
+# stow
 
 cd ~/Repositories/dotfiles/
 stow . -t ~/.config
+
+# Other packages used
+brightnessctl
+eww (used by the infobar on the bottom of the screen)
+fuzzel (launcher)
+jq (json parser for bash)
+ttf-nerd-fonts-symbols*
+niri (scrollable-tiling Wayland compositor)
+pactl (audio ctrl)
+playerctl (audio info and ctrl)
+swaybg (wallpaper)
+swaync (notification center)
