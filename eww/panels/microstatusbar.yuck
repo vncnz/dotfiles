@@ -76,7 +76,20 @@
               (smallbox :text "${bdevice.battery ?: '--'}%" :icon "${bdevice.icon}")
             )
           )
-          (spotify_plaintext)
+          ;; (spotify_plaintext)
+          ;; (label :text {workspaces})
+          (label :text {windows_enhanced["1"]} :visible false)
+          (for wo in {workspaces}
+            (box :space-evenly false
+              ;(label :text {windows_enhanced[1]} )
+              (box :space-evenly false :spacing 4
+                (label :text "W${wo}")
+                (for wi in {windows_enhanced[wo]}
+                  (image :image-width 16 :path {wi["icon"]})
+                )
+              )
+            )
+          )
         )
         (box :orientation "h" :halign "center" :space-evenly false :spacing 20
           (eventbox :onclick "eww open microaddons --toggle" :hexpand "false"
