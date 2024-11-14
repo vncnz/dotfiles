@@ -51,10 +51,52 @@
     "inhibitors",
     "title",
     "dnd",
-    "mpris",
-    "notifications"
+    "notifications",
+    "mpris"
   ],
   "widget-config": {
+    "menubar": {
+      "menu#power-buttons": {
+        "label": "", 
+        "position": "right",
+        "actions": [ 
+          {
+            "label": "   Reboot",
+            "command": "systemctl reboot"
+          },
+          {
+            "label": "   Lock",
+            "command": "swaylock.sh"
+          },
+          {
+            "label": "   Logout",
+            "command": "loginctl terminate-session ${XDG_SESSION_ID-}"
+          },
+          {
+            "label": "   Shut down",
+            "command": "systemctl poweroff"
+          }
+        ]
+      },
+      "menu#powermode-buttons": {
+        "label": "󰌪", 
+        "position": "right",
+        "actions": [ 
+          {
+            "label": "󰬢 Performance",
+            "command": "powerprofilesctl set performance"
+          },
+          {
+            "label": "󰗑 Balanced",
+            "command": "powerprofilesctl set balanced"
+          },
+          {
+            "label": "󰌪 Power-saver",
+            "command": "powerprofilesctl set power-saver"
+          }
+        ]
+      }
+    },
     "inhibitors": {
       "text": "Inhibitors",
       "button-text": "Clear All",
