@@ -17,3 +17,6 @@ pactl (audio ctrl)
 playerctl (audio info and ctrl)
 swaybg (wallpaper)
 swaync (notification center)
+
+# After cfg update
+Restart EWW if frozen: killall eww -9; eww daemon; eww open microstatusbar
