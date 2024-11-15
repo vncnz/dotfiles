@@ -489,3 +489,18 @@ tooltip {
     box-shadow: 1px 1px 2px black;
     border: 1px solid white;
 }
+
+.workspace {
+    // border-radius: 10px 5px 5px 10px;
+    border-bottom-left-radius: 9px;
+    border-bottom: 2px solid #cbcbcb;
+    padding: 0 5px 0 0;
+}
+
+.workspace-id {
+    border-radius: 50%;
+    border: 1px solid #cbcbcb;
+    color: #cbcbcb;
+    font-size: 8px;
+    margin-bottom: -2px;
+}

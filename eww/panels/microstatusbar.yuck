@@ -82,8 +82,8 @@
           (for wo in {workspaces}
             (box :space-evenly false
               ;(label :text {windows_enhanced[1]} )
-              (box :space-evenly false :spacing 4
-                (label :text "W${wo}")
+              (box :space-evenly false :spacing 4 :class "workspace"
+                (label :text "${wo}" :class "workspace-id" :width 18 :height 16 :halign "center")
                 (for wi in {windows_enhanced[wo]}
                   (image :image-width 16 :path {wi["icon"]})
                 )
