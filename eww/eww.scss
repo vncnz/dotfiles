@@ -493,14 +493,15 @@ tooltip {
 .workspace {
     // border-radius: 10px 5px 5px 10px;
     border-bottom-left-radius: 9px;
-    border-bottom: 2px solid #cbcbcb;
+    border-bottom: 2px solid #dbcbcb;
     padding: 0 5px 0 0;
 }
 
 .workspace-id {
     border-radius: 50%;
-    border: 1px solid #cbcbcb;
-    color: #cbcbcb;
-    font-size: 8px;
+    border: 1px solid #dbcbcb;
+    background: #dbcbcb;
+    color: black;
+    font-size: 10px;
     margin-bottom: -2px;
 }
