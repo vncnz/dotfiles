@@ -6,6 +6,10 @@
   )
 )
 
+(defwidget taskbar_el [wi wi_id]
+  (eventbox :onclick "niri msg action focus-window --id ${wi_id}" (image :image-width 16 :path {wi["icon"]}))
+)
+
 (defwidget microstatusbar_layout []
   (box
     :orientation "h"
@@ -58,18 +62,18 @@
             (label :tooltip "DISK USED ${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :text "󰋊"
               :class {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : (EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4 ? "warn-color" : "ok-color"})
           )
-          (tooltip
-            (box :orientation "v" :halign "left"
-              (for w in {windows}
-                (box :orientation "h" :space-evenly false :spacing 10
-                  (label :text "${w.is_focused ? '󰁕' : ''}")
-                  (label :text "W${w.workspace_id}: ${w.app_id} / ${w.title}" :halign "start" :hexpand true)
-                )
-                ;;(smallbox :text "${bdevice.battery ?: '--'}%" :icon "${bdevice.icon}")
-              )
-            )
-            (label :text "")
-          )
+          ;(tooltip
+          ;  (box :orientation "v" :halign "left"
+          ;    (for w in {windows}
+          ;      (box :orientation "h" :space-evenly false :spacing 10
+          ;        (label :text "${w.is_focused ? '󰁕' : ''}")
+          ;        (label :text "W${w.workspace_id}: ${w.app_id} / ${w.title}" :halign "start" :hexpand true)
+          ;      )
+          ;      ;;(smallbox :text "${bdevice.battery ?: '--'}%" :icon "${bdevice.icon}")
+          ;    )
+          ;  )
+          ;  (label :text "")
+          ;)
           (box
             (for bdevice in {bluetooth_devices}
               ;;(label :text "${bdevice.battery ?: '--'}% ${bdevice.icon}")
@@ -82,10 +86,11 @@
           (for wo in {workspaces}
             (box :space-evenly false
               ;(label :text {windows_enhanced[1]} )
-              (box :space-evenly false :spacing 4 :class "workspace"
-                (label :text "${wo}" :class "workspace-id" :width 18 :height 16 :halign "center")
-                (for wi in {windows_enhanced[wo]}
-                  (image :image-width 16 :path {wi["icon"]})
+              (box :space-evenly false :spacing 4 :class "workspace" :visible {arraylength(windows_enhanced[wo["id"]]) > 0}
+                ; (eventbox :onclick "niri msg action focus-workspace ${wo}" (label :text "${wo}" :class "workspace-id" :width 18 :height 16 :halign "center"))
+                (label :text {wo["output"] == "eDP-1" ? "󰌢" : "󰍹"} :class "workspace-id" :width 18 :height 16 :halign "center")
+                (for wi in {windows_enhanced[wo["id"]]}
+                  (taskbar_el :wi wi :wi_id {wi["id"]})
                 )
               )
             )
