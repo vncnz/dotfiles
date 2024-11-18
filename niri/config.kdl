@@ -11,6 +11,7 @@
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
+    DISPLAY ":12"
 }
 
 input {
