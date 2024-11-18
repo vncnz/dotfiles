@@ -265,6 +265,10 @@ $primary: #61afbf; // #1962e5
 
     .box-wall {
         padding: 5em;
+
+        .box {
+            border-radius: 1em;
+        }
     }
     .box,
     .notificationbox {

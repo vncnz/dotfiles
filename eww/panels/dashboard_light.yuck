@@ -133,13 +133,14 @@
 )
 
 
-(defwidget mybox [icon ?row1 ?row2 ?row3]
+(defwidget mybox [?icon ?image ?row1 ?row2 ?row3 ?clazz]
   (box :class "box" :spacing 15
        :valign "start" :hexpand "true"
        :space-evenly false
        :orientation "h"
     ;(image :class "icon_light" :image-width 50 :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
-    (label :text {icon} :class "icon")
+    (label :text {icon} :class "icon" :visible {image == ""})
+    (image :path {image} :class "icon" :visible {image != ""} :image-width 50)
     (box :orientation "v" :halign "start" :space-evenly false
       (label :text {row1} :visible {row1 != ""} :halign "start" :hexpand false)
       (label :text {row2} :visible {row2 != ""} :halign "start" :hexpand false)
@@ -165,11 +166,36 @@
     (box :halign "start" :spacing 5 :orientation "h" :space-evenly "false" :width "100%"
 
       (box :class "box-wall" :orientation "v" :space-evenly "false" :spacing 5
-        (mybox :icon {network.icon}
+
+        (mybox :icon ""
+          :row1 "${time.weekdaynamelong}"
+          :row2 "Week of year ${time.weeknumber}"
+          :row3 "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
+
+          (mybox :icon {network.icon}
           :row1 {network.essid} 
           :row2 {network.wired == 1 ? "Wired" : "${network.signal}%"}
           :row3 " ${EWW_NET.enp0s3.NET_UP}   ${EWW_NET.enp0s3.NET_DOWN}")
+        
+        (mybox :icon {battery.icon} :clazz {battery.clazz}
+          :row1 {battery.state == "nobattery" ? "No battery" : "Level ${battery.percentage}%"}
+          :row2 {consumption > 0 ? "Power ${round(consumption, 2)}W" : "Consumption unknown"}
+          :row3 {battery.eta != "unknown" ? "Eta ${battery.eta}" : ""})
+
+
+        ;(mybox :image {song.musicartlink} :clazz {battery.clazz}
+        ;  :row1 {status != '' ? "${song.title}" : ""}
+        ;  :row2 {status != '' ? "${song.artist}" : ""}
+        ;  :row3 {song.musicartlink})
+
+        (mybox :image "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}" :clazz {battery.clazz}
+          :row1 {meteo1.text}
+          :row2 "${meteo1.temp}${meteo1.temp_unit} (${meteo1.temp_real}${meteo1.temp_unit} real)"
+          :row3 " ${meteo1.sunrise}  ${meteo1.sunset}")
+        
+
       )
+
 
 
 
@@ -182,7 +208,7 @@
             :icon "${EWW_TEMPS.AMDGPU_EDGE == '' ? "󱔱" : EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
         )
         (circle_progress :icon "" :text "${round(EWW_CPU.avg, 0)}%" :value {EWW_CPU.avg})
-        (circle_progress :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc})
+        (circle_progress :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc})
         (circle_progress :icon "󰋊" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
       )
       
@@ -200,10 +226,7 @@
           (box :class "color_fg day" :halign "start" (label :text "${time.weekdaynamelong}"))
           (label :class "other" :halign "end" :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
         )
-        (box :orientation "h" :class "small_text" :halign "start"
-          (label :text "${network.icon} ${network.essid}")
-          (label :text "${EWW_NET.enp0s3.NET_UP} ${EWW_NET.enp0s3.NET_DOWN}")
-        )
+        
         (box :orientation "v" :class "small_text" :halign "start"
           (label :text "${bluetooth.icon} Bluetooth ${bluetooth.status}" :halign "start")
           (for bdevice in {bluetooth_devices}
