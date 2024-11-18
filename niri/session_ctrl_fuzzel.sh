@@ -21,6 +21,11 @@
 
 SELECTION="$(printf "1 - Lock\n2 - Suspend\n3 - Log out\n4 - Reboot\n5 - Reboot to UEFI\n6 - Hard reboot\n7 - Shutdown" | fuzzel --dmenu -l 7 -p "Power Menu: ")"
 
+confirmed=$(printf "Confirm\nUndo" | fuzzel -p "$SELECTION ?" -d)
+if [ "$confirmed" != "Confirm" ]; then
+    SELECTION=""
+fi
+
 case $SELECTION in
 	*"Lock")
 		swaylock -i /home/vncnz/.config/wallpaper.jpg;;
