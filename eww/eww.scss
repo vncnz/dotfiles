@@ -263,6 +263,9 @@ $primary: #61afbf; // #1962e5
         background-position: 50% 50%;
     }
 
+    .box-wall {
+        padding: 5em;
+    }
     .box,
     .notificationbox {
         font-size: 1.5rem;
@@ -270,7 +273,10 @@ $primary: #61afbf; // #1962e5
         border-radius: 0.1em;
         background-color: rgba(30, 30, 30, .95);
         // border: 1px solid white;
-        box-shadow: 0px 0px 2px white;
+        // box-shadow: 0px 0px 2px white;
+    }
+    .box .icon {
+        font-size: 3em;
     }
 
     .author {

@@ -132,6 +132,28 @@
   )
 )
 
+
+(defwidget mybox [icon ?row1 ?row2 ?row3]
+  (box :class "box" :spacing 15
+       :valign "start" :hexpand "true"
+       :space-evenly false
+       :orientation "h"
+    ;(image :class "icon_light" :image-width 50 :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
+    (label :text {icon} :class "icon")
+    (box :orientation "v" :halign "start" :space-evenly false
+      (label :text {row1} :visible {row1 != ""} :halign "start" :hexpand false)
+      (label :text {row2} :visible {row2 != ""} :halign "start" :hexpand false)
+      (label :text {row3} :visible {row3 != ""} :halign "start" :hexpand false)
+    )
+  )
+)
+
+
+
+
+
+
+
 (defwidget dashboard_light_layout []
   (overlay :class "dashboard_light" :space-evenly false
     (box :class "wallpaper" :style "background-image: url('/home/vncnz/Pictures/wallpaper.jpg')")
@@ -140,16 +162,22 @@
       (bg_music_notif)
     )
 
-    (box :space-evenly false :hexpand true :vexpand true :class "sessionbuttonspanel"
-      (sessionbuttons)
-    )
-
     (box :halign "start" :spacing 5 :orientation "h" :space-evenly "false" :width "100%"
+
+      (box :class "box-wall" :orientation "v" :space-evenly "false" :spacing 5
+        (mybox :icon {network.icon}
+          :row1 {network.essid} 
+          :row2 {network.wired == 1 ? "Wired" : "${network.signal}%"}
+          :row3 " ${EWW_NET.enp0s3.NET_UP}   ${EWW_NET.enp0s3.NET_DOWN}")
+      )
+
+
+
+
       (box :width 100)
       (box :orientation "v" :spacing 25 :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
         (circle_img :path "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}")
         (circle_progress :value {battery.percentage} :icon {battery.icon} :text "${battery.percentage}%")
-        (circle_progress :value {network.signal} :icon {network.icon} :text "${network.wired == '1' ? 'Wired' : '${network.signal}%'}")
         (circle_progress :value {EWW_TEMPS.AMDGPU_EDGE ?: 100} :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C"
             :icon "${EWW_TEMPS.AMDGPU_EDGE == '' ? "󱔱" : EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
         )
@@ -202,7 +230,7 @@
       )
     )
     (box :valign "start" :halign "start" :orientation "v" :space-evenly false
-      (meteodaygraph)
+      ;(meteodaygraph)
       ;;(genericgraph_row
       ;;  :value {EWW_TEMPS.AMDGPU_EDGE ?: 100}
       ;;  :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C"
