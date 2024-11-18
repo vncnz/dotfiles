@@ -54,7 +54,7 @@ get_icon () {
     elif [ "$state" == "pending-charge" ]; then
         echo "󱧥"
     elif [ "$state" == "unknown" ]; then
-        echo "󰂑"
+        echo "󰂑"
     elif [ "$state" == "nobattery" ]; then
         echo ""
     else
@@ -93,13 +93,13 @@ if [ "$PERCENTAGE" == "ignored)" ]; then
   PERCENTAGE="100"
   CAPACITY="0"
   state="nobattery"
+else
+  PERCENTAGE=$(echo $PERCENTAGE | tr '%' ' ' | awk '{print $1}')
+  CAPACITY=$(echo $CAPACITY | tr '%' ' ' | awk '{print $1}')
 fi
 
 icon=$(get_icon)
 clazz=$(get_class)
-
-PERCENTAGE=$(echo $PERCENTAGE | tr '%' ' ' | awk '{print $1}')
-CAPACITY=$(echo $CAPACITY | tr '%' ' ' | awk '{print $1}')
 
 TIME=$TIME_TO_EMPTY
 if [[ $TIME -eq '' ]]; then
