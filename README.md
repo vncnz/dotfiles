@@ -10,6 +10,7 @@ stow . -t ~/.config
 brightnessctl
 eww (used by the infobar on the bottom of the screen)
 fuzzel (launcher)
+iwmenu (network management)
 jq (json parser for bash)
 ttf-nerd-fonts-symbols*
 niri (scrollable-tiling Wayland compositor)
