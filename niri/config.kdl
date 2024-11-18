@@ -217,7 +217,7 @@ layout {
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 spawn-at-startup "swaybg" "--image" "/home/vncnz/.config/wallpaper.jpg" "--mode" "fill"
-spawn-at-startup "xwayland-satellite" ":12"
+// spawn-at-startup "xwayland-satellite" ":12"
 // spawn-at-startup "/home/vncnz/.config/niri/change_bg.sh"
 // spawn-at-startup "dunst" "&"
 spawn-at-startup "swaync"
