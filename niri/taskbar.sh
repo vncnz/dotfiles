@@ -4,6 +4,9 @@
 # (defpoll windows_enhanced :interval "2s" "~/.config/niri/taskbar.sh")
 # (defpoll workspaces :interval "2s" "niri msg -j workspaces | jq 'sort_by(.id)'")
 # (label :text {windows_enhanced["1"]} :visible false)
+# (defwidget taskbar_el [wi wi_id]
+#   (eventbox :onclick "niri msg action focus-window --id ${wi_id}" (image :image-width 16 :path {wi["icon"]}))
+# )
 # (for wo in {workspaces}
 #     (box :space-evenly false
 #         (box :space-evenly false :spacing 4 :class "workspace" :visible {arraylength(windows_enhanced[wo["id"]]) > 0}
