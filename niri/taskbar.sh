@@ -1,4 +1,22 @@
 #!/bin/bash
+
+# Example in EWW
+# (defpoll windows_enhanced :interval "2s" "~/.config/niri/taskbar.sh")
+# (defpoll workspaces :interval "2s" "niri msg -j workspaces | jq 'sort_by(.id)'")
+# (label :text {windows_enhanced["1"]} :visible false)
+# (for wo in {workspaces}
+#     (box :space-evenly false
+#         (box :space-evenly false :spacing 4 :class "workspace" :visible {arraylength(windows_enhanced[wo["id"]]) > 0}
+#             (label :text {wo["output"] == "eDP-1" ? "󰌢" : "󰍹"} :class "workspace-id" :width 18 :height 16 :halign "center")
+#             (for wi in {windows_enhanced[wo["id"]]}
+#                 (taskbar_el :wi wi :wi_id {wi["id"]})
+#             )
+#         )
+#     )
+# )
+
+
+
 input_json=$(niri msg -j windows)
 
 # Directory di sistema dove cercare i file .desktop
