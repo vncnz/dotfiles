@@ -1,4 +1,5 @@
 # dotfiles
+
 A simple repository for my dotfiles
 
 # stow
@@ -7,6 +8,7 @@ cd ~/Repositories/dotfiles/
 stow . -t ~/.config
 
 # Other packages used
+
 brightnessctl
 eww (used by the infobar on the bottom of the screen)
 fuzzel (launcher)
@@ -20,8 +22,10 @@ swaybg (wallpaper)
 swaync (notification center)
 
 # After cfg update
+
 Restart EWW if frozen: killall eww -9; eww daemon; eww open microstatusbar
 
 # Next steps
+
 - Use wttr? curl wttr.in/{Desenzano+Del+Garda,Bosco+Chiesanuova,Malmö,Oslo}?format="%l:+%c+%t+%f+%S+%s\n"
 
