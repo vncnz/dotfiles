@@ -62,6 +62,11 @@ input {
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
+
+output "Samsung Electric Company SAMSUNG Unknown" {
+    position x=1920 y=0
+}
+
 output "HDMI-A-1" {
     position x=0 y=0
 }
