@@ -1,0 +1,246 @@
+
+(defwidget circle_img [path]
+  (box :class "circle_img"
+    (image :class "icon_light" :image-width 70 :path path)
+  )
+)
+
+(defwidget metric [label icon value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "icon" :width 40 icon)
+    (box :class "label" :width 60 label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+(defwidget circle_progress [value icon text]
+  (overlay :class "circle-progress" :width 70 :height 70
+    (circular-progress :value value :start-at 25 :thickness 5 )
+    (box :orientation "v" :valign "center"
+      (label :text icon)
+      (label :text text)
+    )
+  )
+)
+
+(defwidget genericgraph_row [value icon class text]
+  (box :class "line" :height 10 :spacing 5 :space-evenly false
+    (box :class "dayline" :orientation "h" :spacing 2 :space-evenly false
+      (box :class class :width {round(value, 0)} :height 2 :vexpand false :valign "center")
+      (label :text icon)
+      (box :class "primary-bg" :width {round((100 - value), 0)} :height 2 :expand false :valign "center")
+    )
+    (label :class "small_text" :halign "start" :text text :hexpand false)
+  )
+)
+
+(defwidget meteodaygraph_row [meteo]
+  (box :class "line" :height 10 :spacing 5 :space-evenly false
+    (box :class "dayline" :orientation "h" :spacing 2 :space-evenly false
+      (box :class "night" :width {round(meteo.sunrise_mins / 3, 0)} :height 2 :vexpand false :valign "center")
+      (label :text " ${meteo.sunrise}")
+      (box :class "day" :width {round((meteo.sunset_mins - meteo.sunrise_mins) / 3, 0)} :height 2 :expand false :valign "center")
+      (label :text " ${meteo.sunset}")
+      (box :class "night" :width {round((1440 - meteo.sunset_mins) / 3, 0)} :height 2 :expand false :valign "center")
+    )
+    (label :class "small_text" :halign "start" :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}" :hexpand false)
+    (image :class "icon_light" :image-width 20 :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
+    (label :text "${meteo.text} in ${meteo.locality}" :halign "start")
+  )
+)
+
+(defwidget meteodaygraph []
+  (box
+    (box :class "box_light meteodaygraph" :spacing 5
+        :valign "center"
+        :width 400
+        :space-evenly false
+        :orientation "v"
+          :visible {meteoDesenzanoDelGarda.text != ""}
+      (meteodaygraph_row :meteo meteoDesenzanoDelGarda)
+      (meteodaygraph_row :meteo meteoArendal)
+      (meteodaygraph_row :meteo meteoMalmo)
+      (meteodaygraph_row :meteo meteoOslo)
+    )
+    (box :orientation "v"
+          :visible {meteoDesenzanoDelGarda.text == ""}
+          (label :text "No meteo info" :halign "start")
+          (label :class "small_text" :text "Check your connection!")
+      )
+  )
+)
+
+(defwidget meteobox_light [meteo]
+  (box :class "box_light meteobox" :spacing 5
+       :valign "center" :hexpand "true"
+       :space-evenly false
+       :orientation "h"
+    (image :class "icon_light" :image-width 50 :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
+    (box :orientation "v"
+         :visible {meteo.text != ""}
+        (label :text "${meteo.text} in ${meteo.locality}" :halign "start")
+        (label :class "small_text" :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}")
+        (box :height 5)
+        (label :class "small_text" :halign "start" :text " ${meteo.sunrise}  ${meteo.sunset}")
+    )
+    (box :orientation "v"
+        :visible {meteo.text == ""}
+        (label :text "No meteo info" :halign "start")
+        (label :class "small_text" :text "Check your connection!")
+    )
+  )
+)
+
+(defwidget meteobox_light_noicon [meteo]
+  (box :class "box_light meteobox_noicon" :spacing 5
+       :valign "center"
+       :halign "start"
+       :hexpand "false"
+       :space-evenly false
+       :orientation "h"
+    (box :orientation "v"
+       :halign "start"
+       :hexpand "false"
+       :space-evenly false
+       :spacing 2
+       :visible {meteo.text != ""}
+        (label :text "${meteo.text} in ${meteo.locality}" :halign "start")
+        (label :class "small_text" :halign "start" :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}")
+        (box :height 5)
+        (label :class "small_text" :halign "start" :text " ${meteo.sunrise}  ${meteo.sunset}")
+    )
+    (box :orientation "v"
+        :visible {meteo.text == ""}
+        (label :text "No meteo info" :halign "start")
+        (label :class "small_text" :text "Check your connection!")
+    )
+  )
+)
+
+
+(defwidget graphbox_light [text value]
+    (box :class "box_light" :spacing 5
+       :valign "center" :hexpand "true"
+       :space-evenly false
+       :orientation "h"
+    (label :text text)
+    (graph :width 100 :height 30 :vexpand "true" :value {value ?: 0} :time-range "60s" :min "0" :max "100" :thickness "2")
+  )
+)
+
+(defwidget dashboard_light_layout []
+  (overlay :class "dashboard_light" :space-evenly false
+    (box :class "wallpaper" :style "background-image: url('/home/vncnz/Pictures/wallpaper.jpg')")
+
+    (box :width "100%" :height "80%" :valign "start" :halign "end"
+      (bg_music_notif)
+    )
+
+    (box :space-evenly false :hexpand true :vexpand true :class "sessionbuttonspanel"
+      (sessionbuttons)
+    )
+
+    (box :halign "start" :spacing 5 :orientation "h" :space-evenly "false" :width "100%"
+      (box :width 100)
+      (box :orientation "v" :spacing 25 :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+        (circle_img :path "/home/vncnz/.config/eww/images/weather/${meteoDesenzanoDelGarda.icon_name}")
+        (circle_progress :value {battery.percentage} :icon {battery.icon} :text "${battery.percentage}%")
+        (circle_progress :value {network.signal} :icon {network.icon} :text "${network.wired == '1' ? 'Wired' : '${network.signal}%'}")
+        (circle_progress :value {EWW_TEMPS.AMDGPU_EDGE ?: 100} :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C"
+            :icon "${EWW_TEMPS.AMDGPU_EDGE == '' ? "󱔱" : EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+        )
+        (circle_progress :icon "" :text "${round(EWW_CPU.avg, 0)}%" :value {EWW_CPU.avg})
+        (circle_progress :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc})
+        (circle_progress :icon "󰋊" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100})
+      )
+      
+      (box :orientation "v" 
+           :spacing 5
+           :valign "center" 
+           :halign "start"
+           :hexpand "true"
+           :space-evenly "false"
+           :class "infos"
+
+        ;; (meteobox_light_noicon :meteo meteoDesenzanoDelGarda)
+        (box :orientation "v" :halign "start" :space-evently false :class "datetime"
+          (_sundial)
+          (box :class "color_fg day" :halign "start" (label :text "${time.weekdaynamelong}"))
+          (label :class "other" :halign "end" :text "${time.year}-${time.month}-${time.day} / ${time.hour}:${time.min}")
+        )
+        (box :orientation "h" :class "small_text" :halign "start"
+          (label :text "${network.icon} ${network.essid}")
+          (label :text "${EWW_NET.enp0s3.NET_UP} ${EWW_NET.enp0s3.NET_DOWN}")
+        )
+        (box :orientation "v" :class "small_text" :halign "start"
+          (label :text "${bluetooth.icon} Bluetooth ${bluetooth.status}" :halign "start")
+          (for bdevice in {bluetooth_devices}
+                (bluetooth-entry :device bdevice)
+          )
+        )
+        (label :halign "start" :text "󰚰 ${updates_count} pending updates")
+        (box :orientation "h" :class "citation" :hexpand "true" :space-evenly false
+          (box :class "open" :valign "start" :halign "start" :vexpand false :hexpand "true" (label :text ""))
+          (box :orientation "v" :class "text"
+            (label :wrap "true" :text "My shadow's the only one that walks beside me")
+            (label :wrap "true" :class "author" :halign "end" :text "Green day")
+          )
+          (box :class "close" :valign "end" :halign "end" :vexpand false :hexpand "true" (label :text ""))
+        )
+        ;; (meteobox_light_noicon :meteo meteoMalmo)
+        ;; (meteobox_light_noicon :meteo meteoOslo)
+        (metric :icon volume_icon :label "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
+        (metric :icon br_icon :label "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
+
+        (box :orientation "h" :hexpand false :halign "left"
+          (systray :height 50 :pack_direction "ltr" :hexpand false :halign "left")
+        )
+      )
+    )
+    (box :valign "start" :halign "start" :orientation "v" :space-evenly false
+      (meteodaygraph)
+      ;;(genericgraph_row
+      ;;  :value {EWW_TEMPS.AMDGPU_EDGE ?: 100}
+      ;;  :text "${EWW_TEMPS.AMDGPU_EDGE ?: "-"}°C"
+      ;;  :icon "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
+      ;;  :class "${EWW_TEMPS.AMDGPU_EDGE < 40 ? "ok-bg" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "ok-bg" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "ok-bg" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "warn-bg" : "err-bg")))}"
+      ;;)
+      ;;(genericgraph_row
+      ;;  :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc}
+      ;;  :class "${EWW_RAM.used_mem_perc < 80 ? "ok-bg" : (EWW_RAM.used_mem_perc < 95 ? "warn-bg" : "err-bg")}"
+      ;;)
+      ;;(genericgraph_row
+      ;;  :icon "" :text "${round(EWW_CPU.avg / arraylength(EWW_CPU.cores), 0)}%" :value {EWW_CPU.avg / arraylength(EWW_CPU.cores)}
+      ;;  :class "${EWW_CPU.avg / arraylength(EWW_CPU.cores) < 70 ? "ok-bg" : (EWW_CPU.avg / arraylength(EWW_CPU.cores) < 85 ? "warn-bg" : "err-bg")}"
+      ;;)
+      ;;(genericgraph_row
+      ;;  :icon "󰋊" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {(1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100}
+      ;;  :class "${EWW_DISK["/"].free / EWW_DISK["/"].total > 0.3 ? "ok-bg" : (EWW_DISK["/"].free / EWW_DISK["/"].total > 0.15 ? "warn-bg" : "err-bg")}"
+      ;;)
+      
+    )
+    ;;(box :valign "start" :space-evenly true :hexpand true :spacing 25
+    ;;    (box :space-evenly false :spacing 25 :vexpand true :hexpand true :valign "center" :halign "start" :orientation "vertical"
+    ;;      (box :class "overlay-btns" :valign "start" :halign "end" :hexpand true
+    ;;        (label :text {EWW_TEMPS})
+    ;;      )
+    ;;    )
+    ;;)
+  )
+)
+
+(defwidget bluetooth-entry [device]
+  (box
+    :orientation "h"
+    :spacing 4
+    :space-evenly false
+    (label
+      :halign "end"
+      :text "${device.icon} ${device.name} (${device.battery}%)"
+    )
+  )
+)
