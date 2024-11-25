@@ -83,7 +83,7 @@
         :onclick "swaync-client -t"
         :onrightclick "swaync-client -d"
 
-        (box :orientation "h" :space-evenly "false"
+        (box :orientation "h" :space-evenly false :class "island"
             (label  :visible "${ notif_count_swaync > 1 }"
                     :text "${notif_count_swaync}"
             )

@@ -5,7 +5,7 @@
 
 (defwidget timer []
   (box :orientation "h"
-    :class "timer-widget ${timer_value.class}"
+    :class "timer-widget island ${timer_value.class}"
     :halign "center"
     :valign "center"
     ;; (label :text {timer_value.alt})

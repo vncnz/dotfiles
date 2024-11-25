@@ -471,24 +471,10 @@ $primary: #61afbf; // #1962e5
 }
 
 .timer-widget {
-    // background-color: #1e1e2e;
-    // padding: 20px;
-    // border-radius: 10px;
-    // font-family: "JetBrains Mono", monospace;
-    // color: #f8f8f2;
-
-    .timer-label {
-        padding: 0 10px;
-        // font-size: 10px;
-        // margin-bottom: 10px;
-    }
-    
-    button {
-        padding: 1px 2px;
-        // margin: 0 5px;
-        // background-color: #282a36;
-        // color: #f8f8f2;
-        // border-radius: 5px;
+    &.err-color {
+        color: $surface-red;
+        // color: white;
+        text-shadow: 1px 1px 3px black, 1px 1px 5px black;
     }
 }
 
@@ -508,10 +494,52 @@ tooltip {
 }
 
 .workspace-id {
-    border-radius: 50%;
+    border-radius: .5rem;
     border: 1px solid #dbcbcb;
     background: #dbcbcb;
     color: black;
     font-size: 10px;
     margin-bottom: -2px;
+}
+
+.island {
+    margin: 0 1rem;
+
+    .workspace-id {
+        padding: 0 .3rem;
+        font-size: 1.3rem;
+    }
+
+    .clock_time {
+        margin-bottom: -.5rem;
+        font-size: 2.2rem;
+        text-shadow: 1px -2px 0px black;
+    }
+}
+._island {
+    background-color: #333;
+    padding: .5rem;
+    border-radius: .5rem;
+    margin: 0 .5rem;
+    border: 1px solid #666;
+
+    .workspace-id {
+        padding: 0 .5rem;
+        font-size: 1.5rem;
+    }
+
+    &.workspace-container {
+        padding: 0;
+
+        /*.workspace {
+            padding: .5rem;
+        }*/
+    }
+
+    .clock_time {
+        margin-top: -.7rem;
+        margin-bottom: -.5rem;
+        font-size: 2rem;
+        text-shadow: none;
+    }
 }

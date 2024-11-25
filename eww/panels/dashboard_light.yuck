@@ -179,8 +179,8 @@
         
         (mybox :icon {battery.icon} :clazz {battery.clazz}
           :row1 {battery.state == "nobattery" ? "No battery" : "Level ${battery.percentage}%"}
-          :row2 {consumption > 0 ? "Drain ${round(consumption, 2)}W" : "Consumption unknown"}
-          :row3 {battery.eta != "unknown" ? "Eta ${battery.eta}" : ""})
+          :row2 {consumption > 0 ? "Power: ${round(consumption, 2)}W" : "Power: unknown"}
+          :row3 {battery.eta != "unknown" ? "Eta ${battery.eta}" : "Eta: nknown"})
 
 
         ;(mybox :image {song.musicartlink} :clazz {battery.clazz}

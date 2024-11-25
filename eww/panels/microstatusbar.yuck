@@ -1,5 +1,5 @@
 (defwidget smallbox [text icon ?iconclass ?visible ?righttext]
-  (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 6 :visible "${visible != false}"
+  (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 6 :visible "${visible != false}" :class "island"
     (label :text text)
     (label :text icon :class iconclass)
     (label :text righttext :visible {righttext != ""} )
@@ -29,10 +29,10 @@
         :space-evenly false
         :spacing 10
         ;; (audio)
-        (box :spacing 10 :hexpand false :halign "start" :space-evenly false
+        (box :spacing 0 :hexpand false :halign "start" :space-evenly false
           :valign "end"
 
-          (box :space-evenly true :spacing 3
+          (box :space-evenly true :spacing 0 :class "island"
 
             (tooltip
               ;; (label :text {EWW_TEMPS})
@@ -60,7 +60,7 @@
               :class {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : (EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4 ? "warn-color" : "ok-color"})
           )
 
-          (box :spacing 4
+          (box :spacing 4 :class "island"
             (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
             (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
           )
@@ -86,9 +86,9 @@
           ;; (label :text {workspaces})
           (label :text {windows_enhanced["1"]} :visible false)
           (for wo in {workspaces}
-            (box :space-evenly false
+            (box :space-evenly false :class "workspace-container island" :visible {arraylength(windows_enhanced[wo["id"]]) > 0}
               ;(label :text {windows_enhanced[1]} )
-              (box :space-evenly false :spacing 4 :class "workspace" :visible {arraylength(windows_enhanced[wo["id"]]) > 0}
+              (box :space-evenly false :spacing 4 :class "workspace"
                 ; (eventbox :onclick "niri msg action focus-workspace ${wo}" (label :text "${wo}" :class "workspace-id" :width 18 :height 16 :halign "center"))
                 (label :text {wo["output"] == "eDP-1" ? "󰌢" : "󰍹"} :class "workspace-id" :width 18 :height 16 :halign "center")
                 (for wi in {windows_enhanced[wo["id"]]}
@@ -97,14 +97,16 @@
               )
             )
           )
+
+          (timer)
         )
-        (box :orientation "h" :halign "center" :space-evenly false :spacing 20
+        (box :orientation "h" :halign "center" :space-evenly false :spacing 20 :class "island"
           (eventbox :onclick "eww open microaddons --toggle" :hexpand "false"
             (clock_time)
           )
-          (timer)
+          
         )
-        (box :hexpand false :halign "end" :valign "end" :space-evenly false :spacing 20
+        (box :hexpand false :halign "end" :valign "end" :space-evenly false :spacing 0
           (smallbox :text "${round(EWW_RAM.used_mem_perc, 0)}%" :icon "" 
             :iconclass "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}" :visible {EWW_RAM.used_mem_perc > 75})
 
@@ -118,12 +120,12 @@
             :iconclass {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : ""}
             :visible {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4})
 
-          (box :width 100 :vexpand "true"
+          (box :width 100 :vexpand "true" :class "island"
             (graph :width 100 :vexpand "true" :value {EWW_CPU.avg} :time-range "60s" :min "0" :max "100" :thickness "1")
           )
           (smallbox :text {avgload} :icon "󰬢")
 
-          (tooltip
+          (tooltip :class "island"
             (meteodaygraph)
             (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 4
               (label :text "${meteoDesenzanoDelGarda.temp}${meteoDesenzanoDelGarda.temp_unit}")
@@ -134,7 +136,7 @@
           (eventbox
             :onclick "niri msg action spawn -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             :onrightclick "niri msg action spawn -- pavucontrol"
-            (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 4
+            (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 4 :class "island"
               (label :visible {volume.value != 0} :text "${volume.value}%")
               (label :visible {volume.value == 0} :text "Muted")
               (label :text {volume.icon})
@@ -143,7 +145,7 @@
 
           (smallbox :text "${brightness.percentage}%" :icon {brightness.icon} :iconclass {brightness.clazz})
 
-          (box :valign "center" :halign "center" :orientation "h" :visible "network.signal != ''" :space-evenly false :spacing 4
+          (box :valign "center" :halign "center" :orientation "h" :visible "network.signal != ''" :space-evenly false :spacing 4 :class "island"
             :tooltip "${network.essid}"
             (label :visible {network.signal != ''} :text "${network.signal}%")
             (label :class "${network.class}" :text "${network.icon}")
@@ -151,9 +153,9 @@
 
           (tooltip
             (box :orientation "v"
-              (label :text "Capacity: ${round(battery.capacity, 0)}%")
+              (label :text "Capacity: ${battery.capacity}%")
               (label :text "Eta: ${battery.eta}")
-              (label :text "From battery: ${consumption}W")
+              (label :text "Power battery: ${consumption}W")
             )
             (smallbox :text "${battery.percentage}%" :icon {battery.icon} :iconclass {battery.clazz} :righttext {consumption > 0 ? "${round(consumption, 0)}W" : ""} )
           )
