@@ -63,7 +63,7 @@
                 :spacing 25
                 (box :height 12)
                 ;; (button :onclick "eww open --toggle dashboard_light" :class "open-btn" "")
-                (image :path "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}" :image-width 36 )
+                (image :path "/home/vncnz/.config/eww/images/weather/${meteoDesenzanoDelGarda.icon_name}" :image-width 36 )
                 (audio)
                 (box :valign "center" :halign "center" :orientation "vertical" :visible "network.signal != ''"
                   (label :class "nerd-icon ${network.class}" :text "${network.icon}")

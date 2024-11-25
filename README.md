@@ -29,3 +29,4 @@ Restart EWW if frozen: killall eww -9; eww daemon; eww open microstatusbar
 
 - Use wttr? curl wttr.in/{Desenzano+Del+Garda,Bosco+Chiesanuova,Malmö,Oslo}?format="%l:+%c+%t+%f+%S+%s\n"
 
+- Fix GitHub Desktop icon (maybe every icon from X11 apps?)

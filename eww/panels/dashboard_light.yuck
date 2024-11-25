@@ -60,14 +60,14 @@
         :width 400
         :space-evenly false
         :orientation "v"
-          :visible {meteo1.text != ""}
-      (meteodaygraph_row :meteo meteo1)
-      (meteodaygraph_row :meteo meteoBosco)
-      (meteodaygraph_row :meteo meteo2)
-      (meteodaygraph_row :meteo meteo3)
+          :visible {meteoDesenzanoDelGarda.text != ""}
+      (meteodaygraph_row :meteo meteoDesenzanoDelGarda)
+      (meteodaygraph_row :meteo meteoMalmo)
+      (meteodaygraph_row :meteo meteoArendal)
+      (meteodaygraph_row :meteo meteoOslo)
     )
     (box :orientation "v"
-          :visible {meteo1.text == ""}
+          :visible {meteoDesenzanoDelGarda.text == ""}
           (label :text "No meteo info" :halign "start")
           (label :class "small_text" :text "Check your connection!")
       )
@@ -188,10 +188,10 @@
         ;  :row2 {status != '' ? "${song.artist}" : ""}
         ;  :row3 {song.musicartlink})
 
-        (mybox :image "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}" :clazz {battery.clazz}
-          :row1 {meteo1.text}
-          :row2 "${meteo1.temp}${meteo1.temp_unit} (${meteo1.temp_real}${meteo1.temp_unit} real)"
-          :row3 " ${meteo1.sunrise}  ${meteo1.sunset}")
+        (mybox :image "/home/vncnz/.config/eww/images/weather/${meteoDesenzanoDelGarda.icon_name}" :clazz {battery.clazz}
+          :row1 {meteoDesenzanoDelGarda.text}
+          :row2 "${meteoDesenzanoDelGarda.temp}${meteoDesenzanoDelGarda.temp_unit} (${meteoDesenzanoDelGarda.temp_real}${meteoDesenzanoDelGarda.temp_unit} real)"
+          :row3 " ${meteoDesenzanoDelGarda.sunrise}  ${meteoDesenzanoDelGarda.sunset}")
         
         (mybox :icon ""
           :row1 "GPU_EDGE: ${EWW_TEMPS.AMDGPU_EDGE}°C"
@@ -238,8 +238,8 @@
           )
           (box :class "close" :valign "end" :halign "end" :vexpand false :hexpand "true" (label :text ""))
         )
-        ;; (meteobox_light_noicon :meteo meteo2)
-        ;; (meteobox_light_noicon :meteo meteo3)
+        ;; (meteobox_light_noicon :meteo meteoMalmo)
+        ;; (meteobox_light_noicon :meteo meteoOslo)
         (metric :icon volume_icon :label "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
         (metric :icon br_icon :label "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
 

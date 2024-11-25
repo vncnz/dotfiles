@@ -31,10 +31,7 @@
         ;; (audio)
         (box :spacing 10 :hexpand false :halign "start" :space-evenly false
           :valign "end"
-          (box :spacing 4
-            (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
-            (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
-          )
+
           (box :space-evenly true :spacing 3
 
             (tooltip
@@ -61,6 +58,11 @@
 
             (label :tooltip "DISK USED ${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :text "󰋊"
               :class {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : (EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4 ? "warn-color" : "ok-color"})
+          )
+
+          (box :spacing 4
+            (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
+            (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
           )
           ;(tooltip
           ;  (box :orientation "v" :halign "left"
@@ -124,8 +126,8 @@
           (tooltip
             (meteodaygraph)
             (box :valign "center" :halign "center" :orientation "h" :space-evenly false :spacing 4
-              (label :text "${meteo1.temp}${meteo1.temp_unit}")
-              (image :image-width 20 :path "/home/vncnz/.config/eww/images/weather/${meteo1.icon_name}")
+              (label :text "${meteoDesenzanoDelGarda.temp}${meteoDesenzanoDelGarda.temp_unit}")
+              (image :image-width 20 :path "/home/vncnz/.config/eww/images/weather/${meteoDesenzanoDelGarda.icon_name}")
             )
           )
 

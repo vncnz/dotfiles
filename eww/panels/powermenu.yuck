@@ -64,7 +64,7 @@
         (box :class "box"
           (calendar :show-week-numbers "true")
         )
-        (meteobox :meteo meteo1)
+        (meteobox :meteo meteoDesenzanoDelGarda)
         (box :orientation "h" :space-evenly "false" :spacing 25
           (music)
           (box :class "box" :width 100 :height 100 :hexpand "false"
