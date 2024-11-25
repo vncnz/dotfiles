@@ -21,9 +21,9 @@ minutesLeft () { echo $(( ( $(secondsLeft)  + 0 ) / 60 )) ; }
 secondsLeftWhenPausedMod60 () { echo $(( $(secondsLeftWhenPaused) % 60 )) ; }
 secondsLeftMod60 () { echo $(( ($(timerExpiry) - $(now)) % 60 )) ; }
 
-printExpiryTime () { notify-send -u low -r 12345 "Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)" ;}
-printPaused () { notify-send -u low -r 12345 "Timer paused" ; }
-removePrinting () { notify-send -C 12345 ; }
+printExpiryTime () { notify-send -h int:transient:1 -h string:synchronous:timer -u low "Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)" ;}
+printPaused () { notify-send -h int:transient:1 -h string:synchronous:timer -u low "Timer paused" ; }
+printRemoved () { notify-send -h int:transient:1 -h string:synchronous:timer -u low "Timer removed" ; }
 
 updateTail () {
   # check whether timer is expired
@@ -31,10 +31,10 @@ updateTail () {
   then
     if { timerPaused && [ $(secondsLeftWhenPaused) -lt 0 ] ; } || { ! timerPaused && [ $(secondsLeft) -lt 0 ] ; }
     then
-      $(notify-send -u critical -r 12345 "Timer expired at $( date -d "$(secondsLeft) sec" +%H:%M)")
+      $(notify-send -h string:synchronous:timer -u critical "Timer expired at $( date -d "$(secondsLeft) sec" +%H:%M)")
       eval $(timerAction)
       killTimer
-      removePrinting
+      # printRemoved
     fi
   fi
 
@@ -109,7 +109,7 @@ case $1 in
     ;;
   cancel)
     killTimer
-    removePrinting
+    printRemoved
     ;;
   togglepause)
     if timerSet
