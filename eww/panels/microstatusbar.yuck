@@ -60,7 +60,7 @@
               :class {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : (EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4 ? "warn-color" : "ok-color"})
           )
 
-          (box :spacing 4 :class "island"
+          (box :spacing 4
             (eventbox :onclick "niri msg action focus-column-left" (label :text ""))
             (eventbox :onclick "niri msg action focus-column-right" (label :text ""))
           )
@@ -86,7 +86,7 @@
           ;; (label :text {workspaces})
           (label :text {windows_enhanced["1"]} :visible false)
           (for wo in {workspaces}
-            (box :space-evenly false :class "island"
+            (box :space-evenly false
               ;(label :text {windows_enhanced[1]} )
               (box :space-evenly false :spacing 4 :class "workspace" :visible {arraylength(windows_enhanced[wo["id"]]) > 0}
                 ; (eventbox :onclick "niri msg action focus-workspace ${wo}" (label :text "${wo}" :class "workspace-id" :width 18 :height 16 :halign "center"))
