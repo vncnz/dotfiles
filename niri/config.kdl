@@ -20,8 +20,8 @@ input {
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
 
-            layout "us"
-            variant "intl"
+            layout "it"
+            // variant "intl"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
 
@@ -299,7 +299,8 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Shift+BackSlash { show-hotkey-overlay; }
 
-    Mod+T { spawn "konsole"; }
+    // Suggested binds for running programs: terminal, app launcher, screen locker.
+    Mod+T { spawn "alacritty"; }
     Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
     Mod+D { spawn "fuzzel"; }
     Mod+O { spawn "/home/vncnz/.config/eww/scripts/niri_spaces.sh"; }
