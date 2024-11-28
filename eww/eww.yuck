@@ -26,7 +26,7 @@
 (defpoll bluetooth_devices :interval "1s" "~/.config/eww/scripts/bluetooth.py")
 
 (defpoll windows :interval "2s" "niri msg -j windows")
-(defpoll windows_enhanced :interval "2s" "~/.config/niri/taskbar.sh")
+(defpoll windows_enhanced :interval "2s" "~/.config/niri/taskbar.py")
 ;(defpoll workspaces_keys :interval "2s" "~/.config/niri/taskbar.sh | jq keys")
 (defpoll workspaces :interval "2s" "niri msg -j workspaces | jq 'sort_by(.id)'")
 
