@@ -34,7 +34,7 @@ find_icon() {
 
     # Looking for .desktop file corrisponding to the app_id
     for dir in "${DESKTOP_DIRS[@]}"; do
-        desktop_file=$(find "$dir" -type f -name "$app_id.desktop" 2>/dev/null | head -n 1)
+        desktop_file=$(find "$dir" -type f \( -iname "$app_id.desktop" -o -iname "${app_id// /-}.desktop" \) 2>/dev/null | head -n 1)
         if [[ -n $desktop_file ]]; then
             # Gets the first icon in the file
             icon_name=$(grep -i "^Icon=" "$desktop_file" | head -n 1 | cut -d'=' -f2 | tr -d ' ')
