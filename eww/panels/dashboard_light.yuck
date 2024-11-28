@@ -139,8 +139,8 @@
        :space-evenly false
        :orientation "h"
     ;(image :class "icon_light" :image-width 50 :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
-    (label :text {icon} :class "icon" :visible {image == ""})
-    (image :path {image} :class "icon" :visible {image != ""} :image-width 50)
+    (label :text {icon} :class "icon" :visible {image == ""} :width 50)
+    (image :path {image} :class "icon" :visible {image != ""} :image-height 50)
     (box :orientation "v" :halign "start" :space-evenly false
       (label :text {row1} :visible {row1 != ""} :halign "start" :hexpand false)
       (label :text {row2} :visible {row2 != ""} :halign "start" :hexpand false)
@@ -193,10 +193,10 @@
           :row2 "${meteoDesenzanoDelGarda.temp}${meteoDesenzanoDelGarda.temp_unit} (${meteoDesenzanoDelGarda.temp_real}${meteoDesenzanoDelGarda.temp_unit} real)"
           :row3 " ${meteoDesenzanoDelGarda.sunrise}  ${meteoDesenzanoDelGarda.sunset}")
         
-        (mybox :icon ""
+        (mybox :icon ""
           :row1 "GPU_EDGE: ${EWW_TEMPS.AMDGPU_EDGE}°C"
           :row2 "K10: ${EWW_TEMPS.K10TEMP_TCTL}°C"
-          :row3 {EWW_TEMPS}
+          :row3 "NVME: ${EWW_TEMPS.NVME_COMPOSITE_SAMSUNG_SSD_970_EVO_PLUS_1TB_TEMP1}°C"
         )
       )
 
