@@ -7,7 +7,12 @@
 )
 
 (defwidget taskbar_el [wi wi_id]
-  (eventbox :onclick "niri msg action focus-window --id ${wi_id}" (image :image-width 16 :path {wi["icon"]}))
+  (eventbox :onclick "niri msg action focus-window --id ${wi_id}"
+    (tooltip
+      (label :text {wi["title"]})
+      (image :image-width 16 :path {wi["icon"]})
+    )
+  )
 )
 
 (defwidget microstatusbar_layout []
