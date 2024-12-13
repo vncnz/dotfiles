@@ -20,6 +20,8 @@ pactl (audio ctrl)
 playerctl (audio info and ctrl)
 swaybg (wallpaper)
 swaync (notification center)
+---
+skoll (sirula forking by me)
 
 # After cfg update
 
