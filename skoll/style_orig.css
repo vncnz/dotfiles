@@ -23,7 +23,7 @@
 }
 
 #app-list, #search {
-	/* background: alpha(#04232A, 0.8); */
+	background: alpha(#04232A, 0.8);
 }
 
 #search {
@@ -31,10 +31,7 @@
     font-weight: 500;
     padding: 8px 11px;
     margin-bottom: 6px;
-    /* border: 3px solid #8000ff; */
-	border: none;
-	color: #61afbf;
-	font-weight: bold;
+    border: 3px solid #8000ff;
 }
 
 .app-row {
@@ -44,16 +41,12 @@
 	opacity: 0.95;
 }
 
-.app-row:selected {
-	padding-left: 18px;
+.app-row:selected, .app-row:hover {
+	padding-left: 8px;
 	padding-right: 8px;
 	opacity: 1;
-	/* background-color: alpha(#8000ff, 0.8); */
+	background-color: alpha(#8000ff, 0.8);
 	outline: none;
-}
-
-.app-row:selected .app-label {
-	color: #61afbf;
 }
 
 .app-label {
