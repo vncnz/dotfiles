@@ -303,6 +303,7 @@ binds {
     Mod+T { spawn "alacritty"; }
     Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
     Mod+D { spawn "fuzzel"; }
+    Mod+Shift+D { spawn "/home/vncnz/Repositories/dotfiles/niri/skoll"; }
     Mod+O { spawn "/home/vncnz/.config/eww/scripts/niri_spaces.sh"; }
     Mod+P { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
     Mod+N { spawn "swaync-client" "-t"; }
