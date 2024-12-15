@@ -14,7 +14,11 @@
 	font-family: Rubik, sans-serif;
 }
 
-#root-box {}
+window { background: rgba(0, 0, 0, 0.5); }
+
+#root-box {
+	background: rgba(0, 0, 0, 0.5);
+}
 
 #app-list, #search {
 	background: alpha(#04232A, 0.8);
