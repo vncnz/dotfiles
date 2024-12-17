@@ -25,7 +25,8 @@ skoll (sirula forking by me)
 
 # After cfg update
 
-Restart EWW if frozen: killall eww -9; eww daemon; eww open microstatusbar
+Restart EWW if frozen:
+killall eww -9; eww daemon; eww open microstatusbar
 
 # Next steps
 
