@@ -112,7 +112,7 @@
           
         )
         (box :hexpand false :halign "end" :valign "end" :space-evenly false :spacing 0
-          (smallbox :text "${round(EWW_RAM.used_mem_perc, 0)}%" :icon "" 
+          (smallbox :text "${round(EWW_RAM.used_mem_perc, 0)}%" :icon "" 
             :iconclass "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}" :visible {EWW_RAM.used_mem_perc > 75})
 
           (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 59}
