@@ -3,7 +3,7 @@
 # Malmö (Sweden): 55.60587, 13.00073
 # Desenzano D/G: 45.457692 10.570684
 
-url="https://api.open-meteo.com/v1/forecast?latitude="$2"&longitude="$3"&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,weather_code&timezone=auto&forecast_days=1&daily=sunrise,sunset,daylight_duration"
+url="https://api.open-meteo.com/v1/forecast?latitude="$2"&longitude="$3"&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,weather_code,relative_humidity_2m&timezone=auto&forecast_days=1&daily=sunrise,sunset,daylight_duration"
 # url="https://api.open-meteo.com/v1/forecast?latitude=45.457692&longitude=10.570684&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,weather_code&timezone=auto&forecast_days=1&daily=sunrise,sunset,daylight_duration"
 
 data=$(curl -s "$url")
@@ -15,6 +15,7 @@ else
     weather=$(jq -r '.current.weather_code' <<< $data)
     temp=$(echo $data | jq -r '.current.apparent_temperature' | awk '{print int($1+0.5)}')
     temp_real=$(echo $data | jq -r '.current.temperature_2m' | awk '{print int($1+0.5)}')
+    humidity=$(echo $data | jq -r '.current.relative_humidity_2m') # | awk '{print int($1+0.5)}')
     temp_unit=$(echo $data | jq -r '.current_units.apparent_temperature' )
     day=$(echo $data | jq -r '.current.is_day' )
     sunrise=$(echo $data | jq -r '.daily.sunrise[0]' )
@@ -164,4 +165,4 @@ else
     # echo '' $temp$temp_unit
 fi
 
-echo '{"icon": "'"$icon"'", "text": "'"$text"'", "temp": "'"$temp"'", "temp_real": "'"$temp_real"'", "temp_unit": "'"$temp_unit"'", "day": "'"$day"'", "icon_name": "'"$icon_name"'", "sunrise": "'"$sunrise_time"'", "sunset": "'"$sunset_time"'", "sunrise_mins": '"$sunrise_mins"', "sunset_mins": '"$sunset_mins"', "daylight": "'"$daylight"'", "locality": "'"$1"'"}'
+echo '{"icon": "'"$icon"'", "text": "'"$text"'", "temp": "'"$temp"'", "temp_real": "'"$temp_real"'", "temp_unit": "'"$temp_unit"'", "day": "'"$day"'", "icon_name": "'"$icon_name"'", "sunrise": "'"$sunrise_time"'", "sunset": "'"$sunset_time"'", "sunrise_mins": '"$sunrise_mins"', "sunset_mins": '"$sunset_mins"', "daylight": "'"$daylight"'", "locality": "'"$1"'", "humidity": "'"$humidity"'"}'

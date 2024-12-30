@@ -48,7 +48,7 @@
       (box :class "night" :width {round((1440 - meteo.sunset_mins) / 3, 0)} :height 2 :expand false :valign "center")
     )
     (label :text "${round((meteo.sunset_mins - meteo.sunrise_mins), 0)} light mins")
-    (label :class "small_text" :halign "start" :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}" :hexpand false)
+    (label :class "small_text" :halign "start" :text "${meteo.temp_real}${meteo.temp_unit}, feels like ${meteo.temp}${meteo.temp_unit}, 󰖌 ${meteo.humidity}%" :hexpand false)
     (image :class "icon_light" :image-width 20 :path "/home/vncnz/.config/eww/images/weather/${meteo.icon_name}")
     (label :text "${meteo.text} in ${meteo.locality}" :halign "start")
   )
