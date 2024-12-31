@@ -4,18 +4,34 @@
 
 percentage () {
   local val=$(echo $1 | tr '%' ' ' | awk '{print $1}')
-  local icon1=$2
-  local icon2=$3
-  local icon3=$4
-  local icon4=$5
-  if [ "$val" -le 15 ]; then
-    echo $icon1
-  elif [ "$val" -le 30 ]; then
-    echo $icon2
-  elif [ "$val" -le 60 ]; then
-    echo $icon3
+  if [ "$val" -le 1 ]; then
+    echo $2
+  elif [ "$val" -le 8 ]; then
+    echo $3
+  elif [ "$val" -le 16 ]; then
+    echo $4
+  elif [ "$val" -le 24 ]; then
+    echo $5
+  elif [ "$val" -le 32 ]; then
+    echo $6
+  elif [ "$val" -le 40 ]; then
+    echo $7
+  elif [ "$val" -le 48 ]; then
+    echo $8
+  elif [ "$val" -le 56 ]; then
+    echo $9
+  elif [ "$val" -le 64 ]; then
+    echo ${10}
+  elif [ "$val" -le 72 ]; then
+    echo ${11}
+  elif [ "$val" -le 80 ]; then
+    echo ${12}
+  elif [ "$val" -le 88 ]; then
+    echo ${13}
+  elif [ "$val" -le 96 ]; then
+    echo ${14}
   else
-    echo $icon4
+    echo ${15}
   fi
 }
 
@@ -30,7 +46,7 @@ get_percent () {
 
 get_icon () {
   local br=$(get_percent)
-  echo $(percentage "$br" "" "󰃞" "󰃟" "")
+  echo $(percentage "$br" "" "" "" "" "" "" "" "" "" "" "" "" "" "")
 }
 
 send_notif () {
