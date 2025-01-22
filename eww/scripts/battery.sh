@@ -76,7 +76,7 @@ get_class () {
     elif [ "$state" == "nobattery" ]; then
         echo "nodata-color"
     else
-        echo $(percentage "$PERCENTAGE" "err-color" "warn-color" "ok-color" "ok-color" "ok-color")
+        echo $(percentage "$PERCENTAGE" "err-color" "warn-color" "warn-color" "ok-color" "ok-color")
     fi
 }
 
