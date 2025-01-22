@@ -301,6 +301,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "alacritty"; }
+    // Mod+Shift+T { spawn "/home/vncnz/Repositories/dotfiles/niri/exec_cmd_with_fuzzel.sh"; }
     Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
     Mod+D { spawn "fuzzel"; }
     Mod+Shift+D { spawn "/home/vncnz/Repositories/dotfiles/niri/skoll"; }
@@ -535,6 +536,11 @@ binds {
 
 animations {
     slowdown 1.0
+
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+    
     window-open {
         duration-ms 150
         curve "linear"
@@ -583,6 +589,52 @@ animations {
         vec4 close_color(vec3 coords_geo, vec3 size_geo) {
             return fall_and_rotate(coords_geo, size_geo);
         }
+        "
+    }
+
+    /*
+    window-close {
+        custom-shader r"
+            vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+                vec4 color = vec4(0.0);
+
+                if (0.0 <= coords_geo.x && coords_geo.x <= 1.0
+                        && 0.0 <= coords_geo.y && coords_geo.y <= 1.0)
+                {
+                    vec4 from = vec4(1.0, 0.0, 0.0, 1.0);
+                    vec4 to = vec4(0.0, 1.0, 0.0, 1.0);
+                    color = mix(from, to, coords_geo.y);
+                }
+
+                return color * (1.0 - niri_clamped_progress);
+            }
+        "
+    }
+    */
+    /*
+    window-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+    */
+    /*
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+    */
+    /*
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+    */
+
+    window-resize {
+        custom-shader r"
+            vec4 resize_color(vec3 coords_curr_geo, vec3 size_curr_geo) {
+                vec3 coords_tex_next = niri_geo_to_tex_next * coords_curr_geo;
+                vec4 color = texture2D(niri_tex_next, coords_tex_next.st);
+                return color;
+            }
         "
     }
 }
