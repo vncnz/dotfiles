@@ -84,15 +84,15 @@ else
         text='Freezing drizzle (dense)'
 
     elif [ $weather -eq 61 ]; then
-        icon='' # 'Rain (slight)'
+        icon='󱔇' # 'Rain (slight)'
         text='Rain (slight)'
         icon_name='rain.svg'
     elif [ $weather -eq 63 ]; then
-        icon='' # 'Rain (moderate)'
+        icon='󰸊' # 'Rain (moderate)'
         text='Rain (moderate)'
         icon_name='rain.svg'
     elif [ $weather -eq 65 ]; then
-        icon='' # 'Rain (heavy)'
+        icon='󱔋' # 'Rain (heavy)'
         text='Rain (heavy)'
         icon_name='rain.svg'
 
