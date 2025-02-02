@@ -29,11 +29,11 @@ else
     icon_name=''
 
     if [ $weather -eq 0 ] && [ $day -eq 1 ]; then
-        icon='' # Clear sky
+        icon='󰖙' # Clear sky
         text='Clear sky'
         icon_name='day_clear.svg'
     elif [ $weather -eq 0 ] && [ $day -eq 0 ]; then
-        icon='' # Clear sky
+        icon='󰖔' # Clear sky
         text='Clear sky'
         icon_name='night_clear.svg'
     elif [ $weather -eq 1 ] && [ $day -eq 1 ]; then
@@ -45,11 +45,11 @@ else
         text='Mainly clear'
         icon_name='night_clear.svg'
     elif [ $weather -eq 2 ] && [ $day -eq 1 ]; then
-        icon='' # Partly cloudy
+        icon='󰖕' # Partly cloudy
         text='Partly cloudy'
         icon_name='day_partial_cloud.svg'
     elif [ $weather -eq 2 ] && [ $day -eq 0 ]; then
-        icon='' # Partly cloudy
+        icon='󰼱' # Partly cloudy
         text='Partly cloudy'
         icon_name='night_partial_cloud.svg'
     elif [ $weather -eq 3 ]; then
@@ -65,13 +65,13 @@ else
         text='Depositing rime fog'
         icon_name='mist.svg'
     elif [ $weather -eq 51 ]; then
-        icon='1' # 'Drizzle (light)'
+        icon=' 1' # 'Drizzle (light)'
         text='Light drizzle'
     elif [ $weather -eq 53 ]; then
-        icon='2' # 'Drizzle (moderate)'
+        icon=' 2' # 'Drizzle (moderate)'
         text='Moderate drizzle'
     elif [ $weather -eq 55 ]; then
-        icon='3' # 'Drizzle (dense)'
+        icon=' 3' # 'Drizzle (dense)'
         text='Dense drizzle'
 
 
@@ -84,15 +84,15 @@ else
         text='Freezing drizzle (dense)'
 
     elif [ $weather -eq 61 ]; then
-        icon='' # 'Rain (slight)'
+        icon='󱔇' # 'Rain (slight)'
         text='Rain (slight)'
         icon_name='rain.svg'
     elif [ $weather -eq 63 ]; then
-        icon='' # 'Rain (moderate)'
+        icon='󰸊' # 'Rain (moderate)'
         text='Rain (moderate)'
         icon_name='rain.svg'
     elif [ $weather -eq 65 ]; then
-        icon='' # 'Rain (heavy)'
+        icon='󱔋' # 'Rain (heavy)'
         text='Rain (heavy)'
         icon_name='rain.svg'
 
@@ -122,16 +122,28 @@ else
         icon='Snow grains'
         text='Snow grains'
 
-    elif [ $weather -eq 80 ]; then
-        icon='1' # 'Rain showers (slight)'
+    elif [ $weather -eq 80 ] && [ $day -eq 1 ]; then
+        icon=' 1' # 'Rain showers (slight)'
         text='Rain showers (slight)'
         icon_name='rain.svg'
-    elif [ $weather -eq 81 ]; then
-        icon='2' # 'Rain showers (moderate)'
+    elif [ $weather -eq 81 ] && [ $day -eq 1 ]; then
+        icon=' 2' # 'Rain showers (moderate)'
         text='Rain showers (moderate)'
         icon_name='rain.svg'
-    elif [ $weather -eq 82 ]; then
-        icon='3', # 'Rain showers (violent)'
+    elif [ $weather -eq 82 ] && [ $day -eq 1 ]; then
+        icon=' 3', # 'Rain showers (violent)'
+        text='Rain showers (violent)'
+        icon_name='rain.svg'
+    elif [ $weather -eq 80 ] && [ $day -eq 0 ]; then
+        icon=' 1' # 'Rain showers (slight)'
+        text='Rain showers (slight)'
+        icon_name='rain.svg'
+    elif [ $weather -eq 81 ] && [ $day -eq 0 ]; then
+        icon=' 2' # 'Rain showers (moderate)'
+        text='Rain showers (moderate)'
+        icon_name='rain.svg'
+    elif [ $weather -eq 82 ] && [ $day -eq 0 ]; then
+        icon=' 3', # 'Rain showers (violent)'
         text='Rain showers (violent)'
         icon_name='rain.svg'
     elif [ $weather -eq 85 ]; then
