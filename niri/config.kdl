@@ -648,6 +648,15 @@ window-rule {
 }
 
 window-rule {
+    match title="Picture-in-Picture"
+    open-floating true
+    open-maximized false
+    open-fullscreen false
+
+    // max-width 700
+}
+
+window-rule {
     match app-id="org.freedesktop.Xwayland"
     open-maximized true
 }
