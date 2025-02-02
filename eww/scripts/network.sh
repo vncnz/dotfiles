@@ -20,44 +20,45 @@ percentage () {
 }
 
 get_icon () {
-    # local br=$(get_percent)
-    if [ "$essid" == "lo" ]; then
-        echo "󰞃"
-    elif [ "$wired" == "1" ]; then
+    if [ "$wired" == "1" ]; then
         echo "󰈀"
-    else
+    elif [ "$wifi" == "1" ]; then
         echo $(percentage "$signal" "󰢿" "󰢼" "󰢽" "󰢾")
+    else
+        echo "󰞃"
     fi
 }
 
 get_class () {
-    if [ "$essid" == "lo" ]; then
-        echo "err-color"
-    elif [ "$wired" == "1" ]; then
+    if [ "$wired" == "1" ]; then
         echo ""
-    else
+    elif [ "$wifi" == "1" ]; then
         echo $(percentage "$signal" "err-color" "warn-color" "" "")
+    else
+        echo "err-color"
     fi
 }
 
 signal=$(nmcli -f in-use,signal dev wifi | rg "\*" | awk '{ print $2 }')
 essid=$(nmcli -t -f NAME connection show --active | head -n1 | sed 's/\"/\\"/g')
-wired=$(nmcli device status | grep connected | grep -c Wired)
-if [ "$wired" == "1" ]; then
+wired=$(nmcli device status | grep -w connected | grep -c ethernet)
+wifi=$(nmcli device status | grep -w connected | grep -c wifi)
+if [ "$wired" -eq "1" ]; then
   signal="0"
 fi
 icon=$(get_icon)
 class=$(get_class)
-echo '{"essid": "'"$essid"'", "signal": "'"$signal"'", "icon": "'"$icon"'", "wired": "'"$wired"'", "class": "'"$class"'"}'
+echo '{"essid": "'"$essid"'", "signal": "'"$signal"'", "icon": "'"$icon"'", "wired": "'"$wired"'", "wifi": "'"$wifi"'", "class": "'"$class"'"}'
 
 ip monitor link | while read -r line; do
     signal=$(nmcli -f in-use,signal dev wifi | rg "\*" | awk '{ print $2 }')
     essid=$(nmcli -t -f NAME connection show --active | head -n1 | sed 's/\"/\\"/g')
-    wired=$(nmcli device status | grep connected | grep -c Wired)
+    wired=$(nmcli device status | grep -w connected | grep -c Wired)
+    wifi=$(nmcli device status | grep -w connected | grep -c wifi)
     if [ "$wired" == "1" ]; then
-      signal="100"
+      signal="0"
     fi
     icon=$(get_icon)
     class=$(get_class)
-    echo '{"essid": "'"$essid"'", "signal": "'"$signal"'", "icon": "'"$icon"'", "wired": "'"$wired"'", "class": "'"$class"'"}'
+    echo '{"essid": "'"$essid"'", "signal": "'"$signal"'", "icon": "'"$icon"'", "wired": "'"$wired"'", "wifi": "'"$wifi"'", "class": "'"$class"'"}'
 done

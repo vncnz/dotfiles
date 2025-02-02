@@ -152,7 +152,8 @@
 
           (box :valign "center" :halign "center" :orientation "h" :visible "network.signal != ''" :space-evenly false :spacing 4 :class "island"
             :tooltip "${network.essid}"
-            (label :visible {network.signal != ''} :text "${network.signal}%")
+            (label :visible {network.wired == '1'} :text "ETH")
+            (label :visible {network.signal != '' && network.wired != '1'} :text "${network.signal}%")
             (label :class "${network.class}" :text "${network.icon}")
           )
 
