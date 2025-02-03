@@ -104,6 +104,7 @@
           )
 
           (timer)
+          (systray :pack-direction "ltr")
         )
         (box :orientation "h" :halign "center" :space-evenly false :spacing 20 :class "island"
           (eventbox :onclick "eww open microaddons --toggle" :hexpand "false"
