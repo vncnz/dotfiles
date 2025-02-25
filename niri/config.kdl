@@ -302,17 +302,18 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "alacritty"; }
     // Mod+Shift+T { spawn "/home/vncnz/Repositories/dotfiles/niri/exec_cmd_with_fuzzel.sh"; }
-    Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
-    Mod+D { spawn "fuzzel"; }
-    Mod+Shift+D { spawn "/home/vncnz/Repositories/dotfiles/niri/skoll"; }
-    Mod+O { spawn "/home/vncnz/.config/eww/scripts/niri_spaces.sh"; }
-    Mod+P { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
-    Mod+N { spawn "swaync-client" "-t"; }
-    Mod+Shift+N { spawn "swaync-client" "-C"; }
+    // Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
+    // Mod+W { toggle-column-tabbed-display; }
+    Mod+D hotkey-overlay-title="Spawn fuzzel launcher" { spawn "fuzzel"; }
+    Mod+Shift+D hotkey-overlay-title="Spawn skoll launcher" { spawn "/home/vncnz/Repositories/dotfiles/niri/skoll"; }
+    Mod+O hotkey-overlay-title="Spawn app selector in fuzzel" { spawn "/home/vncnz/.config/eww/scripts/niri_spaces.sh"; }
+    Mod+P hotkey-overlay-title="Spawn session control in fuzzel" { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
+    Mod+N hotkey-overlay-title="Show/hide swaync panel" { spawn "swaync-client" "-t"; }
+    Mod+Shift+N hotkey-overlay-title="Reset notifications" { spawn "swaync-client" "-C"; }
     // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
-    Super+L { spawn "swaylock" "-i" "/home/vncnz/.config/wallpaper.jpg" "--show-keyboard-layout" "--show-failed-attempts"; }
+    Super+L hotkey-overlay-title="Lock the screen" { spawn "swaylock" "-i" "/home/vncnz/.config/wallpaper.jpg" "--show-keyboard-layout" "--show-failed-attempts"; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
