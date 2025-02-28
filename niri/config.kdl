@@ -223,7 +223,7 @@ layout {
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 spawn-at-startup "swaybg" "--image" "/home/vncnz/.config/wallpaper.jpg" "--mode" "fill"
-// spawn-at-startup "xwayland-satellite" ":12"
+spawn-at-startup "xwayland-satellite" ":12"
 // spawn-at-startup "/home/vncnz/.config/niri/change_bg.sh"
 // spawn-at-startup "dunst" "&"
 spawn-at-startup "swaync"
@@ -496,6 +496,7 @@ binds {
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { reset-window-height; }
     Mod+F { maximize-column; }
+    Mod+W { toggle-window-floating; }
     Mod+Shift+F { fullscreen-window; }
     Mod+C { center-column; }
 
@@ -650,6 +651,15 @@ window-rule {
 
 window-rule {
     match title="Picture-in-Picture"
+    open-floating true
+    open-maximized false
+    open-fullscreen false
+
+    // max-width 700
+}
+
+window-rule {
+    match title="alacritty launcher"
     open-floating true
     open-maximized false
     open-fullscreen false
