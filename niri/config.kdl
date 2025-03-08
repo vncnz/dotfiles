@@ -657,6 +657,18 @@ window-rule {
     default-floating-position x=12 y=32 relative-to="bottom-left"
 
     // max-width 700
+
+    focus-ring {
+        // Colors can be set in a variety of ways:
+        // - CSS named colors: "red"
+        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
+        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
+
+        // Color of the ring on the active monitor.
+        // active-color "#ffc8ff"
+        // Color of the ring on inactive monitors.
+        // inactive-color "#805050"
+  }
 }
 
 window-rule {
@@ -685,11 +697,11 @@ window-rule {
     default-column-width { proportion 0.5; }
 }
 
-window-rule {
+/* window-rule {
     match app-id="org.telegram.desktop"
     exclude title=r#"(Choose Files|Media viewer|Save (File|Video|Image))"#
     open-maximized true
-}
+} */
 
 window-rule {
     match app-id=r#"libreoffice-(calc|draw|impress|math|writer)"#
@@ -701,16 +713,16 @@ window-rule {
     opacity 0.9
 }
 
-window-rule {
+/* window-rule {
     match app-id="virt-manager" title="Virtual Machine Manager"
     default-column-width { proportion 0.33333; }
-}
+} */
 
-window-rule {
+/* window-rule {
     match app-id="virt-manager" title=r#"on QEMU/KVM$"#
     default-column-width { proportion 0.8; }
     // open-on-workspace "work"
-}
+} */
 
 window-rule {
   match app-id="firefox"
