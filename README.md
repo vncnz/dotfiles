@@ -23,6 +23,10 @@ swaync (notification center)
 ---
 skoll (sirula forking by me)
 
+### To be added to my notebook
+``` sudo pacman -S impala ``` for wireless management
+``` sudo pacman -S bluetui ``` for bluetooth management
+
 # After cfg update
 
 Restart EWW if frozen:
