@@ -38,6 +38,8 @@
 (include "./mywidgets/sundial.yuck")
 (include "./mywidgets/timer.yuck")
 
+(include "./panels/osd.yuck")
+
 (defwidget bg_music_notif []
     (box
         :orientation "v"

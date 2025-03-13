@@ -14,6 +14,8 @@ $primary: #61afbf; // #1962e5
 @import "styles/batteryborder.scss";
 @import "styles/veryminimal.scss";
 
+@import "./panels/osd.scss";
+
 .clock {
     font-size: 2rem;
 }
