@@ -1,4 +1,3 @@
-$primary: orange;
 $nerd-font: inherit;
 $red: red;
 
@@ -10,7 +9,7 @@ $red: red;
 .volume-slider,
 .brightness-slider {
   border-radius: 999px;
-  border: 2px solid $primary;
+  border: 2px solid $secondary;
   min-width: 28px;
 }
 .volume-slider trough,
@@ -22,7 +21,7 @@ $red: red;
 }
 .volume-slider .bottom,
 .brightness-slider .bottom {
-  background: $primary;
+  background: $secondary;
   margin: -12px 0 -12px 0;
   min-width: 10px;
   border-radius: 999px;
@@ -30,7 +29,7 @@ $red: red;
 }
 .volume-slider slider,
 .brightness-slider slider {
-  background: $primary;
+  background: $secondary;
   min-width: 24px;
   min-height: 24px;
   box-shadow: none;
@@ -38,7 +37,7 @@ $red: red;
 .volume-slider slider:hover,
 .brightness-slider slider:hover {
   box-shadow: 0 0 4px 4px
-    rgba(red($primary), green($primary), blue($primary), 0.5);
+    rgba(red($secondary), green($secondary), blue($secondary), 0.5);
 }
 .volume-slider.high trough {
   background: transparent;
