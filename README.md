@@ -26,6 +26,9 @@ skoll (sirula forking by me)
 ### To be added to my notebook
 ``` sudo pacman -S impala ``` for wireless management
 ``` sudo pacman -S bluetui ``` for bluetooth management
+``` yay -S tray-tui ``` for tray usage
+``` yay -S diskonaut ``` for disk managing
+``` sudo pacman -S lf ``` for file exploring
 
 # After cfg update
 
