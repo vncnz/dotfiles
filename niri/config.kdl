@@ -301,6 +301,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "alacritty"; }
+    Ctrl+Shift+T allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "volume" "up"; }
     // Mod+Shift+T { spawn "/home/vncnz/Repositories/dotfiles/niri/exec_cmd_with_fuzzel.sh"; }
     // Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
     // Mod+W { toggle-column-tabbed-display; }
