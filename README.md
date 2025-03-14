@@ -24,7 +24,7 @@ swaync (notification center)
 skoll (sirula forking by me)
 
 ### To be added to my notebook
-``` sudo pacman -S impala ``` for wireless management
+``` sudo pacman -S iwd impala ``` for wireless management
 ``` sudo pacman -S bluetui ``` for bluetooth management
 ``` yay -S tray-tui ``` for tray usage
 ``` yay -S diskonaut ``` for disk managing
