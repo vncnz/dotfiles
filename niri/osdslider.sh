@@ -57,7 +57,7 @@ while true; do
         lastrun=$currentrun
         laststate=$currentstate
     fi
-    sleep 3
+    sleep 1
 done
 
 rm "$lockfile"
