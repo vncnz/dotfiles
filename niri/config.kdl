@@ -674,6 +674,11 @@ window-rule {
 }
 
 window-rule {
+    match title=" Properties"
+    open-floating true
+}
+
+window-rule {
     match title="alacritty launcher"
     open-floating true
     open-maximized false
