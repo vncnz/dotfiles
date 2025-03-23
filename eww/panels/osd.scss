@@ -27,18 +27,21 @@ $red: red;
   border-radius: 999px;
   transition-duration: 250ms;
 }
-.volume-slider slider,
+
+.volume-slider.muted .bottom {
+  background: repeating-linear-gradient(30deg, $secondary 0px, $secondary 5px, transparent 5px, transparent 10px);
+}
+/* .volume-slider slider,
 .brightness-slider slider {
   background: $secondary;
   min-width: 24px;
   min-height: 24px;
   box-shadow: none;
-}
-.volume-slider slider:hover,
+} */
+/* .volume-slider slider:hover,
 .brightness-slider slider:hover {
-  box-shadow: 0 0 4px 4px
-    rgba(red($secondary), green($secondary), blue($secondary), 0.5);
-}
+  box-shadow: 0 0 4px 4px rgba(red($secondary), green($secondary), blue($secondary), 0.5);
+} */
 .volume-slider.high trough {
   background: transparent;
 }

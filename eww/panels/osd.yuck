@@ -8,7 +8,7 @@
 (defwidget volume-slider []
 (overlay
   (scale
-      :class "volume-slider"
+      :class {volume.value == 0 ? "volume-slider muted" : "volume-slider"}
       :value "${current-volume-state}"
       :max 101
       :min 0
@@ -28,7 +28,7 @@
   (label
       :class "slider-icon"
       :yalign 0.96
-      :text "󰎈"
+      :text {volume.icon}
   )))
 
 (defwindow volume-osd
