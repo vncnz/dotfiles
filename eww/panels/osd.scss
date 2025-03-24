@@ -28,8 +28,9 @@ $red: red;
   transition-duration: 250ms;
 }
 
+$transparent: mix($secondary, transparent, 60%);
 .volume-slider.muted .bottom {
-  background: repeating-linear-gradient(30deg, $secondary 0px, $secondary 5px, transparent 5px, transparent 10px);
+  background: repeating-linear-gradient(30deg, $secondary 0px, $secondary 5px, $transparent 5px, $transparent 10px);
 }
 /* .volume-slider slider,
 .brightness-slider slider {
@@ -51,4 +52,5 @@ $red: red;
 }
 .slider-icon {
   color: #0e0e1e;
+  margin-bottom: 4px;
 }
