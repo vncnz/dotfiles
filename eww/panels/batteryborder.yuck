@@ -19,19 +19,18 @@
       :valign "center"
       :space-evenly false
       :class "slider"
-          (scale :value { volume_value }
+          (scale :value { volume.value }
                   :vexpand true
-                  ;; :class {(is_muted == "1") ? "full" : (volume_value > 55 ? `low` : (volume_value > 25 ? `medium` : `normal`))}
                   :onchange "~/.config/eww/scripts/volume.sh set {}"
                   :orientation "v"
                   :flipped true
                   :min 0
                   :max 101
-                  :class {(is_muted == "1") ? "full" : "l"+volume_value})
+                  :class {(volume.muted == "1") ? "full" : "l"+volume.value})
         (eventbox 
                 :onclick "niri msg action spawn -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
                 :onrightclick "niri msg action spawn -- pavucontrol"
-          (label :class "label" :text {volume_icon})
+          (label :class "label" :text {volume.icon})
         )
     )
 

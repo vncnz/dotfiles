@@ -243,8 +243,8 @@
         )
         ;; (meteobox_light_noicon :meteo meteoMalmo)
         ;; (meteobox_light_noicon :meteo meteoOslo)
-        (metric :icon volume_icon :label "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
-        (metric :icon br_icon :label "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
+        (metric :icon {volume.icon} :label "${volume.value}%" :value {volume.value} :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
+        (metric :icon {br.icon} :label "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
 
         (box :orientation "h" :hexpand false :halign "left"
           (systray :height 50 :pack_direction "ltr" :hexpand false :halign "left")

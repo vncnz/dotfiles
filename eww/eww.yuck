@@ -5,13 +5,9 @@
 (defpoll consumption :interval "1s" :initial "" "sensors -j | jq -r '.[\"BAT0-acpi-0\"].power1.power1_input'")
 (defpoll avgload :interval "1000ms" :initial '"(AVG LOAD)"' "uptime | awk -F'[a-z]:' '{ print $2}'")
 
-(defpoll volume_icon :interval "1s" "~/.config/eww/scripts/volume.sh icon")
-(defpoll volume_value :interval "1s" "~/.config/eww/scripts/volume.sh vol")
-(defpoll volume :interval "1s" "~/.config/eww/scripts/volume.sh json")
-(defpoll is_muted :interval "1s" "~/.config/eww/scripts/volume.sh muted")
+(defpoll volume :interval "500ms" "~/.config/eww/scripts/volume.sh json")
 
 (defpoll updates_count :interval "600s" "checkupdates | wc -l")
-(defpoll br_icon :interval "1s" "~/.config/eww/scripts/brightness.sh icon")
 (defpoll br :interval "1s" "~/.config/eww/scripts/brightness.sh br")
 (defpoll brightness :interval "5s" "~/.config/eww/scripts/brightness.sh json")
 

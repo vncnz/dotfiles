@@ -55,9 +55,9 @@
        :space-evenly false
        :spacing 25
        :hexpand "true"
-    (slider :icon volume_icon :text "${volume_value}%" :value volume_value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
+    (slider :icon volume.icon :text "${volume.value}%" :value volume.value :class "vol-label" :onchange "~/.config/eww/scripts/volume.sh set {}")
     ;; "amixer -D pulse sset Master {}%"
-    (slider :icon br_icon :text "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
+    (slider :icon {br.icon} :text "${br}%" :value br :class "vol-label" :onchange "~/.config/eww/scripts/brightness.sh set {}")
     ;; (slider :icon "" :text "${round(EWW_RAM.used_mem_perc, 0)}%" :value {EWW_RAM.used_mem_perc} :class "br-label" :onchange "")
     ;; (slider :icon "" :text "${round(EWW_CPU.avg, 0)}%" :value {EWW_CPU.avg} :class "br-label" :onchange "")
     ;; (slider :icon "" :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)} :onchange "")

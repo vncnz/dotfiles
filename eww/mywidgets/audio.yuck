@@ -3,7 +3,7 @@
         (eventbox
             :onclick "niri msg action spawn -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             :onrightclick "niri msg action spawn -- pavucontrol"
-            (label :class "nerd-icon" :text volume_icon)
+            (label :class "nerd-icon" :text {volume.icon})
         )
         (label :visible {volume.value != 0} :text {volume.value})
         (label :visible {volume.value == 0} :text "Muted")
