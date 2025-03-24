@@ -21,7 +21,8 @@ else
     elif [[ "$action" == "down" ]]; then
         wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
     else
-        pactl set-sink-mute @DEFAULT_AUDIO_SINK@ toggle
+        SINK=$(pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1)
+        pactl set-sink-mute $SINK toggle
     fi
     laststate=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $NF*100}')
     eww update "current-volume-state=$laststate"

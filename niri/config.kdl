@@ -330,8 +330,8 @@ binds {
     XF86AudioRaiseVolume allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "volume" "up"; }
     // XF86AudioLowerVolume allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "volume_down"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "volume" "down"; }
-    XF86AudioMute        allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "volume_mute"; }
-    // XF86AudioMute        allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "volume" "mute"; }
+    // XF86AudioMute        allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "volume_mute"; }
+    XF86AudioMute        allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "volume" "mute"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "mic_mute"; }
 
     XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "5%+"; }
