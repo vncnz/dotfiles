@@ -547,7 +547,7 @@ animations {
         spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
     }
     
-    window-open {
+    /* window-open {
         duration-ms 150
         curve "linear"
         custom-shader r"
@@ -568,9 +568,9 @@ animations {
             return expanding_circle(coords_geo, size_geo);
         }
         "
-    }
+    } */
 
-    window-close {
+    /* window-close {
         duration-ms 250
         curve "linear"
         custom-shader r"
@@ -596,7 +596,7 @@ animations {
             return fall_and_rotate(coords_geo, size_geo);
         }
         "
-    }
+    } */
 
     /*
     window-close {
