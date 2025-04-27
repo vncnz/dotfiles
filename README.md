@@ -20,6 +20,7 @@ pactl (audio ctrl)
 playerctl (audio info and ctrl)
 swaybg (wallpaper)
 swaync (notification center)
+pika-backup (backup system)
 ---
 skoll (sirula forking by me)
 
