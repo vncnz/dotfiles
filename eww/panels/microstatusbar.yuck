@@ -47,7 +47,7 @@
                 (label :text "K10_TCTL                ${round(EWW_TEMPS.K10TEMP_TCTL ?: 0, 0)}°C")
               )
               (label :text "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 60 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
-                :class "${EWW_TEMPS.AMDGPU_EDGE < 60 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"
+                :class "${EWW_TEMPS.AMDGPU_EDGE < 65 ? "ok-color" : EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"
                 :visible {EWW_TEMPS.AMDGPU_EDGE > 0})
             ;; (label :text "󱔱" :visible (not (EWW_TEMPS.AMDGPU_EDGE > 0)))
             )
@@ -58,7 +58,7 @@
                 (label :text "SWAP ${round(100 - EWW_RAM.free_swap/EWW_RAM.total_swap*100, 0)}% of ${round(EWW_RAM.total_swap/1024/1024, 0)}Mb")
                 ;; total_mem, free_mem, total_swap, free_swap
               )
-              (label :text "" :class "${EWW_RAM.used_mem_perc < 65 ? 'ok-color' : EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}")
+              (label :text "" :class "${EWW_RAM.used_mem_perc < 75 ? 'ok-color' : EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}")
             )
 
             (label :tooltip "DISK USED ${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :text "󰋊"
@@ -116,7 +116,7 @@
           (smallbox :text "${round(EWW_RAM.used_mem_perc, 0)}%" :icon "" 
             :iconclass "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}" :visible {EWW_RAM.used_mem_perc > 75})
 
-          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 59}
+          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 65}
             (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
             (label :text "${EWW_TEMPS.AMDGPU_EDGE < 50 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
               :class "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"
