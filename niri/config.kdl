@@ -158,7 +158,7 @@ layout {
         // off
 
         // How many logical pixels the ring extends out from the windows.
-        width 3
+        width 1
 
         // Colors can be set in a variety of ways:
         // - CSS named colors: "red"
@@ -166,7 +166,7 @@ layout {
         // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
         // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
+        // active-color "#7fc8ff"
 
         // Color of the ring on inactive monitors.
         inactive-color "#505050"
@@ -180,7 +180,7 @@ layout {
         // active-gradient from="#70c8ff" to="#fb7755" angle=315
         // active-gradient from="#ce1270" to="#dba3e6" angle=45
         // active-gradient from="#e59c19" to="#c88414" angle=45 in="oklch longer hue"
-        active-gradient from="#f44369" to="#56b8fd" angle=60 in="oklch shorter hue"
+        active-gradient from="#d79921" to="#56b8fd" angle=60 in="oklch longer hue"
 
         // You can also color the gradient relative to the entire view
         // of the workspace, rather than relative to just the window itself.
@@ -236,7 +236,7 @@ spawn-at-startup "/home/vncnz/.config/eww/scripts/music_notifier.sh"
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some rounded corners.
-prefer-no-csd
+// prefer-no-csd
 
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
