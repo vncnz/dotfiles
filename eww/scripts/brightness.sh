@@ -67,7 +67,7 @@ get_json () {
   PERCENTAGE=$(get_brightness)
   ICON=$(get_icon)
   CLAZZ=""
-  echo '{"percentage": "'"$PERCENTAGE"'", "icon": "'"$ICON"'", "clazz": "'"$CLAZZ"'"}'
+  echo '{"percentage": '"$PERCENTAGE"', "icon": "'"$ICON"'", "clazz": "'"$CLAZZ"'"}'
 }
 
 if [[ $1 == "json" ]]; then
