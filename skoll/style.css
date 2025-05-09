@@ -107,9 +107,20 @@ scale slider {
     all: unset; /* niente thumb visibile */
 }
 
+.items-1,
+.items-2,
+.items-3 {
+	margin: 0 10px;
+}
+
 .items-1 label,
 .items-2 label,
-.items-3 label,
+.items-3 label {
+	margin: 0;
+	padding: 0;
+	margin-left: 3px;
+}
+
 scale {
 	margin: 0;
 	padding: 0;
@@ -121,13 +132,13 @@ scale {
 	font-size: 30px;
 }
 .items-1 {
-	border: 1px solid red;
+	
 }
 .items-1 scale trough {
 	min-height: 30px;
 }
 .items-2 {
-	border: 1px solid yellow;
+	
 }
 .items-2 scale trough {
 	min-height: 14px;
@@ -137,7 +148,7 @@ scale {
 	font-size: 10px;
 }
 .items-3 {
-	border: 1px solid green;
+	
 }
 /* .items-3 scale {} */
 
