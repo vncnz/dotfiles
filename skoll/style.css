@@ -22,9 +22,9 @@
 	border: 3px solid red;
 }
 
-#app-list, #search {
-	/* background: alpha(#04232A, 0.8); */
-}
+/* #app-list, #search {
+	/ * background: alpha(#04232A, 0.8); * /
+} */
 
 #search {
     font-size: 1.5em;
@@ -139,7 +139,7 @@ scale {
 .items-3 {
 	border: 1px solid green;
 }
-.items-3 scale {}
+/* .items-3 scale {} */
 
 .items-3 scale trough {
 	min-height: 9px;
@@ -147,4 +147,8 @@ scale {
 }
 .items-3 label {
 	font-size: 8px;
+}
+
+.grid-icon {
+	font-size: 30px;
 }

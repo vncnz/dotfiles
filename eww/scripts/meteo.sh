@@ -177,4 +177,4 @@ else
     # echo '' $temp$temp_unit
 fi
 
-echo '{"icon": "'"$icon"'", "text": "'"$text"'", "temp": "'"$temp"'", "temp_real": "'"$temp_real"'", "temp_unit": "'"$temp_unit"'", "day": "'"$day"'", "icon_name": "'"$icon_name"'", "sunrise": "'"$sunrise_time"'", "sunset": "'"$sunset_time"'", "sunrise_mins": '"$sunrise_mins"', "sunset_mins": '"$sunset_mins"', "daylight": "'"$daylight"'", "locality": "'"$1"'", "humidity": "'"$humidity"'"}'
+echo '{"icon": "'"$icon"'", "text": "'"$text"'", "temp": '"$temp"', "temp_real": '"$temp_real"', "temp_unit": "'"$temp_unit"'", "day": "'"$day"'", "icon_name": "'"$icon_name"'", "sunrise": "'"$sunrise_time"'", "sunset": "'"$sunset_time"'", "sunrise_mins": '"$sunrise_mins"', "sunset_mins": '"$sunset_mins"', "daylight": '"$daylight"', "locality": "'"$1"'", "humidity": '"$humidity"'}'
