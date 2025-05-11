@@ -68,11 +68,20 @@
 	margin: 0 8px;
 }
 
-#info_bar * {
+.island {
 	font-family: "Symbols Nerd Font Mono", monospace;
+	border-radius: 10px;
+	margin: 5px;
+	padding: 5px;
 }
 
+.island .value {
+	margin-left: 5px;
+}
 
+.island .grid-icon {
+	font-size: 24px;
+}
 
 
 
