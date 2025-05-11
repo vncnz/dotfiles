@@ -83,6 +83,10 @@
 	font-size: 24px;
 }
 
+.running {
+	color: rgb(198, 237, 198);
+}
+
 
 
 /* #extra_info_box {
