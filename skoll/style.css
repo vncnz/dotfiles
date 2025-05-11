@@ -68,6 +68,9 @@
 	margin: 0 8px;
 }
 
+#info_bar * {
+	font-family: "Symbols Nerd Font Mono", monospace;
+}
 
 
 
