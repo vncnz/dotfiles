@@ -48,17 +48,21 @@ if [ "$wired" -eq "1" ]; then
 fi
 icon=$(get_icon)
 class=$(get_class)
-echo '{"essid": "'"$essid"'", "signal": "'"$signal"'", "icon": "'"$icon"'", "wired": "'"$wired"'", "wifi": "'"$wifi"'", "class": "'"$class"'"}'
+echo '{"essid": "'"$essid"'", "signal": '"$signal"', "icon": "'"$icon"'", "wired": '"$wired"', "wifi": '"$wifi"', "class": "'"$class"'"}'
 
-ip monitor link | while read -r line; do
-    signal=$(nmcli -f in-use,signal dev wifi | rg "\*" | awk '{ print $2 }')
-    essid=$(nmcli -t -f NAME connection show --active | head -n1 | sed 's/\"/\\"/g')
-    wired=$(nmcli device status | grep -w connected | grep -c Wired)
-    wifi=$(nmcli device status | grep -w connected | grep -c wifi)
-    if [ "$wired" == "1" ]; then
-      signal="0"
-    fi
-    icon=$(get_icon)
-    class=$(get_class)
-    echo '{"essid": "'"$essid"'", "signal": "'"$signal"'", "icon": "'"$icon"'", "wired": "'"$wired"'", "wifi": "'"$wifi"'", "class": "'"$class"'"}'
-done
+if [[ $1 != "oneshot" ]]; then
+
+  ip monitor link | while read -r line; do
+      signal=$(nmcli -f in-use,signal dev wifi | rg "\*" | awk '{ print $2 }')
+      essid=$(nmcli -t -f NAME connection show --active | head -n1 | sed 's/\"/\\"/g')
+      wired=$(nmcli device status | grep -w connected | grep -c Wired)
+      wifi=$(nmcli device status | grep -w connected | grep -c wifi)
+      if [ "$wired" == "1" ]; then
+        signal="0"
+      fi
+      icon=$(get_icon)
+      class=$(get_class)
+      echo '{"essid": "'"$essid"'", "signal": '"$signal"', "icon": "'"$icon"'", "wired": '"$wired"', "wifi": '"$wifi"', "class": "'"$class"'"}'
+  done
+
+fi

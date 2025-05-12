@@ -227,7 +227,7 @@
         (label :text "${round(EWW_CPU.avg, 0)}%")
       )
       (box :valign "center" :halign "center" :orientation "vertical"
-        (label :class "nerd-icon" :text "")
+        (label :class "nerd-icon" :text "")
         (label :text "${round(EWW_RAM.used_mem_perc, 0)}%")
       )
       (box :valign "center" :halign "center" :orientation "vertical"
