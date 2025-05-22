@@ -21,6 +21,7 @@ playerctl (audio info and ctrl)
 swaybg (wallpaper)
 swaync (notification center)
 pika-backup (backup system)
+wl-clipboard (for wl-copy in pipeline with cmds)
 ---
 skoll (sirula forking by me)
 
