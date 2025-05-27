@@ -705,7 +705,8 @@ window-rule {
 }
 
 window-rule {
-    match title=r#".* Copying .*"# app-id="nemo" is-floating=true
+    match title=r#".* Copying .*"# app-id="nemo" 
+    match title=r#".* Moving .*"# app-id="nemo" is-floating=true
     default-floating-position x=12 y=32 relative-to="bottom-right"
     baba-is-float true
 
