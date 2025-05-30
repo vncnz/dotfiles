@@ -31,6 +31,7 @@ stow . -t ~/.config
 |yay    | tray-tui                 | for tray usage through a TUI
 |yay    | diskonaut                | for disk usage through a TUI
 |pacman | lf                       | for file exploring through a TUI
+|pacman | texlive-luatex           | latex
 
 # After cfg update
 Sometimes eww freezes when you are touching its configuration...
