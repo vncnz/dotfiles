@@ -313,6 +313,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "alacritty"; }
+    Mod+Space { spawn "kitty" "-e" "/home/vncnz/.config/niri/fenrir"; }
     // Mod+Shift+T { spawn "/home/vncnz/Repositories/dotfiles/niri/exec_cmd_with_fuzzel.sh"; }
     // Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
     // Mod+W { toggle-column-tabbed-display; }
