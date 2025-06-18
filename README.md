@@ -18,7 +18,7 @@ stow . -t ~/.config
 |       | fuzzel                   | launcher
 |       | iwmenu                   | network management
 |       | jq                       | json parser for bash
-|       | ttf-nerd-fonts-symbols*  | icons
+|pacman | ttf-nerd-fonts-symbols*  | icons
 |       | pactl                    | audio ctrl
 |       | playerctl                | audio info and ctrl
 |       | swaybg                   | wallpaper
