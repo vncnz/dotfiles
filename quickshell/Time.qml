@@ -10,7 +10,7 @@ import QtQuick
 // your singletons should always have Singleton as the type
 Singleton {
   id: root
-  property string time
+  /* property string time
 
   Process {
     id: dateProc
@@ -27,5 +27,26 @@ Singleton {
     running: true
     repeat: true
     onTriggered: dateProc.running = true
+  } */
+
+  readonly property string time: {
+    // The passed format string matches the default output of
+    // the `date` command.
+    Qt.formatDateTime(clock.date, "ddd MMM d hh:mm AP t yyyy")
+  }
+  readonly property string hours: {
+    // The passed format string matches the default output of
+    // the `date` command.
+    Qt.formatDateTime(clock.date, "hh")
+  }
+  readonly property string minutes: {
+    // The passed format string matches the default output of
+    // the `date` command.
+    Qt.formatDateTime(clock.date, "mm")
+  }
+
+  SystemClock {
+    id: clock
+    precision: SystemClock.Minutes
   }
 }

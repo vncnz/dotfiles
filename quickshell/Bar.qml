@@ -32,15 +32,11 @@ Scope {
         // Layout.fillHeight: true
 
         ClockWidget {
-            anchors.centerIn: parent
-
-            // no more time binding
+            // anchors.centerIn: parent
         }
 
         InfoWidget {
-            anchors.centerIn: parent
-
-            // no more time binding
+            // anchors.centerIn: parent
         }
       }
     }
