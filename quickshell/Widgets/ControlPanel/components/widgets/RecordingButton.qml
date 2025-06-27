@@ -28,8 +28,8 @@ Rectangle {
         
         // Recording state icon
         Text {
-            text: isRecording ? "stop_circle" : "radio_button_unchecked"
-            font.family: "Material Symbols Outlined"
+            text: isRecording ? "" : ""
+            font.family: "Symbols Nerd Font"
             font.pixelSize: 16
             color: isRecording || mouseArea.containsMouse ? "#ffffff" : Data.ThemeManager.fgColor
             
