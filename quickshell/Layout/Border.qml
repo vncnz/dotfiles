@@ -20,6 +20,7 @@ Shape {
     property var workspaceIndicator: null
     property var volumeOSD: null
     property var clockWidget: null
+    property var resourcesWidget: null
     
     // Initialization state to prevent ShaderEffect warnings
     property bool effectsReady: false
@@ -178,6 +179,33 @@ Shape {
         z: -2  // Lower z-index to render behind border corners
         
         layer.enabled: borderShape.clockWidget !== null
+        layer.effect: DropShadow {
+            transparentBorder: true
+            horizontalOffset: 1
+            verticalOffset: -1
+            radius: 12                     // Much more subtle
+            samples: 25
+            color: Qt.rgba(0, 0, 0, 0.4)   // Very light shadow
+            cached: false
+            spread: 0.2                    // Minimal spread
+        }
+    }
+
+    Rectangle {
+        id: resourcesDropShadow
+        visible: borderShape.resourcesWidget !== null
+        x: borderShape.resourcesWidget ? borderShape.resourcesWidget.x : 0
+        y: borderShape.resourcesWidget ? borderShape.resourcesWidget.y : 0
+        width: borderShape.resourcesWidget ? borderShape.resourcesWidget.width : 0
+        height: borderShape.resourcesWidget ? borderShape.resourcesWidget.height : 0
+        color: "black"
+        topLeftRadius: 0
+        topRightRadius: borderShape.resourcesWidget ? borderShape.resourcesWidget.height / 2 : 16
+        bottomLeftRadius: 0
+        bottomRightRadius: 0
+        z: -2  // Lower z-index to render behind border corners
+        
+        layer.enabled: borderShape.resourcesWidget !== null
         layer.effect: DropShadow {
             transparentBorder: true
             horizontalOffset: 1

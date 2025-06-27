@@ -10,7 +10,7 @@ import "root:/Widgets" as Widgets
 import "root:/Widgets/Notifications" as Notifications
 import "root:/Widgets/ControlPanel" as ControlPanel
 
-// import "root:/ConfigLoader" as ConfigLoader
+// import "root:/RatatorkrLoader" as RatatorkrLoader
 
 // Desktop with borders and UI widgets
 Scope {
@@ -146,6 +146,32 @@ Scope {
                 }
             }
 
+            Rectangle {
+                id: resourcesShadow
+                visible: resourcesWidget !== null
+                x: resourcesWidget.x
+                y: resourcesWidget.y
+                width: resourcesWidget.width
+                height: resourcesWidget.height
+                topLeftRadius: 0
+                topRightRadius: resourcesWidget.height / 2
+                bottomLeftRadius: 0
+                bottomRightRadius: 0
+                z: -10  // Behind border
+                
+                layer.enabled: true
+                layer.effect: DropShadow {
+                    transparentBorder: true
+                    horizontalOffset: 1
+                    verticalOffset: -1
+                    radius: 8
+                    samples: 10
+                    color: Qt.rgba(0, 0, 0, 0.3)
+                    cached: true
+                    spread: 0.1
+                }
+            }
+
             // Border background with shadow
             Border {
                 id: screenBorder
@@ -153,6 +179,7 @@ Scope {
                 workspaceIndicator: workspaceIndicator
                 volumeOSD: volumeOsd
                 clockWidget: clockWidget
+                resourcesWidget: resourcesWidget
                 z: -5  // Behind UI elements to prevent shadow from covering control panel
             }
 
@@ -268,12 +295,17 @@ Scope {
                 z: 10
             }
 
-            /* Text {
-                text: "? " + (ConfigLoader.sysData?.metronome ? "󰀥" : "")
-                font.family: "Symbols Nerd Font"
-                color: "red"
-                z: 15
-            } */
+            // Resources at bottom-right corner
+            Widgets.Resources {
+                id: resourcesWidget
+                anchors {
+                    bottom: parent.bottom
+                    right: parent.right
+                    bottomMargin: Data.Settings.borderWidth
+                    rightMargin: Data.Settings.borderWidth
+                }
+                z: 10
+            }
 
             // Notification popups (primary screen only)
             Notifications.Notification {

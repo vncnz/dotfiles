@@ -1,4 +1,4 @@
-// ConfigLoader.qml
+// RatatorkrLoader.qml
 pragma Singleton
 
 import Quickshell
@@ -27,8 +27,8 @@ Singleton {
         stdout: StdioCollector {
             onStreamFinished: {
                 try {
-                    sysData = JSON.parse('{metronome: true}');
-                    console.log("JSON aggiornato:", JSON.stringify(sysData));
+                    sysData = JSON.parse(this.text);
+                    // console.log("Ratatoskr loaded");
                 } catch (e) {
                     console.error("Errore parsing JSON:", e);
                 }
