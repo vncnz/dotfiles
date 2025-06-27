@@ -8,7 +8,9 @@ import QtQuick
 Singleton {
     // id: loader
     property string jsonPath: "/tmp/ratatoskr.json"
-    property var sysData: {}  // result
+    property var sysData: {
+        metronome: true
+    }  // result
 
     Process {
         id: fileReader
@@ -25,7 +27,7 @@ Singleton {
         stdout: StdioCollector {
             onStreamFinished: {
                 try {
-                    sysData = JSON.parse(this.text);
+                    sysData = JSON.parse('{metronome: true}');
                     console.log("JSON aggiornato:", JSON.stringify(sysData));
                 } catch (e) {
                     console.error("Errore parsing JSON:", e);
