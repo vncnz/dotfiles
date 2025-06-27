@@ -9,7 +9,7 @@ Item {
     required property var shell
     property bool isRecording: false
     property int currentTab: 0 // 0=main, 1=calendar, 2=clipboard, 3=notifications, 4=wallpapers, 5=music, 6=settings
-    property var tabIcons: ["widgets", "calendar_month", "content_paste", "notifications", "wallpaper", "music_note", "settings"]
+    property var tabIcons: ["󰜬", "󰃭", "", "󰂚", "󰸉", "", ""]
     
     property bool isShown: false
     property var recordingProcess: null
