@@ -33,7 +33,7 @@ RowLayout {
         Layout.fillWidth: true
         
         shell: root.shell
-        iconText: "lock"
+        iconText: ""
         
         onClicked: {
             console.log("Lock button clicked")
@@ -64,7 +64,7 @@ RowLayout {
         Layout.fillWidth: true
         
         shell: root.shell
-        iconText: "restart_alt"
+        iconText: "󰑐"
         
         onClicked: root.systemActionRequested("reboot")
         onMouseChanged: function(containsMouse) {
@@ -81,7 +81,7 @@ RowLayout {
         Layout.fillWidth: true
         
         shell: root.shell
-        iconText: "power_settings_new"
+        iconText: ""
         
         onClicked: root.systemActionRequested("shutdown")
         onMouseChanged: function(containsMouse) {
