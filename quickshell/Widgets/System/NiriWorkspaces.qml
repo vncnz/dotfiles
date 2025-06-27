@@ -207,7 +207,7 @@ Rectangle {
         id: workspaceColumn
         anchors.centerIn: parent
         spacing: 6
-        
+
         Repeater {
             model: root.workspaces
             

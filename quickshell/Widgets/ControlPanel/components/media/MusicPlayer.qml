@@ -258,7 +258,7 @@ Rectangle {
                         // Fallback music icon
                         Text {
                             anchors.centerIn: parent
-                            text: "album"
+                            text: "󰀥"
                             font.family: "Symbols Nerd Font"
                             font.pixelSize: 32
                             color: Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.4)
@@ -444,7 +444,7 @@ Rectangle {
                             anchors.right: parent.right
                             anchors.rightMargin: 4
                             anchors.verticalCenter: parent.verticalCenter
-                            text: "expand_more"
+                            text: "󰅀"
                             font.family: "Symbols Nerd Font" 
                             font.pixelSize: 12
                             color: Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.6)
@@ -523,7 +523,7 @@ Rectangle {
                     
                     Text {
                         anchors.centerIn: parent
-                        text: "skip_previous"
+                        text: "󰒮"
                         font.family: "Symbols Nerd Font"
                         font.pixelSize: 18
                         color: previousButton.enabled ? Data.ThemeManager.accentColor : Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.3)
@@ -557,7 +557,7 @@ Rectangle {
                     
                     Text {
                         anchors.centerIn: parent
-                        text: currentPlayer && currentPlayer.isPlaying ? "pause" : "play_arrow"
+                        text: currentPlayer && currentPlayer.isPlaying ? "󰏤" : "󰐊"
                         font.family: "Symbols Nerd Font"
                         font.pixelSize: 20
                         color: playButton.enabled ? Data.ThemeManager.accentColor : Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.3)
@@ -583,7 +583,7 @@ Rectangle {
                     
                     Text {
                         anchors.centerIn: parent
-                        text: "skip_next"
+                        text: "󰒭"
                         font.family: "Symbols Nerd Font"
                         font.pixelSize: 18
                         color: nextButton.enabled ? Data.ThemeManager.accentColor : Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.3)
@@ -613,7 +613,7 @@ Rectangle {
                     
                     Text {
                         anchors.centerIn: parent
-                        text: "shuffle"
+                        text: "󰒟"
                         font.family: "Symbols Nerd Font"
                         font.pixelSize: 12
                         color: shuffleButton.enabled ? 
@@ -651,7 +651,7 @@ Rectangle {
                     
                     Text {
                         anchors.centerIn: parent
-                        text: currentPlayer && currentPlayer.loopState === MprisLoopState.Track ? "repeat_one" : "repeat"
+                        text: currentPlayer && currentPlayer.loopState === MprisLoopState.Track ? "󰑘" : "󰑖"
                         font.family: "Symbols Nerd Font"
                         font.pixelSize: 12
                         color: repeatButton.enabled ? 

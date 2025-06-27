@@ -23,6 +23,7 @@ Rectangle {
     }
 
     // Clock at bottom
+    // What clock? Where?
     Calendar.Clock {
         id: clockWidget
         anchors {

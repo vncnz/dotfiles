@@ -10,6 +10,8 @@ import "root:/Widgets" as Widgets
 import "root:/Widgets/Notifications" as Notifications
 import "root:/Widgets/ControlPanel" as ControlPanel
 
+import "root:/ConfigLoader" as ConfigLoader
+
 // Desktop with borders and UI widgets
 Scope {
     id: desktop
@@ -264,6 +266,13 @@ Scope {
                     leftMargin: Data.Settings.borderWidth
                 }
                 z: 10
+            }
+
+            Text {
+                text: "? " + (ConfigLoader.sysData?.metronome ? "󰀥" : "")
+                font.family: "Symbols Nerd Font"
+                color: "red"
+                z: 15
             }
 
             // Notification popups (primary screen only)
