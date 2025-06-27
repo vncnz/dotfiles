@@ -41,7 +41,7 @@ Column {
             height: 52
             
             shell: root.shell
-            iconText: "speed"
+            iconText: "󰡴" // speed
             
             isActive: root.upowerReady && (typeof PowerProfile !== 'undefined') ? 
                       root.currentProfile === PowerProfile.Performance : false
@@ -68,7 +68,7 @@ Column {
             height: 52
             
             shell: root.shell
-            iconText: "balance"
+            iconText: "󰾅" // balance
             
             isActive: root.upowerReady && (typeof PowerProfile !== 'undefined') ? 
                       root.currentProfile === PowerProfile.Balanced : false
@@ -95,7 +95,7 @@ Column {
             height: 52
             
             shell: root.shell
-            iconText: "battery_saver"
+            iconText: "󱈐" // battery_save
             
             isActive: root.upowerReady && (typeof PowerProfile !== 'undefined') ? 
                       root.currentProfile === PowerProfile.PowerSaver : false
