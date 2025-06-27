@@ -36,7 +36,7 @@ Rectangle {
         anchors.centerIn: parent
         text: "contrast"
         font.pixelSize: 24
-        font.family: "Material Symbols Outlined"
+        font.family: "Symbols Nerd Font"
         color: containsMouse ? Data.ThemeManager.accentColor : Data.ThemeManager.fgColor
     }
 } 

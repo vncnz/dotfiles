@@ -63,7 +63,7 @@ Item {
                 id: appearanceCategory
                 width: parent.width
                 title: "Appearance"
-                icon: "palette"
+                icon: "󰏘"
                 
                 content: Component {
                     SettingsComponents.AppearanceSettings {
@@ -78,7 +78,7 @@ Item {
                 id: systemCategory
                 width: parent.width
                 title: "System"
-                icon: "settings"
+                icon: "󰖷"
                 
                 content: Component {
                     SettingsComponents.SystemSettings {
@@ -93,7 +93,7 @@ Item {
                 id: notificationsCategory
                 width: parent.width
                 title: "Notifications"
-                icon: "notifications"
+                icon: "󰂚"
                 
                 content: Component {
                     SettingsComponents.NotificationSettings {
@@ -109,7 +109,7 @@ Item {
                 id: musicPlayerCategory
                 width: parent.width
                 title: "Music Player"
-                icon: "music_note"
+                icon: "󰝚"
                 
                 content: Component {
                     SettingsComponents.MusicPlayerSettings {
@@ -123,7 +123,7 @@ Item {
                 id: weatherCategory
                 width: parent.width
                 title: "Weather"
-                icon: "wb_sunny"
+                icon: "󰼲"
                 
                 content: Component {
                     SettingsComponents.WeatherSettings {
@@ -140,7 +140,7 @@ Item {
                 id: nightLightCategory
                 width: parent.width
                 title: "Night Light"
-                icon: "dark_mode"
+                icon: "󰆗"
                 
                 content: Component {
                     SettingsComponents.NightLightSettings {

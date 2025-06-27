@@ -26,7 +26,7 @@ Rectangle {
         
         Text {
             text: isRecording ? "stop_circle" : "radio_button_unchecked"
-            font.family: "Material Symbols Outlined"
+            font.family: "Symbols Nerd Font"
             font.pixelSize: 16
             color: isRecording || mouseArea.containsMouse ? "#ffffff" : Data.ThemeManager.fgColor
             

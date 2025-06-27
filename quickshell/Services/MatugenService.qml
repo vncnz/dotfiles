@@ -18,7 +18,7 @@ Item {
     // File watcher for the matugen quickshell-colors.qml
     FileView {
         id: matugenFile
-        path: "/home/vncnz/.config/quickshell/qml/Data/quickshell-colors.qml"
+        path: "/home/vncnz/.config/quickshell/Data/quickshell-colors.qml"
         blockWrites: true
         
         onLoaded: {

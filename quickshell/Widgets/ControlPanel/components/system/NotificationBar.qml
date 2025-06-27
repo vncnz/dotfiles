@@ -54,7 +54,7 @@ Rectangle {
             Label {
                 anchors.centerIn: parent
                 text: "notifications"
-                font.family: "Material Symbols Outlined"
+                font.family: "Symbols Nerd Font"
                 font.pixelSize: 16
                 color: notifButtonMouseArea.containsMouse || root.notificationHistoryVisible ? 
                        Data.ThemeManager.accentColor : Data.ThemeManager.fgColor
@@ -88,7 +88,7 @@ Rectangle {
             Label {
                 anchors.centerIn: parent
                 text: "content_paste"
-                font.family: "Material Symbols Outlined"
+                font.family: "Symbols Nerd Font"
                 font.pixelSize: 16
                 color: clipButtonMouseArea.containsMouse || root.clipboardHistoryVisible ? 
                        Data.ThemeManager.accentColor : Data.ThemeManager.fgColor

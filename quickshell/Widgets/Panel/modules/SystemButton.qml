@@ -62,7 +62,7 @@ Rectangle {
         
         Text {
             text: root.iconText
-            font.family: "Material Symbols Outlined"
+            font.family: "Symbols Nerd Font"
             font.pixelSize: 16
             anchors.horizontalCenter: parent.horizontalCenter
             color: {

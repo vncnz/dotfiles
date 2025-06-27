@@ -101,7 +101,7 @@ Column {
         Text {
             anchors.centerIn: parent
             text: "person"
-            font.family: "Material Symbols Outlined"
+            font.family: "Symbols Nerd Font"
             font.pixelSize: 48
             color: Data.ThemeManager.accentColor
             visible: avatarImage.status !== Image.Ready

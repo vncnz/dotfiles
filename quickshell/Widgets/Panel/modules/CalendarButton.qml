@@ -39,7 +39,7 @@ Rectangle {
         anchors.centerIn: parent
         text: "calendar_month"
         font.pixelSize: 24
-        font.family: "Material Symbols Outlined"
+        font.family: "Symbols Nerd Font"
         color: calendarButton.containsMouse || calendarButton.calendarVisible ? Data.ThemeManager.accentColor : Data.ThemeManager.fgColor
     }
 

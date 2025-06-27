@@ -64,7 +64,7 @@ Rectangle {
         anchors.centerIn: parent
         text: isActive ? "light_mode" : "dark_mode"
         font.pixelSize: 24
-        font.family: "Material Symbols Outlined"
+        font.family: "Symbols Nerd Font"
         color: isActive ? 
                Qt.rgba(1.0, 0.8 - strength * 0.3, 0.4 - strength * 0.2, 1.0) :  // Warm orange when active
                (containsMouse ? Data.ThemeManager.accentColor : Data.ThemeManager.fgColor)

@@ -40,7 +40,7 @@ Item {
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: categoryRoot.icon
-                font.family: "Material Symbols Outlined"
+                font.family: "Symbols Nerd Font"
                 font.pixelSize: 20
                 color: expanded ? Data.ThemeManager.accentColor : Data.ThemeManager.fgColor
             }
@@ -60,8 +60,8 @@ Item {
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
             anchors.rightMargin: 16
-            text: expanded ? "expand_less" : "expand_more"
-            font.family: "Material Symbols Outlined"
+            text: expanded ? "󰅃" : "󰅀"
+            font.family: "Symbols Nerd Font"
             font.pixelSize: 20
             color: expanded ? Data.ThemeManager.accentColor : Data.ThemeManager.fgColor
             

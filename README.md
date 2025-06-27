@@ -32,6 +32,8 @@ stow . -t ~/.config
 |yay    | diskonaut                | for disk usage through a TUI
 |pacman | lf                       | for file exploring through a TUI
 |pacman | texlive-luatex           | latex
+|pacman | power-profiles-daemon    | Power management
+|pacman | matugen                  | generate colors for wallpaper
 
 # After cfg update
 Sometimes eww freezes when you are touching its configuration...

@@ -299,7 +299,7 @@ Item {
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: "add"
-                                font.family: "Material Symbols Outlined"
+                                font.family: "Symbols Nerd Font"
                                 font.pixelSize: 14
                                 color: Data.ThemeManager.accentColor
                             }

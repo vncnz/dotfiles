@@ -182,7 +182,7 @@ Item {
                         Text {
                             anchors.centerIn: parent
                             text: root.tabIcons[index]
-                            font.family: "Material Symbols Outlined"
+                            font.family: "Symbols Nerd Font"
                             font.pixelSize: 16
                             color: currentTab === index ? Data.ThemeManager.bgColor : 
                                    parent.isHovered ? Data.ThemeManager.accentColor : Data.ThemeManager.fgColor

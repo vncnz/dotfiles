@@ -98,7 +98,7 @@ Item {
                 Text {
                     anchors.centerIn: parent
                     text: tabNavigation.tabIcons[index] || ""
-                    font.family: "Material Symbols Outlined"
+                    font.family: "Symbols Nerd Font"
                     font.pixelSize: 16
                     color: {
                         if (tabNavigation.currentTab === index) {

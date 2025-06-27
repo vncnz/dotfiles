@@ -179,8 +179,8 @@ Rectangle {
                 
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: "music_note"
-                    font.family: "Material Symbols Outlined"
+                    text: "󰝚"
+                    font.family: "Symbols Nerd Font"
                     font.pixelSize: 48
                     color: Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.3)
                 }
@@ -259,7 +259,7 @@ Rectangle {
                         Text {
                             anchors.centerIn: parent
                             text: "album"
-                            font.family: "Material Symbols Outlined"
+                            font.family: "Symbols Nerd Font"
                             font.pixelSize: 32
                             color: Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.4)
                             visible: !albumArt.visible
@@ -445,7 +445,7 @@ Rectangle {
                             anchors.rightMargin: 4
                             anchors.verticalCenter: parent.verticalCenter
                             text: "expand_more"
-                            font.family: "Material Symbols Outlined" 
+                            font.family: "Symbols Nerd Font" 
                             font.pixelSize: 12
                             color: Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.6)
                         }
@@ -524,7 +524,7 @@ Rectangle {
                     Text {
                         anchors.centerIn: parent
                         text: "skip_previous"
-                        font.family: "Material Symbols Outlined"
+                        font.family: "Symbols Nerd Font"
                         font.pixelSize: 18
                         color: previousButton.enabled ? Data.ThemeManager.accentColor : Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.3)
                     }
@@ -558,7 +558,7 @@ Rectangle {
                     Text {
                         anchors.centerIn: parent
                         text: currentPlayer && currentPlayer.isPlaying ? "pause" : "play_arrow"
-                        font.family: "Material Symbols Outlined"
+                        font.family: "Symbols Nerd Font"
                         font.pixelSize: 20
                         color: playButton.enabled ? Data.ThemeManager.accentColor : Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.3)
                     }
@@ -584,7 +584,7 @@ Rectangle {
                     Text {
                         anchors.centerIn: parent
                         text: "skip_next"
-                        font.family: "Material Symbols Outlined"
+                        font.family: "Symbols Nerd Font"
                         font.pixelSize: 18
                         color: nextButton.enabled ? Data.ThemeManager.accentColor : Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.3)
                     }
@@ -614,7 +614,7 @@ Rectangle {
                     Text {
                         anchors.centerIn: parent
                         text: "shuffle"
-                        font.family: "Material Symbols Outlined"
+                        font.family: "Symbols Nerd Font"
                         font.pixelSize: 12
                         color: shuffleButton.enabled ? 
                                (currentPlayer && currentPlayer.shuffle ? Data.ThemeManager.accentColor : Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.6)) : 
@@ -652,7 +652,7 @@ Rectangle {
                     Text {
                         anchors.centerIn: parent
                         text: currentPlayer && currentPlayer.loopState === MprisLoopState.Track ? "repeat_one" : "repeat"
-                        font.family: "Material Symbols Outlined"
+                        font.family: "Symbols Nerd Font"
                         font.pixelSize: 12
                         color: repeatButton.enabled ? 
                                (currentPlayer && currentPlayer.loopState !== MprisLoopState.None ? Data.ThemeManager.accentColor : Qt.rgba(Data.ThemeManager.fgColor.r, Data.ThemeManager.fgColor.g, Data.ThemeManager.fgColor.b, 0.3)) : 

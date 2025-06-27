@@ -137,7 +137,7 @@ Scope {
                     horizontalOffset: 1
                     verticalOffset: -1
                     radius: 8
-                    samples: 17
+                    samples: 10
                     color: Qt.rgba(0, 0, 0, 0.3)
                     cached: true
                     spread: 0.1

@@ -37,7 +37,7 @@ Row {
         Text {
             anchors.centerIn: parent
             text: "restart_alt"
-            font.family: "Material Symbols Outlined"
+            font.family: "Symbols Nerd Font"
             font.pixelSize: 20
             color: Data.ThemeManager.secondaryText
         }
@@ -67,7 +67,7 @@ Row {
         Text {
             anchors.centerIn: parent
             text: "power_settings_new"
-            font.family: "Material Symbols Outlined"
+            font.family: "Symbols Nerd Font"
             font.pixelSize: 18
             color: Data.ThemeManager.secondaryText
         }

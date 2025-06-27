@@ -106,7 +106,7 @@ Rectangle {
                     return root.getWeatherIcon(shell.weatherData.currentCondition)
                 }
                 font.pixelSize: 28
-                font.family: "Material Symbols Outlined"
+                font.family: "Symbols Nerd Font"
                 color: Data.ThemeManager.accentColor
                 Layout.alignment: Qt.AlignHCenter
             }
@@ -173,7 +173,7 @@ Rectangle {
                 Label {
                     text: shell.weatherData ? root.getWeatherIcon(shell.weatherData.currentCondition) : ""
                     font.pixelSize: 48
-                    font.family: "Material Symbols Outlined"
+                    font.family: "Symbols Nerd Font"
                     color: Data.ThemeManager.accentColor
                 }
 
@@ -200,7 +200,7 @@ Rectangle {
                             Layout.alignment: Qt.AlignVCenter
                             Label {
                                 text: "thermostat"
-                                font.family: "Material Symbols Outlined"
+                                font.family: "Symbols Nerd Font"
                                 font.pixelSize: 12
                                 color: Data.ThemeManager.accentColor
                             }
@@ -222,7 +222,7 @@ Rectangle {
                             Layout.alignment: Qt.AlignVCenter
                             Label {
                                 text: "air"
-                                font.family: "Material Symbols Outlined"
+                                font.family: "Symbols Nerd Font"
                                 font.pixelSize: 12
                                 color: Data.ThemeManager.accentColor
                             }
@@ -248,7 +248,7 @@ Rectangle {
                             Layout.alignment: Qt.AlignVCenter
                             Label {
                                 text: "explore"
-                                font.family: "Material Symbols Outlined"
+                                font.family: "Symbols Nerd Font"
                                 font.pixelSize: 12
                                 color: Data.ThemeManager.accentColor
                             }
@@ -304,7 +304,7 @@ Rectangle {
                         Label {
                             text: root.getWeatherIcon(modelData.condition)
                             font.pixelSize: 16
-                            font.family: "Material Symbols Outlined"
+                            font.family: "Symbols Nerd Font"
                             color: Data.ThemeManager.accentColor
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
