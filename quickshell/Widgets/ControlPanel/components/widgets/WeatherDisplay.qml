@@ -60,15 +60,15 @@ Rectangle {
 
         // Fallback text matching for non-WMO weather APIs
         const textMap = {
-            "clear sky": "light_mode",
-            "mainly clear": "light_mode",
-            "partly cloudy": "cloud",
-            "overcast": "cloud",
-            "fog": "foggy",
-            "drizzle": "water_drop",
-            "rain": "water_drop",
-            "snow": "ac_unit",
-            "thunderstorm": "thunderstorm"
+            "clear sky": "",
+            "mainly clear": "",
+            "partly cloudy": "",
+            "overcast": "",
+            "fog": "",
+            "drizzle": "󰖌",
+            "rain": "",
+            "snow": "",
+            "thunderstorm": ""
         }
 
         const lower = condition.toLowerCase()
@@ -114,7 +114,7 @@ Rectangle {
                     return root.getWeatherIcon(shell.weatherData.currentCondition)
                 }
                 font.pixelSize: 28
-                font.family: "Material Symbols Outlined"
+                font.family: "Symbols Nerd Font"
                 color: Data.ThemeManager.accentColor
                 Layout.alignment: Qt.AlignHCenter
             }
@@ -187,7 +187,7 @@ Rectangle {
                 Label {
                     text: shell.weatherData ? root.getWeatherIcon(shell.weatherData.currentCondition) : ""
                     font.pixelSize: 48
-                    font.family: "Material Symbols Outlined"
+                    font.family: "Symbols Nerd Font"
                     color: Data.ThemeManager.accentColor
                 }
 
@@ -217,8 +217,8 @@ Rectangle {
                             spacing: 4
                             Layout.alignment: Qt.AlignVCenter
                             Label {
-                                text: "thermostat"
-                                font.family: "Material Symbols Outlined"
+                                text: ""
+                                font.family: "Symbols Nerd Font"
                                 font.pixelSize: 12
                                 color: Data.ThemeManager.accentColor
                             }
@@ -241,8 +241,8 @@ Rectangle {
                             spacing: 4
                             Layout.alignment: Qt.AlignVCenter
                             Label {
-                                text: "air"
-                                font.family: "Material Symbols Outlined"
+                                text: ""
+                                font.family: "Symbols Nerd Font"
                                 font.pixelSize: 12
                                 color: Data.ThemeManager.accentColor
                             }
@@ -270,7 +270,7 @@ Rectangle {
                             Layout.alignment: Qt.AlignVCenter
                             Label {
                                 text: "explore"
-                                font.family: "Material Symbols Outlined"
+                                font.family: "Symbols Nerd Font"
                                 font.pixelSize: 12
                                 color: Data.ThemeManager.accentColor
                             }
@@ -333,7 +333,7 @@ Rectangle {
                         Label {
                             text: root.getWeatherIcon(modelData.condition)
                             font.pixelSize: 16
-                            font.family: "Material Symbols Outlined"
+                            font.family: "Symbols Nerd Font"
                             color: Data.ThemeManager.accentColor
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
