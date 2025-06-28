@@ -146,6 +146,7 @@ Scope {
                 }
             }
 
+            // Resources widget shadow
             Rectangle {
                 id: resourcesShadow
                 visible: resourcesWidget !== null
@@ -153,8 +154,8 @@ Scope {
                 y: resourcesWidget.y
                 width: resourcesWidget.width
                 height: resourcesWidget.height
-                topLeftRadius: 0
-                topRightRadius: resourcesWidget.height / 2
+                topLeftRadius: resourcesWidget.height / 2
+                topRightRadius: 0
                 bottomLeftRadius: 0
                 bottomRightRadius: 0
                 z: -10  // Behind border

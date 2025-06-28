@@ -199,8 +199,8 @@ Shape {
         width: borderShape.resourcesWidget ? borderShape.resourcesWidget.width : 0
         height: borderShape.resourcesWidget ? borderShape.resourcesWidget.height : 0
         color: "black"
-        topLeftRadius: 0
-        topRightRadius: borderShape.resourcesWidget ? borderShape.resourcesWidget.height / 2 : 16
+        topLeftRadius: borderShape.resourcesWidget ? borderShape.resourcesWidget.height / 2 : 16
+        topRightRadius: 0
         bottomLeftRadius: 0
         bottomRightRadius: 0
         z: -2  // Lower z-index to render behind border corners
