@@ -65,6 +65,13 @@ Item {
                 z: 15
                 width: 10
             }
+            Text {
+                text: RatatorkrLoader.sysData?.battery?.icon
+                font.family: "Symbols Nerd Font"
+                color: RatatorkrLoader.sysData?.battery?.color
+                z: 15
+                width: 10
+            }
         }
     }
 
