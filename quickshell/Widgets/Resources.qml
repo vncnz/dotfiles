@@ -44,7 +44,7 @@ Item {
                 font.pixelSize: 14
             }
             Text {
-                text: RatatorkrLoader.sysData?.ram.mem_percent > 80 ? `󰋊 ${RatatorkrLoader.sysData?.ram.mem_percent}%` : ""
+                text: RatatorkrLoader.sysData?.ram.mem_percent > 80 ? ` ${RatatorkrLoader.sysData?.ram.mem_percent}%` : ""
                 font.family: "Symbols Nerd Font"
                 color: RatatorkrLoader.sysData?.ram.mem_color
                 z: 15
