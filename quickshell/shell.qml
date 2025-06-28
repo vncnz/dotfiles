@@ -19,6 +19,7 @@ ShellRoot {
 
     property var defaultAudioSink: Pipewire.defaultAudioSink
     property int volume: defaultAudioSink && defaultAudioSink.audio ? Math.round(defaultAudioSink.audio.volume * 100) : 0
+    property int muted: (defaultAudioSink && defaultAudioSink.audio) ? defaultAudioSink.audio.muted : false
 
     property var notificationWindow: null  // Set by Desktop.qml
     property var notificationServer: notificationService ? notificationService.notificationServer : null

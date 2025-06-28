@@ -24,6 +24,7 @@ Item {
     }
     
     property int lastVolume: -1
+    property bool lastMuted: false
     
     // Monitor volume changes from shell and trigger OSD
     Connections {
@@ -33,6 +34,12 @@ Item {
                 showOsd()
             }
             lastVolume = shell.volume
+        }
+        function onMutedChanged() {
+            if (shell.muted !== lastMuted) {
+                showOsd()
+            }
+            lastMuted = shell.muted
         }
     }
     
@@ -105,10 +112,10 @@ Item {
                 text: {
                     if (!shell || shell.volume === undefined) return "󰝟"
                     var vol = shell.volume
-                    if (vol === 0) return "󰝟"      // Muted
-                    else if (vol < 33) return "󰕿"  // Low
-                    else if (vol < 66) return "󰖀"  // Medium
-                    else return "󰕾"               // High
+                    if (vol === 0 || shell.muted) return "󰝟"      // Muted
+                    else if (vol < 33) return "󰕿"                 // Low
+                    else if (vol < 66) return "󰖀"                 // Medium
+                    else return "󰕾"                               // High
                 }
                 anchors.horizontalCenter: parent.horizontalCenter
                 
@@ -123,6 +130,7 @@ Item {
             
             // Vertical volume bar
             Rectangle {
+                opacity: shell.muted ? 0.2 : 1.0
                 width: 10
                 height: parent.height - volumeIcon.height - volumeLabel.height - 36
                 radius: 5
@@ -130,6 +138,10 @@ Item {
                 border.color: Qt.darker(Data.ThemeManager.accentColor, 2.0)
                 border.width: 1
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                Behavior on opacity {
+                    NumberAnimation { duration: 250; easing.type: Easing.OutCubic }
+                }
                 
                 // Animated volume fill indicator
                 Rectangle {
@@ -154,7 +166,7 @@ Item {
             // Volume percentage text
             Text {
                 id: volumeLabel
-                text: (shell && shell.volume !== undefined ? shell.volume + "%" : "0%")
+                text: shell.muted ? "MUTE" : (shell && shell.volume !== undefined ? shell.volume + "%" : "0%")
                 font.pixelSize: 10
                 font.weight: Font.Bold
                 color: Data.ThemeManager.fgColor
