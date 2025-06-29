@@ -439,22 +439,22 @@ Shape {
         }
     }
 
-    // Apply shadow effect to entire border shape
+    // Apply shadow effect to entire border shape - Useful for antialiasing effect
     layer.enabled: true
-    layer.samples: 8
+    layer.samples: 5
     layer.smooth: true
     layer.effect: DropShadow {
         transparentBorder: true
-        horizontalOffset: 1
-        verticalOffset: 2
-        radius: 30                     // Slightly less dramatic
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 20
         samples: 45                    
-        color: Qt.rgba(0, 0, 0, 0.75)  // A bit lighter
-        cached: false
-        spread: 0.5                    // Less spread
+        color: Qt.rgba(0, 0, 0, 0.5)  // A bit lighter
+        cached: true
+        spread: 0
     }
 
-    // Main border shape
+    // Main border shape (no shadow)
     ShapePath {
         fillColor: Data.ThemeManager.bgColor
         strokeWidth: 0

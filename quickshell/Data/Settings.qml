@@ -91,7 +91,7 @@ Singleton {
     property bool workspaceGlowEnabled: true
 
     // UI constants
-    readonly property real borderWidth: 9
+    readonly property real borderWidth: 5
     readonly property real cornerRadius: 20
 
     signal settingsChanged()
