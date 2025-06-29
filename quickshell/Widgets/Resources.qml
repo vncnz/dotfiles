@@ -68,7 +68,7 @@ Item {
             Text {
                 text: RatatorkrLoader.sysData?.battery?.icon + (RatatorkrLoader.sysData?.battery?.percentage < 95 ? ` ${RatatorkrLoader.sysData?.battery?.percentage}%` : '')
                 font.family: "Symbols Nerd Font"
-                color: RatatorkrLoader.sysData?.battery?.status === "Discharging" ? RatatorkrLoader.sysData?.battery?.color : Data.ThemeManager.accentColor
+                color: RatatorkrLoader.sysData?.battery?.state === "Discharging" ? RatatorkrLoader.sysData?.battery?.color : Data.ThemeManager.accentColor
                 z: 15
                 width: 10
             }
