@@ -10,6 +10,7 @@ Shape {
 
     // Border dimensions
     property real borderWidth: Data.Settings.borderWidth
+    property real strokeWidth: 0
     property real radius: Data.Settings.cornerRadius
     property real innerX: borderWidth
     property real innerY: borderWidth
@@ -457,17 +458,18 @@ Shape {
 
     // Main border shape (no shadow)
     ShapePath {
-        fillColor: "red" // Data.ThemeManager.bgColor
+        fillColor: Data.ThemeManager.bgColor
         strokeWidth: 0
+        // strokeColor: "red"
         fillRule: ShapePath.OddEvenFill
 
         // Outer rectangle
-        PathMove { x: 0; y: 0 }
-        PathLine { x: borderShape.width; y: 0 }
-        PathLine { x: borderShape.width; y: borderShape.height }
-        PathLine { x: 0; y: borderShape.height }
+        PathMove { x: -strokeWidth; y: -strokeWidth }
+        PathLine { x: borderShape.width+strokeWidth; y: -strokeWidth }
+        PathLine { x: borderShape.width+strokeWidth; y: borderShape.height+strokeWidth }
+        PathLine { x: -strokeWidth; y: borderShape.height+strokeWidth }
 
-        PathLine { x: 0; y: 0 }
+        PathLine { x: -strokeWidth; y: -strokeWidth }
 
         // Inner rounded cutout
         PathMove { 
@@ -520,6 +522,9 @@ Shape {
             x: borderShape.innerX
             y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2) + borderShape.radius
         }
+
+        /* Workspaces indicator shape - start */
+        
         PathArc {
             x: borderShape.innerX  + borderShape.radius
             y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2)
@@ -527,14 +532,32 @@ Shape {
             radiusY: borderShape.radius
             direction: PathArc.Clockwise
         }
+
+        PathArc {
+            x: borderShape.innerX + workspaceShadowShape.width
+            y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2) - borderShape.radius
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Counterclockwise
+        }
+
         /* PathLine {
             x: borderShape.innerX + 250
             y: borderShape.innerY + borderShape.innerHeight / 2
         } */
         PathLine {
+            x: borderShape.innerX + workspaceShadowShape.width
+            y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2) + borderShape.radius
+        }
+
+        PathArc {
             x: borderShape.innerX + borderShape.radius
             y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2)
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Counterclockwise
         }
+        
         PathArc {
             x: borderShape.innerX
             y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2) - borderShape.radius
@@ -542,6 +565,8 @@ Shape {
             radiusY: borderShape.radius
             direction: PathArc.Clockwise
         }
+
+        /* Workspaces indicator shape - end */
 
         /* TEST end */
         

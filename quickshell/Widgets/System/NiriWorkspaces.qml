@@ -61,7 +61,8 @@ Rectangle {
         }
     }
     
-    color: Data.ThemeManager.bgColor
+    color: "transparent" // Data.ThemeManager.bgColor
+    // opacity: .5
     width: 32
     height: workspaceColumn.implicitHeight + 24
     
