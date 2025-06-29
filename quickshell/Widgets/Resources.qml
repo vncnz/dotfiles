@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
+// import Quickshell.Services.UPower
 import "root:/Data" as Data
 import "root:/Core" as Core
 
@@ -72,6 +73,19 @@ Item {
                 z: 15
                 width: 10
             }
+
+            /* Repeater {
+                model: Quickshell.screens
+                delegate: Text {
+                    text: modelData.name
+                    color: Data.ThemeManager.fgColor
+                    font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    width: parent.width / 7
+                    font.pixelSize: 14
+                }
+            } */
         }
     }
 
