@@ -389,14 +389,14 @@ Rectangle {
     }
     
     // Border integration corners
-    Core.Corners {
+    /*Core.Corners {
         id: topLeftCorner
         position: "topleft"
         size: 1.3
         fillColor: Data.ThemeManager.bgColor 
         offsetX: -41
         offsetY: -25
-    }
+    }*/
 
     // Top-left corner wave overlay (DISABLED - using unified overlay)
     Shape {
@@ -411,14 +411,14 @@ Rectangle {
         layer.samples: 4
     }
 
-    Core.Corners {
+    /* Core.Corners {
         id: bottomLeftCorner
         position: "bottomleft"
         size: 1.3
         fillColor: Data.ThemeManager.bgColor
         offsetX: -41
         offsetY: 78
-    }
+    } */
 
     // Bottom-left corner wave overlay (DISABLED - using unified overlay)
     Shape {

@@ -61,8 +61,8 @@ Shape {
         layer.enabled: borderShape.workspaceIndicator !== null
         layer.effect: DropShadow {
             transparentBorder: true
-            horizontalOffset: 1
-            verticalOffset: 1
+            horizontalOffset: 0
+            verticalOffset: 0
             radius: 12 + (effectsActive && Data.Settings.workspaceGlowEnabled ? Math.sin(masterProgress * Math.PI) * 4 : 0)
             samples: 25
             color: {
@@ -191,6 +191,7 @@ Shape {
         }
     }
 
+    // Resources shadow
     Rectangle {
         id: resourcesDropShadow
         visible: borderShape.resourcesWidget !== null
@@ -456,7 +457,7 @@ Shape {
 
     // Main border shape (no shadow)
     ShapePath {
-        fillColor: Data.ThemeManager.bgColor
+        fillColor: "red" // Data.ThemeManager.bgColor
         strokeWidth: 0
         fillRule: ShapePath.OddEvenFill
 
@@ -465,6 +466,7 @@ Shape {
         PathLine { x: borderShape.width; y: 0 }
         PathLine { x: borderShape.width; y: borderShape.height }
         PathLine { x: 0; y: borderShape.height }
+
         PathLine { x: 0; y: 0 }
 
         // Inner rounded cutout
@@ -511,6 +513,37 @@ Shape {
             radiusY: borderShape.radius
             direction: PathArc.Clockwise
         }
+
+        /* TEST start */
+
+        PathLine {
+            x: borderShape.innerX
+            y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2) + borderShape.radius
+        }
+        PathArc {
+            x: borderShape.innerX  + borderShape.radius
+            y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2)
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Clockwise
+        }
+        /* PathLine {
+            x: borderShape.innerX + 250
+            y: borderShape.innerY + borderShape.innerHeight / 2
+        } */
+        PathLine {
+            x: borderShape.innerX + borderShape.radius
+            y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2)
+        }
+        PathArc {
+            x: borderShape.innerX
+            y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2) - borderShape.radius
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Clockwise
+        }
+
+        /* TEST end */
         
         PathLine {
             x: borderShape.innerX
