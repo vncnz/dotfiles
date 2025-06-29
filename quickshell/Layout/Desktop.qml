@@ -65,6 +65,7 @@ Scope {
                 }
                 z: 10
                 width: 32
+                currentScreen: modelData
             }
 
             // Volume OSD at right border (primary screen only)

@@ -14,6 +14,7 @@ Rectangle {
     property ListModel workspaces: ListModel {}
     property int currentWorkspace: -1
     property bool isDestroying: false
+    property var currentScreen: null
     
     // Signal for workspace change bursts
     signal workspaceChanged(int workspaceId, color accentColor)
@@ -209,7 +210,7 @@ Rectangle {
         spacing: 6
 
         Repeater {
-            model: root.workspaces
+            model: root.workspaces // .filter(w => w.output == currentScreen.name)
             
             Rectangle {
                 id: workspacePill
@@ -219,6 +220,8 @@ Rectangle {
                 height: model.isFocused ? 36 : 22
                 radius: width / 2
                 scale: model.isFocused ? 1.0 : 0.9
+
+                visible: model.output == currentScreen.name
                 
                 // Material Design 3 inspired colors
                 color: {
@@ -328,6 +331,8 @@ Rectangle {
                 Text {
                     anchors.centerIn: parent
                     text: model.idx.toString()
+                    // text: model.output
+                    // text: currentScreen.name == model.output
                     color: model.isFocused ? Data.ThemeManager.background : Data.ThemeManager.primaryText
                     font.pixelSize: model.isFocused ? 10 : 8
                     font.bold: model.isFocused
