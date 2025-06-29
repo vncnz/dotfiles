@@ -10,7 +10,7 @@ Shape {
 
     // Border dimensions
     property real borderWidth: Data.Settings.borderWidth
-    property real strokeWidth: 0
+    property real strokeWidth: 2
     property real radius: Data.Settings.cornerRadius
     property real innerX: borderWidth
     property real innerY: borderWidth
@@ -459,8 +459,8 @@ Shape {
     // Main border shape (no shadow)
     ShapePath {
         fillColor: Data.ThemeManager.bgColor
-        strokeWidth: 0
-        // strokeColor: "red"
+        strokeWidth: 1
+        strokeColor: "red"
         fillRule: ShapePath.OddEvenFill
 
         // Outer rectangle
