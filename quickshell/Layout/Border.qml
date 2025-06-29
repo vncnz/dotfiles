@@ -459,7 +459,7 @@ Shape {
     // Main border shape (no shadow)
     ShapePath {
         fillColor: Data.ThemeManager.bgColor
-        strokeWidth: 1
+        strokeWidth: 2
         strokeColor: "red"
         fillRule: ShapePath.OddEvenFill
 
@@ -504,19 +504,42 @@ Shape {
         }
         
         PathLine {
-            x: borderShape.innerX + borderShape.radius
+            x: borderShape.innerX + clockWidget.width + borderShape.radius
             y: borderShape.innerY + borderShape.innerHeight
         }
+
+        /* ClockWidget shape - start */
         
         PathArc {
-            x: borderShape.innerX
+            x: borderShape.innerX + clockWidget.width
             y: borderShape.innerY + borderShape.innerHeight - borderShape.radius
             radiusX: borderShape.radius
             radiusY: borderShape.radius
             direction: PathArc.Clockwise
         }
 
-        /* TEST start */
+        PathArc {
+            x: borderShape.innerX + clockWidget.width - borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Counterclockwise
+        }
+
+        PathLine {
+            x: borderShape.innerX + borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height
+        }
+
+        PathArc {
+            x: borderShape.innerX
+            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height - borderShape.radius
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Clockwise
+        }
+
+        /* ClockWidget shape - end */
 
         PathLine {
             x: borderShape.innerX
@@ -567,8 +590,6 @@ Shape {
         }
 
         /* Workspaces indicator shape - end */
-
-        /* TEST end */
         
         PathLine {
             x: borderShape.innerX

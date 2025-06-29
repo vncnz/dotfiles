@@ -15,7 +15,9 @@ Item {
         width: clockText.implicitWidth + 24
         height: 32
         
-        color: Data.ThemeManager.bgColor
+        // color: Data.ThemeManager.bgColor
+        // opacity: .5
+        color: "transparent"
         
         // Rounded corner for border integration
         topRightRadius: height / 2
@@ -42,7 +44,7 @@ Item {
     }
 
     // Border integration corner pieces
-    Core.Corners {
+    /* Core.Corners {
         id: topLeftCorner
         position: "topleft"
         size: 1.3
@@ -50,9 +52,9 @@ Item {
         offsetX: -39
         offsetY: -26
         z: 0  // Same z-level as clock background
-    }
+    } */
     
-    Core.Corners {
+    /* Core.Corners {
         id: topLeftCorner2
         position: "topleft"
         size: 1.3
@@ -60,5 +62,5 @@ Item {
         offsetX: 20
         offsetY: 6
         z: 0  // Same z-level as clock background
-    }
+    } */
 }
