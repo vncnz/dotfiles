@@ -471,7 +471,7 @@ Shape {
 
         PathLine { x: -strokeWidth; y: -strokeWidth }
 
-        // Inner rounded cutout
+        // Inner rounded cutout - starting up left
         PathMove { 
             x: borderShape.innerX + borderShape.radius
             y: borderShape.innerY
@@ -489,11 +489,58 @@ Shape {
             radiusY: borderShape.radius
             direction: PathArc.Clockwise
         }
+
+        PathLine {
+            x: borderShape.innerX + borderShape.innerWidth
+            // y: borderShape.innerY + borderShape.innerHeight - borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight / 2 - volumeOSD.height / 2 - borderShape.radius
+        }
+
+        /* VolumeOSD shape - start */
+
+        PathArc {
+            x: borderShape.innerX + borderShape.innerWidth - borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight / 2 - volumeOSD.height / 2
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Clockwise
+        }
+
+        PathArc {
+            x: borderShape.innerX + borderShape.innerWidth - volumeOSD.width
+            y: borderShape.innerY + borderShape.innerHeight / 2 - volumeOSD.height / 2 + borderShape.radius
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Counterclockwise
+        }
+
+        PathLine {
+            x: borderShape.innerX + borderShape.innerWidth - volumeOSD.width + volumeOsdDropShadow.x
+            y: borderShape.innerY + borderShape.innerHeight / 2 + volumeOSD.height / 2 - borderShape.radius
+        }
+
+        PathArc {
+            x: borderShape.innerX + borderShape.innerWidth - borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight / 2 + volumeOSD.height / 2
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Counterclockwise
+        }
         
+        PathArc {
+            x: borderShape.innerX + borderShape.innerWidth
+            y: borderShape.innerY + borderShape.innerHeight / 2 + volumeOSD.height / 2 + borderShape.radius
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Clockwise
+        }
+
         PathLine {
             x: borderShape.innerX + borderShape.innerWidth
             y: borderShape.innerY + borderShape.innerHeight - borderShape.radius
         }
+
+        /* indicator shape - end */
         
         PathArc {
             x: borderShape.innerX + borderShape.innerWidth - borderShape.radius
@@ -564,10 +611,6 @@ Shape {
             direction: PathArc.Counterclockwise
         }
 
-        /* PathLine {
-            x: borderShape.innerX + 250
-            y: borderShape.innerY + borderShape.innerHeight / 2
-        } */
         PathLine {
             x: borderShape.innerX + workspaceShadowShape.width
             y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2) + borderShape.radius
