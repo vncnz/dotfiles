@@ -30,7 +30,7 @@ Item {
             font.family: "Roboto"
             font.pixelSize: 22
             font.bold: true
-            color: Data.ThemeManager.accentColor
+            color: Qt.darker(Data.ThemeManager.accentColor, .75)
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text: Qt.formatTime(new Date(), "HH:mm")
