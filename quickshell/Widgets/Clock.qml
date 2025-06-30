@@ -12,8 +12,8 @@ Item {
 
     Rectangle {
         id: clockBackground
-        width: clockText.implicitWidth + 24
-        height: 32
+        width: clockText.implicitWidth + 10
+        height: clockText.implicitHeight + 10
         
         // color: Data.ThemeManager.bgColor
         // opacity: .5
@@ -24,9 +24,11 @@ Item {
 
         Text {
             id: clockText
-            anchors.centerIn: parent
+            // anchors.centerIn: parent
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
             font.family: "Roboto"
-            font.pixelSize: 14
+            font.pixelSize: 22
             font.bold: true
             color: Data.ThemeManager.accentColor
             horizontalAlignment: Text.AlignHCenter
