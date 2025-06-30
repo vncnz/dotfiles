@@ -127,6 +127,7 @@ Item {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.leftMargin: 40   // Create space on left for top-left corner
+        anchors.topMargin: Data.Settings.borderWidth  // Border width plus corner space
         anchors.rightMargin: Data.Settings.borderWidth + 20  // Border width plus corner space
         anchors.bottomMargin: 100 // Create more space at bottom for bottom corner
         spacing: 0
@@ -141,10 +142,12 @@ Item {
                 width: 400
                 height: 100
                 color: Data.ThemeManager.bgColor
-                
-                // Only bottom visible notification gets bottom-left radius
-                radius: 0
-                bottomLeftRadius: index === Math.min(notifications.length, maxNotifications) - 1 && index < maxNotifications ? 15 : 0
+
+                // radius: 0
+                bottomLeftRadius: index === Math.min(notifications.length, maxNotifications) - 1 && index < maxNotifications ? 20 : 0
+                bottomRightRadius: index === Math.min(notifications.length, maxNotifications) - 1 && index < maxNotifications ? 20 : 0
+                topLeftRadius: index === 0 ? 20 : 0
+                topRightRadius: index === 0 ? 20 : 0
                 
                 // Only show if within maxNotifications limit
                 visible: index < maxNotifications
@@ -343,7 +346,7 @@ Item {
                 }
 
                 // Top corner for first notification
-                Core.Corners {
+                /* Core.Corners {
                     position: "bottomright"
                     size: 1.3
                     fillColor: Data.ThemeManager.bgColor
@@ -360,7 +363,7 @@ Item {
                     offsetX: 39
                     offsetY: 78
                     visible: index === Math.min(notifications.length, maxNotifications) - 1 && index < maxNotifications
-                }
+                } */
             }
         }
     }
