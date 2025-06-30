@@ -15,12 +15,19 @@ Item {
     width: osdBackground.width
     height: osdBackground.height
     visible: false
+
+    property real slideOffset: 0
     
     // Auto-hide timer (2.5 seconds of inactivity)
     Timer {
         id: hideTimer
         interval: 2500
         onTriggered: hideOsd()
+    }
+    Timer {
+        id: hiddenTimer
+        interval: 200
+        onTriggered: hiddenOsd()
     }
     
     property int lastVolume: -1
@@ -54,18 +61,34 @@ Item {
     function showOsd() {
         if (!volumeOsd.visible) {
             volumeOsd.visible = true
-            slideInAnimation.start()
+            slideOffset = volumeOsd.width
+            // slideInAnimation.start()
         }
         hideTimer.restart()
     }
     
     // Start slide-out animation to hide OSD
     function hideOsd() {
-        slideOutAnimation.start()
+        // slideOutAnimation.start()
+        slideOffset = 0
+        hiddenTimer.restart()
     }
+
+    function hiddenOsd() {
+        // slideOutAnimation.start()
+        visible = false
+    }
+
+    Behavior on slideOffset {
+        NumberAnimation {
+            duration: 250
+            easing.type: Easing.InCubic
+        }
+    }
+
     
     // Slide in from right edge
-    NumberAnimation {
+    /*NumberAnimation {
         id: slideInAnimation
         target: osdBackground
         property: "x"
@@ -88,7 +111,7 @@ Item {
             volumeOsd.visible = false
             osdBackground.x = 0  // Reset position
         }
-    }
+    } */
     
     Rectangle {
         id: osdBackground
@@ -97,6 +120,7 @@ Item {
         color: Data.ThemeManager.bgColor
         topLeftRadius: 20
         bottomLeftRadius: 20
+        x: slideOffset
         
         Column {
             anchors.fill: parent
