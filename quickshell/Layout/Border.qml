@@ -30,6 +30,8 @@ Shape {
     property real masterProgress: workspaceIndicator ? workspaceIndicator.masterProgress : 0.0
     property bool effectsActive: workspaceIndicator ? workspaceIndicator.effectsActive : false
     property color effectColor: workspaceIndicator ? workspaceIndicator.effectColor : Data.ThemeManager.accent
+
+    // property real volumeXbase: borderShape.innerX + borderShape.innerWidth - volumeOSD.width + volumeOSD.slideOffset
     
     // Delay graphics effects until component is fully loaded
     Timer {
@@ -456,11 +458,13 @@ Shape {
         spread: 0
     }
 
+    property real off: volumeOSD.slideOffset
+
     // Main border shape (no shadow)
     ShapePath {
         fillColor: Data.ThemeManager.bgColor
-        strokeWidth: 2
-        strokeColor: "red"
+        strokeWidth: 1
+        strokeColor: Data.ThemeManager.accentColor
         fillRule: ShapePath.OddEvenFill
 
         // Outer rectangle
@@ -496,33 +500,33 @@ Shape {
             y: borderShape.innerY + borderShape.innerHeight / 2 - volumeOSD.height / 2 - borderShape.radius
         }
 
-        /* VolumeOSD shape - start */
+        /* Volume shape - start */
 
         PathArc {
-            x: borderShape.innerX + borderShape.innerWidth - borderShape.radius
+            x: borderShape.innerX + borderShape.innerWidth + Math.max(-borderShape.radius, off/2)
             y: borderShape.innerY + borderShape.innerHeight / 2 - volumeOSD.height / 2
-            radiusX: borderShape.radius
+            radiusX: Math.min(borderShape.radius, off)
             radiusY: borderShape.radius
             direction: PathArc.Clockwise
         }
 
         PathArc {
-            x: borderShape.innerX + borderShape.innerWidth - volumeOSD.width
+            x: borderShape.innerX + borderShape.innerWidth + off
             y: borderShape.innerY + borderShape.innerHeight / 2 - volumeOSD.height / 2 + borderShape.radius
-            radiusX: borderShape.radius
+            radiusX: Math.min(borderShape.radius, off)
             radiusY: borderShape.radius
             direction: PathArc.Counterclockwise
         }
 
         PathLine {
-            x: borderShape.innerX + borderShape.innerWidth - volumeOSD.width + volumeOSD.slideOffset // (volumeOSD.visible ? volumeOSD.width : 0)
+            x: borderShape.innerX + borderShape.innerWidth + off // (volumeOSD.visible ? volumeOSD.width : 0)
             y: borderShape.innerY + borderShape.innerHeight / 2 + volumeOSD.height / 2 - borderShape.radius
         }
 
         PathArc {
-            x: borderShape.innerX + borderShape.innerWidth - borderShape.radius
+            x: borderShape.innerX + borderShape.innerWidth + Math.max(-borderShape.radius, off/2)
             y: borderShape.innerY + borderShape.innerHeight / 2 + volumeOSD.height / 2
-            radiusX: borderShape.radius
+            radiusX: Math.min(borderShape.radius, off)
             radiusY: borderShape.radius
             direction: PathArc.Counterclockwise
         }
@@ -530,25 +534,52 @@ Shape {
         PathArc {
             x: borderShape.innerX + borderShape.innerWidth
             y: borderShape.innerY + borderShape.innerHeight / 2 + volumeOSD.height / 2 + borderShape.radius
+            radiusX: Math.min(borderShape.radius, off)
+            radiusY: borderShape.radius
+            direction: PathArc.Clockwise
+        }
+
+        /* Volume indicator shape - end */
+
+        PathLine {
+            x: borderShape.innerX + borderShape.innerWidth
+            y: borderShape.innerY + borderShape.innerHeight - resourcesWidget.height - borderShape.radius
+        }
+
+
+        /* Resources shape - start */
+        
+        PathArc {
+            x: borderShape.innerX + borderShape.innerWidth - borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight - resourcesWidget.height
             radiusX: borderShape.radius
             radiusY: borderShape.radius
             direction: PathArc.Clockwise
         }
 
         PathLine {
-            x: borderShape.innerX + borderShape.innerWidth
-            y: borderShape.innerY + borderShape.innerHeight - borderShape.radius
+            x: borderShape.innerX + borderShape.innerWidth - resourcesWidget.width + borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight - resourcesWidget.height
         }
 
-        /* indicator shape - end */
-        
         PathArc {
-            x: borderShape.innerX + borderShape.innerWidth - borderShape.radius
+            x: borderShape.innerX + borderShape.innerWidth - resourcesWidget.width
+            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height + borderShape.radius
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Counterclockwise
+        }
+
+        PathArc {
+            x: borderShape.innerX + borderShape.innerWidth - resourcesWidget.width - borderShape.radius
             y: borderShape.innerY + borderShape.innerHeight
             radiusX: borderShape.radius
             radiusY: borderShape.radius
             direction: PathArc.Clockwise
         }
+
+        /* Resources shape - end */
+        
         
         PathLine {
             x: borderShape.innerX + clockWidget.width + borderShape.radius
