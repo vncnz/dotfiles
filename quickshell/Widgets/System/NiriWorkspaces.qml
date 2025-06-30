@@ -12,6 +12,7 @@ Rectangle {
     id: root
     
     property ListModel workspaces: ListModel {}
+    property ListModel windows: ListModel {}
     property int currentWorkspace: -1
     property bool isDestroying: false
     property var currentScreen: null
@@ -135,6 +136,9 @@ Rectangle {
             else if (line.startsWith("Workspaces changed: ")) {
                 const workspaceData = line.replace("Workspaces changed: ", "");
                 parseWorkspaceList(workspaceData);
+            } else if (line.startsWith("Windows changed: ")) {
+                const windowsData = line.replace("Windows changed: ", "");
+                parseWindowsList(windowsData);
             }
         } catch (e) {
             console.log("Error parsing niri event:", e);
@@ -203,6 +207,56 @@ Rectangle {
             console.log("Error parsing workspace list:", e);
         }
     }
+
+    // Parse workspace data from Niri's Rust-style output format
+    function parseWindowsList(data) {
+        try {
+            const windowsMatches = data.match(/Window \{[^}]+\}/g);
+            if (!windowsMatches) {
+                return;
+            }
+            
+            const newWindows = [];
+            // { id: 41, title: Some("vncnz@Darlene:~"), app_id: Some("Alacritty"), pid: Some(221045), workspace_id: Some(24), is_focused: false, is_floating: false, is_urgent: false }
+            for (const match of windowsMatches) {
+                const idMatch = match.match(/id: (\d+)/);
+                //const idxMatch = match.match(/idx: (\d+)/);
+                const titleMatch = match.match(/title: Some\("([^"]+)"\)|name: None/);
+                const appIdMatch = match.match(/app_id: Some\("([^"]+)"\)/);
+                const pidMatch = match.match(/pid: Some\("([^"]+)"\)/);
+                const workspaceIdMatch = match.match(/workspace_id: Some\("([^"]+)"\)/);
+                const isFloatingMatch = match.match(/is_floating: (true|false)/);
+                const isFocusedMatch = match.match(/is_focused: (true|false)/);
+                const isUrgentMatch = match.match(/is_urgent: (true|false)/);
+                
+                if (idMatch && appIdMatch && workspaceIdMatch) {
+                    const window = {
+                        id: parseInt(idMatch[1]),
+                        appId: appIdMatch[1],
+                        title: titleMatch && titleMatch[1] ? titleMatch[1] : "",
+                        pidMatch: parseInt(pidMatch[1]),
+                        workspaceId: parseInt(workspaceIdMatch[1]),
+                        isFloating: isFloatingMatch ? isFloatingMatch[1] === "true" : false,
+                        isFocused: isFocusedMatch ? isFocusedMatch[1] === "true" : false,
+                        isUrgent: isUrgentMatch ? isUrgentMatch[1] === "true" : false
+                    };
+                    
+                    newWindows.push(window);
+                    
+                    /* if (window.isFocused) {
+                        root.currentWindow = window.id;
+                    } */
+                }
+            }
+            
+            // Sort by index and update model
+            // newWindows.sort((a, b) => a.id - b.id);
+            root.windows.clear();
+            root.windows.append(newWindows);
+        } catch (e) {
+            console.log("Error parsing windows list:", e);
+        }
+    }
     
     // Vertical workspace indicator pills
     Column {
@@ -223,6 +277,8 @@ Rectangle {
                 scale: model.isFocused ? 1.0 : 0.9
 
                 visible: model.output == currentScreen.name
+
+                property real workspace_id: model.id
                 
                 // Material Design 3 inspired colors
                 color: {
@@ -374,6 +430,19 @@ Rectangle {
                     }
                 }
             }
+
+            /*Repeater {
+                model: root.windows // .filter(w => w.output == currentScreen.name)
+                
+                Rectangle {
+                    width: 10
+                    height: 10
+                    radius: 5
+                    // scale: model.isFocused ? 1.0 : 0.9
+
+                    visible: model.workspace_id == model.id
+                }
+            }*/
         }
     }
     
