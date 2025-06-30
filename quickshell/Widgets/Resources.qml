@@ -14,10 +14,11 @@ Item {
 
     Rectangle {
         id: resourcesBackground
-        width: resourcesText.implicitWidth + 24
-        height: 32
+        width: resourcesText.implicitWidth + 10
+        height: resourcesText.implicitHeight + 10
         
-        color: Data.ThemeManager.bgColor
+        // color: Data.ThemeManager.bgColor
+        color: "transparent"
         
         // Rounded corner for border integration
         topLeftRadius: height / 2
@@ -35,7 +36,9 @@ Item {
         } */
         RowLayout {
             id: resourcesText
-            anchors.centerIn: parent
+            // anchors.centerIn: parent
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
             Text {
                 text: "󰬢"
                 font.family: "Symbols Nerd Font"
@@ -65,13 +68,15 @@ Item {
                 color: RatatorkrLoader.sysData?.temperature.color
                 z: 15
                 width: 10
+                visible: !!RatatorkrLoader.sysData?.temperature?.value
             }
             Text {
-                text: RatatorkrLoader.sysData?.battery?.icon + (RatatorkrLoader.sysData?.battery?.percentage < 95 ? ` ${RatatorkrLoader.sysData?.battery?.percentage}%` : '')
+                text: RatatorkrLoader.sysData?.battery?.icon + (RatatorkrLoader.sysData?.battery?.percentage && RatatorkrLoader.sysData?.battery?.percentage < 95 ? ` ${RatatorkrLoader.sysData?.battery?.percentage}%` : '')
                 font.family: "Symbols Nerd Font"
                 color: RatatorkrLoader.sysData?.battery?.state === "Discharging" ? RatatorkrLoader.sysData?.battery?.color : Data.ThemeManager.accentColor
                 z: 15
                 width: 10
+                visible: !!RatatorkrLoader.sysData?.battery?.percentage
             }
 
             /* Repeater {
@@ -98,7 +103,7 @@ Item {
     } */
 
     // Border integration corner pieces
-    Core.Corners {
+    /* Core.Corners {
         id: topRightCorner
         position: "topright"
         size: 1.3
@@ -116,5 +121,5 @@ Item {
         offsetX: -resourcesText.implicitWidth + 16
         offsetY: 6
         z: 0  // Same z-level as resources background
-    }
+    } */
 }
