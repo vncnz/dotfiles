@@ -61,7 +61,7 @@ Item {
     function showOsd() {
         if (!volumeOsd.visible) {
             volumeOsd.visible = true
-            slideOffset = 0
+            slideOffset = -45
             // slideInAnimation.start()
         }
         hideTimer.restart()
@@ -70,7 +70,7 @@ Item {
     // Start slide-out animation to hide OSD
     function hideOsd() {
         // slideOutAnimation.start()
-        volumeOsd.slideOffset = volumeOsd.width
+        volumeOsd.slideOffset = 0
         hiddenTimer.restart()
     }
 
@@ -117,10 +117,11 @@ Item {
         id: osdBackground
         width: 45
         height: 250
-        color: Data.ThemeManager.bgColor
+        // color: Data.ThemeManager.bgColor
+        color: "transparent"
         topLeftRadius: 20
         bottomLeftRadius: 20
-        x: slideOffset
+        x: slideOffset + 45
         
         Column {
             anchors.fill: parent
@@ -204,7 +205,7 @@ Item {
         }
     }
 
-    Core.Corners {
+    /* Core.Corners {
         id: bottomRightCorner
         position: "bottomright"
         size: 1.3
@@ -220,5 +221,5 @@ Item {
         fillColor: Data.ThemeManager.bgColor
         offsetX: 39 + osdBackground.x
         offsetY: -26
-    }
+    } */
 }
