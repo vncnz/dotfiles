@@ -61,7 +61,7 @@ Item {
     function showOsd() {
         if (!volumeOsd.visible) {
             volumeOsd.visible = true
-            slideOffset = volumeOsd.width
+            slideOffset = 0
             // slideInAnimation.start()
         }
         hideTimer.restart()
@@ -70,13 +70,13 @@ Item {
     // Start slide-out animation to hide OSD
     function hideOsd() {
         // slideOutAnimation.start()
-        slideOffset = 0
+        volumeOsd.slideOffset = volumeOsd.width
         hiddenTimer.restart()
     }
 
     function hiddenOsd() {
         // slideOutAnimation.start()
-        visible = false
+        volumeOsd.visible = false
     }
 
     Behavior on slideOffset {

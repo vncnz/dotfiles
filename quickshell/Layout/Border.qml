@@ -515,7 +515,7 @@ Shape {
         }
 
         PathLine {
-            x: borderShape.innerX + borderShape.innerWidth - volumeOSD.slideOffset // (volumeOSD.visible ? volumeOSD.width : 0)
+            x: borderShape.innerX + borderShape.innerWidth - volumeOSD.width + volumeOSD.slideOffset // (volumeOSD.visible ? volumeOSD.width : 0)
             y: borderShape.innerY + borderShape.innerHeight / 2 + volumeOSD.height / 2 - borderShape.radius
         }
 
