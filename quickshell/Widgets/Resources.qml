@@ -12,6 +12,17 @@ Item {
     width: resourcesBackground.width
     height: resourcesBackground.height
 
+    property bool showWatts: false
+
+    Timer {
+        interval: 3000
+        running: true
+        repeat: true
+        onTriggered: {
+            showWatts = !showWatts
+        }
+    }
+
     Rectangle {
         id: resourcesBackground
         width: resourcesText.implicitWidth + 10
@@ -71,7 +82,14 @@ Item {
                 visible: !!RatatorkrLoader.sysData?.temperature?.value
             }
             Text {
-                text: RatatorkrLoader.sysData?.battery?.icon + (RatatorkrLoader.sysData?.battery?.percentage && RatatorkrLoader.sysData?.battery?.percentage < 95 ? ` ${RatatorkrLoader.sysData?.battery?.percentage}%` : '')
+                text: {
+                    if (RatatorkrLoader.sysData?.battery?.percentage) {
+                        if (!showWatts) { return `${RatatorkrLoader.sysData?.battery?.icon} ${RatatorkrLoader.sysData?.battery?.percentage}%`}
+                        else { return `${RatatorkrLoader.sysData?.battery?.icon} ${parseInt(RatatorkrLoader.sysData?.battery?.watt)}W`}
+                    } else {
+                        return RatatorkrLoader.sysData?.battery?.icon
+                    }
+                }
                 font.family: "Symbols Nerd Font"
                 color: RatatorkrLoader.sysData?.battery?.state === "Discharging" ? RatatorkrLoader.sysData?.battery?.color : Qt.darker(Data.ThemeManager.accentColor, .75)
                 z: 15
