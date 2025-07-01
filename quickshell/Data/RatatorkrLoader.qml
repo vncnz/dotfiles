@@ -6,7 +6,7 @@ import Quickshell.Io
 import QtQuick
 
 Singleton {
-    // id: loader
+    id: sysinfo
     property string jsonPath: "/tmp/ratatoskr.json"
     property var sysData: {
         metronome: true

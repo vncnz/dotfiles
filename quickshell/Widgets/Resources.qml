@@ -53,48 +53,48 @@ Item {
             Text {
                 text: "󰬢"
                 font.family: "Symbols Nerd Font"
-                color: RatatorkrLoader.sysData?.loadavg.color
+                color: Data.RatatorkrLoader.sysData?.loadavg.color
                 z: 15
                 width: 10
                 font.pixelSize: 14
             }
             Text {
-                text: RatatorkrLoader.sysData?.ram.mem_percent > 80 ? ` ${RatatorkrLoader.sysData?.ram.mem_percent}%` : ""
+                text: Data.RatatorkrLoader.sysData?.ram.mem_percent > 80 ? ` ${Data.RatatorkrLoader.sysData?.ram.mem_percent}%` : ""
                 font.family: "Symbols Nerd Font"
-                color: RatatorkrLoader.sysData?.ram.mem_color
+                color: Data.RatatorkrLoader.sysData?.ram.mem_color
                 z: 15
                 width: 10
                 font.pixelSize: 14
             }
             Text {
-                text: RatatorkrLoader.sysData?.disk.used_percent > 80 ? `󰋊 ${RatatorkrLoader.sysData?.disk.used_percent}%` : "󰋊"
+                text: Data.RatatorkrLoader.sysData?.disk.used_percent > 80 ? `󰋊 ${Data.RatatorkrLoader.sysData?.disk.used_percent}%` : "󰋊"
                 font.family: "Symbols Nerd Font"
-                color: RatatorkrLoader.sysData?.disk.color
+                color: Data.RatatorkrLoader.sysData?.disk.color
                 z: 15
                 width: 10
             }
             Text {
-                text: RatatorkrLoader.sysData?.temperature?.icon || "󱔱"
+                text: Data.RatatorkrLoader.sysData?.temperature?.icon || "󱔱"
                 font.family: "Symbols Nerd Font"
-                color: RatatorkrLoader.sysData?.temperature.color
+                color: Data.RatatorkrLoader.sysData?.temperature.color
                 z: 15
                 width: 10
-                visible: !!RatatorkrLoader.sysData?.temperature?.value
+                visible: !!Data.RatatorkrLoader.sysData?.temperature?.value
             }
             Text {
                 text: {
-                    if (RatatorkrLoader.sysData?.battery?.percentage) {
-                        if (!showWatts) { return `${RatatorkrLoader.sysData?.battery?.icon} ${RatatorkrLoader.sysData?.battery?.percentage}%`}
-                        else { return `${RatatorkrLoader.sysData?.battery?.icon} ${parseInt(RatatorkrLoader.sysData?.battery?.watt)}W`}
+                    if (Data.RatatorkrLoader.sysData?.battery?.percentage) {
+                        if (!showWatts) { return `${Data.RatatorkrLoader.sysData?.battery?.icon} ${Data.RatatorkrLoader.sysData?.battery?.percentage}%`}
+                        else { return `${Data.RatatorkrLoader.sysData?.battery?.icon} ${parseInt(Data.RatatorkrLoader.sysData?.battery?.watt)}W`}
                     } else {
-                        return RatatorkrLoader.sysData?.battery?.icon
+                        return Data.RatatorkrLoader.sysData?.battery?.icon
                     }
                 }
                 font.family: "Symbols Nerd Font"
-                color: RatatorkrLoader.sysData?.battery?.state === "Discharging" ? RatatorkrLoader.sysData?.battery?.color : Qt.darker(Data.ThemeManager.accentColor, .75)
+                color: Data.RatatorkrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatorkrLoader.sysData?.battery?.color : Qt.darker(Data.ThemeManager.accentColor, .75)
                 z: 15
                 width: 10
-                visible: !!RatatorkrLoader.sysData?.battery?.percentage
+                visible: !!Data.RatatorkrLoader.sysData?.battery?.percentage
             }
 
             /* Repeater {
