@@ -218,23 +218,27 @@ Rectangle {
             
             const newWindows = [];
             // { id: 41, title: Some("vncnz@Darlene:~"), app_id: Some("Alacritty"), pid: Some(221045), workspace_id: Some(24), is_focused: false, is_floating: false, is_urgent: false }
+
+            console.log(windowsMatches)
             for (const match of windowsMatches) {
                 const idMatch = match.match(/id: (\d+)/);
                 //const idxMatch = match.match(/idx: (\d+)/);
                 const titleMatch = match.match(/title: Some\("([^"]+)"\)|name: None/);
                 const appIdMatch = match.match(/app_id: Some\("([^"]+)"\)/);
                 const pidMatch = match.match(/pid: Some\("([^"]+)"\)/);
-                const workspaceIdMatch = match.match(/workspace_id: Some\("([^"]+)"\)/);
+                const workspaceIdMatch = match.match(/workspace_id: Some\((\d+)\)/);
                 const isFloatingMatch = match.match(/is_floating: (true|false)/);
                 const isFocusedMatch = match.match(/is_focused: (true|false)/);
                 const isUrgentMatch = match.match(/is_urgent: (true|false)/);
+
+                console.log(idMatch, titleMatch, appIdMatch, workspaceIdMatch)
                 
                 if (idMatch && appIdMatch && workspaceIdMatch) {
                     const window = {
                         id: parseInt(idMatch[1]),
                         appId: appIdMatch[1],
                         title: titleMatch && titleMatch[1] ? titleMatch[1] : "",
-                        pidMatch: parseInt(pidMatch[1]),
+                        pidMatch: pidMatch ? parseInt(pidMatch[1]) : pidMatch,
                         workspaceId: parseInt(workspaceIdMatch[1]),
                         isFloating: isFloatingMatch ? isFloatingMatch[1] === "true" : false,
                         isFocused: isFocusedMatch ? isFocusedMatch[1] === "true" : false,
@@ -429,20 +433,31 @@ Rectangle {
                         }
                     }
                 }
-            }
 
-            /*Repeater {
-                model: root.windows // .filter(w => w.output == currentScreen.name)
-                
-                Rectangle {
-                    width: 10
-                    height: 10
-                    radius: 5
-                    // scale: model.isFocused ? 1.0 : 0.9
+                ColumnLayout {
 
-                    visible: model.workspace_id == model.id
+                    /* Repeater {
+                        model: root.windows // .filter(w => w.output == currentScreen.name)
+                        
+                        Rectangle {
+                            width: 20
+                            height: 20
+                            radius: 5
+                            // scale: model.isFocused ? 1.0 : 0.9
+                            color: "transparent"
+                            border.width: 1
+                            border.color: "red"
+
+                            visible: model.workspaceId == workspace_id
+                            Text {
+                                anchors.centerIn: parent
+                                text: model.appId[0]
+                                font.pixelSize: 16
+                            }
+                        }
+                    } */
                 }
-            }*/
+            }
         }
     }
     
