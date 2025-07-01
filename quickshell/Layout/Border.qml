@@ -3,6 +3,7 @@ import QtQuick.Shapes
 import Qt5Compat.GraphicalEffects
 import QtQuick.Effects
 import "root:/Data" as Data
+import "root:/Widgets/RatatorkrLoader" as RatatorkrLoader
 
 // Screen border with shadow effects
 Shape {
@@ -464,8 +465,10 @@ Shape {
     ShapePath {
         fillColor: Data.ThemeManager.bgColor
         strokeWidth: 1
-        strokeColor: Data.ThemeManager.accentColor
+        // strokeColor: Data.ThemeManager.accentColor
         fillRule: ShapePath.OddEvenFill
+
+        strokeColor: RatatorkrLoader.sysData?.battery?.state === "Discharging" ? RatatorkrLoader.sysData?.battery?.color : Data.ThemeManager.accentColor
 
         // Outer rectangle
         PathMove { x: -strokeWidth; y: -strokeWidth }
