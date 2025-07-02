@@ -14,6 +14,21 @@ Item {
 
     property bool showWatts: false
 
+    /*required property var triggerMouseArea
+
+    // Hover detection for auto-hide
+    property bool isHovered: {
+        const mouseStates = {
+            triggerHovered: triggerMouseArea.containsMouse,
+            backgroundHovered: backgroundMouseArea.containsMouse,
+            tabSidebarHovered: tabNavigation.containsMouse,
+            tabContainerHovered: tabContainer.isHovered,
+            tabContentActive: currentTab !== 0, // Non-main tabs stay open
+            tabNavigationActive: tabNavigation.containsMouse
+        }
+        return Object.values(mouseStates).some(state => state)
+    }*/
+
     Timer {
         interval: 3000
         running: true
@@ -33,6 +48,17 @@ Item {
         
         // Rounded corner for border integration
         topLeftRadius: height / 2
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            propagateComposedEvents: true
+            // property alias containsMouse: backgroundMouseArea.containsMouse
+
+            onEntered: { console.log('entered') }
+            onClicked: { console.log('clicked') }
+            onExited: { console.log('exited') }
+        }
 
         /* Text {
             id: resourcesText

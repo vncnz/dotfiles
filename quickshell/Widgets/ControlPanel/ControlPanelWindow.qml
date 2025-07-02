@@ -62,6 +62,14 @@ PanelWindow {
         }
     }
 
+    /* Rectangle {
+        width: 600
+        height: 8
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: "red"
+    } */
+
     // Main panel content
     ControlPanelContent {
         id: panelContent

@@ -16,19 +16,10 @@ Singleton {
         id: fileReader
         command: ['cat', jsonPath]
 
-        /* onReady: {
-            try {
-                sysData = JSON.parse(output);
-                console.log("JSON aggiornato:", JSON.stringify(sysData));
-            } catch (e) {
-                console.error("Errore parsing JSON:", e);
-            }
-        } */
         stdout: StdioCollector {
             onStreamFinished: {
                 try {
                     sysData = JSON.parse(this.text);
-                    // console.log("Ratatoskr loaded");
                 } catch (e) {
                     console.error("Errore parsing JSON:", e);
                 }

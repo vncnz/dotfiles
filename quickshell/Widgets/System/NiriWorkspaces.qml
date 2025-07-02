@@ -30,6 +30,8 @@ Rectangle {
         effectColor = Data.ThemeManager.accent
         masterAnimation.restart()
     }
+
+    property bool overviewOpen: false
     
     SequentialAnimation {
         id: masterAnimation
@@ -62,7 +64,7 @@ Rectangle {
         }
     }
     
-    color: "transparent" // Data.ThemeManager.bgColor
+    color: root.overviewOpen ? "red": "transparent" // Data.ThemeManager.bgColor
     // opacity: .5
     width: 32
     height: workspaceColumn.implicitHeight + 24
@@ -139,6 +141,12 @@ Rectangle {
             } else if (line.startsWith("Windows changed: ")) {
                 const windowsData = line.replace("Windows changed: ", "");
                 parseWindowsList(windowsData);
+            } else if (line.startsWith("Overview toggled: ")) {
+                const overviewData = line.replace("Overview toggled: ", "");
+                console.log("overview changed", overviewData)
+                root.overviewOpen = overviewData === "true"
+            } else {
+                // console.log(line)
             }
         } catch (e) {
             console.log("Error parsing niri event:", e);
@@ -219,7 +227,6 @@ Rectangle {
             const newWindows = [];
             // { id: 41, title: Some("vncnz@Darlene:~"), app_id: Some("Alacritty"), pid: Some(221045), workspace_id: Some(24), is_focused: false, is_floating: false, is_urgent: false }
 
-            console.log(windowsMatches)
             for (const match of windowsMatches) {
                 const idMatch = match.match(/id: (\d+)/);
                 //const idxMatch = match.match(/idx: (\d+)/);
@@ -230,8 +237,6 @@ Rectangle {
                 const isFloatingMatch = match.match(/is_floating: (true|false)/);
                 const isFocusedMatch = match.match(/is_focused: (true|false)/);
                 const isUrgentMatch = match.match(/is_urgent: (true|false)/);
-
-                console.log(idMatch, titleMatch, appIdMatch, workspaceIdMatch)
                 
                 if (idMatch && appIdMatch && workspaceIdMatch) {
                     const window = {
