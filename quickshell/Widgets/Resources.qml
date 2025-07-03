@@ -14,6 +14,11 @@ Item {
 
     property bool showWatts: false
 
+    property bool show_loadavg: Data.RatatoskrLoader.overviewOpen
+    property bool show_fullram: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.ram.mem_percent > 80
+    property bool show_fulldisk: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.disk.used_percent > 80
+    property bool show_fullnet: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.network.signal < 50
+
     /*required property var triggerMouseArea
 
     // Hover detection for auto-hide
@@ -49,6 +54,13 @@ Item {
         // Rounded corner for border integration
         topLeftRadius: height / 2
 
+        /* HoverHandler {
+            id: mouse
+            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+            // cursorShape: Qt.PointingHandCursor
+            cursorShape: Qt.CrossCursor
+        } */
+
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
@@ -77,50 +89,62 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             Text {
-                text: "󰬢"
+                text: show_loadavg ? `󰬢 ${Data.RatatoskrLoader.sysData?.loadavg.m1} ${Data.RatatoskrLoader.sysData?.loadavg.m5} ${Data.RatatoskrLoader.sysData?.loadavg.m15}` : "󰬢"
                 font.family: "Symbols Nerd Font"
-                color: Data.RatatorkrLoader.sysData?.loadavg.color
+                color: Data.RatatoskrLoader.sysData?.loadavg.color
                 z: 15
                 width: 10
                 font.pixelSize: 14
             }
             Text {
-                text: Data.RatatorkrLoader.sysData?.ram.mem_percent > 80 ? ` ${Data.RatatorkrLoader.sysData?.ram.mem_percent}%` : ""
+                text: show_fullram ? ` ${Data.RatatoskrLoader.sysData?.ram.mem_percent}%` : ""
                 font.family: "Symbols Nerd Font"
-                color: Data.RatatorkrLoader.sysData?.ram.mem_color
+                color: Data.RatatoskrLoader.sysData?.ram.mem_color
                 z: 15
                 width: 10
                 font.pixelSize: 14
             }
             Text {
-                text: Data.RatatorkrLoader.sysData?.disk.used_percent > 80 ? `󰋊 ${Data.RatatorkrLoader.sysData?.disk.used_percent}%` : "󰋊"
+                text: show_fulldisk ? `󰋊 ${Data.RatatoskrLoader.sysData?.disk.used_percent}%` : "󰋊"
                 font.family: "Symbols Nerd Font"
-                color: Data.RatatorkrLoader.sysData?.disk.color
+                color: Data.RatatoskrLoader.sysData?.disk.color
                 z: 15
                 width: 10
             }
             Text {
-                text: Data.RatatorkrLoader.sysData?.temperature?.icon || "󱔱"
+                text: Data.RatatoskrLoader.sysData?.temperature?.icon || "󱔱"
                 font.family: "Symbols Nerd Font"
-                color: Data.RatatorkrLoader.sysData?.temperature.color
+                color: Data.RatatoskrLoader.sysData?.temperature.color
                 z: 15
                 width: 10
-                visible: !!Data.RatatorkrLoader.sysData?.temperature?.value
+                visible: !!Data.RatatoskrLoader.sysData?.temperature?.value
             }
             Text {
                 text: {
-                    if (Data.RatatorkrLoader.sysData?.battery?.percentage) {
-                        if (!showWatts) { return `${Data.RatatorkrLoader.sysData?.battery?.icon} ${Data.RatatorkrLoader.sysData?.battery?.percentage}%`}
-                        else { return `${Data.RatatorkrLoader.sysData?.battery?.icon} ${parseInt(Data.RatatorkrLoader.sysData?.battery?.watt)}W`}
+                    if (!Data.RatatoskrLoader.sysData?.network) return "󰞃"
+                    if (Data.RatatoskrLoader.sysData?.network.conn_type == "ethernet") return Data.RatatoskrLoader.sysData?.network?.icon + (show_fullnet ? ` ETH` : "")
+                    return Data.RatatoskrLoader.sysData?.network?.icon + (show_fullnet ? ` ${Data.RatatoskrLoader.sysData?.network?.signal}% ${Data.RatatoskrLoader.sysData?.network?.ssid}` : "")
+                }
+                font.family: "Symbols Nerd Font"
+                color: Data.RatatoskrLoader.sysData?.network?.color || Qt.darker(Data.ThemeManager.accentColor, .75)
+                z: 15
+                width: 10
+                visible: !!Data.RatatoskrLoader.sysData?.network
+            }
+            Text {
+                text: {
+                    if (Data.RatatoskrLoader.sysData?.battery?.percentage) {
+                        if (!showWatts) { return `${Data.RatatoskrLoader.sysData?.battery?.icon} ${Data.RatatoskrLoader.sysData?.battery?.percentage}%`}
+                        else { return `${Data.RatatoskrLoader.sysData?.battery?.icon} ${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
                     } else {
-                        return Data.RatatorkrLoader.sysData?.battery?.icon
+                        return Data.RatatoskrLoader.sysData?.battery?.icon
                     }
                 }
                 font.family: "Symbols Nerd Font"
-                color: Data.RatatorkrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatorkrLoader.sysData?.battery?.color : Qt.darker(Data.ThemeManager.accentColor, .75)
+                color: Data.RatatoskrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatoskrLoader.sysData?.battery?.color : Qt.darker(Data.ThemeManager.accentColor, .75)
                 z: 15
                 width: 10
-                visible: !!Data.RatatorkrLoader.sysData?.battery?.percentage
+                visible: !!Data.RatatoskrLoader.sysData?.battery?.percentage
             }
 
             /* Repeater {

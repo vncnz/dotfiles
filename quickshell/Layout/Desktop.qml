@@ -10,7 +10,7 @@ import "root:/Widgets" as Widgets
 import "root:/Widgets/Notifications" as Notifications
 import "root:/Widgets/ControlPanel" as ControlPanel
 
-// import "root:/RatatorkrLoader" as RatatorkrLoader
+// import "root:/RatatoskrLoader" as RatatoskrLoader
 
 // Desktop with borders and UI widgets
 Scope {

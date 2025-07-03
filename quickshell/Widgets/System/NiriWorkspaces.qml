@@ -31,7 +31,7 @@ Rectangle {
         masterAnimation.restart()
     }
 
-    property bool overviewOpen: false
+    // property bool overviewOpen: false
     
     SequentialAnimation {
         id: masterAnimation
@@ -64,7 +64,7 @@ Rectangle {
         }
     }
     
-    color: root.overviewOpen ? "red": "transparent" // Data.ThemeManager.bgColor
+    color: "transparent" // Data.ThemeManager.bgColor
     // opacity: .5
     width: 32
     height: workspaceColumn.implicitHeight + 24
@@ -144,7 +144,8 @@ Rectangle {
             } else if (line.startsWith("Overview toggled: ")) {
                 const overviewData = line.replace("Overview toggled: ", "");
                 console.log("overview changed", overviewData)
-                root.overviewOpen = overviewData === "true"
+                // root.overviewOpen = overviewData === "true"
+                Data.RatatoskrLoader.overviewOpen = overviewData === "true"
             } else {
                 // console.log(line)
             }

@@ -1,4 +1,4 @@
-// RatatorkrLoader.qml
+// RatatoskrLoader.qml
 pragma Singleton
 
 import Quickshell
@@ -11,6 +11,7 @@ Singleton {
     property var sysData: {
         metronome: true
     }  // result
+    property var overviewOpen: false
 
     Process {
         id: fileReader
