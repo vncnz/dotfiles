@@ -16,8 +16,10 @@ Item {
 
     property bool show_loadavg: Data.RatatoskrLoader.overviewOpen
     property bool show_fullram: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.ram.mem_percent > 80
+    property bool show_fullswap: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.ram.swap_percent > 60
     property bool show_fulldisk: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.disk.used_percent > 80
     property bool show_fullnet: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.network.signal < 50
+    property bool show_fulltemp: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.temperature.value > 90
 
     /*required property var triggerMouseArea
 
@@ -105,6 +107,14 @@ Item {
                 font.pixelSize: 14
             }
             Text {
+                text: show_fullswap ? `󰿤 ${Data.RatatoskrLoader.sysData?.ram.swap_percent}%` : "󰿤"
+                font.family: "Symbols Nerd Font"
+                color: Data.RatatoskrLoader.sysData?.ram.swap_color
+                z: 15
+                width: 10
+                font.pixelSize: 14
+            }
+            Text {
                 text: show_fulldisk ? `󰋊 ${Data.RatatoskrLoader.sysData?.disk.used_percent}%` : "󰋊"
                 font.family: "Symbols Nerd Font"
                 color: Data.RatatoskrLoader.sysData?.disk.color
@@ -112,7 +122,11 @@ Item {
                 width: 10
             }
             Text {
-                text: Data.RatatoskrLoader.sysData?.temperature?.icon || "󱔱"
+                text: {
+                    // if (!Data.RatatoskrLoader.sysData?.temperature?.icon) return "󱔱"
+                    if (show_fulltemp) return `${Data.RatatoskrLoader.sysData?.temperature?.icon} ${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C`
+                    return Data.RatatoskrLoader.sysData?.temperature?.icon || "󱔱"
+                }
                 font.family: "Symbols Nerd Font"
                 color: Data.RatatoskrLoader.sysData?.temperature.color
                 z: 15
