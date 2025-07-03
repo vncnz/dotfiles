@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Quickshell.Widgets
 import QtQuick.Shapes
 import Qt5Compat.GraphicalEffects
 import Quickshell.Io
@@ -440,9 +441,9 @@ Rectangle {
                     }
                 }
 
-                ColumnLayout {
+                /* ColumnLayout {
 
-                    /* Repeater {
+                    Repeater {
                         model: root.windows // .filter(w => w.output == currentScreen.name)
                         
                         Rectangle {
@@ -456,13 +457,24 @@ Rectangle {
 
                             visible: model.workspaceId == workspace_id
                             Text {
+                                color: "red"
                                 anchors.centerIn: parent
                                 text: model.appId[0]
                                 font.pixelSize: 16
                             }
                         }
-                    } */
-                }
+
+                        /* Image {
+                            width: 20
+                            source: Qt.resolvedUrl("file:///usr/share/icons/hicolor/22x22/apps/firefox.png")
+                            visible: model.workspaceId == workspace_id
+                        } * /
+                        IconImage {
+                            width: 20
+                            source: "image://theme/firefox"
+                        }
+                    }
+                } */
             }
         }
     }
