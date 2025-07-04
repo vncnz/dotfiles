@@ -21,6 +21,7 @@ Shape {
     // Widget references for shadow positioning
     property var workspaceIndicator: null
     property var volumeOSD: null
+    property var brightnessOSD: null
     property var clockWidget: null
     property var resourcesWidget: null
     
@@ -459,7 +460,7 @@ Shape {
         spread: 0
     }
 
-    property real off: volumeOSD.slideOffset
+    property real off: Math.min(volumeOSD.slideOffset, brightnessOSD.slideOffset)
 
     // Main border shape (no shadow)
     ShapePath {

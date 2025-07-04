@@ -81,6 +81,18 @@ Scope {
                 z: 10
             }
 
+            System.BrightnessOSD {
+                id: brightnessOsd
+                shell: desktop.shell
+                visible: modelData === Quickshell.primaryScreen
+                anchors {
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                    rightMargin: Data.Settings.borderWidth
+                }
+                z: 10
+            }
+
             // Widget shadows (positioned behind border for proper layering)
             
             // Workspace indicator shadow
@@ -180,6 +192,7 @@ Scope {
                 anchors.fill: parent
                 workspaceIndicator: workspaceIndicator
                 volumeOSD: volumeOsd
+                brightnessOSD: brightnessOsd
                 clockWidget: clockWidget
                 resourcesWidget: resourcesWidget
                 z: -5  // Behind UI elements to prevent shadow from covering control panel
