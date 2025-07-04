@@ -21,7 +21,7 @@ ShellRoot {
     property int volume: defaultAudioSink && defaultAudioSink.audio ? Math.round(defaultAudioSink.audio.volume * 100) : 0
     property int muted: (defaultAudioSink && defaultAudioSink.audio) ? defaultAudioSink.audio.muted : false
 
-    property int brightness: Data.RatatoskrLoader.sysData?.display?.perc
+    property int brightness: Data.RatatoskrLoader.sysData?.display?.perc ?? 0
 
     property var notificationWindow: null  // Set by Desktop.qml
     property var notificationServer: notificationService ? notificationService.notificationServer : null
