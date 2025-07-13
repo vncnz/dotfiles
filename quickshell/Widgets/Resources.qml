@@ -90,6 +90,8 @@ Item {
             // anchors.centerIn: parent
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
+            spacing: 8
+
             Text {
                 text: show_loadavg ? `󰬢 ${Data.RatatoskrLoader.sysData?.loadavg.m1} ${Data.RatatoskrLoader.sysData?.loadavg.m5} ${Data.RatatoskrLoader.sysData?.loadavg.m15}` : "󰬢"
                 font.family: "Symbols Nerd Font"
