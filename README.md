@@ -30,6 +30,7 @@ stow . -t ~/.config
 |pacman | bluetui                  | for bluetooth management through a TUI
 |yay    | tray-tui                 | for tray usage through a TUI
 |yay    | diskonaut                | for disk usage through a TUI
+|pacman | gdu                      | for disk usage
 |pacman | lf                       | for file exploring through a TUI
 |pacman | texlive-luatex           | latex
 |pacman | power-profiles-daemon    | Power management
