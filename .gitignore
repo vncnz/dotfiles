@@ -7,3 +7,5 @@ quickshell/*.log
 quickshell (copy)
 shader_*
 niri/ratatoskr
+settings.json
+*.frag
