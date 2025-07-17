@@ -116,15 +116,15 @@
           (smallbox :text "${round(EWW_RAM.used_mem_perc, 0)}%" :icon "" 
             :iconclass "${EWW_RAM.used_mem_perc < 90 ? "warn-color" : "err-color"}" :visible {EWW_RAM.used_mem_perc > 75})
 
-          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 65}
+          (box :valign "center" :halign "center" :orientation "h" :visible {(EWW_TEMPS.AMDGPU_EDGE ?: 0) > 70}
             (label :text "${EWW_TEMPS.AMDGPU_EDGE ?: 0}°C")
             (label :text "${EWW_TEMPS.AMDGPU_EDGE < 50 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : (EWW_TEMPS.AMDGPU_EDGE < 75 ? "" : "")))}"
-              :class "${EWW_TEMPS.AMDGPU_EDGE < 55 ? "" : EWW_TEMPS.AMDGPU_EDGE < 70 ? "warn-color" : "err-color"}"
+              :class "${EWW_TEMPS.AMDGPU_EDGE < 65 ? "" : EWW_TEMPS.AMDGPU_EDGE < 80 ? "warn-color" : "err-color"}"
             )
           )
           (smallbox :text "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%" :icon "󰋊"
             :iconclass {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.2 ? "err-color" : ""}
-            :visible {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.4})
+            :visible {(EWW_DISK["/"].free / EWW_DISK["/"].total) < 0.3})
 
           (box :width 100 :vexpand "true" :class "island"
             (graph :width 100 :vexpand "true" :value {EWW_CPU.avg} :time-range "60s" :min "0" :max "100" :thickness "1")
