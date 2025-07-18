@@ -68,6 +68,7 @@
       (meteodaygraph_row :meteo meteoGoteborg)
       (meteodaygraph_row :meteo meteoKristiansand)
       (meteodaygraph_row :meteo meteoKarlstad)
+      (meteodaygraph_row :meteo meteoLinköping)
       ;; (meteodaygraph_row :meteo meteoOslo)
     )
     (box :orientation "v"

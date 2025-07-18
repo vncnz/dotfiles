@@ -18,6 +18,7 @@
 ;; (defpoll meteoOslo :interval "600s" "~/.config/eww/scripts/meteo.sh 'Oslo' 59.911491 10.757933")
 ;; (defpoll meteoArendal :interval "120s" "~/.config/eww/scripts/meteo.sh 'Arendal' 58.46151 8.77253")
 (defpoll meteoKarlstad :interval "600s" "~/.config/eww/scripts/meteo.sh 'Karlstad' 59.378333 13.504167")
+(defpoll meteoLinköping :interval "600s" "~/.config/eww/scripts/meteo.sh 'Linköping' 58.415833, 15.625278")
 (defpoll meteoGoteborg :interval "600s" "~/.config/eww/scripts/meteo.sh 'Göteborg' 57.70716 11.96679")
 (defpoll meteoKristiansand :interval "600s" "~/.config/eww/scripts/meteo.sh 'Kristiansand' 58.14671 7.9956")
 
