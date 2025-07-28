@@ -568,7 +568,7 @@ Shape {
 
         PathArc {
             x: borderShape.innerX + borderShape.innerWidth - resourcesWidget.width
-            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height + borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight - resourcesWidget.height + borderShape.radius
             radiusX: borderShape.radius
             radiusY: borderShape.radius
             direction: PathArc.Counterclockwise
@@ -598,6 +598,11 @@ Shape {
             radiusX: borderShape.radius
             radiusY: borderShape.radius
             direction: PathArc.Clockwise
+        }
+
+        PathLine {
+            x: borderShape.innerX + clockWidget.width
+            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height + borderShape.radius
         }
 
         PathArc {
