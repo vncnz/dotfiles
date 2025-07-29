@@ -15,13 +15,14 @@ Item {
     
 
     property bool showWatts: false
-
+    /*
     property bool show_loadavg:  Data.RatatoskrLoader.overviewOpen
     property bool show_fullram:  Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.ram.mem_percent > 80
     property bool show_fullswap: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.ram.swap_percent > 60
     property bool show_fulldisk: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.disk.used_percent > 80
     property bool show_fullnet:  Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.network?.signal < 50
     property bool show_fulltemp: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.temperature.value > 90
+    */
 
     /*required property var triggerMouseArea
 
