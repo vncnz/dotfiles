@@ -44,9 +44,9 @@ Item {
                 // anchors.verticalCenter: parent.verticalCenter
                 // anchors.left: parent.left
                 font.family: "Symbols Nerd Font"
-                font.pixelSize: 24
+                font.pixelSize: 22
                 font.bold: true
-                color: Qt.lighter(Data.ThemeManager.accentColor, .75)
+                color: Qt.darker(Data.ThemeManager.accentColor, 1.25)
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: it.icon
@@ -62,7 +62,7 @@ Item {
                 font.family: "Roboto"
                 font.pixelSize: 10
                 font.bold: true
-                color: it.vcolor || Qt.darker(Data.ThemeManager.accentColor, .75)
+                color: it.vcolor || Qt.lighter(Data.ThemeManager.accentColor, 1.25)
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: it.text

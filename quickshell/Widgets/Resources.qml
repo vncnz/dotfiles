@@ -102,11 +102,11 @@ Item {
             //anchors.verticalCenter: parent.verticalCenter
             //anchors.left: parent.left
             //anchors.right: parent.right
-            spacing: 8
+            spacing: 16
 
             Widgets.IconText {
                 icon: "󰬢"
-                text: "TODO"
+                text: `${Data.RatatoskrLoader.sysData?.loadavg.m1}`
                 vcolor: Data.RatatoskrLoader.sysData?.loadavg.color
             }
 
@@ -129,8 +129,8 @@ Item {
 
             Widgets.IconText {
                 icon: Data.RatatoskrLoader.sysData?.temperature?.icon || "󱔱"
-                text: `${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C`
-                vcolor: Data.RatatoskrLoader.sysData?.temperature.color
+                text: Data.RatatoskrLoader.sysData?.temperature.value ? `${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C` : 'N/A'
+                vcolor: Data.RatatoskrLoader.sysData?.temperature.color || "red"
             }
 
             Widgets.IconText {
@@ -139,8 +139,16 @@ Item {
                     return Data.RatatoskrLoader.sysData?.network.icon
 
                 }
-                text: `${Data.RatatoskrLoader.sysData?.network?.signal}%`
-                vcolor: Data.RatatoskrLoader.sysData?.network?.color
+                text: {
+                    if (Data.RatatoskrLoader.sysData?.network?.signal) return `${Data.RatatoskrLoader.sysData?.network?.signal}%`
+                    if (Data.RatatoskrLoader.sysData?.network?.conn_type[0] === 'e') return 'ETH'
+                    return 'N/A'
+                }
+                vcolor: {
+                    if (Data.RatatoskrLoader.sysData?.network?.signal) return Data.RatatoskrLoader.sysData?.network?.color
+                    if (Data.RatatoskrLoader.sysData?.network?.conn_type[0] === 'e') return "white"
+                    return 'red'
+                }
             }
 
             Widgets.IconText {
@@ -150,10 +158,10 @@ Item {
                         if (!showWatts) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}%`}
                         else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
                     } else {
-                        return Data.RatatoskrLoader.sysData?.battery?.icon
+                        return 'PWR'
                     }
                 }
-                vcolor: Data.RatatoskrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatoskrLoader.sysData?.battery?.color : null
+                vcolor: Data.RatatoskrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatoskrLoader.sysData?.battery?.color : "white"
             }
 
             /* Text {
