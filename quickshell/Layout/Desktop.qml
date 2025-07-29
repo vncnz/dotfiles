@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Shapes
 import Quickshell
+import QtQuick.Layouts
 import Quickshell.Wayland
 import Qt5Compat.GraphicalEffects
 import "root:/Data" as Data
@@ -194,7 +195,7 @@ Scope {
                 volumeOSD: volumeOsd
                 brightnessOSD: brightnessOsd
                 clockWidget: clockWidget
-                resourcesWidget: resourcesWidget
+                // resourcesWidget: resourcesWidget
                 z: -5  // Behind UI elements to prevent shadow from covering control panel
             }
 
@@ -299,8 +300,10 @@ Scope {
             }
 
             // Clock at bottom-left corner
-            Widgets.Clock {
+
+            ColumnLayout {
                 id: clockWidget
+                spacing: 0
                 anchors {
                     bottom: parent.bottom
                     left: parent.left
@@ -308,10 +311,14 @@ Scope {
                     leftMargin: Data.Settings.borderWidth
                 }
                 z: 10
+
+                Widgets.Resources {}
+
+                Widgets.Clock {}
             }
 
             // Resources at bottom-right corner
-            Widgets.Resources {
+            /* Widgets.Resources {
                 id: resourcesWidget
                 anchors {
                     bottom: parent.bottom
@@ -320,7 +327,7 @@ Scope {
                     rightMargin: Data.Settings.borderWidth
                 }
                 z: 10
-            }
+            } */
 
             // Notification popups (primary screen only)
             Notifications.Notification {

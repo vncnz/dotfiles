@@ -20,9 +20,6 @@ Item {
         // opacity: .5
         color: "transparent"
         
-        // Rounded corner for border integration
-        topRightRadius: height / 2
-
         ColumnLayout {
             id: clockText
             spacing: -16
@@ -68,25 +65,4 @@ Item {
             clockTextHours.text = Qt.formatTime(new Date(), "HH")
         }
     }
-
-    // Border integration corner pieces
-    /* Core.Corners {
-        id: topLeftCorner
-        position: "topleft"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: -39
-        offsetY: -26
-        z: 0  // Same z-level as clock background
-    } */
-    
-    /* Core.Corners {
-        id: topLeftCorner2
-        position: "topleft"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: 20
-        offsetY: 6
-        z: 0  // Same z-level as clock background
-    } */
 }

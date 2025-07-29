@@ -4,6 +4,8 @@ import "root:/Data" as Data
 import "root:/Widgets/System" as System
 import "root:/Widgets/Calendar" as Calendar
 
+// ! Deprecated file
+
 // Vertical sidebar layout
 Rectangle {
     id: bar

@@ -23,7 +23,7 @@ Shape {
     property var volumeOSD: null
     property var brightnessOSD: null
     property var clockWidget: null
-    property var resourcesWidget: null
+    // property var resourcesWidget: null
     
     // Initialization state to prevent ShaderEffect warnings
     property bool effectsReady: false
@@ -196,35 +196,6 @@ Shape {
         }
     }
 
-    // Resources shadow
-    Rectangle {
-        id: resourcesDropShadow
-        visible: borderShape.resourcesWidget !== null
-        x: borderShape.resourcesWidget ? borderShape.resourcesWidget.x : 0
-        y: borderShape.resourcesWidget ? borderShape.resourcesWidget.y : 0
-        width: borderShape.resourcesWidget ? borderShape.resourcesWidget.width : 0
-        height: borderShape.resourcesWidget ? borderShape.resourcesWidget.height : 0
-        color: "black"
-        topLeftRadius: borderShape.resourcesWidget ? borderShape.resourcesWidget.height / 2 : 16
-        topRightRadius: 0
-        bottomLeftRadius: 0
-        bottomRightRadius: 0
-        z: -2  // Lower z-index to render behind border corners
-        
-        layer.enabled: borderShape.resourcesWidget !== null
-        layer.effect: DropShadow {
-            transparentBorder: true
-            horizontalOffset: 1
-            verticalOffset: -1
-            radius: 12                     // Much more subtle
-            samples: 25
-            color: Qt.rgba(0, 0, 0, 0.4)   // Very light shadow
-            cached: false
-            spread: 0.2                    // Minimal spread
-        }
-    }
-    
-        
     // Shadow rendering source (hidden)
     Item {
         id: shadowSource
@@ -547,11 +518,11 @@ Shape {
 
         PathLine {
             x: borderShape.innerX + borderShape.innerWidth
-            y: borderShape.innerY + borderShape.innerHeight - resourcesWidget.height - borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight - borderShape.radius
         }
 
 
-        /* Resources shape - start */
+        /* Resources shape - start * /
         
         PathArc {
             x: borderShape.innerX + borderShape.innerWidth - borderShape.radius
@@ -582,7 +553,14 @@ Shape {
             direction: PathArc.Clockwise
         }
 
-        /* Resources shape - end */
+        / * Resources shape - end */
+        PathArc {
+            x: borderShape.innerX + borderShape.innerWidth - borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Clockwise
+        }
         
         
         PathLine {

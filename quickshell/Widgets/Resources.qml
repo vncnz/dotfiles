@@ -5,12 +5,14 @@ import Quickshell
 // import Quickshell.Services.UPower
 import "root:/Data" as Data
 import "root:/Core" as Core
+import "root:/Widgets" as Widgets
 
 // Resources with border integration
 Item {
     id: resourcesRoot
     width: resourcesBackground.width
     height: resourcesBackground.height
+    
 
     property bool showWatts: false
 
@@ -52,9 +54,18 @@ Item {
         
         // color: Data.ThemeManager.bgColor
         color: "transparent"
+        // color: "red"
         
         // Rounded corner for border integration
-        topLeftRadius: height / 2
+        // topLeftRadius: height / 2
+
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+            // bottomMargin: Data.Settings.borderWidth
+            // leftMargin: Data.Settings.borderWidth
+        }
 
         /* HoverHandler {
             id: mouse
@@ -85,45 +96,98 @@ Item {
             verticalAlignment: Text.AlignVCenter
             text: Qt.formatTime(new Date(), "HH:mm")
         } */
-        RowLayout {
+        ColumnLayout {
             id: resourcesText
-            // anchors.centerIn: parent
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
+            anchors.centerIn: parent
+            //anchors.verticalCenter: parent.verticalCenter
+            //anchors.left: parent.left
+            //anchors.right: parent.right
             spacing: 8
 
-            Text {
+            Widgets.IconText {
+                icon: "󰬢"
+                text: "TODO"
+                vcolor: Data.RatatoskrLoader.sysData?.loadavg.color
+            }
+
+            Widgets.IconText {
+                icon: ""
+                text: `${Data.RatatoskrLoader.sysData?.ram.mem_percent}%`
+                vcolor: Data.RatatoskrLoader.sysData?.ram.mem_color
+            }
+            Widgets.IconText {
+                icon: "󰿤"
+                text: `${Data.RatatoskrLoader.sysData?.ram.swap_percent}%`
+                vcolor: Data.RatatoskrLoader.sysData?.ram.swap_color
+            }
+
+            Widgets.IconText {
+                icon: "󰋊"
+                text: `${Data.RatatoskrLoader.sysData?.disk.used_percent}%`
+                vcolor: Data.RatatoskrLoader.sysData?.disk.color
+            }
+
+            Widgets.IconText {
+                icon: Data.RatatoskrLoader.sysData?.temperature?.icon || "󱔱"
+                text: `${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C`
+                vcolor: Data.RatatoskrLoader.sysData?.temperature.color
+            }
+
+            Widgets.IconText {
+                icon: {
+                    if (!Data.RatatoskrLoader.sysData?.network) return "󰞃"
+                    return Data.RatatoskrLoader.sysData?.network.icon
+
+                }
+                text: `${Data.RatatoskrLoader.sysData?.network?.signal}%`
+                vcolor: Data.RatatoskrLoader.sysData?.network?.color
+            }
+
+            Widgets.IconText {
+                icon: Data.RatatoskrLoader.sysData?.battery?.icon
+                text: {
+                    if (Data.RatatoskrLoader.sysData?.battery?.percentage) {
+                        if (!showWatts) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}%`}
+                        else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
+                    } else {
+                        return Data.RatatoskrLoader.sysData?.battery?.icon
+                    }
+                }
+                vcolor: Data.RatatoskrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatoskrLoader.sysData?.battery?.color : null
+            }
+
+            /* Text {
                 text: show_loadavg ? `󰬢 ${Data.RatatoskrLoader.sysData?.loadavg.m1} ${Data.RatatoskrLoader.sysData?.loadavg.m5} ${Data.RatatoskrLoader.sysData?.loadavg.m15}` : "󰬢"
                 font.family: "Symbols Nerd Font"
                 color: Data.RatatoskrLoader.sysData?.loadavg.color
                 z: 15
                 width: 10
                 font.pixelSize: 14
-            }
-            Text {
+            } */
+            /* Text {
                 text: show_fullram ? ` ${Data.RatatoskrLoader.sysData?.ram.mem_percent}%` : ""
                 font.family: "Symbols Nerd Font"
                 color: Data.RatatoskrLoader.sysData?.ram.mem_color
                 z: 15
                 width: 10
                 font.pixelSize: 14
-            }
-            Text {
+            } */
+            /* Text {
                 text: show_fullswap ? `󰿤 ${Data.RatatoskrLoader.sysData?.ram.swap_percent}%` : "󰿤"
                 font.family: "Symbols Nerd Font"
                 color: Data.RatatoskrLoader.sysData?.ram.swap_color
                 z: 15
                 width: 10
                 font.pixelSize: 14
-            }
-            Text {
+            } */
+            /* Text {
                 text: show_fulldisk ? `󰋊 ${Data.RatatoskrLoader.sysData?.disk.used_percent}%` : "󰋊"
                 font.family: "Symbols Nerd Font"
                 color: Data.RatatoskrLoader.sysData?.disk.color
                 z: 15
                 width: 10
-            }
-            Text {
+            } */
+            /* Text {
                 text: {
                     // if (!Data.RatatoskrLoader.sysData?.temperature?.icon) return "󱔱"
                     if (show_fulltemp) return `${Data.RatatoskrLoader.sysData?.temperature?.icon} ${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C`
@@ -134,8 +198,8 @@ Item {
                 z: 15
                 width: 10
                 visible: !!Data.RatatoskrLoader.sysData?.temperature?.value
-            }
-            Text {
+            } */
+            /* Text {
                 text: {
                     if (!Data.RatatoskrLoader.sysData?.network) return "󰞃"
                     if (Data.RatatoskrLoader.sysData?.network.conn_type == "ethernet") return Data.RatatoskrLoader.sysData?.network?.icon + (show_fullnet ? ` ETH` : "")
@@ -146,8 +210,8 @@ Item {
                 z: 15
                 width: 10
                 visible: !!Data.RatatoskrLoader.sysData?.network
-            }
-            Text {
+            } */
+            /* Text {
                 text: {
                     if (Data.RatatoskrLoader.sysData?.battery?.percentage) {
                         if (!showWatts) { return `${Data.RatatoskrLoader.sysData?.battery?.icon} ${Data.RatatoskrLoader.sysData?.battery?.percentage}%`}
@@ -161,7 +225,7 @@ Item {
                 z: 15
                 width: 10
                 visible: !!Data.RatatoskrLoader.sysData?.battery?.percentage
-            }
+            } */
 
             /* Repeater {
                 model: Quickshell.screens
