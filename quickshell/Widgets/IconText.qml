@@ -50,6 +50,19 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: it.icon
+
+                layer.enabled: true
+                layer.smooth: true
+                layer.effect: DropShadow {
+                    transparentBorder: true
+                    horizontalOffset: 0
+                    verticalOffset: 0
+                    radius: 2
+                    samples: 25
+                    color: Qt.rgba(0, 0, 0, .4)
+                    cached: true
+                    spread: 1
+                }
             }
 
             Text {
