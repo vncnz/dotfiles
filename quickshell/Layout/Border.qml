@@ -362,7 +362,7 @@ Shape {
         }
         
         // Volume OSD shadow
-        Rectangle {
+        /* Rectangle {
             id: volumeOsdShadowShape
             visible: borderShape.volumeOSD !== null && borderShape.volumeOSD.visible
             x: shadowSource.width - 45
@@ -386,7 +386,7 @@ Shape {
                 cached: false
                 spread: 0.5
             }
-        }
+        } */
         
         // Clock shadow
         Rectangle {
@@ -417,7 +417,7 @@ Shape {
     }
 
     // Apply shadow effect to entire border shape - Useful for antialiasing effect
-    layer.enabled: true
+    /* layer.enabled: true
     layer.samples: 5
     layer.smooth: true
     layer.effect: DropShadow {
@@ -429,7 +429,7 @@ Shape {
         color: Qt.rgba(0, 0, 0, 0.5)  // A bit lighter
         cached: true
         spread: 0
-    }
+    } */
 
     property real off: Math.min(volumeOSD.slideOffset, brightnessOSD.slideOffset)
 
