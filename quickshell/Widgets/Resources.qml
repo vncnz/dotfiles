@@ -103,7 +103,34 @@ Item {
             //anchors.verticalCenter: parent.verticalCenter
             //anchors.left: parent.left
             //anchors.right: parent.right
-            spacing: 16
+            spacing: 10
+
+            Widgets.ResRect {
+                icon: ""
+                text: `${Data.RatatoskrLoader.sysData?.ram.mem_percent}%`
+                vcolor: Data.RatatoskrLoader.sysData?.ram.mem_color
+                warn: Data.RatatoskrLoader.sysData?.ram.mem_warn
+            }
+            Widgets.ResRect {
+                icon: "󰿤"
+                text: `${Data.RatatoskrLoader.sysData?.ram.swap_percent}%`
+                vcolor: Data.RatatoskrLoader.sysData?.ram.swap_color
+                warn: Data.RatatoskrLoader.sysData?.ram.swap_warn
+            }
+
+            Widgets.ResRect {
+                icon: "󰋊"
+                text: `${Data.RatatoskrLoader.sysData?.disk.used_percent}%`
+                vcolor: Data.RatatoskrLoader.sysData?.disk.color
+                warn: Data.RatatoskrLoader.sysData?.disk.warn
+            }
+
+            Widgets.ResRect {
+                icon: Data.RatatoskrLoader.sysData?.temperature?.icon || "󱔱"
+                text: Data.RatatoskrLoader.sysData?.temperature.value ? `${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C` : 'N/A'
+                vcolor: Data.RatatoskrLoader.sysData?.temperature.color || "red"
+                warn: Data.RatatoskrLoader.sysData?.temperature.warn
+            }
 
             Widgets.IconText {
                 icon: "󰬢"
