@@ -67,7 +67,7 @@ Rectangle {
     
     color: "transparent" // Data.ThemeManager.bgColor
     // opacity: .5
-    width: 32
+    width: 14
     height: workspaceColumn.implicitHeight + 24
     
     // Smooth height animation
@@ -282,10 +282,14 @@ Rectangle {
                 id: workspacePill
                 
                 // Dynamic sizing based on focus state
-                width: model.isFocused ? 18 : 16
+                width: model.isFocused ? 14 : 10
                 height: model.isFocused ? 36 : 22
-                radius: width / 2
-                scale: model.isFocused ? 1.0 : 0.9
+                // radius: width / 2
+                // scale: model.isFocused ? 1.0 : 0.9
+                topRightRadius: width / 2
+                bottomRightRadius: width / 2
+                topLeftRadius: 0
+                bottomLeftRadius: 0
 
                 visible: model.output == currentScreen.name
 
@@ -306,7 +310,7 @@ Rectangle {
                 }
                 
                 // Workspace pill burst overlay (DISABLED - using unified overlay)
-                Rectangle {
+                /* Rectangle {
                     id: pillBurst
                     anchors.centerIn: parent
                     width: parent.width + 8
@@ -316,14 +320,14 @@ Rectangle {
                     opacity: 0  // Disabled in favor of unified overlay
                     visible: false
                     z: -1
-                }
+                } */
                 
                 // Subtle pulse for inactive pills during workspace changes
                 Rectangle {
                     id: inactivePillPulse
                     anchors.fill: parent
                     radius: parent.radius
-                    color: Data.ThemeManager.accent
+                    color: "red" // Data.ThemeManager.accent
                     opacity: {
                         // Only pulse inactive pills during effects
                         if (model.isFocused || !root.effectsActive) return 0
@@ -341,7 +345,7 @@ Rectangle {
                 }
                 
                 // Enhanced corner shadows for burst effect (DISABLED - using unified overlay)
-                Rectangle {
+                /* Rectangle {
                     id: cornerBurst
                     anchors.centerIn: parent
                     width: parent.width + 4
@@ -353,10 +357,10 @@ Rectangle {
                     opacity: 0  // Disabled in favor of unified overlay
                     visible: false
                     z: 1
-                }
+                } */
                 
                 // Elevation shadow
-                Rectangle {
+                /* Rectangle {
                     anchors.fill: parent
                     anchors.topMargin: model.isFocused ? 1 : 0
                     anchors.leftMargin: model.isFocused ? 0.5 : 0
@@ -368,7 +372,7 @@ Rectangle {
                     visible: model.isFocused
                     
                     Behavior on color { ColorAnimation { duration: 200 } }
-                }
+                } */
                 
                 // Smooth Material Design transitions
                 Behavior on width { 
@@ -502,7 +506,7 @@ Rectangle {
     }*/
 
     // Top-left corner wave overlay (DISABLED - using unified overlay)
-    Shape {
+    /* Shape {
         id: topLeftWave
         width: topLeftCorner.width
         height: topLeftCorner.height
@@ -512,7 +516,7 @@ Rectangle {
         preferredRendererType: Shape.CurveRenderer
         layer.enabled: true
         layer.samples: 4
-    }
+    } */
 
     /* Core.Corners {
         id: bottomLeftCorner
@@ -524,7 +528,7 @@ Rectangle {
     } */
 
     // Bottom-left corner wave overlay (DISABLED - using unified overlay)
-    Shape {
+    /* Shape {
         id: bottomLeftWave
         width: bottomLeftCorner.width
         height: bottomLeftCorner.height
@@ -534,7 +538,7 @@ Rectangle {
         preferredRendererType: Shape.CurveRenderer
         layer.enabled: true
         layer.samples: 4
-    }
+    } */
     
     // Clean up processes on destruction
     Component.onDestruction: {

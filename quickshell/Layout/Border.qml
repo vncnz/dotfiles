@@ -432,6 +432,7 @@ Shape {
     } */
 
     property real off: Math.min(volumeOSD.slideOffset, brightnessOSD.slideOffset)
+    property real wradius: Math.min(borderShape.radius, workspaceShadowShape.width / 2)
 
     // Main border shape (no shadow)
     ShapePath {
@@ -608,45 +609,45 @@ Shape {
 
         PathLine {
             x: borderShape.innerX
-            y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2) + borderShape.radius
+            y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2) + wradius
         }
 
         /* Workspaces indicator shape - start */
         
         PathArc {
-            x: borderShape.innerX  + borderShape.radius
+            x: borderShape.innerX  + wradius
             y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2)
-            radiusX: borderShape.radius
-            radiusY: borderShape.radius
+            radiusX: wradius
+            radiusY: wradius
             direction: PathArc.Clockwise
         }
 
         PathArc {
             x: borderShape.innerX + workspaceShadowShape.width
-            y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2) - borderShape.radius
-            radiusX: borderShape.radius
-            radiusY: borderShape.radius
+            y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2) - wradius
+            radiusX: wradius
+            radiusY: wradius
             direction: PathArc.Counterclockwise
         }
 
         PathLine {
             x: borderShape.innerX + workspaceShadowShape.width
-            y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2) + borderShape.radius
+            y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2) + wradius
         }
 
         PathArc {
-            x: borderShape.innerX + borderShape.radius
+            x: borderShape.innerX + wradius
             y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2)
-            radiusX: borderShape.radius
-            radiusY: borderShape.radius
+            radiusX: wradius
+            radiusY: wradius
             direction: PathArc.Counterclockwise
         }
         
         PathArc {
             x: borderShape.innerX
-            y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2) - borderShape.radius
-            radiusX: borderShape.radius
-            radiusY: borderShape.radius
+            y: (borderShape.innerY + borderShape.innerHeight / 2) - (workspaceShadowShape.implicitHeight / 2) - wradius
+            radiusX: wradius
+            radiusY: wradius
             direction: PathArc.Clockwise
         }
 

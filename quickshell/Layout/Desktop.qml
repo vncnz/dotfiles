@@ -62,10 +62,10 @@ Scope {
                 anchors {
                     left: parent.left
                     verticalCenter: parent.verticalCenter
-                    leftMargin: Data.Settings.borderWidth
+                    // leftMargin: Data.Settings.borderWidth
                 }
                 z: 10
-                width: 32
+                // width: 12
                 currentScreen: modelData
             }
 
