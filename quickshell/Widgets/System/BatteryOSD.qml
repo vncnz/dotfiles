@@ -17,7 +17,17 @@ Item {
     visible: false
 
     property real slideOffset: 0
-    
+    property bool showWatts: false
+
+    Timer {
+        interval: 3000
+        running: true
+        repeat: true
+        onTriggered: {
+            showWatts = !showWatts && Data.RatatoskrLoader.sysData?.battery?.watt
+        }
+    }
+
     // Auto-hide timer (2.5 seconds of inactivity)
     Timer {
         id: hideTimer
@@ -54,10 +64,11 @@ Item {
     Connections {
         target: shell
         function onShowBatteryChanged() {
+            // console.log('showBattery changed', shell.showBattery, lastShowBattery)
             if (shell.showBattery !== lastShowBattery) {
                 shell.showBattery ? showOsd() : hideOsd()
             }
-            lastShowBattery = shell.battery
+            lastShowBattery = shell.showBattery
         }
     }
     
@@ -81,8 +92,8 @@ Item {
     // Start slide-out animation to hide OSD
     function hideOsd() {
         // slideOutAnimation.start()
-        batteryOsd.slideOffset = 0 // ! De-comment me
-        // hiddenTimer.restart()
+        batteryOsd.slideOffset = 0
+        hiddenTimer.restart()
     }
 
     function hiddenOsd() {
@@ -134,7 +145,7 @@ Item {
             Rectangle {
                 opacity: 1
                 width: 10
-                height: parent.height - batteryIcon.height - batteryLabel.height - 36
+                height: parent.height - batteryIcon.height - batteryLabel.height - 56
                 topLeftRadius: 5
                 bottomLeftRadius: 5
                 color: Qt.darker(Data.ThemeManager.accentColor, 1.5)
@@ -173,13 +184,20 @@ Item {
             // Battery percentage text
             Text {
                 id: batteryLabel
-                text: shell.battery + "%"
-                font.pixelSize: 14
+                text: {
+                    // shell.battery + "%"
+                    if (!showWatts) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}% ${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
+                    // else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
+                    else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.eta / 60)}h${parseInt(Data.RatatoskrLoader.sysData?.battery?.eta % 60)}m`}
+                    /* if (!showWatts) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}%`}
+                    else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`} */
+                }
+                font.pixelSize: 12
                 font.weight: Font.Bold
                 color: Data.ThemeManager.fgColor
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.right
                 transform: Rotation {
-                    origin.x: batteryLabel.implicitWidth / 2
+                    origin.x: 7 // batteryLabel.implicitWidth / 2
                     origin.y: batteryLabel.implicitHeight / 2
                     angle: 90
                 }
