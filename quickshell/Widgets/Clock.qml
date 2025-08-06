@@ -28,7 +28,7 @@ Item {
                 id: clockTextHours
                 // anchors.centerIn: parent
                 // anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
+                // anchors.left: parent.left
                 font.family: "Roboto"
                 font.pixelSize: 24
                 font.bold: true

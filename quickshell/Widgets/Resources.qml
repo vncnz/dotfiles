@@ -10,7 +10,8 @@ import "root:/Widgets" as Widgets
 // Resources with border integration
 Item {
     id: resourcesRoot
-    width: resourcesBackground.width
+    // width: resourcesBackground.width
+    width: 20
     height: resourcesBackground.height
     
 
@@ -61,7 +62,7 @@ Item {
         // topLeftRadius: height / 2
 
         anchors {
-            bottom: parent.bottom
+            // bottom: parent.bottom
             left: parent.left
             right: parent.right
             // bottomMargin: Data.Settings.borderWidth
@@ -99,23 +100,34 @@ Item {
         } */
         ColumnLayout {
             id: resourcesText
-            anchors.centerIn: parent
-            //anchors.verticalCenter: parent.verticalCenter
-            //anchors.left: parent.left
-            //anchors.right: parent.right
+            // anchors.centerIn: parent
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.topMargin: 10
+            anchors.bottomMargin: 10
             spacing: 10
+
+            Widgets.ResRect {
+                icon: "󰬢"
+                text: `${Data.RatatoskrLoader.sysData?.loadavg.m1} ${Data.RatatoskrLoader.sysData?.loadavg.m5} ${Data.RatatoskrLoader.sysData?.loadavg.m15}`
+                vcolor: Data.RatatoskrLoader.sysData?.loadavg.color
+                warn: Data.RatatoskrLoader.sysData?.loadavg.warn
+                expanded: Data.RatatoskrLoader.overviewOpen
+            }
 
             Widgets.ResRect {
                 icon: ""
                 text: `${Data.RatatoskrLoader.sysData?.ram.mem_percent}%`
                 vcolor: Data.RatatoskrLoader.sysData?.ram.mem_color
                 warn: Data.RatatoskrLoader.sysData?.ram.mem_warn
+                expanded: Data.RatatoskrLoader.overviewOpen
             }
             Widgets.ResRect {
                 icon: "󰿤"
                 text: `${Data.RatatoskrLoader.sysData?.ram.swap_percent}%`
                 vcolor: Data.RatatoskrLoader.sysData?.ram.swap_color
                 warn: Data.RatatoskrLoader.sysData?.ram.swap_warn
+                expanded: Data.RatatoskrLoader.overviewOpen
             }
 
             Widgets.ResRect {
@@ -123,6 +135,7 @@ Item {
                 text: `${Data.RatatoskrLoader.sysData?.disk.used_percent}%`
                 vcolor: Data.RatatoskrLoader.sysData?.disk.color
                 warn: Data.RatatoskrLoader.sysData?.disk.warn
+                expanded: Data.RatatoskrLoader.overviewOpen
             }
 
             Widgets.ResRect {
@@ -130,38 +143,10 @@ Item {
                 text: Data.RatatoskrLoader.sysData?.temperature.value ? `${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C` : 'N/A'
                 vcolor: Data.RatatoskrLoader.sysData?.temperature.color || "red"
                 warn: Data.RatatoskrLoader.sysData?.temperature.warn
+                expanded: Data.RatatoskrLoader.overviewOpen
             }
 
-            Widgets.IconText {
-                icon: "󰬢"
-                text: `${Data.RatatoskrLoader.sysData?.loadavg.m1}`
-                vcolor: Data.RatatoskrLoader.sysData?.loadavg.color
-            }
-
-            Widgets.IconText {
-                icon: ""
-                text: `${Data.RatatoskrLoader.sysData?.ram.mem_percent}%`
-                vcolor: Data.RatatoskrLoader.sysData?.ram.mem_color
-            }
-            Widgets.IconText {
-                icon: "󰿤"
-                text: `${Data.RatatoskrLoader.sysData?.ram.swap_percent}%`
-                vcolor: Data.RatatoskrLoader.sysData?.ram.swap_color
-            }
-
-            Widgets.IconText {
-                icon: "󰋊"
-                text: `${Data.RatatoskrLoader.sysData?.disk.used_percent}%`
-                vcolor: Data.RatatoskrLoader.sysData?.disk.color
-            }
-
-            Widgets.IconText {
-                icon: Data.RatatoskrLoader.sysData?.temperature?.icon || "󱔱"
-                text: Data.RatatoskrLoader.sysData?.temperature.value ? `${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C` : 'N/A'
-                vcolor: Data.RatatoskrLoader.sysData?.temperature.color || "red"
-            }
-
-            Widgets.IconText {
+            Widgets.ResRect {
                 icon: {
                     if (!Data.RatatoskrLoader.sysData?.network) return "󰞃"
                     return Data.RatatoskrLoader.sysData?.network.icon
@@ -177,9 +162,11 @@ Item {
                     if (Data.RatatoskrLoader.sysData?.network?.conn_type[0] === 'e') return "white"
                     return 'red'
                 }
+                warn: Data.RatatoskrLoader.sysData?.network?.warn
+                expanded: Data.RatatoskrLoader.overviewOpen
             }
 
-            Widgets.IconText {
+            Widgets.ResRect {
                 icon: Data.RatatoskrLoader.sysData?.battery?.icon
                 text: {
                     if (Data.RatatoskrLoader.sysData?.battery?.percentage) {
@@ -190,7 +177,69 @@ Item {
                     }
                 }
                 vcolor: Data.RatatoskrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatoskrLoader.sysData?.battery?.color : "white"
+                warn: 1 - (100 / Data.RatatoskrLoader.sysData?.battery?.percentage)
+                expanded: Data.RatatoskrLoader.overviewOpen
             }
+
+            /* Widgets.IconText {
+                icon: "󰬢"
+                text: `${Data.RatatoskrLoader.sysData?.loadavg.m1}`
+                vcolor: Data.RatatoskrLoader.sysData?.loadavg.color
+            } */
+
+            /* Widgets.IconText {
+                icon: ""
+                text: `${Data.RatatoskrLoader.sysData?.ram.mem_percent}%`
+                vcolor: Data.RatatoskrLoader.sysData?.ram.mem_color
+            } */
+            /* Widgets.IconText {
+                icon: "󰿤"
+                text: `${Data.RatatoskrLoader.sysData?.ram.swap_percent}%`
+                vcolor: Data.RatatoskrLoader.sysData?.ram.swap_color
+            } */
+
+            /* Widgets.IconText {
+                icon: "󰋊"
+                text: `${Data.RatatoskrLoader.sysData?.disk.used_percent}%`
+                vcolor: Data.RatatoskrLoader.sysData?.disk.color
+            } */
+
+            /* Widgets.IconText {
+                icon: Data.RatatoskrLoader.sysData?.temperature?.icon || "󱔱"
+                text: Data.RatatoskrLoader.sysData?.temperature.value ? `${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C` : 'N/A'
+                vcolor: Data.RatatoskrLoader.sysData?.temperature.color || "red"
+            } */
+
+            /* Widgets.IconText {
+                icon: {
+                    if (!Data.RatatoskrLoader.sysData?.network) return "󰞃"
+                    return Data.RatatoskrLoader.sysData?.network.icon
+
+                }
+                text: {
+                    if (Data.RatatoskrLoader.sysData?.network?.signal) return `${Data.RatatoskrLoader.sysData?.network?.signal}%`
+                    if (Data.RatatoskrLoader.sysData?.network?.conn_type[0] === 'e') return 'ETH'
+                    return 'N/A'
+                }
+                vcolor: {
+                    if (Data.RatatoskrLoader.sysData?.network?.signal) return Data.RatatoskrLoader.sysData?.network?.color
+                    if (Data.RatatoskrLoader.sysData?.network?.conn_type[0] === 'e') return "white"
+                    return 'red'
+                }
+            } */
+
+            /* Widgets.IconText {
+                icon: Data.RatatoskrLoader.sysData?.battery?.icon
+                text: {
+                    if (Data.RatatoskrLoader.sysData?.battery?.percentage) {
+                        if (!showWatts) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}%`}
+                        else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
+                    } else {
+                        return 'PWR'
+                    }
+                }
+                vcolor: Data.RatatoskrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatoskrLoader.sysData?.battery?.color : "white"
+            } */
 
             /* Text {
                 text: show_loadavg ? `󰬢 ${Data.RatatoskrLoader.sysData?.loadavg.m1} ${Data.RatatoskrLoader.sysData?.loadavg.m5} ${Data.RatatoskrLoader.sysData?.loadavg.m15}` : "󰬢"

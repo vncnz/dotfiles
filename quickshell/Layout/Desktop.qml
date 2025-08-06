@@ -93,6 +93,17 @@ Scope {
                 }
                 z: 10
             }
+            System.BatteryOSD {
+                id: batteryOsd
+                shell: desktop.shell
+                visible: modelData === Quickshell.primaryScreen
+                anchors {
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                    // rightMargin: Data.Settings.borderWidth
+                }
+                z: 10
+            }
 
             // Widget shadows (positioned behind border for proper layering)
             
@@ -194,6 +205,7 @@ Scope {
                 workspaceIndicator: workspaceIndicator
                 volumeOSD: volumeOsd
                 brightnessOSD: brightnessOsd
+                batteryOSD: batteryOsd
                 clockWidget: clockWidget
                 // resourcesWidget: resourcesWidget
                 z: -5  // Behind UI elements to prevent shadow from covering control panel
@@ -308,13 +320,39 @@ Scope {
                     bottom: parent.bottom
                     left: parent.left
                     bottomMargin: Data.Settings.borderWidth
-                    leftMargin: Data.Settings.borderWidth
+                    // leftMargin: Data.Settings.borderWidth
                 }
+                width: 15 // resourcesRoot.implicitWidth
                 z: 10
 
                 Widgets.Resources {}
 
-                Widgets.Clock {}
+                
+            }
+
+            Rectangle {
+                anchors {
+                    bottom: parent.bottom
+                    right: parent.right
+                    rightMargin: Data.Settings.borderWidth + 10
+                    bottomMargin: Data.Settings.borderWidth + 10
+                }
+                z: 10
+                width: 40
+                height: 40
+                color: Data.ThemeManager.bgColor
+                radius: Data.Settings.cornerRadius / 2
+
+                border {
+                    color: Data.ThemeManager.accentColor
+                    width: 1
+                }
+
+                opacity: 0.7
+
+                Widgets.Clock {
+                    anchors.centerIn: parent
+                }
             }
 
             // Resources at bottom-right corner

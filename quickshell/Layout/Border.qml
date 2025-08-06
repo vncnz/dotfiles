@@ -22,6 +22,7 @@ Shape {
     property var workspaceIndicator: null
     property var volumeOSD: null
     property var brightnessOSD: null
+    property var batteryOSD: null
     property var clockWidget: null
     // property var resourcesWidget: null
     
@@ -431,8 +432,9 @@ Shape {
         spread: 0
     } */
 
-    property real off: Math.min(volumeOSD.slideOffset, brightnessOSD.slideOffset)
+    property real off: Math.min(volumeOSD.slideOffset, brightnessOSD.slideOffset, batteryOSD.slideOffset)
     property real wradius: Math.min(borderShape.radius, workspaceShadowShape.width / 2)
+    property real rradius: Math.min(borderShape.radius, clockWidget.width / 2)
 
     // Main border shape (no shadow)
     ShapePath {
@@ -581,27 +583,27 @@ Shape {
 
         PathLine {
             x: borderShape.innerX + clockWidget.width
-            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height + borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height + rradius
         }
 
         PathArc {
-            x: borderShape.innerX + clockWidget.width - borderShape.radius
+            x: borderShape.innerX + clockWidget.width - rradius
             y: borderShape.innerY + borderShape.innerHeight - clockWidget.height
-            radiusX: borderShape.radius
-            radiusY: borderShape.radius
+            radiusX: rradius
+            radiusY: rradius
             direction: PathArc.Counterclockwise
         }
 
         PathLine {
-            x: borderShape.innerX + borderShape.radius
+            x: borderShape.innerX + rradius
             y: borderShape.innerY + borderShape.innerHeight - clockWidget.height
         }
 
         PathArc {
             x: borderShape.innerX
-            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height - borderShape.radius
-            radiusX: borderShape.radius
-            radiusY: borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight - clockWidget.height - rradius
+            radiusX: rradius
+            radiusY: rradius
             direction: PathArc.Clockwise
         }
 

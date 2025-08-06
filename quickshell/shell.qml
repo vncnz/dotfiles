@@ -22,6 +22,8 @@ ShellRoot {
     property int muted: (defaultAudioSink && defaultAudioSink.audio) ? defaultAudioSink.audio.muted : false
 
     property int brightness: Data.RatatoskrLoader.sysData?.display?.perc ?? 0
+    property int battery: Data.RatatoskrLoader.sysData?.battery?.percentage ?? 0
+    property bool showBattery: Data.RatatoskrLoader.sysData?.battery?.state === "Discharging" || Data.RatatoskrLoader.sysData?.battery?.state === "Charging"
 
     property var notificationWindow: null  // Set by Desktop.qml
     property var notificationServer: notificationService ? notificationService.notificationServer : null
