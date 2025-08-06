@@ -338,8 +338,8 @@ Scope {
                     bottomMargin: Data.Settings.borderWidth + 10
                 }
                 z: 10
-                width: 40
-                height: 40
+                width: 50
+                height: 50
                 color: Data.ThemeManager.bgColor
                 radius: Data.Settings.cornerRadius / 2
 

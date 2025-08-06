@@ -13,45 +13,41 @@ Item {
 
     Rectangle {
         id: clockBackground
-        width: clockText.implicitWidth + 10
-        height: clockText.implicitHeight + 10
+        width: clockText.implicitWidth
+        height: clockText.implicitHeight
         
         // color: Data.ThemeManager.bgColor
         // opacity: .5
         color: "transparent"
+
+        Text {
+            id: clockTextHours
+            anchors.centerIn: parent
+            // anchors.verticalCenter: parent.verticalCenter
+            // anchors.left: parent.left
+            font.family: "Roboto"
+            font.pixelSize: 24
+            font.bold: true
+            color: Qt.lighter(Data.ThemeManager.accentColor, .75)
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: Qt.formatTime(new Date(), "HH")
+        }
         
-        ColumnLayout {
-            id: clockText
-            spacing: -16
-
-            Text {
-                id: clockTextHours
-                // anchors.centerIn: parent
-                // anchors.verticalCenter: parent.verticalCenter
-                // anchors.left: parent.left
-                font.family: "Roboto"
-                font.pixelSize: 24
-                font.bold: true
-                color: Qt.lighter(Data.ThemeManager.accentColor, .75)
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                text: Qt.formatTime(new Date(), "HH")
-            }
-
-            Text {
-                id: clockTextMins
-                // anchors.centerIn: parent
-                // anchors.verticalCenter: parent.verticalCenter
-                // anchors.left: parent.horizontalCenter
-                anchors.right: parent.right
-                font.family: "Roboto"
-                font.pixelSize: 18
-                font.bold: false
-                color: Qt.darker(Data.ThemeManager.accentColor, .75)
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                text: Qt.formatTime(new Date(), "mm")
-            }
+        Text {
+            id: clockTextMins
+            // anchors.centerIn: parent
+            // anchors.verticalCenter: parent.verticalCenter
+            // anchors.left: parent.horizontalCenter
+            // anchors.right: parent.right
+            // anchors.rightMargin: -8
+            font.family: "Roboto"
+            font.pixelSize: 18
+            font.bold: false
+            color: Qt.darker(Data.ThemeManager.accentColor, .75)
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: Qt.formatTime(new Date(), "mm")
         }
     }
 
