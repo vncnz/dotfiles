@@ -340,7 +340,7 @@ Scope {
                 z: 10
                 width: 50
                 height: 50
-                color: Data.ThemeManager.bgColor
+                color: Qt.rgba(Data.ThemeManager.bgColor.r, Data.ThemeManager.bgColor.g, Data.ThemeManager.bgColor.b, 0.5)
                 radius: Data.Settings.cornerRadius / 2
 
                 border {
@@ -348,7 +348,7 @@ Scope {
                     width: 1
                 }
 
-                opacity: 0.7
+                opacity: 0.9
 
                 Widgets.Clock {
                     anchors.centerIn: parent
