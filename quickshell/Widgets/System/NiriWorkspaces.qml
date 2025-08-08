@@ -119,6 +119,7 @@ Rectangle {
     
     // Parse Niri event stream messages
     function parseNiriEvent(line) {
+        // console.log(line)
         try {
             // Handle workspace focus changes
             if (line.startsWith("Workspace focused: ")) {
@@ -142,6 +143,9 @@ Rectangle {
             } else if (line.startsWith("Windows changed: ")) {
                 const windowsData = line.replace("Windows changed: ", "");
                 parseWindowsList(windowsData);
+            } else if (line.startsWith("Window focus changed: ")) {
+                // const windowsData = line.replace("Window focus changed: ", "");
+                // parseWindowsList(windowsData);
             } else if (line.startsWith("Overview toggled: ")) {
                 const overviewData = line.replace("Overview toggled: ", "");
                 console.log("overview changed", overviewData)
@@ -150,6 +154,7 @@ Rectangle {
             } else {
                 // console.log(line)
             }
+            console.log("windows parsed")
         } catch (e) {
             console.log("Error parsing niri event:", e);
         }
@@ -220,6 +225,7 @@ Rectangle {
 
     // Parse workspace data from Niri's Rust-style output format
     function parseWindowsList(data) {
+        console.log('Starting windows data parsing', data)
         try {
             const windowsMatches = data.match(/Window \{[^}]+\}/g);
             if (!windowsMatches) {
@@ -264,6 +270,7 @@ Rectangle {
             // newWindows.sort((a, b) => a.id - b.id);
             root.windows.clear();
             root.windows.append(newWindows);
+            console.log('parsed', JSON.stringify(root.windows))
         } catch (e) {
             console.log("Error parsing windows list:", e);
         }
@@ -444,38 +451,55 @@ Rectangle {
                         }
                     }
                 }
-
-                /* ColumnLayout {
+                /* Windows list for each workspace (bugged)
+                Row {
+                    visible: Data.RatatoskrLoader.overviewOpen
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.right
+                    anchors.leftMargin: 10
 
                     Repeater {
-                        model: root.windows // .filter(w => w.output == currentScreen.name)
+                        model: root.windows // .filter(win => win.workspaceId == workspace_id) // .filter(w => w.output == currentScreen.name)
                         
-                        Rectangle {
+                        delegate: Rectangle {
+                            visible: model.workspaceId === workspace_id
                             width: 20
                             height: 20
-                            radius: 5
-                            // scale: model.isFocused ? 1.0 : 0.9
                             color: "transparent"
-                            border.width: 1
-                            border.color: "red"
 
-                            visible: model.workspaceId == workspace_id
-                            Text {
-                                color: "red"
-                                anchors.centerIn: parent
-                                text: model.appId[0]
-                                font.pixelSize: 16
+                            Rectangle {
+                                width: 20
+                                height: 20
+                                color: "transparent"
+                                // scale: model.isFocused ? 1.5 : 0.9
+                                Text {
+                                    color: "black"
+                                    anchors.centerIn: parent
+                                    text: model && model.appId && model.appId.length > 0 ? model.appId[0].toUpperCase() : 'N'
+                                    // text: "R"
+                                    font.pixelSize: 16
+                                    font.bold: true
+
+                                    layer.enabled: true
+                                    layer.effect: DropShadow {
+                                        transparentBorder: true
+                                        horizontalOffset: 0
+                                        verticalOffset: 0
+                                        radius: 1
+                                        samples: 3
+                                        color: "white"
+                                        cached: true
+                                        spread: 1
+                                    }
+                                }
                             }
-                        }
 
-                        /* Image {
-                            width: 20
-                            source: Qt.resolvedUrl("file:///usr/share/icons/hicolor/22x22/apps/firefox.png")
-                            visible: model.workspaceId == workspace_id
-                        } * /
-                        IconImage {
-                            width: 20
-                            source: "image://theme/firefox"
+                            Image {
+                                width: 20
+                                height: 20
+                                source: Qt.resolvedUrl("file://" + Data.RatatoskrLoader.winData?.icons[model.appId]) // || "/usr/share/icons/hicolor/22x22/apps/firefox.png"))
+                                visible: modelData.workspaceId == workspace_id && Data.RatatoskrLoader.winData?.icons[modelData.appId]
+                            }
                         }
                     }
                 } */
