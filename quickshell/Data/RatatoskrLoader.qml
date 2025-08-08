@@ -8,9 +8,13 @@ import QtQuick
 Singleton {
     id: sysinfo
     property string jsonPath: "/tmp/ratatoskr.json"
+    property string jsonPathWindows: "/tmp/windows.json"
     property var sysData: {
         metronome: true
-    }  // result
+    }
+    property var winData: {
+        metronome: true
+    }
     property var overviewOpen: false
 
     Process {
@@ -21,6 +25,23 @@ Singleton {
             onStreamFinished: {
                 try {
                     sysData = JSON.parse(this.text);
+                } catch (e) {
+                    console.error("Errore parsing JSON:", e);
+                }
+            }// root.time = this.text
+        }
+
+        // onError: console.error("Errore lettura file JSON:", error)
+    }
+
+    Process {
+        id: fileReaderWin
+        command: ['cat', jsonPathWindows]
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    winData = JSON.parse(this.text);
                 } catch (e) {
                     console.error("Errore parsing JSON:", e);
                 }
@@ -41,6 +62,9 @@ Singleton {
             fileReader.arguments = [jsonPath];
             fileReader.start();
         } */
-        onTriggered: fileReader.running = true
+        onTriggered: {
+            fileReader.running = true
+            fileReaderWin.running = true
+        }
     }
 }
