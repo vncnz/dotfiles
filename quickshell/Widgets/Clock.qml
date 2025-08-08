@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import Qt5Compat.GraphicalEffects
+// import QtQuick.Effects
 import "root:/Data" as Data
 import "root:/Core" as Core
 
@@ -32,6 +34,18 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text: Qt.formatTime(new Date(), "HH")
+
+            layer.enabled: true
+            layer.effect: DropShadow {
+                transparentBorder: true
+                horizontalOffset: 0
+                verticalOffset: 0
+                radius: 1
+                samples: 10
+                color: "black"
+                cached: true
+                spread: 1
+            }
         }
         
         Text {
