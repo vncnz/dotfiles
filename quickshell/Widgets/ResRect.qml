@@ -151,7 +151,7 @@ Item {
             verticalOffset: 0
             radius: 1
             samples: 10
-            color: black
+            color: "black"
             cached: true
             spread: 1
         }
