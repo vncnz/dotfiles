@@ -141,7 +141,7 @@ Item {
             Widgets.ResRect {
                 icon: Data.RatatoskrLoader.sysData?.temperature?.icon || "󱔱"
                 text: Data.RatatoskrLoader.sysData?.temperature.value ? `${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C` : 'N/A'
-                vcolor: Data.RatatoskrLoader.sysData?.temperature.color || "red"
+                vcolor: Data.RatatoskrLoader.sysData?.temperature.color || Data.ThemeManager.highlightBg
                 warn: Data.RatatoskrLoader.sysData?.temperature.warn
                 expanded: Data.RatatoskrLoader.overviewOpen
             }
@@ -159,7 +159,7 @@ Item {
                 }
                 vcolor: {
                     if (Data.RatatoskrLoader.sysData?.network?.signal) return Data.RatatoskrLoader.sysData?.network?.color
-                    if (Data.RatatoskrLoader.sysData?.network?.conn_type[0] === 'e') return "white"
+                    if (Data.RatatoskrLoader.sysData?.network?.conn_type[0] === 'e') return 'gray'
                     return 'red'
                 }
                 warn: Data.RatatoskrLoader.sysData?.network?.warn

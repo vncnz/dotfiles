@@ -9,3 +9,4 @@ shader_*
 niri/ratatoskr
 settings.json
 *.frag
+*_bck.qml
