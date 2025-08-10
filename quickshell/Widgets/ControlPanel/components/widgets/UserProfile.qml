@@ -66,10 +66,11 @@ Rectangle {
             }
 
             // Apply circular mask to avatar
+            // V: disabled for memory saving
             OpacityMask {
                 anchors.fill: avatarImage
                 source: avatarImage
-                cached: true  // Cache to reduce ShaderEffect issues
+                cached: false  // Cache to reduce ShaderEffect issues
                 maskSource: Rectangle {
                     width: avatarImage.width
                     height: avatarImage.height
@@ -131,7 +132,7 @@ Rectangle {
             // Apply rounded corner mask to GIF
             layer.enabled: true
             layer.effect: OpacityMask {
-                cached: true  // Cache to reduce ShaderEffect issues
+                cached: false  // Cache to reduce ShaderEffect issues
                 maskSource: Rectangle {
                     width: gifContainer.width
                     height: gifContainer.height

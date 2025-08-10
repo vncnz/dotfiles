@@ -243,16 +243,17 @@ Rectangle {
                             visible: source.toString() !== ""
                             
                             // Rounded corners using layer
-                            layer.enabled: true
+                            // V: disabled for memory saving
+                            /* layer.enabled: true
                             layer.effect: OpacityMask {
-                                cached: true  // Cache to reduce ShaderEffect issues
+                                cached: false  // Cache to reduce ShaderEffect issues
                                 maskSource: Rectangle {
                                     width: albumArt.width
                                     height: albumArt.height
                                     radius: 20
                                     visible: false
                                 }
-                            }
+                            } */
                         }
                         
                         // Fallback music icon

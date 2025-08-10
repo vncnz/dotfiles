@@ -86,7 +86,8 @@ Column {
         }
 
         // Apply circular mask to avatar
-        OpacityMask {
+        // V: disabled for memory saving
+        /* OpacityMask {
             anchors.fill: avatarImage
             source: avatarImage
             maskSource: Rectangle {
@@ -95,7 +96,7 @@ Column {
                 radius: 46
                 visible: false
             }
-        }
+        } */
         
         // Fallback icon if avatar fails to load
         Text {

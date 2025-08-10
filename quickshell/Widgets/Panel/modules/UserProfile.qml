@@ -62,7 +62,8 @@ Rectangle {
                 sourceSize.height: 48
             }
 
-            OpacityMask {
+            // V: disabled for memory saving
+            /* OpacityMask {
                 anchors.fill: avatarImage
                 source: avatarImage
                 maskSource: Rectangle {
@@ -71,7 +72,7 @@ Rectangle {
                     radius: 18  // Proportionally smaller than parent (48/52 * 20 ≈ 18)
                     visible: false
                 }
-            }
+            } */
         }
 
         Column {
@@ -122,7 +123,8 @@ Rectangle {
             }
 
             // Always enable layer effects for rounded corners
-            layer.enabled: true
+            // V: disabled for memory saving
+            /* layer.enabled: true
             layer.effect: OpacityMask {
                 maskSource: Rectangle {
                     width: gifContainer.width
@@ -130,7 +132,7 @@ Rectangle {
                     radius: gifContainer.radius
                     visible: false
                 }
-            }
+            } */
             
 
         }
