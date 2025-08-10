@@ -45,17 +45,17 @@ Shape {
     }
     
     // Burst effect overlays (DISABLED - using unified overlay)
-    Item {
+    /* Item {
         id: burstEffects
         anchors.fill: parent
         visible: false  // Disabled in favor of unified overlay
         z: 5
-    }
+    } */
     
     // Individual widget shadows (positioned separately)
     
     // Workspace indicator shadow
-    Shape {
+    /* Shape {
         id: workspaceDropShadow
         visible: borderShape.workspaceIndicator !== null
         x: borderShape.workspaceIndicator ? borderShape.workspaceIndicator.x : 0  // Exact match
@@ -95,28 +95,28 @@ Shape {
             startY: 0
             
             // Right side - standard rounded corners
-            PathLine { x: workspaceDropShadow.width - 16; y: 0 }
+            PathLine { x: workspaceIndicator.width - 16; y: 0 }
             
             PathArc {
-                x: workspaceDropShadow.width; y: 16
+                x: workspaceIndicator.width; y: 16
                 radiusX: 16; radiusY: 16
                 direction: PathArc.Clockwise
             }
             
-            PathLine { x: workspaceDropShadow.width; y: workspaceDropShadow.height - 16 }
+            PathLine { x: workspaceIndicator.width; y: workspaceIndicator.height - 16 }
             
             PathArc {
-                x: workspaceDropShadow.width - 16; y: workspaceDropShadow.height
+                x: workspaceIndicator.width - 16; y: workspaceIndicator.height
                 radiusX: 16; radiusY: 16
                 direction: PathArc.Clockwise
             }
             
-            PathLine { x: 12; y: workspaceDropShadow.height }
+            PathLine { x: 12; y: workspaceIndicator.height }
             
             // Left side - concave curves for border integration
-            PathLine { x: 0; y: workspaceDropShadow.height - 12 }
+            PathLine { x: 0; y: workspaceIndicator.height - 12 }
             PathArc {
-                x: 12; y: workspaceDropShadow.height - 24
+                x: 12; y: workspaceIndicator.height - 24
                 radiusX: 12; radiusY: 12
                 direction: PathArc.Clockwise
             }
@@ -130,7 +130,7 @@ Shape {
             }
             PathLine { x: 12; y: 0 }
         }
-    }
+    } */
     
     // Volume OSD shadow
     Rectangle {
@@ -170,7 +170,7 @@ Shape {
     }
     
     // Clock shadow
-    Rectangle {
+    /* Rectangle {
         id: clockDropShadow
         visible: borderShape.clockWidget !== null
         x: borderShape.clockWidget ? borderShape.clockWidget.x : 0
@@ -195,7 +195,7 @@ Shape {
             cached: false
             spread: 0.2                    // Minimal spread
         }
-    }
+    } */
 
     // Shadow rendering source (hidden)
     Item {
@@ -390,7 +390,7 @@ Shape {
         } */
         
         // Clock shadow
-        Rectangle {
+        /* Rectangle {
             id: clockShadowShape
             visible: borderShape.clockWidget !== null
             x: borderShape.clockWidget ? borderShape.clockWidget.x : 0
@@ -414,7 +414,7 @@ Shape {
                 cached: false
                 spread: 0.5
             }
-        }
+        } */
     }
 
     // Apply shadow effect to entire border shape - Useful for antialiasing effect
