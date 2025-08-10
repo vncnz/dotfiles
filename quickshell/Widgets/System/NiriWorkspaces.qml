@@ -154,7 +154,7 @@ Rectangle {
             } else {
                 // console.log(line)
             }
-            console.log("windows parsed")
+            // console.log("windows parsed")
         } catch (e) {
             console.log("Error parsing niri event:", e);
         }
