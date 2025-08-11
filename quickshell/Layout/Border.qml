@@ -10,7 +10,8 @@ Shape {
     id: borderShape
 
     // Border dimensions
-    property real borderWidth: Data.Settings.borderWidth
+    property real borderWidth: 1 // Data.Settings.borderWidth
+    property real leftBorderWidth: 20 //Fixed width for left side for statusbar use
     property real strokeWidth: 2
     property real radius: Data.Settings.cornerRadius
     property real innerX: borderWidth
@@ -288,7 +289,7 @@ Shape {
             visible: borderShape.workspaceIndicator !== null
             x: borderShape.workspaceIndicator ? borderShape.workspaceIndicator.x : 0  // Exact match
             y: borderShape.workspaceIndicator ? borderShape.workspaceIndicator.y : 0
-            width: borderShape.workspaceIndicator ? borderShape.workspaceIndicator.width : 0  // Exact match
+            width: borderShape.workspaceIndicator ? borderShape.workspaceIndicator.width + 5 : 0  // Exact match
             height: borderShape.workspaceIndicator ? borderShape.workspaceIndicator.height : 0
             preferredRendererType: Shape.CurveRenderer
             
@@ -455,7 +456,7 @@ Shape {
 
         // Inner rounded cutout - starting up left
         PathMove { 
-            x: borderShape.innerX + borderShape.radius
+            x: leftBorderWidth /*borderShape.innerX*/ + borderShape.radius
             y: borderShape.innerY
         }
         
@@ -566,15 +567,16 @@ Shape {
         }
         
         
+        /* ClockWidget shape - start */
+        /* Starting with left border following components (clockWidget and workspaceShadow) * /
+
         PathLine {
-            x: borderShape.innerX + clockWidget.width + borderShape.radius
+            x: borderShape.innerX + clockWidget.width+5 + borderShape.radius
             y: borderShape.innerY + borderShape.innerHeight
         }
 
-        /* ClockWidget shape - start */
-        
         PathArc {
-            x: borderShape.innerX + clockWidget.width
+            x: borderShape.innerX + clockWidget.width+5
             y: borderShape.innerY + borderShape.innerHeight - borderShape.radius
             radiusX: borderShape.radius
             radiusY: borderShape.radius
@@ -582,12 +584,12 @@ Shape {
         }
 
         PathLine {
-            x: borderShape.innerX + clockWidget.width
+            x: borderShape.innerX + clockWidget.width+5
             y: borderShape.innerY + borderShape.innerHeight - clockWidget.height + rradius
         }
 
         PathArc {
-            x: borderShape.innerX + clockWidget.width - rradius
+            x: borderShape.innerX + clockWidget.width+5 - rradius
             y: borderShape.innerY + borderShape.innerHeight - clockWidget.height
             radiusX: rradius
             radiusY: rradius
@@ -607,14 +609,14 @@ Shape {
             direction: PathArc.Clockwise
         }
 
-        /* ClockWidget shape - end */
+        /* ClockWidget shape - end * /
 
         PathLine {
             x: borderShape.innerX
             y: (borderShape.innerY + borderShape.innerHeight / 2) + (workspaceShadowShape.implicitHeight / 2) + wradius
         }
 
-        /* Workspaces indicator shape - start */
+        /* Workspaces indicator shape - start * /
         
         PathArc {
             x: borderShape.innerX  + wradius
@@ -653,8 +655,7 @@ Shape {
             direction: PathArc.Clockwise
         }
 
-        /* Workspaces indicator shape - end */
-        
+        /* Workspaces indicator shape - end * /
         PathLine {
             x: borderShape.innerX
             y: borderShape.innerY + borderShape.radius
@@ -662,6 +663,36 @@ Shape {
         
         PathArc {
             x: borderShape.innerX + borderShape.radius
+            y: borderShape.innerY
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Clockwise
+        }
+        /* END of left border following components */
+
+        /* Starting with new left border with fixed width */
+        PathLine {
+            x: leftBorderWidth + borderShape.radius
+            y: borderShape.innerY + borderShape.innerHeight
+        }
+
+        PathArc {
+            x: leftBorderWidth
+            y: borderShape.innerY + borderShape.innerHeight - borderShape.radius
+            radiusX: borderShape.radius
+            radiusY: borderShape.radius
+            direction: PathArc.Clockwise
+        }
+
+        /* Ending with new left border with fixed width */
+        
+        PathLine {
+            x: leftBorderWidth
+            y: borderShape.innerY + borderShape.radius
+        }
+        
+        PathArc {
+            x: leftBorderWidth + borderShape.radius
             y: borderShape.innerY
             radiusX: borderShape.radius
             radiusY: borderShape.radius
