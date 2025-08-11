@@ -15,8 +15,8 @@ Shape {
     property real radius: Data.Settings.cornerRadius
     property real innerX: borderWidth
     property real innerY: borderWidth
-    property real innerWidth: borderShape.width - (borderWidth * 2)
-    property real innerHeight: borderShape.height - (borderWidth * 2)
+    property real innerWidth: borderShape.width - (borderWidth * 2) + 1
+    property real innerHeight: borderShape.height - (borderWidth * 2) - 1
     
     // Widget references for shadow positioning
     property var workspaceIndicator: null
