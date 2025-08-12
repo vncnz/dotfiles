@@ -108,7 +108,7 @@ Scope {
             // Widget shadows (positioned behind border for proper layering)
             
             // Workspace indicator shadow
-            Rectangle {
+            /*Rectangle {
                 id: workspaceShadow
                 visible: workspaceIndicator !== null
                 x: workspaceIndicator.x
@@ -141,10 +141,10 @@ Scope {
                     cached: true
                     spread: 0.1 + (workspaceIndicator.effectsActive && Data.Settings.workspaceGlowEnabled ? Math.sin(workspaceIndicator.masterProgress * Math.PI) * 0.1 : 0)
                 }
-            }
+            }*/
             
             // Clock widget shadow
-            Rectangle {
+            /*Rectangle {
                 id: clockShadow
                 visible: clockWidget !== null
                 x: clockWidget.x
@@ -169,10 +169,10 @@ Scope {
                     cached: true
                     spread: 0.1
                 }
-            }
+            }*/
 
             // Resources widget shadow
-            Rectangle {
+            /*Rectangle {
                 id: resourcesShadow
                 visible: resourcesWidget !== null
                 x: resourcesWidget.x
@@ -196,7 +196,7 @@ Scope {
                     cached: true
                     spread: 0.1
                 }
-            }
+            }*/
 
             // Border background with shadow
             Border {
@@ -310,8 +310,6 @@ Scope {
                     }
                 }
             }
-
-            // Clock at bottom-left corner
 
             ColumnLayout {
                 id: clockWidget
