@@ -8,6 +8,8 @@ import Quickshell.Io
 import "root:/Data" as Data
 import "root:/Core" as Core
 
+import Quickshell
+
 // Niri workspace indicator
 Rectangle {
     id: root
@@ -282,6 +284,15 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 6
 
+        function getAppIcon(toplevel: Toplevel): string {
+                    if (!toplevel) return "";
+                    let icon = Quickshell.iconPath(toplevel.appId?.toLowerCase(), true);
+                    if (!icon) icon = Quickshell.iconPath(toplevel.appId, true);
+                    if (!icon) icon = Quickshell.iconPath(toplevel.title?.toLowerCase(), true);
+                    if (!icon) icon = Quickshell.iconPath(toplevel.title, true);
+                    return icon || Quickshell.iconPath("application-x-executable", true);
+                }
+
         Repeater {
             model: root.workspaces // .filter(w => w.output == currentScreen.name)
             
@@ -451,7 +462,8 @@ Rectangle {
                         }
                     }
                 }
-                /* Windows list for each workspace (bugged)
+
+                /* Windows list for each workspace (bugged) */
                 Row {
                     visible: Data.RatatoskrLoader.overviewOpen
                     anchors.verticalCenter: parent.verticalCenter
@@ -497,12 +509,13 @@ Rectangle {
                             Image {
                                 width: 20
                                 height: 20
-                                source: Qt.resolvedUrl("file://" + Data.RatatoskrLoader.winData?.icons[model.appId]) // || "/usr/share/icons/hicolor/22x22/apps/firefox.png"))
-                                visible: modelData.workspaceId == workspace_id && Data.RatatoskrLoader.winData?.icons[modelData.appId]
+                                // source: Qt.resolvedUrl("file://" + Data.RatatoskrLoader.winData?.icons[model.appId]) // || "/usr/share/icons/hicolor/22x22/apps/firefox.png"))
+                                visible: model.workspaceId == workspace_id && Data.RatatoskrLoader.winData?.icons[model.appId]
+                                source: workspaceColumn.getAppIcon(model)
                             }
                         }
                     }
-                } */
+                } /**/
             }
         }
     }
