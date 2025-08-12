@@ -10,7 +10,7 @@ Shape {
     id: borderShape
 
     // Border dimensions
-    property real borderWidth: 2 // Data.Settings.borderWidth
+    property real borderWidth: 5 // Data.Settings.borderWidth
     property real leftBorderWidth: 20 //Fixed width for left side for statusbar use
     property real strokeWidth: 2
     property real radius: Data.Settings.cornerRadius

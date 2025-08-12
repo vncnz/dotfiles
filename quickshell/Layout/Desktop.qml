@@ -328,7 +328,7 @@ Scope {
                 
             }
 
-            Rectangle {
+            /* Rectangle {
                 anchors {
                     bottom: parent.bottom
                     right: parent.right
@@ -349,6 +349,26 @@ Scope {
                 opacity: 0.9
 
                 Widgets.Clock {
+                    anchors.centerIn: parent
+                }
+            } */
+
+            Rectangle {
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                    right: parent.right
+                    // rightMargin: Data.Settings.borderWidth + 10
+                    // bottomMargin: Data.Settings.borderWidth + 10
+                }
+                z: 10
+                width: 5 // Data.Settings.borderWidth
+                color: "transparent" // Qt.rgba(Data.ThemeManager.bgColor.r, Data.ThemeManager.bgColor.g, Data.ThemeManager.bgColor.b, 0.5)
+                // radius: Data.Settings.cornerRadius / 2
+
+                opacity: 0.9
+
+                Widgets.ClockMeter {
                     anchors.centerIn: parent
                 }
             }
