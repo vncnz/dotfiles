@@ -10,7 +10,7 @@ Shape {
     id: borderShape
 
     // Border dimensions
-    property real borderWidth: 1 // Data.Settings.borderWidth
+    property real borderWidth: 2 // Data.Settings.borderWidth
     property real leftBorderWidth: 20 //Fixed width for left side for statusbar use
     property real strokeWidth: 2
     property real radius: Data.Settings.cornerRadius
@@ -134,7 +134,7 @@ Shape {
     } */
     
     // Volume OSD shadow
-    Rectangle {
+    /* Rectangle {
         id: volumeOsdDropShadow
         visible: borderShape.volumeOSD !== null && borderShape.volumeOSD.visible
         opacity: borderShape.volumeOSD ? borderShape.volumeOSD.opacity : 0
@@ -168,7 +168,7 @@ Shape {
             cached: false
             spread: 0.2                    // Minimal spread
         }
-    }
+    } */
     
     // Clock shadow
     /* Rectangle {
