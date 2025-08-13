@@ -83,7 +83,7 @@ Item {
     function showOsd() {
         if (!batteryOsd.visible) {
             batteryOsd.visible = true
-            slideOffset = -17
+            slideOffset = -27
             // slideInAnimation.start()
         }
         // hideTimer.restart()
