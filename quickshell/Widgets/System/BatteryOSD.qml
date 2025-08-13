@@ -17,16 +17,16 @@ Item {
     visible: false
 
     property real slideOffset: 0
-    property bool showWatts: false
+    property bool showEta: Data.RatatoskrLoader.overviewOpen
 
-    Timer {
+    /* Timer {
         interval: 3000
         running: true
         repeat: true
         onTriggered: {
-            showWatts = !showWatts && Data.RatatoskrLoader.sysData?.battery?.watt
+            showEta = !showEta && Data.RatatoskrLoader.sysData?.battery?.watt
         }
-    }
+    } */
 
     // Auto-hide timer (2.5 seconds of inactivity)
     Timer {
@@ -186,10 +186,10 @@ Item {
                 id: batteryLabel
                 text: {
                     // shell.battery + "%"
-                    if (!showWatts) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}% ${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
+                    if (!showEta) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}% ${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
                     // else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
                     else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.eta / 60)}h${parseInt(Data.RatatoskrLoader.sysData?.battery?.eta % 60)}m`}
-                    /* if (!showWatts) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}%`}
+                    /* if (!showEta) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}%`}
                     else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`} */
                 }
                 font.pixelSize: 12
