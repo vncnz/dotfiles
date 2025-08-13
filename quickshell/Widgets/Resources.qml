@@ -52,7 +52,7 @@ Item {
     Rectangle {
         id: resourcesBackground
         width: resourcesText.implicitWidth + 10
-        height: resourcesText.implicitHeight + 10
+        height: resourcesText.implicitHeight + 30
         
         // color: Data.ThemeManager.bgColor
         color: "transparent"

@@ -49,7 +49,7 @@ Item {
         height: 4
 
         x: 0
-        y: parent.height * (1 - (parseInt(Qt.formatTime(new Date(), "HH")) * 60 + parseInt(Qt.formatTime(new Date(), "mm"))) / 1440) - 1
+        y: parent.height * (1 - (parseInt(Qt.formatTime(new Date(), "HH")) * 60 + parseInt(Qt.formatTime(new Date(), "mm"))) / 1440) - 3
 
         color: "red"
         radius: 10

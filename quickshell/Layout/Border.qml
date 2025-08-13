@@ -13,7 +13,7 @@ Shape {
     property real borderWidth: 2 // Data.Settings.borderWidth
     property real leftBorderWidth: 20 //Fixed width for left side for statusbar use
     property real rightBorderWidth: 12 //Fixed width for right side for clock use
-    property real strokeWidth: 2
+    property real strokeWidth: 1
     property real radius: Data.Settings.cornerRadius
     property real innerX: borderWidth
     property real innerY: borderWidth
@@ -441,7 +441,7 @@ Shape {
     // Main border shape (no shadow)
     ShapePath {
         fillColor: Data.ThemeManager.bgColor
-        strokeWidth: 1
+        strokeWidth: 1 // borderShape.strokeWidth
         // strokeColor: Data.ThemeManager.accentColor
         fillRule: ShapePath.OddEvenFill
 
