@@ -10,13 +10,14 @@ Shape {
     id: borderShape
 
     // Border dimensions
-    property real borderWidth: 5 // Data.Settings.borderWidth
+    property real borderWidth: 2 // Data.Settings.borderWidth
     property real leftBorderWidth: 20 //Fixed width for left side for statusbar use
+    property real rightBorderWidth: 12 //Fixed width for right side for clock use
     property real strokeWidth: 2
     property real radius: Data.Settings.cornerRadius
     property real innerX: borderWidth
     property real innerY: borderWidth
-    property real innerWidth: borderShape.width - (borderWidth * 2) + 1
+    property real innerWidth: borderShape.width - (/*leftBorderWidth + */rightBorderWidth) + 1
     property real innerHeight: borderShape.height - (borderWidth * 2) - 1
     
     // Widget references for shadow positioning
