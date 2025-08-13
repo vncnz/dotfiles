@@ -166,7 +166,7 @@ Item {
                 expanded: Data.RatatoskrLoader.overviewOpen
             }
 
-            Widgets.ResRect {
+            /* Widgets.ResRect {
                 icon: Data.RatatoskrLoader.sysData?.battery?.icon
                 text: {
                     if (Data.RatatoskrLoader.sysData?.battery?.percentage) {
@@ -179,7 +179,7 @@ Item {
                 vcolor: Data.RatatoskrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatoskrLoader.sysData?.battery?.color : "white"
                 warn: 1 - (100 / Data.RatatoskrLoader.sysData?.battery?.percentage)
                 expanded: Data.RatatoskrLoader.overviewOpen
-            }
+            } */
 
             /* Widgets.IconText {
                 icon: "󰬢"
