@@ -16,6 +16,7 @@ ShellRoot {
 
     property var shellInstance: Quickshell.shell
     property var notificationService
+    property var niriService
 
     property var defaultAudioSink: Pipewire.defaultAudioSink
     property int volume: defaultAudioSink && defaultAudioSink.audio ? Math.round(defaultAudioSink.audio.volume * 100) : 0
@@ -60,6 +61,11 @@ ShellRoot {
 
     Services.MatugenService {
         id: matugenService
+        shell: root
+    }
+
+    Services.Niri {
+        id: niriService
         shell: root
     }
 

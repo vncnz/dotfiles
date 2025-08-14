@@ -56,6 +56,20 @@ Scope {
                 right: true
             }
 
+            // Windows indicator at left border
+            System.NiriWindows {
+                id: windowsIndicator
+                anchors {
+                    left: parent.left
+                    top: parent.top
+                    // verticalCenter: parent.verticalCenter
+                    // leftMargin: Data.Settings.borderWidth
+                }
+                z: 10
+                // width: 12
+                currentScreen: modelData
+            }
+            
             // Workspace indicator at left border
             System.NiriWorkspaces {
                 id: workspaceIndicator
@@ -232,25 +246,16 @@ Scope {
                     Rectangle {
                         x: parent.width / 2 - width / 2
                         y: {
-                            // Find current workspace index directly from currentWorkspace
-                            let focusedIndex = 0
-                            for (let i = 0; i < workspaceIndicator.workspaces.count; i++) {
-                                const workspace = workspaceIndicator.workspaces.get(i)
-                                if (workspace && workspace.id === workspaceIndicator.currentWorkspace) {
-                                    focusedIndex = i
-                                    break
-                                }
-                            }
                             
                             // Calculate position accounting for Column centering and pill sizes
                             let cumulativeHeight = 0
-                            for (let i = 0; i < focusedIndex; i++) {
-                                const ws = workspaceIndicator.workspaces.get(i)
+                            for (let i = 0; i < niriService.focusedWorkspaceIndex; i++) {
+                                const ws = niriService.workspaces[i]
                                 cumulativeHeight += (ws && ws.isFocused ? 36 : 22) + 6  // pill height + spacing
                             }
                             
                             // Current pill height
-                            const currentWs = workspaceIndicator.workspaces.get(focusedIndex)
+                            const currentWs = niriService.workspaces[niriService.focusedWorkspaceIndex]
                             const currentPillHeight = (currentWs && currentWs.isFocused ? 36 : 22)
                             
                             // Column is centered, so start from center and calculate offset
