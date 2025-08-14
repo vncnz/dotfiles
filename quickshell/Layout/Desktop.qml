@@ -267,47 +267,6 @@ Scope {
                         border.color: Qt.rgba(waveOverlay.waveColor.r, waveOverlay.waveColor.g, waveOverlay.waveColor.b, 1.0 - waveOverlay.progress)
                         opacity: Math.max(0, 1.0 - waveOverlay.progress)
                     }
-
-                    // Secondary expanding pill burst - positioned at current workspace index
-                    Rectangle {
-                        x: parent.width / 2 - width / 2
-                        y: {
-                            // Find current workspace index directly from currentWorkspace
-                            let focusedIndex = 0
-                            for (let i = 0; i < workspaceIndicator.workspaces.count; i++) {
-                                const workspace = workspaceIndicator.workspaces.get(i)
-                                if (workspace && workspace.id === workspaceIndicator.currentWorkspace) {
-                                    focusedIndex = i
-                                    break
-                                }
-                            }
-                            
-                            // Calculate position accounting for Column centering and pill sizes
-                            let cumulativeHeight = 0
-                            for (let i = 0; i < focusedIndex; i++) {
-                                const ws = workspaceIndicator.workspaces.get(i)
-                                cumulativeHeight += (ws && ws.isFocused ? 36 : 22) + 6  // pill height + spacing
-                            }
-                            
-                            // Current pill height
-                            const currentWs = workspaceIndicator.workspaces.get(focusedIndex)
-                            const currentPillHeight = (currentWs && currentWs.isFocused ? 36 : 22)
-                            
-                            // Column is centered, so start from center and calculate offset
-                            const columnHeight = parent.height - 24  // Total available height minus padding
-                            const columnTop = 12  // Top padding
-                            
-                            return columnTop + cumulativeHeight + currentPillHeight / 2 - height / 2
-                        }
-                        width: 18 + waveOverlay.progress * 45
-                        height: 30 + waveOverlay.progress * 35  // Pill-like height
-                        radius: width / 2  // Pill-like rounded shape
-                        color: "transparent"
-                        border.width: 1.5
-                        border.color: Qt.rgba(waveOverlay.waveColor.r, waveOverlay.waveColor.g, waveOverlay.waveColor.b, 0.6)
-                        opacity: Math.max(0, 0.8 - waveOverlay.progress * 1.2)
-                        visible: waveOverlay.progress > 0.2
-                    }
                 }
             }
 
