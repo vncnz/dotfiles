@@ -94,14 +94,21 @@ Item {
                         workspaceProcess.running = true;
                     } else if (event.WindowOpenedOrChanged) {
                         let win = event.WindowOpenedOrChanged.window
+                        let id = win.id
                         let windows = root.windows
-                        windows.push({
+                        let found = windows.findIndex(win => win.id === id)
+                        let updatedWin = {
                             id: win.id,
                             title: win.title || "",
                             appId: win.app_id || "",
                             workspaceId: win.workspace_id || null,
                             isFocused: win.is_focused === true
-                        })
+                        }
+                        if (found > -1) {
+                            windows[found] = updatedWin
+                        } else {
+                            windows.push(updatedWin)
+                        }
                         root.windows = windows
                     } else if (event.WindowClosed) {
                         let id = event.WindowClosed.id
