@@ -288,7 +288,7 @@ Shape {
     // Main border shape (no shadow)
     ShapePath {
         fillColor: Data.ThemeManager.bgColor
-        strokeWidth: 1 // borderShape.strokeWidth
+        strokeWidth: borderShape.strokeWidth
         // strokeColor: Data.ThemeManager.accentColor
         fillRule: ShapePath.OddEvenFill
 

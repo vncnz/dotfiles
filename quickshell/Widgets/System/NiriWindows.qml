@@ -27,9 +27,9 @@ Rectangle {
 
     Connections {
         target: niriService
-        /* function onWindowsChanged() {
+        function onWindowsChanged() {
             console.log('WINDOWS CHANGED', currentScreen.name, JSON.stringify(niriService.windows))
-        } */
+        }
         /* function onFocusedWindowTitleChanged() {
             // console.log("FOCUSED WINDOW CHANGED")
             // triggerUnifiedWave()
@@ -53,7 +53,7 @@ Rectangle {
     Column {
         id: windowsColumn
         anchors.centerIn: parent
-        spacing: 16
+        spacing: 20
 
         function getAppIcon(toplevel: Toplevel): string {
                     if (!toplevel) return "";
@@ -65,7 +65,7 @@ Rectangle {
                 }
         
         Repeater {
-            model: niriService.workspaces // .filter(w => w.output == currentScreen.name)
+            model: niriService.workspaces.filter(w => w.output == currentScreen.name)
             
             Rectangle {
                 id: workspacePill
@@ -77,7 +77,7 @@ Rectangle {
                 // visible: model.output == currentScreen.name
 
                 property real workspace_id: modelData.id
-                property var workspace_output: modelData.output
+                // property var workspace_output: modelData.output
                 
                 // Material Design 3 inspired colors
                 color: "transparent"
@@ -85,13 +85,18 @@ Rectangle {
                 Column {
                     id: workwindows
                     spacing: 6
-                    visible: workspace_output == currentScreen.name
+                    // visible: workspace_output == currentScreen.name
+
+                    /* Text {
+                        text: workspace_id
+                        color: "white"
+                    } */
 
                     Repeater {
-                        model: niriService.windows // .filter(win => win.workspaceId == workspace_id) // .filter(w => w.output == currentScreen.name)
+                        model: niriService.windows.filter(win => win.workspaceId == workspace_id) // .filter(w => w.output == currentScreen.name)
                         
                         delegate: Rectangle {
-                            visible: modelData.workspaceId === workspace_id
+                            // visible: modelData.workspaceId === workspace_id
                             width: 16
                             height: 16
                             color: "transparent"
@@ -107,10 +112,35 @@ Rectangle {
                                 Text {
                                     color: "white"
                                     anchors.centerIn: parent
+                                    // anchors.left: parent.left
                                     text: modelData && modelData.appId && modelData.appId.length > 0 ? modelData.appId[0].toUpperCase() : 'N'
                                     // text: "R"
                                     font.pixelSize: 16
                                     font.bold: true
+
+                                    /* layer.enabled: true
+                                    layer.effect: DropShadow {
+                                        transparentBorder: true
+                                        horizontalOffset: 0
+                                        verticalOffset: 0
+                                        radius: 1
+                                        samples: 1
+                                        color: "white"
+                                        cached: true
+                                        spread: 1
+                                    } */
+                                }
+
+                                Text {
+                                    color: "white"
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 30
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    text: modelData && modelData.appId && modelData.appId.length > 0 ? `${modelData.appId}` : 'N'
+                                    // text: "R"
+                                    font.pixelSize: 16
+                                    font.bold: true
+                                    visible: niriService.inOverview
 
                                     /* layer.enabled: true
                                     layer.effect: DropShadow {
@@ -130,7 +160,7 @@ Rectangle {
                                 width: 16
                                 height: 16
                                 // source: Qt.resolvedUrl("file://" + Data.RatatoskrLoader.winData?.icons[modelData.appId]) // || "/usr/share/icons/hicolor/22x22/apps/firefox.png"))
-                                visible: modelData.workspaceId == workspace_id && Data.RatatoskrLoader.winData?.icons[modelData.appId]
+                                // visible: modelData.workspaceId == workspace_id && Data.RatatoskrLoader.winData?.icons[modelData.appId]
                                 source: iconPath
                             }
                         }
