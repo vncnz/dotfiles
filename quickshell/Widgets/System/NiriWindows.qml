@@ -27,13 +27,13 @@ Rectangle {
 
     Connections {
         target: niriService
-        function onWindowsChanged() {
+        /* function onWindowsChanged() {
             console.log('WINDOWS CHANGED', currentScreen.name, JSON.stringify(niriService.windows))
-        }
-        function onFocusedWindowTitleChanged() {
-            console.log("FOCUSED WINDOW CHANGED")
+        } */
+        /* function onFocusedWindowTitleChanged() {
+            // console.log("FOCUSED WINDOW CHANGED")
             // triggerUnifiedWave()
-        }
+        } */
     }
 
     color: "transparent" // Data.ThemeManager.bgColor
@@ -83,7 +83,6 @@ Rectangle {
 
                 Column {
                     id: workwindows
-                    // visible: Data.RatatoskrLoader.overviewOpen
                     spacing: 6
 
                     Repeater {

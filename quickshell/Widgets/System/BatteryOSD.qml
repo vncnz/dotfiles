@@ -17,7 +17,7 @@ Item {
     visible: false
 
     property real slideOffset: 0
-    property bool showEta: Data.RatatoskrLoader.overviewOpen
+    property bool showEta: niriService.inOverview
 
     /* Timer {
         interval: 3000

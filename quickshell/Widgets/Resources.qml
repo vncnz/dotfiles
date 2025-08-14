@@ -16,15 +16,7 @@ Item {
     
 
     property bool showWatts: false
-    /*
-    property bool show_loadavg:  Data.RatatoskrLoader.overviewOpen
-    property bool show_fullram:  Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.ram.mem_percent > 80
-    property bool show_fullswap: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.ram.swap_percent > 60
-    property bool show_fulldisk: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.disk.used_percent > 80
-    property bool show_fullnet:  Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.network?.signal < 50
-    property bool show_fulltemp: Data.RatatoskrLoader.overviewOpen || Data.RatatoskrLoader.sysData?.temperature.value > 90
-    */
-
+    
     /*required property var triggerMouseArea
 
     // Hover detection for auto-hide
@@ -112,7 +104,7 @@ Item {
                 text: `${Data.RatatoskrLoader.sysData?.loadavg.m1} ${Data.RatatoskrLoader.sysData?.loadavg.m5} ${Data.RatatoskrLoader.sysData?.loadavg.m15}`
                 vcolor: Data.RatatoskrLoader.sysData?.loadavg.color
                 warn: Data.RatatoskrLoader.sysData?.loadavg.warn
-                expanded: Data.RatatoskrLoader.overviewOpen
+                expanded: niriService.inOverview
             }
 
             Widgets.ResRect {
@@ -120,14 +112,14 @@ Item {
                 text: `${Data.RatatoskrLoader.sysData?.ram.mem_percent}%`
                 vcolor: Data.RatatoskrLoader.sysData?.ram.mem_color
                 warn: Data.RatatoskrLoader.sysData?.ram.mem_warn
-                expanded: Data.RatatoskrLoader.overviewOpen
+                expanded: niriService.inOverview
             }
             Widgets.ResRect {
                 icon: "󰿤"
                 text: `${Data.RatatoskrLoader.sysData?.ram.swap_percent}%`
                 vcolor: Data.RatatoskrLoader.sysData?.ram.swap_color
                 warn: Data.RatatoskrLoader.sysData?.ram.swap_warn
-                expanded: Data.RatatoskrLoader.overviewOpen
+                expanded: niriService.inOverview
             }
 
             Widgets.ResRect {
@@ -135,7 +127,7 @@ Item {
                 text: `${Data.RatatoskrLoader.sysData?.disk.used_percent}%`
                 vcolor: Data.RatatoskrLoader.sysData?.disk.color
                 warn: Data.RatatoskrLoader.sysData?.disk.warn
-                expanded: Data.RatatoskrLoader.overviewOpen
+                expanded: niriService.inOverview
             }
 
             Widgets.ResRect {
@@ -143,7 +135,7 @@ Item {
                 text: Data.RatatoskrLoader.sysData?.temperature.value ? `${parseInt(Data.RatatoskrLoader.sysData?.temperature.value)}°C` : 'N/A'
                 vcolor: Data.RatatoskrLoader.sysData?.temperature.color || Data.ThemeManager.highlightBg
                 warn: Data.RatatoskrLoader.sysData?.temperature.warn
-                expanded: Data.RatatoskrLoader.overviewOpen
+                expanded: niriService.inOverview
             }
 
             Widgets.ResRect {
@@ -163,7 +155,7 @@ Item {
                     return 'red'
                 }
                 warn: Data.RatatoskrLoader.sysData?.network?.warn
-                expanded: Data.RatatoskrLoader.overviewOpen
+                expanded: niriService.inOverview
             }
 
             /* Widgets.ResRect {
@@ -178,7 +170,7 @@ Item {
                 }
                 vcolor: Data.RatatoskrLoader.sysData?.battery?.state === "Discharging" ? Data.RatatoskrLoader.sysData?.battery?.color : "white"
                 warn: 1 - (100 / Data.RatatoskrLoader.sysData?.battery?.percentage)
-                expanded: Data.RatatoskrLoader.overviewOpen
+                expanded: niriService.inOverview
             } */
 
             /* Widgets.IconText {
