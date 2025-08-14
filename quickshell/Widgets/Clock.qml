@@ -15,8 +15,9 @@ Item {
 
     Rectangle {
         id: clockBackground
-        width: clockText.implicitWidth
-        height: clockText.implicitHeight
+        width: 20 // clockText.implicitWidth
+        height: 40 // clockText.implicitHeight
+        // anchors.left: parent.left
         
         // color: Data.ThemeManager.bgColor
         // opacity: .5
@@ -24,8 +25,10 @@ Item {
 
         Text {
             id: clockTextHours
-            anchors.centerIn: parent
+            // anchors.centerIn: parent
             // anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: anchors.top
             // anchors.left: parent.left
             font.family: "Roboto"
             font.pixelSize: 24
@@ -50,11 +53,12 @@ Item {
         
         Text {
             id: clockTextMins
+            anchors.bottom: parent.bottom
             // anchors.centerIn: parent
             // anchors.verticalCenter: parent.verticalCenter
             // anchors.left: parent.horizontalCenter
-            // anchors.right: parent.right
-            // anchors.rightMargin: -8
+            anchors.right: parent.right
+            anchors.rightMargin: -8
             font.family: "Roboto"
             font.pixelSize: 18
             font.bold: false

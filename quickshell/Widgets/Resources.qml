@@ -96,7 +96,7 @@ Item {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.topMargin: 10
-            anchors.bottomMargin: 10
+            // anchors.bottomMargin: 10
             spacing: 10
 
             Widgets.ResRect {

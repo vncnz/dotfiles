@@ -284,10 +284,11 @@ Scope {
                     bottomMargin: Data.Settings.borderWidth
                     // leftMargin: Data.Settings.borderWidth
                 }
-                width: 15 // resourcesRoot.implicitWidth
+                width: 20 // resourcesRoot.implicitWidth
                 z: 10
 
                 Widgets.Resources {}
+                Widgets.Clock {}
 
                 
             }
