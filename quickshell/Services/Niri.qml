@@ -88,9 +88,24 @@ Item {
             onRead: data => {
                 try {
                     const event = JSON.parse(data.trim());
+                    console.log("niri event", JSON.stringify(event))
 
                     if (event.WorkspacesChanged) {
                         workspaceProcess.running = true;
+                    } else if (event.WindowOpenedOrChanged) {
+                        let win = event.WindowOpenedOrChanged.window
+                        let windows = root.windows
+                        windows.push({
+                            id: win.id,
+                            title: win.title || "",
+                            appId: win.app_id || "",
+                            workspaceId: win.workspace_id || null,
+                            isFocused: win.is_focused === true
+                        })
+                        root.windows = windows
+                    } else if (event.WindowClosed) {
+                        let id = event.WindowClosed.id
+                        root.windows = root.windows.filter(el => el.id !== id)
                     } else if (event.WindowsChanged) {
                         try {
                             const windowsData = event.WindowsChanged.windows;
