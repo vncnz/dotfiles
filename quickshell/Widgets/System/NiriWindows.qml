@@ -77,6 +77,7 @@ Rectangle {
                 // visible: model.output == currentScreen.name
 
                 property real workspace_id: modelData.id
+                property var workspace_output: modelData.output
                 
                 // Material Design 3 inspired colors
                 color: "transparent"
@@ -84,12 +85,13 @@ Rectangle {
                 Column {
                     id: workwindows
                     spacing: 6
+                    visible: workspace_output == currentScreen.name
 
                     Repeater {
                         model: niriService.windows // .filter(win => win.workspaceId == workspace_id) // .filter(w => w.output == currentScreen.name)
                         
                         delegate: Rectangle {
-                            visible: modelData.workspaceId === workspace_id && w.output == currentScreen.name
+                            visible: modelData.workspaceId === workspace_id
                             width: 16
                             height: 16
                             color: "transparent"
