@@ -65,10 +65,16 @@ Item {
                     });
                     
                     root.workspaces = workspacesList;
+
+                    let focusedOutput = workspacesList.find(w => w.isFocused).output
+                    let idx = 0
                     for (let i = 0; i < workspacesList.length; i++) {
                         if (workspacesList[i].isFocused) {
-                            root.focusedWorkspaceIndex = i;
+                            root.focusedWorkspaceIndex = idx;
                             break;
+                        }
+                        if (workspacesList[i].output == focusedOutput) {
+                            idx += 1
                         }
                     }
                     console.log("Niri - Workspaces changed")
