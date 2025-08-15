@@ -104,7 +104,7 @@ Rectangle {
                 }
         
         Repeater {
-            model: niriService.workspaces // .filter(w => w.output == currentScreen.name)
+            model: niriService.workspaces.filter(w => w.output == currentScreen.name)
             
             Rectangle {
                 id: workspacePill
