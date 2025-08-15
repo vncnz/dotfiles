@@ -28,9 +28,14 @@ Item {
     }
 
     function reloadIcons () {
-        iconsProcess.command = ["/home/vncnz/Repositories/dotfiles/quickshell/align_appicons.py"].concat(root.windows.map(w => w.appId))
-        loadingIcons = true
-        iconsProcess.running = true
+        if (!iconsProcess.running) {
+            console.log("Loading icons")
+            iconsProcess.command = ["/home/vncnz/Repositories/dotfiles/quickshell/align_appicons.py"].concat(root.windows.map(w => w.appId))
+            loadingIcons = true
+            iconsProcess.running = true
+        } else {
+            console.log("Already running")
+        }
     }
     
     onWindowsChanged: updateFocusedWindowTitle()
@@ -159,7 +164,7 @@ Item {
                                     break;
                                 }
                             }
-                            reloadIcons()
+                            // reloadIcons()
                         } catch (e) {
                             console.error("Error parsing windows event:", e);
                         }
