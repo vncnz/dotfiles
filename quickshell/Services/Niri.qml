@@ -16,6 +16,7 @@ Item {
     property int focusedWorkspaceIndex: -1
     property bool inOverview: false
     property string focusedWindowTitle: "(No active window)"
+    property bool loadingIcons: false
 
     function updateFocusedWindowTitle() {
         if (focusedWindowIndex >= 0 && focusedWindowIndex < windows.length) {
@@ -24,6 +25,12 @@ Item {
             focusedWindowTitle = "(No active window)";
         }
         console.log("Changed focused window")
+    }
+
+    function reloadIcons () {
+        iconsProcess.command = ["/home/vncnz/Repositories/dotfiles/quickshell/align_appicons.py"].concat(root.windows.map(w => w.appId))
+        loadingIcons = true
+        iconsProcess.running = true
     }
     
     onWindowsChanged: updateFocusedWindowTitle()
@@ -84,6 +91,16 @@ Item {
             }
         }
     }
+
+    Process {
+        id: iconsProcess
+        command: ["/home/vncnz/Repositories/dotfiles/quickshell/align_appicons.py", "code"]
+        running: false
+        onExited: function(exitCode) {
+            loadingIcons = false
+            console.log("align_icons process completed with exit code:", exitCode)
+        }
+    }
     
     Process {
         id: eventStream        
@@ -142,6 +159,7 @@ Item {
                                     break;
                                 }
                             }
+                            reloadIcons()
                         } catch (e) {
                             console.error("Error parsing windows event:", e);
                         }

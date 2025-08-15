@@ -30,6 +30,9 @@ Rectangle {
         function onWindowsChanged() {
             console.log('WINDOWS CHANGED', currentScreen.name, JSON.stringify(niriService.windows))
         }
+        function onLoadingIconsChanged() {
+            console.log('ICONS LOADED')
+        }
         /* function onFocusedWindowTitleChanged() {
             // console.log("FOCUSED WINDOW CHANGED")
             // triggerUnifiedWave()
@@ -101,15 +104,14 @@ Rectangle {
                             height: 16
                             color: "transparent"
 
-                            property var iconPath: windowsColumn.getAppIcon(modelData)
+                            // property var iconPath: windowsColumn.getAppIcon(modelData)
 
                             Rectangle {
                                 width: 16
                                 height: 16
                                 color: "transparent"
-                                visible: iconPath === ''
 
-                                Text {
+                                /* Text {
                                     color: "white"
                                     anchors.centerIn: parent
                                     // anchors.left: parent.left
@@ -117,19 +119,7 @@ Rectangle {
                                     // text: "R"
                                     font.pixelSize: 16
                                     font.bold: true
-
-                                    /* layer.enabled: true
-                                    layer.effect: DropShadow {
-                                        transparentBorder: true
-                                        horizontalOffset: 0
-                                        verticalOffset: 0
-                                        radius: 1
-                                        samples: 1
-                                        color: "white"
-                                        cached: true
-                                        spread: 1
-                                    } */
-                                }
+                                } */
 
                                 Text {
                                     color: "white"
@@ -161,7 +151,7 @@ Rectangle {
                                 height: 16
                                 // source: Qt.resolvedUrl("file://" + Data.RatatoskrLoader.winData?.icons[modelData.appId]) // || "/usr/share/icons/hicolor/22x22/apps/firefox.png"))
                                 // visible: modelData.workspaceId == workspace_id && Data.RatatoskrLoader.winData?.icons[modelData.appId]
-                                source: iconPath
+                                source: "/tmp/app_icons/ico_" + modelData.appId + (niriService.loadingIcons ? '_' : '') // iconPath
                             }
                         }
                     }
