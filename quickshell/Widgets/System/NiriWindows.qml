@@ -28,10 +28,10 @@ Rectangle {
     Connections {
         target: niriService
         function onWindowsChanged() {
-            console.log('WINDOWS CHANGED', currentScreen.name, JSON.stringify(niriService.windows))
+            // console.log('WINDOWS CHANGED', currentScreen.name, JSON.stringify(niriService.windows))
         }
         function onLoadingIconsChanged() {
-            console.log('ICONS LOADED')
+            // console.log('ICONS LOADED')
         }
         /* function onFocusedWindowTitleChanged() {
             // console.log("FOCUSED WINDOW CHANGED")
