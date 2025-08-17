@@ -12,7 +12,7 @@ Singleton {
     // Settings persistence with atomic writes
     FileView {
         id: settingsFile
-        path: "settings.json"
+        path: "/home/vncnz/Repositories/dotfiles/quickshell/settings.json"
         blockWrites: true
         atomicWrites: true
         watchChanges: false
@@ -27,7 +27,7 @@ Singleton {
                     settings.currentTheme = content.currentTheme ?? (content.isDarkTheme !== false ? "oxocarbon_dark" : "oxocarbon_light")
                     settings.useCustomAccent = content.useCustomAccent ?? false
                     settings.avatarSource = content.avatarSource ?? "/home/vncnz/Repositories/dotfiles/avatar.jpg"
-                    settings.weatherLocation = content.weatherLocation ?? "Dinslaken"
+                    settings.weatherLocation = content.weatherLocation ?? "Desenzano del garda"
                     settings.useFahrenheit = content.useFahrenheit ?? false
                     settings.displayTime = content.displayTime ?? 6000
                     settings.videoPath = content.videoPath ?? "~/Videos/"
