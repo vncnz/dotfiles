@@ -22,8 +22,10 @@ PanelWindow {
     exclusiveZone: 0
 
     WlrLayershell.layer: WlrLayer.Background
+    // WlrLayershell.output: screen.name
+    // WlrLayershell.screen: screen.name
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-    WlrLayershell.namespace: "quickshell-wallpaper"
+    WlrLayershell.namespace: "quickshell-wallpaper-" + screen.name
     color: "transparent"
     visible: true
 
@@ -44,4 +46,14 @@ PanelWindow {
             visible: wallpaperImage.status !== Image.Ready || !wallpaperImage.source
         }
     }
+
+    /* Rectangle {
+        color: "red"
+        width: 100
+        height: 100
+
+        Text {
+            text: screen.name
+        }
+    } */
 } 
