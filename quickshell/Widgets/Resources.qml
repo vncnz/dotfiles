@@ -140,9 +140,7 @@ Item {
 
             Widgets.ResRect {
                 icon: {
-                    if (!Data.RatatoskrLoader.sysData?.network) return "󰞃"
-                    return Data.RatatoskrLoader.sysData?.network.icon
-
+                    return Data.RatatoskrLoader.sysData?.network?.icon || "󰞃"
                 }
                 text: {
                     if (Data.RatatoskrLoader.sysData?.network?.signal) return `${Data.RatatoskrLoader.sysData?.network?.signal}%`
