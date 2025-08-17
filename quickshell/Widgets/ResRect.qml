@@ -8,7 +8,6 @@ import QtQuick.Effects
 import "root:/Data/" as Data
 import "root:/Core" as Core
 
-// Brightness OSD with slide animation
 Item {
     id: it
     property var icon
@@ -141,7 +140,7 @@ Item {
         font.bold: false
         font.family: "Symbols Nerd Font" // "Roboto, sans-serif"
         
-        Behavior on font.pixelSize { NumberAnimation { duration: 200 } }
+        // Behavior on font.pixelSize { NumberAnimation { duration: 200 } }
         Behavior on color { ColorAnimation { duration: 200 } }
 
         layer.enabled: true

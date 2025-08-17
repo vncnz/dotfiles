@@ -100,6 +100,14 @@ Item {
             spacing: 10
 
             Widgets.ResRect {
+                icon: Data.RatatoskrLoader.sysData?.weather?.icon
+                text: `${Data.RatatoskrLoader.sysData?.weather?.text} / ${Data.RatatoskrLoader.sysData?.weather?.temp_real}${Data.RatatoskrLoader.sysData?.weather?.temp_unit}`
+                vcolor: Data.RatatoskrLoader.sysData?.weather?.temp_real > 30 ? "red" : "green" // Data.ThemeManager.fgColor
+                warn: Math.max(0, Math.min(1, 0.5 - ((35 - Data.RatatoskrLoader.sysData?.weather?.temp_real) / 70)))
+                expanded: niriService.inOverview
+            }
+            
+            Widgets.ResRect {
                 icon: "󰬢"
                 text: `${Data.RatatoskrLoader.sysData?.loadavg.m1} ${Data.RatatoskrLoader.sysData?.loadavg.m5} ${Data.RatatoskrLoader.sysData?.loadavg.m15}`
                 vcolor: Data.RatatoskrLoader.sysData?.loadavg.color
