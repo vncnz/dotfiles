@@ -102,7 +102,7 @@ Item {
             Widgets.ResRect {
                 icon: Data.RatatoskrLoader.sysData?.weather?.icon
                 text: `${Data.RatatoskrLoader.sysData?.weather?.text} / ${Data.RatatoskrLoader.sysData?.weather?.temp_real}${Data.RatatoskrLoader.sysData?.weather?.temp_unit}`
-                vcolor: Data.RatatoskrLoader.sysData?.weather?.temp_real > 30 ? "red" : "green" // Data.ThemeManager.fgColor
+                vcolor: Data.RatatoskrLoader.sysData?.weather?.temp_real > 30 ? "#FF0000" : "#55FF00" // Data.ThemeManager.fgColor
                 warn: Math.max(0, Math.min(1, 0.5 - ((35 - Data.RatatoskrLoader.sysData?.weather?.temp_real) / 70)))
                 expanded: niriService.inOverview
             }
