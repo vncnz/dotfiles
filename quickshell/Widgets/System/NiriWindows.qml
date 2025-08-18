@@ -149,8 +149,6 @@ Rectangle {
                             Image {
                                 width: 16
                                 height: 16
-                                // source: Qt.resolvedUrl("file://" + Data.RatatoskrLoader.winData?.icons[modelData.appId]) // || "/usr/share/icons/hicolor/22x22/apps/firefox.png"))
-                                // visible: modelData.workspaceId == workspace_id && Data.RatatoskrLoader.winData?.icons[modelData.appId]
                                 source: "/tmp/app_icons/ico_" + modelData.appId + (niriService.loadingIcons ? '_' : '') // iconPath
                                 onStatusChanged: if (status === Image.Error) { niriService.reloadIcons() }
                             }
