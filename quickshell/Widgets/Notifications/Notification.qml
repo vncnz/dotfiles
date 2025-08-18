@@ -53,6 +53,7 @@ Item {
                 "timestamp": Date.now(),
                 "shouldSlideOut": false,
                 "icon": notification.icon || notification.image || notification.appIcon || "",
+                "urgency": notification.urgency,
                 "rawNotification": notification  // Keep reference to original
             }
 
@@ -151,6 +152,11 @@ Item {
                 
                 // Only show if within maxNotifications limit
                 visible: index < maxNotifications
+
+                border {
+                    color: "red"
+                    width: notification.urgency == 2 ? 2 : 0
+                }
                 
                 // Animation state
                 property bool hasSlideIn: false
@@ -308,6 +314,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.width - 60
                         spacing: 4
+
 
                         Text {
                             text: notification ? notification.appName : ""
