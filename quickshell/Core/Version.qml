@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
+import Qt5Compat.GraphicalEffects
 import "root:/Data" as Data
 
 // System version watermark display
@@ -168,6 +169,55 @@ PanelWindow {
     ColumnLayout {
         id: systemInfoContent
         spacing: 6
+
+        opacity: .5
+
+        layer.enabled: true
+        layer.effect: DropShadow {
+            transparentBorder: true
+            horizontalOffset: 0
+            verticalOffset: 0
+            radius: 1
+            samples: 10
+            color: "black"
+            cached: true
+            spread: 1
+        }
+
+        ColumnLayout {
+            spacing: 2
+            Layout.alignment: Qt.AlignRight
+            
+            Text {
+                text: `${Data.RatatoskrLoader.sysData?.weather?.text} / ${Data.RatatoskrLoader.sysData?.weather?.temp_real}${Data.RatatoskrLoader.sysData?.weather?.temp_unit} / ${Data.RatatoskrLoader.sysData?.weather?.humidity}%`
+                color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
+                font.family: "SF Pro Display, -apple-system, system-ui, sans-serif"
+                font.pointSize: 16
+                font.weight: Font.DemiBold
+                font.letterSpacing: -0.4
+                Layout.alignment: Qt.AlignRight
+            }
+
+            Text {
+                text: ` ${Data.RatatoskrLoader.sysData?.weather?.sunrise}  ${Data.RatatoskrLoader.sysData?.weather?.sunset}`
+                color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
+                font.family: "Symbols Nerd Font"
+                font.pointSize: 12
+                font.weight: Font.Medium
+                visible: text.length > 0
+                Layout.alignment: Qt.AlignRight
+            }
+
+            Text {
+                text: `${Data.RatatoskrLoader.sysData?.weather?.locality}`
+                color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
+                font.family: "SF Mono, Consolas, Monaco, monospace"
+                font.pointSize: 10
+                font.weight: Font.Medium
+                visible: text.length > 0
+                Layout.alignment: Qt.AlignRight
+            }
+        }
         
         RowLayout {
             spacing: 16
@@ -180,12 +230,14 @@ PanelWindow {
                 
                 Text {
                     text: systemVersion.os.name
-                    color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#40ffffff" : "#40000000"
+                    color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
                     font.family: "SF Pro Display, -apple-system, system-ui, sans-serif"
                     font.pointSize: 16
                     font.weight: Font.DemiBold
                     font.letterSpacing: -0.4
                     Layout.alignment: Qt.AlignRight
+
+                    
                 }
 
                 Text {
@@ -202,7 +254,7 @@ PanelWindow {
                         }
                         return details.join(" ");
                     }
-                    color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#30ffffff" : "#30000000"
+                    color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
                     font.family: "SF Mono, Consolas, Monaco, monospace"
                     font.pointSize: 10
                     font.weight: Font.Medium
@@ -213,7 +265,7 @@ PanelWindow {
             
             Text {
                 text: "│"
-                color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#20ffffff" : "#20000000"
+                color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
                 font.family: "SF Pro Display, -apple-system, system-ui, sans-serif"
                 font.pointSize: 14
                 font.weight: Font.Light
@@ -227,7 +279,7 @@ PanelWindow {
                 
                 Text {
                     text: systemVersion.wm.name
-                    color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#40ffffff" : "#40000000"
+                    color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
                     font.family: "SF Pro Display, -apple-system, system-ui, sans-serif"
                     font.pointSize: 16
                     font.weight: Font.DemiBold
@@ -246,7 +298,7 @@ PanelWindow {
                         }
                         return details.join(" ");
                     }
-                    color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#30ffffff" : "#30000000"
+                    color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
                     font.family: "SF Mono, Consolas, Monaco, monospace"
                     font.pointSize: 10
                     font.weight: Font.Medium
