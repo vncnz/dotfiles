@@ -16,8 +16,8 @@ Shape {
     property real strokeWidth: 0
     property real radius: Data.Settings.cornerRadius
     property real innerX: borderWidth
-    property real innerY: borderWidth
-    property real innerWidth: borderShape.width - (/*leftBorderWidth + */rightBorderWidth) + 1
+    property real innerY: borderWidth + 1
+    property real innerWidth: borderShape.width - (/*leftBorderWidth + */rightBorderWidth)
     property real innerHeight: borderShape.height - (borderWidth * 2) - 1
     
     // Widget references for shadow positioning
