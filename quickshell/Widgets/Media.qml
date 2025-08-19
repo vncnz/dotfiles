@@ -10,11 +10,11 @@ import "root:/Data" as Data
 
 Item {
     id: mediaControl
-    width: mediaRow.implicitWidth
-    height: mediaRow.implicitHeight
-    visible: true // Settings.settings.showMediaInBar && musicManager.currentPlayer
+    width: mediaRow.implicitWidth + 20
+    height: mediaText.implicitHeight
+    visible: false // Settings.settings.showMediaInBar && musicManager.currentPlayer
 
-    property real slideOffset: 0
+    property real slideOffset: -mediaControl.height
     // anchors.bottomMargin: slideOffset
 
     Behavior on slideOffset {
@@ -53,13 +53,12 @@ Item {
     }
 
     function hiddenOsd() {
-        // slideOutAnimation.start()
         mediaControl.visible = false
     }
 
     /* Rectangle {
         width: mediaRow.implicitWidth
-        height: mediaRow.implicitHeight
+        height: parent.height
         color: "gray"
         opacity: .5
         y: -slideOffset
@@ -70,12 +69,14 @@ Item {
         height: parent.height
         spacing: 8
         y: -slideOffset
+        anchors.horizontalCenter: parent.horizontalCenter
 
         Item {
             id: albumArtContainer
             width: 34 // * Theme.scale(Screen)
             height: 34 // * Theme.scale(Screen)
-            Layout.alignment: Qt.AlignVCenter
+            // Layout.alignment: Qt.AlignVCenter
+            anchors.bottom: parent.bottom
 
             // Circular spectrum visualizer
             /*CircularSpectrum {
@@ -155,13 +156,16 @@ Item {
 
         // Track info
         Text {
-            text: musicManager.trackTitle + " - " + musicManager.trackArtist
+            id: mediaText
+            text: `${musicManager.trackTitle} - ${musicManager.trackArtist} (${parseInt(musicManager.currentPosition / musicManager.trackLength * 100)}%)`
             color: Data.ThemeManager.accentColor
             font.family: Theme.fontFamily
-            font.pixelSize: 12 * Theme.scale(Screen)
+            font.pixelSize: 16
             elide: Text.ElideRight
             Layout.maximumWidth: 300
-            Layout.alignment: Qt.AlignVCenter
+            // Layout.alignment: Qt.AlignVCenter
+            anchors.bottom: parent.bottom
+            padding: 3
         }
     }
 
