@@ -26,6 +26,7 @@ Shape {
     property var brightnessOSD: null
     property var batteryOSD: null
     property var clockWidget: null
+    property var mediaWidget: null
     // property var resourcesWidget: null
     
     // Initialization state to prevent ShaderEffect warnings
@@ -284,6 +285,7 @@ Shape {
     property real off: Math.min(volumeOSD.slideOffset, brightnessOSD.slideOffset, batteryOSD.slideOffset)
     property real wradius: Math.min(borderShape.radius, workspaceShadowShape.width / 2)
     property real rradius: Math.min(borderShape.radius, clockWidget.width / 2)
+    property real mradius: (mediaWidget.height + mediaWidget.slideOffset) / 2
 
     // Main border shape (no shadow)
     ShapePath {
@@ -519,6 +521,53 @@ Shape {
         /* END of left border following components */
 
         /* Starting with new left border with fixed width */
+
+        /* Media shape - start */
+
+        PathLine {
+            x: (borderShape.width + mediaWidget.width)/2 + mradius
+            y: borderShape.innerY + borderShape.innerHeight
+        }
+
+        PathArc {
+            x: (borderShape.width + mediaWidget.width)/2
+            y: borderShape.innerY + borderShape.innerHeight - mradius
+            radiusX: mradius
+            radiusY: mradius
+            direction: PathArc.Clockwise
+        }
+
+        PathArc {
+            x: (borderShape.width + mediaWidget.width)/2 - mradius
+            y: borderShape.innerY + borderShape.innerHeight - mradius*2
+            radiusX: mradius
+            radiusY: mradius
+            direction: PathArc.Counterclockwise
+        }
+
+        PathLine {
+            x: (borderShape.width - mediaWidget.width)/2 + mradius
+            y: borderShape.innerY + borderShape.innerHeight - mradius*2
+        }
+
+        PathArc {
+            x: (borderShape.width - mediaWidget.width)/2
+            y: borderShape.innerY + borderShape.innerHeight - mradius
+            radiusX: mradius
+            radiusY: mradius
+            direction: PathArc.Counterclockwise
+        }
+
+        PathArc {
+            x: (borderShape.width - mediaWidget.width)/2 - mradius
+            y: borderShape.innerY + borderShape.innerHeight
+            radiusX: mradius
+            radiusY: mradius
+            direction: PathArc.Clockwise
+        }
+
+        /* Media indicator shape - end */
+
         PathLine {
             x: leftBorderWidth + borderShape.radius
             y: borderShape.innerY + borderShape.innerHeight

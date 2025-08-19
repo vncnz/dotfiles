@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import Quickshell.Widgets
 import QtQuick.Effects
 // import qs.Settings
-import qs.Services
+// import qs.Services
 import "root:/Data" as Data
 // import qs.Components
 
@@ -12,10 +12,10 @@ Item {
     id: mediaControl
     width: mediaRow.implicitWidth
     height: mediaRow.implicitHeight
-    visible: false // Settings.settings.showMediaInBar && musicManager.currentPlayer
+    visible: true // Settings.settings.showMediaInBar && musicManager.currentPlayer
 
-    property var slideOffset: 0
-    anchors.bottomMargin: slideOffset
+    property real slideOffset: 0
+    // anchors.bottomMargin: slideOffset
 
     Behavior on slideOffset {
         NumberAnimation {
@@ -48,8 +48,7 @@ Item {
     
     // Start slide-out animation to hide OSD
     function hideOsd() {
-        // slideOutAnimation.start()
-        mediaControl.slideOffset = -10
+        mediaControl.slideOffset = -mediaControl.height
         hiddenTimer.restart()
     }
 
@@ -58,16 +57,19 @@ Item {
         mediaControl.visible = false
     }
 
-    Rectangle {
+    /* Rectangle {
         width: mediaRow.implicitWidth
         height: mediaRow.implicitHeight
-        color: "black"
-    }
+        color: "gray"
+        opacity: .5
+        y: -slideOffset
+    } */
 
     RowLayout {
         id: mediaRow
         height: parent.height
         spacing: 8
+        y: -slideOffset
 
         Item {
             id: albumArtContainer
