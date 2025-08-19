@@ -116,7 +116,7 @@ Item {
         color: "transparent"
         topLeftRadius: 20
         bottomLeftRadius: 20
-        x: slideOffset + 17
+        x: slideOffset + 27
         
         Column {
             anchors.fill: parent

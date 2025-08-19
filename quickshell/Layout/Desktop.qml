@@ -122,7 +122,7 @@ Scope {
                 anchors {
                     right: parent.right
                     verticalCenter: parent.verticalCenter
-                    // rightMargin: Data.Settings.borderWidth
+                    rightMargin: screenBorder.rightBorderWidth
                 }
                 z: 10
             }
@@ -338,7 +338,7 @@ Scope {
                 }
             } */
 
-            Rectangle {
+            /* Rectangle {
                 anchors {
                     top: parent.top
                     bottom: parent.bottom
@@ -356,7 +356,7 @@ Scope {
                 Widgets.ClockMeter {
                     anchors.centerIn: parent
                 }
-            }
+            } */
 
             // Resources at bottom-right corner
             /* Widgets.Resources {
