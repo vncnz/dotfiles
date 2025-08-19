@@ -46,7 +46,12 @@ Scope {
 
             // Interactive mask for workspace indicator only
             mask: Region {
-                item: workspaceIndicator
+                Region {
+                    item: workspaceIndicator
+                }
+                Region {
+                    item: mediaWidget
+                }
             }
 
             anchors {
@@ -281,7 +286,7 @@ Scope {
                 anchors {
                     bottom: parent.bottom
                     left: parent.left
-                    bottomMargin: Data.Settings.borderWidth
+                    bottomMargin: screenBorder.borderWidth
                     // leftMargin: Data.Settings.borderWidth
                 }
                 width: 20 // resourcesRoot.implicitWidth
@@ -291,6 +296,17 @@ Scope {
                 Widgets.Clock {}
 
                 
+            }
+
+            Widgets.Media {
+                id: mediaWidget
+                anchors {
+                    bottom: parent.bottom
+                    // left: parent.left
+                    horizontalCenter: parent.horizontalCenter
+                    // bottomMargin: Data.Settings.borderWidth
+                    // leftMargin: Data.Settings.borderWidth
+                }
             }
 
             /* Rectangle {

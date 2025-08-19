@@ -69,6 +69,10 @@ ShellRoot {
         shell: root
     }
 
+    Services.MusicManager {
+        id: musicManager
+    }
+
     Lockscreen {
         id: lockscreen
         shell: root
