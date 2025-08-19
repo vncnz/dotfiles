@@ -50,6 +50,9 @@ Scope {
                     item: workspaceIndicator
                 }
                 Region {
+                    item: windowsIndicator
+                }
+                Region {
                     item: mediaWidget
                 }
             }
