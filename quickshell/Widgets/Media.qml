@@ -12,10 +12,51 @@ Item {
     id: mediaControl
     width: mediaRow.implicitWidth
     height: mediaRow.implicitHeight
-    visible: true // Settings.settings.showMediaInBar && musicManager.currentPlayer
+    visible: false // Settings.settings.showMediaInBar && musicManager.currentPlayer
 
-    property var yPos: 0
-    anchors.bottomMargin: yPos
+    property var slideOffset: 0
+    anchors.bottomMargin: slideOffset
+
+    Behavior on slideOffset {
+        NumberAnimation {
+            duration: 250
+            easing.type: Easing.InCubic
+        }
+    }
+
+    // Auto-hide timer (2.5 seconds of inactivity)
+    Timer {
+        id: hideTimer
+        interval: 2500
+        onTriggered: hideOsd()
+    }
+    Timer {
+        id: hiddenTimer
+        interval: 200
+        onTriggered: hiddenOsd()
+    }
+
+    // Show OSD
+    function showOsd() {
+        if (!mediaControl.visible) {
+            mediaControl.visible = true
+            slideOffset = 0
+            // slideInAnimation.start()
+        }
+        hideTimer.restart()
+    }
+    
+    // Start slide-out animation to hide OSD
+    function hideOsd() {
+        // slideOutAnimation.start()
+        mediaControl.slideOffset = -10
+        hiddenTimer.restart()
+    }
+
+    function hiddenOsd() {
+        // slideOutAnimation.start()
+        mediaControl.visible = false
+    }
 
     Rectangle {
         width: mediaRow.implicitWidth
@@ -119,6 +160,16 @@ Item {
             elide: Text.ElideRight
             Layout.maximumWidth: 300
             Layout.alignment: Qt.AlignVCenter
+        }
+    }
+
+    Connections {
+        target: musicManager
+        function onTrackTitleChanged() {
+            showOsd()
+        }
+        function onIsPlayingChanged() {
+            if (musicManager.isPlaying) showOsd()
         }
     }
 }
