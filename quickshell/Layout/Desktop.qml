@@ -228,7 +228,7 @@ Scope {
                 volumeOSD: volumeOsd
                 brightnessOSD: brightnessOsd
                 batteryOSD: batteryOsd
-                clockWidget: clockWidget
+                // clockWidget: clockWidget
                 mediaWidget: mediaWidget
                 // resourcesWidget: resourcesWidget
                 z: -5  // Behind UI elements to prevent shadow from covering control panel

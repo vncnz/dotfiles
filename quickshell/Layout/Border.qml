@@ -25,7 +25,7 @@ Shape {
     property var volumeOSD: null
     property var brightnessOSD: null
     property var batteryOSD: null
-    property var clockWidget: null
+    // property var clockWidget: null
     property var mediaWidget: null
     // property var resourcesWidget: null
     
@@ -284,7 +284,7 @@ Shape {
 
     property real off: Math.min(volumeOSD.slideOffset, brightnessOSD.slideOffset, batteryOSD.slideOffset)
     property real wradius: Math.min(borderShape.radius, workspaceShadowShape.width / 2)
-    property real rradius: Math.min(borderShape.radius, clockWidget.width / 2)
+    // property real rradius: Math.min(borderShape.radius, clockWidget.width / 2)
     property real mradius: (mediaWidget.height + mediaWidget.slideOffset) / 2
 
     // Main border shape (no shadow)
