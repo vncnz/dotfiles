@@ -104,50 +104,6 @@ Rectangle {
                             height: 16
                             color: "transparent"
 
-                            MouseArea {
-                                id: mouseArea
-                                anchors.fill: parent
-                                hoverEnabled: true
-                                cursorShape: Qt.PointingHandCursor
-
-                                onEntered: {
-                                    /* var text = appTitle || appId;
-                                    styledTooltip.text = text.length > 60 ? text.substring(0, 60) + "..." : text;
-                                    styledTooltip.targetItem = appButton;
-                                    styledTooltip.tooltipVisible = true; */
-                                    console.log("onEntered")
-                                }
-
-                                onExited: {
-                                    // styledTooltip.tooltipVisible = false;
-                                    console.log("onExited")
-                                }
-
-                                onClicked: function(mouse) {
-                                    /* if (mouse.button === Qt.MiddleButton) {
-                                        if (modelData && modelData.close) {
-                                            modelData.close();
-                                        }
-                                    }
-
-                                    if (mouse.button === Qt.LeftButton) {
-                                        if (modelData && modelData.activate) {
-                                            modelData.activate();
-                                        }
-                                    } */
-                                    console.log("onClicked", modelData.id)
-                                    switchProcess.command = ["niri", "msg", "action", "focus-window", "--id", modelData.id.toString()];
-                                    switchProcess.running = true;
-                                }
-
-                                onPressed: mouse => {
-                                    /* if (mouse.button === Qt.RightButton) {
-                                        // context menu logic (optional)
-                                    } */
-                                    console.log("onPressed")
-                                }
-                            }
-
                             // property var iconPath: windowsColumn.getAppIcon(modelData)
 
                             Rectangle {
@@ -200,7 +156,7 @@ Rectangle {
                     }
                 }
                 
-                /* MouseArea {
+                MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
                     onClicked: {
@@ -228,7 +184,7 @@ Rectangle {
                             }
                         }
                     }
-                } */
+                }
             }
         }
     }
@@ -239,9 +195,9 @@ Rectangle {
         running: false
         onExited: {
             running = false
-            /* if (exitCode !== 0) {
+            if (exitCode !== 0) {
                 console.log("Failed to switch workspace:", exitCode);
-            } */
+            }
         }
     }
     
