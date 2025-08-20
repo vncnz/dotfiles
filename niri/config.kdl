@@ -11,6 +11,7 @@
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
+    LIBGL_ALWAYS_SOFTWARE "1"
     DISPLAY ":12"
 }
 
@@ -20,8 +21,8 @@ input {
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
 
-            layout "it"
-            // variant "intl"
+            layout "us"
+            variant "intl"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
 
@@ -221,9 +222,9 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        left 12
-        right 12
-        // top 64
+        left 24
+        right 20
+        top 0
         bottom 8
     }
 }
@@ -243,8 +244,9 @@ spawn-at-startup "swaync"
 // spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
 // spawn-at-startup "eww" "open" "batteryborder"
 spawn-at-startup "eww" "open" "microstatusbar"
-spawn-at-startup "/home/vncnz/.config/eww/scripts/music_notifier.sh"
-// spawn-at-startup "/home/vncnz/.config/niri/ratatoskr"
+// spawn-at-startup "/home/vncnz/.config/eww/scripts/music_notifier.sh"
+spawn-at-startup "/home/vncnz/.config/niri/ratatoskr"
+spawn-at-startup "quickshell"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -409,10 +411,10 @@ binds {
     Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
     Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+    // Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    // Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
+    // Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
+    // Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
@@ -504,6 +506,7 @@ binds {
 
     // Switches focus between the current and the previous workspace.
     // Mod+Tab { focus-workspace-previous; }
+    Mod+Tab { toggle-overview; }
 
     Mod+Comma  { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
@@ -563,18 +566,30 @@ animations {
     }
     
     /* window-open {
-        duration-ms 150
+        duration-ms 2000
         curve "linear"
         custom-shader r"
+
+        vec4 hexagon(float size, vec2 coords) {
+            vec2 cell = coords / size;
+
+        }
 
         vec4 expanding_circle(vec3 coords_geo, vec3 size_geo) {
             vec3 coords_tex = niri_geo_to_tex * coords_geo;
             vec4 color = texture2D(niri_tex, coords_tex.st);
-            vec2 coords = (coords_geo.xy - vec2(0.5, 0.5)) * size_geo.xy * 2.0;
+
+            float dst = length(coords_tex.st - vec2(.5)) * 2;
+
+            /*vec2 coords = (coords_geo.xy - vec2(0.5, 0.5)) * size_geo.xy * 2.0;
             coords = coords / length(size_geo.xy);
             float p = niri_clamped_progress;
             if (p * p <= dot(coords, coords))
                 color = vec4(0.0);
+            */
+
+            if(dst > niri_clamped_progress)
+                color = vec4(0.0)
 
             return color;
         }
@@ -666,9 +681,9 @@ overview {
     // hot-corners { off }
 }
 
-// Put swaybg inside the overview backdrop
+// Put shaderbg inside the overview backdrop
 /* layer-rule {
-    match namespace="^wallpaper$"
+    match namespace="^shaderbg$"
     place-within-backdrop true
 } */
 
@@ -810,3 +825,22 @@ window-rule {
         // inactive-color "#805050"
   }
 }
+/*
+gestures {
+    dnd-edge-view-scroll {
+        trigger-width 30
+        delay-ms 100
+        max-speed 1500
+    }
+
+    dnd-edge-workspace-switch {
+        trigger-height 50
+        delay-ms 100
+        max-speed 1500
+    }
+
+    hot-corners {
+        // off
+    }
+}
+*/
