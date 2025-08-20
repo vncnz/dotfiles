@@ -216,6 +216,8 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+
                     onClicked: {
                         // Switch workspace via Niri command
                         switchProcess.command = ["niri", "msg", "action", "focus-workspace", modelData.idx.toString()];
