@@ -24,7 +24,7 @@ Item {
         } else {
             focusedWindowTitle = "(No active window)";
         }
-        console.log("Changed focused window")
+        // console.log("Changed focused window")
     }
 
     function reloadIcons () {
@@ -89,7 +89,7 @@ Item {
                             idx += 1
                         }
                     }
-                    console.log("Niri - Workspaces changed")
+                    // console.log("Niri - Workspaces changed")
                 } catch (e) {
                     console.error("Failed to parse workspaces:", e, line);
                 }
@@ -103,7 +103,7 @@ Item {
         running: false
         onExited: function(exitCode) {
             loadingIcons = false
-            console.log("align_icons process completed with exit code:", exitCode)
+            // console.log("align_icons process completed with exit code:", exitCode)
         }
     }
     
@@ -116,7 +116,7 @@ Item {
             onRead: data => {
                 try {
                     const event = JSON.parse(data.trim());
-                    console.log("niri event", JSON.stringify(event))
+                    // console.log("niri event", JSON.stringify(event))
 
                     if (event.WorkspacesChanged) {
                         workspaceProcess.running = true;
@@ -157,7 +157,7 @@ Item {
                             
                             windowsList.sort((a, b) => a.id - b.id);
                             root.windows = windowsList;
-                            console.log("Niri - Windows changed")
+                            // console.log("Niri - Windows changed")
                             for (let i = 0; i < windowsList.length; i++) {
                                 if (windowsList[i].isFocused) {
                                     root.focusedWindowIndex = i;
