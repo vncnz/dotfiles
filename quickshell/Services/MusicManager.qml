@@ -13,7 +13,7 @@ Item {
     property var currentPlayer: null
     property real currentPosition: 0
     property int selectedPlayerIndex: 0
-    property bool isPlaying: currentPlayer ? currentPlayer.isPlaying : false
+    property bool isPlaying: !!Mpris.players.values.find(pl => pl.isPlaying) // currentPlayer ? currentPlayer.isPlaying : false
     property string trackTitle: currentPlayer ? (currentPlayer.trackTitle || "Unknown Track") : ""
     property string trackArtist: currentPlayer ? (currentPlayer.trackArtist || "Unknown Artist") : ""
     property string trackAlbum: currentPlayer ? (currentPlayer.trackAlbum || "Unknown Album") : ""
@@ -48,7 +48,6 @@ Item {
                 controllablePlayers.push(player)
             }
         }
-        
         return controllablePlayers
     }
 
@@ -58,6 +57,9 @@ Item {
         if (availablePlayers.length === 0) {
             return null
         }
+
+        let playing = availablePlayers.find(pl => pl.isPlaying)
+        if (playing) return playing
         
 
         if (selectedPlayerIndex < availablePlayers.length) {
@@ -149,6 +151,11 @@ Item {
         if (!currentPlayer || !currentPlayer.isPlaying || currentPlayer.playbackState !== MprisPlaybackState.Playing) {
             currentPosition = 0
         }
+    }
+
+    onIsPlayingChanged : {
+        // currentPlayer = findActivePlayer()
+        updateCurrentPlayer()
     }
 
     // Update current player when available players change

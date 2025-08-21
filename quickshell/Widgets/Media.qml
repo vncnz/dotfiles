@@ -172,10 +172,14 @@ Item {
     Connections {
         target: musicManager
         function onTrackTitleChanged() {
-            showOsd()
+            if (musicManager.isPlaying) showOsd()
         }
         function onIsPlayingChanged() {
+            // console.warn('isPlaying changed', musicManager.isPlaying)
             if (musicManager.isPlaying) showOsd()
+        }
+        function onCurrentPlayerChanged () {
+            // console.warn('currentPlayer changed', currentPlayer)
         }
     }
 }
