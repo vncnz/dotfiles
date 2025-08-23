@@ -324,33 +324,4 @@ Item {
             } */
         }
     }
-
-    // Update every minute
-    /* Timer {
-        interval: 60000
-        running: true
-        repeat: true
-        onTriggered: resourcesText.text = Qt.formatTime(new Date(), "HH:mm")
-    } */
-
-    // Border integration corner pieces
-    /* Core.Corners {
-        id: topRightCorner
-        position: "topright"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: 39
-        offsetY: -26
-        z: 0  // Same z-level as resources background
-    }
-    
-    Core.Corners {
-        id: topRightCorner2
-        position: "topright"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: -resourcesText.implicitWidth + 16
-        offsetY: 6
-        z: 0  // Same z-level as resources background
-    } */
 }

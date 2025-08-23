@@ -204,22 +204,4 @@ Item {
             }
         }
     }
-
-    /* Core.Corners {
-        id: bottomRightCorner
-        position: "bottomright"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: 39 + osdBackground.x
-        offsetY: 78
-    }
-
-    Core.Corners {
-        id: topRightCorner
-        position: "topright"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: 39 + osdBackground.x
-        offsetY: -26
-    } */
 }

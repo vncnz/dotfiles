@@ -245,51 +245,6 @@ Rectangle {
         }
     }
     
-    // Border integration corners
-    /*Core.Corners {
-        id: topLeftCorner
-        position: "topleft"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor 
-        offsetX: -41
-        offsetY: -25
-    }*/
-
-    // Top-left corner wave overlay (DISABLED - using unified overlay)
-    /* Shape {
-        id: topLeftWave
-        width: topLeftCorner.width
-        height: topLeftCorner.height
-        x: topLeftCorner.x
-        y: topLeftCorner.y
-        visible: false  // Disabled in favor of unified overlay
-        preferredRendererType: Shape.CurveRenderer
-        layer.enabled: true
-        layer.samples: 4
-    } */
-
-    /* Core.Corners {
-        id: bottomLeftCorner
-        position: "bottomleft"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: -41
-        offsetY: 78
-    } */
-
-    // Bottom-left corner wave overlay (DISABLED - using unified overlay)
-    /* Shape {
-        id: bottomLeftWave
-        width: bottomLeftCorner.width
-        height: bottomLeftCorner.height
-        x: bottomLeftCorner.x
-        y: bottomLeftCorner.y
-        visible: false  // Disabled in favor of unified overlay
-        preferredRendererType: Shape.CurveRenderer
-        layer.enabled: true
-        layer.samples: 4
-    } */
-    
     // Clean up processes on destruction
     Component.onDestruction: {
         root.isDestroying = true

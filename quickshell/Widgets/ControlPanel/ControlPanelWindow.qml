@@ -116,36 +116,6 @@ PanelWindow {
         }
     }
 
-    // Border integration corners (positioned to match panel edges)
-    Core.Corners {
-        id: controlPanelLeftCorner
-        position: "bottomright"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: -661
-        offsetY: -313
-        visible: isShown
-        z: 1  // Higher z-index to render above shadow effects
-        
-        // Disable implicit animations to prevent corner sliding
-        Behavior on x { enabled: false }
-        Behavior on y { enabled: false }
-    }
-
-    Core.Corners {
-        id: controlPanelRightCorner
-        position: "bottomleft"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: 661
-        offsetY: -313
-        visible: isShown
-        z: 1  // Higher z-index to render above shadow effects
-        
-        Behavior on x { enabled: false }
-        Behavior on y { enabled: false }
-    }
-
     // Auto-hide timer
     Timer {
         id: hideTimer

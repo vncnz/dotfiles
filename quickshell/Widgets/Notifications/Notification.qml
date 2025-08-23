@@ -351,26 +351,6 @@ Item {
                         }
                     }
                 }
-
-                // Top corner for first notification
-                /* Core.Corners {
-                    position: "bottomright"
-                    size: 1.3
-                    fillColor: Data.ThemeManager.bgColor
-                    offsetX: -361
-                    offsetY: -13
-                    visible: index === 0 && index < maxNotifications
-                }
-
-                // Bottom corner for last visible notification
-                Core.Corners {
-                    position: "bottomright"
-                    size: 1.3
-                    fillColor: Data.ThemeManager.bgColor
-                    offsetX: 39
-                    offsetY: 78
-                    visible: index === Math.min(notifications.length, maxNotifications) - 1 && index < maxNotifications
-                } */
             }
         }
     }

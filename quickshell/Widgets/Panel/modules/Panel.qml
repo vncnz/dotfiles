@@ -682,23 +682,4 @@ Item {
             mainColumn.visible = true
         })
     }
-    
-    // Border integration corners
-    Core.Corners {
-        id: topLeftCorner
-        position: "bottomright"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: 0
-        offsetY: 0
-    }
-
-    Core.Corners {
-        id: topRightCorner
-        position: "bottomleft"
-        size: 1.3
-        fillColor: Data.ThemeManager.bgColor
-        offsetX: root.width
-        offsetY: 0
-    }
 }
