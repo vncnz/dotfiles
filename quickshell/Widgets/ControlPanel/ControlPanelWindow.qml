@@ -53,7 +53,7 @@ PanelWindow {
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         width: 600
-        height: 8
+        height: 5
         hoverEnabled: true
         onContainsMouseChanged: {
             if (containsMouse) {
@@ -78,7 +78,7 @@ PanelWindow {
         height: 380
         
         anchors.top: parent.top
-        anchors.topMargin: 8  // Trigger area space
+        anchors.topMargin: 5  // Trigger area space
         anchors.horizontalCenter: parent.horizontalCenter
         visible: isShown
         opacity: isShown ? 1.0 : 0.0

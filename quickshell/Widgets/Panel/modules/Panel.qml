@@ -51,10 +51,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: Data.ThemeManager.bgColor
-        topLeftRadius: 0
-        topRightRadius: 0
-        bottomLeftRadius: 20
-        bottomRightRadius: 20
+        radius: 20
     }
 
     // Shadow effect preparation
@@ -63,8 +60,7 @@ Item {
         anchors.fill: mainContainer
         color: "transparent"
         visible: false
-        bottomLeftRadius: 20
-        bottomRightRadius: 20
+        radius: 20
     }
 
     DropShadow {
