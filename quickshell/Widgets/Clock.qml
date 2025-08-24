@@ -16,7 +16,7 @@ Item {
     Rectangle {
         id: clockBackground
         width: 20 // clockText.implicitWidth
-        height: 40 // clockText.implicitHeight
+        height: 44 // clockText.implicitHeight
         // anchors.left: parent.left
         
         // color: Data.ThemeManager.bgColor
@@ -37,6 +37,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text: Qt.formatTime(new Date(), "HH")
+            //z: 10
 
             layer.enabled: true
             layer.effect: DropShadow {
@@ -60,8 +61,8 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: -8
             font.family: "Roboto"
-            font.pixelSize: 18
-            font.bold: false
+            font.pixelSize: 20
+            font.bold: true
             color: Qt.darker(Data.ThemeManager.accentColor, .75)
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
