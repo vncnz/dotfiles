@@ -13,31 +13,62 @@ Item {
     width: clockBackground.width
     height: clockBackground.height
 
-    Rectangle {
+    Column {
         id: clockBackground
-        width: 20 // clockText.implicitWidth
-        height: 44 // clockText.implicitHeight
+        // width: 20 // clockText.implicitWidth
+        // height: 44 // clockText.implicitHeight
         // anchors.left: parent.left
         
         // color: Data.ThemeManager.bgColor
         // opacity: .5
-        color: "transparent"
+        // color: "transparent"
+        spacing: -11
 
         Text {
             id: clockTextHours
             // anchors.centerIn: parent
             // anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: anchors.top
+            // anchors.top: anchors.top
             // anchors.left: parent.left
             font.family: "Roboto"
-            font.pixelSize: 24
+            font.pixelSize: 16
             font.bold: true
-            color: Qt.lighter(Data.ThemeManager.accentColor, .75)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
+            color: Data.ThemeManager.accentColor//Qt.lighter(Data.ThemeManager.accentColor, .75)
+            // horizontalAlignment: Text.AlignHCenter
+            // verticalAlignment: Text.AlignVCenter
             text: Qt.formatTime(new Date(), "HH")
             //z: 10
+
+            /* layer.enabled: true
+            layer.effect: DropShadow {
+                transparentBorder: true
+                horizontalOffset: 0
+                verticalOffset: 0
+                radius: 1
+                samples: 10
+                color: "black"
+                cached: true
+                spread: 1
+            } */
+        }
+        
+        Text {
+            id: clockTextMins
+            anchors.horizontalCenter: parent.horizontalCenter
+            // anchors.bottom: parent.bottom
+            // anchors.centerIn: parent
+            // anchors.verticalCenter: parent.verticalCenter
+            // anchors.left: parent.horizontalCenter
+            // anchors.right: parent.right
+            // anchors.rightMargin: -8
+            font.family: "Roboto"
+            font.pixelSize: 16
+            font.bold: true
+            color: Qt.darker(Data.ThemeManager.accentColor, .75)
+            // horizontalAlignment: Text.AlignHCenter
+            // verticalAlignment: Text.AlignVCenter
+            text: Qt.formatTime(new Date(), "mm")
 
             layer.enabled: true
             layer.effect: DropShadow {
@@ -50,23 +81,6 @@ Item {
                 cached: true
                 spread: 1
             }
-        }
-        
-        Text {
-            id: clockTextMins
-            anchors.bottom: parent.bottom
-            // anchors.centerIn: parent
-            // anchors.verticalCenter: parent.verticalCenter
-            // anchors.left: parent.horizontalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: -8
-            font.family: "Roboto"
-            font.pixelSize: 20
-            font.bold: true
-            color: Qt.darker(Data.ThemeManager.accentColor, .75)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            text: Qt.formatTime(new Date(), "mm")
         }
     }
 
