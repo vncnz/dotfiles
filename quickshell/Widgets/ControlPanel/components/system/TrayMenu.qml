@@ -7,8 +7,8 @@ import "root:/Data" as Data
 // System tray context menu
 Rectangle {
     id: root
-    width: parent.width
-    height: visible ? calculatedHeight : 0
+    width: gridView.implicitWidth
+    height: visible ? gridView.implicitHeight + 40 : 0 //calculatedHeight : 0
     visible: false
     enabled: visible
     clip: true
@@ -105,7 +105,7 @@ Rectangle {
 
         // Calculate total height: separators + grid rows + margins
         var separatorHeight = separatorCount * 12
-        var regularItemRows = Math.ceil(regularItemCount / 2)
+        var regularItemRows = regularItemCount // Math.ceil(regularItemCount / 2)
         var regularItemHeight = regularItemRows * 32
         return Math.max(80, 35 + separatorHeight + regularItemHeight + 40)
     }
@@ -116,94 +116,96 @@ Rectangle {
         menu: root.menu
     }
 
-    // Grid layout for menu items (2 columns)
-    GridView {
+    // Column layout for menu items
+    Column {
         id: gridView
         anchors.fill: parent
         anchors.margins: 20
-        cellWidth: width / 2
-        cellHeight: 32
-        interactive: false
-        flow: GridView.FlowLeftToRight
-        layoutDirection: Qt.LeftToRight
+        // cellWidth: width / 2
+        // cellHeight: 32
+        // interactive: false
+        // flow: GridView.FlowLeftToRight
+        // layoutDirection: Qt.LeftToRight
 
-        model: ScriptModel {
-            values: opener.children ? [...opener.children.values] : []
-        }
+        Repeater {
 
-        delegate: Item {
-            id: entry
-            required property var modelData
-            required property int index
+            model: ScriptModel {
+                values: opener.children ? [...opener.children.values] : []
+            }
 
-            width: gridView.cellWidth - 4
-            height: modelData.isSeparator ? 12 : 30
+            delegate: Rectangle {
+                id: entry
+                required property var modelData
+                required property int index
 
-            // Separator line
-            Rectangle {
-                anchors.fill: parent
-                anchors.leftMargin: 8
-                anchors.rightMargin: 8
-                anchors.topMargin: 4
-                anchors.bottomMargin: 4
-                visible: modelData.isSeparator
+                width: 300 // gridView.implicitWidth - 4
+                height: modelData.isSeparator ? 12 : 30
+
                 color: "transparent"
 
+                // Separator line
                 Rectangle {
-                    anchors.centerIn: parent
+                    // anchors.fill: parent
+                    anchors.leftMargin: 8
+                    anchors.rightMargin: 8
+                    // anchors.topMargin: 4
+                    // anchors.bottomMargin: 4
+                    visible: modelData.isSeparator
+
+                    // anchors.centerIn: parent
                     width: parent.width * 0.8
                     height: 1
                     color: Qt.darker(Data.ThemeManager.accentColor, 1.5)
-                    opacity: 0.6
-                }
-            }
-
-            // Regular menu item
-            Rectangle {
-                id: itemBackground
-                anchors.fill: parent
-                anchors.margins: 2
-                visible: !modelData.isSeparator
-                color: "transparent"
-                radius: 6
-
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.leftMargin: 8
-                    anchors.rightMargin: 8
-                    spacing: 6
-
-                    Image {
-                        Layout.preferredWidth: 16
-                        Layout.preferredHeight: 16
-                        source: modelData?.icon ?? ""
-                        visible: (modelData?.icon ?? "") !== ""
-                        fillMode: Image.PreserveAspectFit
-                    }
-
-                    Text {
-                        Layout.fillWidth: true
-                        color: mouseArea.containsMouse ? Data.ThemeManager.accentColor : Data.ThemeManager.fgColor
-                        text: modelData?.text ?? ""
-                        font.pixelSize: 11
-                        font.family: "Roboto"
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
-                        maximumLineCount: 1
-                    }
+                    opacity: 1
                 }
 
-                MouseArea {
-                    id: mouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    enabled: (modelData?.enabled ?? true) && root.visible && !modelData.isSeparator
+                // Regular menu item
+                Rectangle {
+                    id: itemBackground
+                    // anchors.fill: parent
+                    // anchors.margins: 2
+                    visible: !modelData.isSeparator
+                    color: "transparent"
+                    radius: 6
 
-                    onEntered: itemBackground.color = Qt.rgba(Data.ThemeManager.accentColor.r, Data.ThemeManager.accentColor.g, Data.ThemeManager.accentColor.b, 0.15)
-                    onExited: itemBackground.color = "transparent"
-                    onClicked: {
-                        modelData.triggered()
-                        root.hide()
+                    RowLayout {
+                        // anchors.fill: parent
+                        // anchors.leftMargin: 8
+                        // anchors.rightMargin: 8
+                        spacing: 6
+
+                        Image {
+                            Layout.preferredWidth: 16
+                            Layout.preferredHeight: 16
+                            source: modelData?.icon ?? ""
+                            visible: (modelData?.icon ?? "") !== ""
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            color: mouseArea.containsMouse ? Data.ThemeManager.accentColor : Data.ThemeManager.fgColor
+                            text: modelData?.text ?? ""
+                            font.pixelSize: 11
+                            font.family: "Roboto"
+                            verticalAlignment: Text.AlignVCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        enabled: (modelData?.enabled ?? true) && root.visible && !modelData.isSeparator
+
+                        onEntered: itemBackground.color = Qt.rgba(Data.ThemeManager.accentColor.r, Data.ThemeManager.accentColor.g, Data.ThemeManager.accentColor.b, 0.15)
+                        onExited: itemBackground.color = "transparent"
+                        onClicked: {
+                            modelData.triggered()
+                            root.hide()
+                        }
                     }
                 }
             }

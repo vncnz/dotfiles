@@ -6,12 +6,12 @@ import Quickshell.Services.SystemTray
 import "root:/Data" as Data
 
 // System tray with optimized icon caching
-Row {
+Column {
     property var bar
     property var shell
     property var trayMenu
-    spacing: 8
-    Layout.alignment: Qt.AlignVCenter
+    spacing: 6
+    Layout.alignment: Qt.AlignHCenter
     
     property bool containsMouse: false
     property var systemTray: SystemTray
@@ -51,8 +51,8 @@ Row {
     Repeater {
         model: systemTray.items
         delegate: Item {
-            width: 24
-            height: 24
+            width: 16
+            height: 16
             property bool isHovered: trayMouseArea.containsMouse
             
             onIsHoveredChanged: updateParentHoverState()
@@ -91,10 +91,10 @@ Row {
             Image {
                 id: trayIcon
                 anchors.centerIn: parent
-                width: 18
-                height: 18
-                sourceSize.width: 18
-                sourceSize.height: 18
+                width: 16
+                height: 16
+                sourceSize.width: 16
+                sourceSize.height: 16
                 smooth: false      // Memory savings
                 asynchronous: true
                 cache: false       // Use custom cache instead

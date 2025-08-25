@@ -95,7 +95,7 @@ Item {
         }
 
         // System tray integration with menu
-        Column {
+        /*Column {
             id: systemTraySection
             width: parent.width
             spacing: 8
@@ -139,9 +139,9 @@ Item {
                     trayMenu: inlineTrayMenu
                 }
             }
-        }
+        }*/
 
-        SystemComponents.TrayMenu {
+        /* SystemComponents.TrayMenu {
             id: inlineTrayMenu
             parent: mainDashboard
             width: parent.width
@@ -150,6 +150,6 @@ Item {
             systemTrayHeight: systemTraySection.height
             z: 100  // High z-index to appear above other content
             onHideRequested: trayBackground.isActive = false
-        }
+        } */
     }
 } 

@@ -11,6 +11,9 @@ import "root:/Widgets" as Widgets
 import "root:/Widgets/Notifications" as Notifications
 import "root:/Widgets/ControlPanel" as ControlPanel
 
+// import "root:/Widgets/Panel/modules" as Tr
+import "root:/Widgets/ControlPanel/components/system" as Tr
+
 // import "root:/RatatoskrLoader" as RatatoskrLoader
 
 // Desktop with borders and UI widgets
@@ -34,6 +37,7 @@ Scope {
         model: Quickshell.screens
 
         PanelWindow {
+            id: mainContainer
             required property var modelData
             screen: modelData
             
@@ -50,7 +54,7 @@ Scope {
                     item: workspaceIndicator
                 }
                 Region {
-                    item: windowsIndicator
+                    item: topBarSection
                 }
                 Region {
                     item: mediaWidget
@@ -64,18 +68,40 @@ Scope {
                 right: true
             }
 
-            // Windows indicator at left border
-            System.NiriWindows {
-                id: windowsIndicator
+            Column {
+                id: topBarSection
                 anchors {
                     left: parent.left
                     top: parent.top
                     // verticalCenter: parent.verticalCenter
                     // leftMargin: Data.Settings.borderWidth
                 }
-                z: 10
-                // width: 12
-                currentScreen: modelData
+
+                System.SystemTray {
+                    id: systemTrayModuleSecond
+                    // anchors.centerIn: parent
+                    shell: root.shell
+                    bar: parent
+                    trayMenu: inlineTrayMenuSecond
+                }
+
+                Tr.TrayMenu {
+                    id: inlineTrayMenuSecond
+                    parent: mainContainer
+                    // width: mainContainer.width - 100
+                    menu: null
+                    systemTrayY: systemTraySection.y
+                    systemTrayHeight: systemTraySection.height
+                    onHideRequested: trayBackground.isActive = false
+                }
+
+                // Windows indicator at left border
+                System.NiriWindows {
+                    id: windowsIndicator
+                    z: 10
+                    // width: 12
+                    currentScreen: modelData
+                }
             }
             
             // Workspace indicator at left border
@@ -126,99 +152,6 @@ Scope {
                 }
                 z: 10
             }
-
-            // Widget shadows (positioned behind border for proper layering)
-            
-            // Workspace indicator shadow
-            /*Rectangle {
-                id: workspaceShadow
-                visible: workspaceIndicator !== null
-                x: workspaceIndicator.x
-                y: workspaceIndicator.y
-                width: workspaceIndicator.width
-                height: workspaceIndicator.height
-                color: "black"
-                radius: 16
-                z: -10  // Behind border
-                
-                layer.enabled: true
-                layer.effect: DropShadow {
-                    transparentBorder: true
-                    horizontalOffset: 2
-                    verticalOffset: 2
-                    radius: 8 + (workspaceIndicator.effectsActive && Data.Settings.workspaceGlowEnabled ? Math.sin(workspaceIndicator.masterProgress * Math.PI) * 3 : 0)
-                    samples: 17
-                    color: {
-                        if (!workspaceIndicator.effectsActive) return Qt.rgba(0, 0, 0, 0.3)
-                        if (!Data.Settings.workspaceGlowEnabled) return Qt.rgba(0, 0, 0, 0.3)
-                        // Use accent color glow with reduced intensity
-                        const intensity = Math.sin(workspaceIndicator.masterProgress * Math.PI) * 0.3
-                        return Qt.rgba(
-                            workspaceIndicator.effectColor.r * intensity + 0.05,
-                            workspaceIndicator.effectColor.g * intensity + 0.05,
-                            workspaceIndicator.effectColor.b * intensity + 0.05,
-                            0.3 + intensity * 0.15
-                        )
-                    }
-                    cached: true
-                    spread: 0.1 + (workspaceIndicator.effectsActive && Data.Settings.workspaceGlowEnabled ? Math.sin(workspaceIndicator.masterProgress * Math.PI) * 0.1 : 0)
-                }
-            }*/
-            
-            // Clock widget shadow
-            /*Rectangle {
-                id: clockShadow
-                visible: clockWidget !== null
-                x: clockWidget.x
-                y: clockWidget.y
-                width: clockWidget.width
-                height: clockWidget.height
-                color: "black"
-                topLeftRadius: 0
-                topRightRadius: clockWidget.height / 2
-                bottomLeftRadius: 0
-                bottomRightRadius: 0
-                z: -10  // Behind border
-                
-                layer.enabled: true
-                layer.effect: DropShadow {
-                    transparentBorder: true
-                    horizontalOffset: 1
-                    verticalOffset: -1
-                    radius: 8
-                    samples: 10
-                    color: Qt.rgba(0, 0, 0, 0.3)
-                    cached: true
-                    spread: 0.1
-                }
-            }*/
-
-            // Resources widget shadow
-            /*Rectangle {
-                id: resourcesShadow
-                visible: resourcesWidget !== null
-                x: resourcesWidget.x
-                y: resourcesWidget.y
-                width: resourcesWidget.width
-                height: resourcesWidget.height
-                topLeftRadius: resourcesWidget.height / 2
-                topRightRadius: 0
-                bottomLeftRadius: 0
-                bottomRightRadius: 0
-                z: -10  // Behind border
-                
-                layer.enabled: true
-                layer.effect: DropShadow {
-                    transparentBorder: true
-                    horizontalOffset: 1
-                    verticalOffset: -1
-                    radius: 8
-                    samples: 10
-                    color: Qt.rgba(0, 0, 0, 0.3)
-                    cached: true
-                    spread: 0.1
-                }
-            }*/
 
             // Border background with shadow
             Border {

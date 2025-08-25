@@ -87,6 +87,7 @@ Rectangle {
 
                 Column {
                     id: workwindows
+                    Layout.alignment: Qt.AlignHCenter
                     spacing: 6
                     // visible: workspace_output == currentScreen.name
 
