@@ -41,7 +41,7 @@ Rectangle {
 
     color: "transparent" // Data.ThemeManager.bgColor
     // opacity: .5
-    width: 14
+    width: 20
     height: windowsColumn.implicitHeight + 24
     
     // Smooth height animation
@@ -52,7 +52,7 @@ Rectangle {
         }
     }
 
-    // Vertical workspace indicator pills
+    // Vertical workspace boxes
     Column {
         id: windowsColumn
         anchors.centerIn: parent
