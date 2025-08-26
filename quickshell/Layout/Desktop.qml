@@ -85,16 +85,6 @@ Scope {
                     trayMenu: inlineTrayMenuSecond
                 }
 
-                Tr.TrayMenu {
-                    id: inlineTrayMenuSecond
-                    parent: mainContainer
-                    // width: mainContainer.width - 100
-                    menu: null
-                    systemTrayY: systemTraySection.y
-                    systemTrayHeight: systemTraySection.height
-                    onHideRequested: trayBackground.isActive = false
-                }
-
                 // Windows indicator at left border
                 System.NiriWindows {
                     id: windowsIndicator
@@ -102,6 +92,16 @@ Scope {
                     // width: 12
                     currentScreen: modelData
                 }
+            }
+
+            Tr.TrayMenu {
+                id: inlineTrayMenuSecond
+                parent: mainContainer
+                // width: mainContainer.width - 100
+                menu: null
+                systemTrayY: systemTraySection.y
+                systemTrayHeight: systemTraySection.height
+                onHideRequested: trayBackground.isActive = false
             }
             
             // Workspace indicator at left border
