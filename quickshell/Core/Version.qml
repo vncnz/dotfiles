@@ -187,7 +187,17 @@ PanelWindow {
         ColumnLayout {
             spacing: 2
             Layout.alignment: Qt.AlignRight
-            
+
+            /* Text {
+                text: `${Data.RatatoskrLoader.sysData?.loadavg.m1} ${Data.RatatoskrLoader.sysData?.loadavg.m5} ${Data.RatatoskrLoader.sysData?.loadavg.m15} 󰬢`
+                color: Data.RatatoskrLoader.sysData?.loadavg.color
+                font.family: "Symbols Nerd Font"
+                font.pointSize: 16
+                font.weight: Font.DemiBold
+                font.letterSpacing: -0.4
+                Layout.alignment: Qt.AlignRight
+            } */
+
             Text {
                 text: `${Data.RatatoskrLoader.sysData?.weather?.text} / ${Data.RatatoskrLoader.sysData?.weather?.temp_real}${Data.RatatoskrLoader.sysData?.weather?.temp_unit} / ${Data.RatatoskrLoader.sysData?.weather?.humidity}%`
                 color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
