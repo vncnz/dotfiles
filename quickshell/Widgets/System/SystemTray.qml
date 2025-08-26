@@ -20,7 +20,7 @@ Column {
     // Custom icon cache for memory optimization
     property var iconCache: ({})
     property var iconCacheCount: ({})
-    
+
     topPadding: 10
     bottomPadding: 10
     
@@ -133,6 +133,30 @@ Column {
                         easing.type: Easing.OutCubic
                     }
                 }
+            }
+
+            Text {
+                color: "white"
+                anchors.left: parent.left
+                anchors.leftMargin: 30
+                anchors.verticalCenter: parent.verticalCenter
+                text: modelData.title // JSON.stringify(Object.keys(modelData))
+                // text: "R"
+                font.pixelSize: 16
+                font.bold: true
+                visible: niriService.inOverview
+
+                /* layer.enabled: true
+                layer.effect: DropShadow {
+                    transparentBorder: true
+                    horizontalOffset: 0
+                    verticalOffset: 0
+                    radius: 1
+                    samples: 1
+                    color: "white"
+                    cached: true
+                    spread: 1
+                } */
             }
             
             Component.onDestruction: {
