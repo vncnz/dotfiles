@@ -11,6 +11,7 @@ import "root:/Core" as Core
 Rectangle {
     property var text
     property var rotation: 90
+    property var textBold: false
     id: root
 
     width: hint.implicitHeight
@@ -20,8 +21,9 @@ Rectangle {
 
     Text {
         id: hint
-        color: Data.ThemeManager.accentColor
+        color: Data.ThemeManager.fgColor
         text: root.text
+        font.weight: textBold ? Font.Bold : Font.normal
         anchors.centerIn: parent
         transform: Rotation {
             origin.x: hint.implicitWidth / 2

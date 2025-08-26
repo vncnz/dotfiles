@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import QtQuick.Shapes
 import "root:/Data/" as Data
 import "root:/Core" as Core
+import "root:/Widgets" as Widgets
 
 // Battery OSD with slide animation
 Item {
@@ -145,7 +146,7 @@ Item {
             Rectangle {
                 opacity: 1
                 width: 10
-                height: parent.height - batteryIcon.height - batteryLabel.height - 56
+                height: parent.height - batteryIcon.height - batteryLabel.height - 36
                 topLeftRadius: 5
                 bottomLeftRadius: 5
                 color: Qt.darker(Data.ThemeManager.accentColor, 1.5)
@@ -180,9 +181,21 @@ Item {
                     }
                 }
             }
+
+            Widgets.VText {
+                id: batteryLabel
+                text: {
+                    if (!showEta) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}% ${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
+                    else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.eta / 60)}h${parseInt(Data.RatatoskrLoader.sysData?.battery?.eta % 60)}m`}
+                }
+                textBold: true
+                rotation: 90
+                opacity: 1
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
             
             // Battery percentage text
-            Text {
+            /* Text {
                 id: batteryLabel
                 text: {
                     // shell.battery + "%"
@@ -190,7 +203,7 @@ Item {
                     // else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`}
                     else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.eta / 60)}h${parseInt(Data.RatatoskrLoader.sysData?.battery?.eta % 60)}m`}
                     /* if (!showEta) { return `${Data.RatatoskrLoader.sysData?.battery?.percentage}%`}
-                    else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`} */
+                    else { return `${parseInt(Data.RatatoskrLoader.sysData?.battery?.watt)}W`} * /
                 }
                 font.pixelSize: 12
                 font.weight: Font.Bold
@@ -206,7 +219,7 @@ Item {
                 Behavior on text {
                     PropertyAnimation { target: batteryLabel; property: "opacity"; from: 0.7; to: 1.0; duration: 150 }
                 }
-            }
+            } */
         }
     }
 }

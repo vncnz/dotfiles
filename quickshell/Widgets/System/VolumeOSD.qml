@@ -117,10 +117,10 @@ Item {
         id: osdBackground
         width: 45
         height: 250
-        // color: Data.ThemeManager.bgColor
-        color: "transparent"
-        topLeftRadius: 20
-        bottomLeftRadius: 20
+        color: Data.ThemeManager.bgColor
+        // color: "red"
+        topLeftRadius: 40
+        bottomLeftRadius: 40
         x: slideOffset + 45
         
         Column {
