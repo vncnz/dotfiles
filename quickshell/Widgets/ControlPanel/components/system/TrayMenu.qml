@@ -56,8 +56,16 @@ Rectangle {
         }
     }
 
-    function show(point, parentItem) { 
+    /* function show(point, parentItem) { 
         visible = true
+        menuJustOpened = true
+        Qt.callLater(function() {
+            menuJustOpened = false
+        })
+    } */
+    function show(ypos, parentItem) { 
+        visible = true
+        root.y = ypos
         menuJustOpened = true
         Qt.callLater(function() {
             menuJustOpened = false
@@ -74,13 +82,15 @@ Rectangle {
     }
 
     // Smart positioning to avoid screen edges
+    x: 26
     y: {
-        var preferredY = systemTrayY + systemTrayHeight + 10
+        return 20
+        /* var preferredY = systemTrayY + systemTrayHeight + 10
         var availableSpace = parent.height - preferredY - 20
         if (calculatedHeight > availableSpace) {
             return systemTrayY - height - 10
         }
-        return preferredY
+        return preferredY */
     }
 
     Behavior on height {

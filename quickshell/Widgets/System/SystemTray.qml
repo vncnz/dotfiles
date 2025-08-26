@@ -167,11 +167,12 @@ Column {
                         // Show context menu if available
                         if (modelData.hasMenu && modelData.menu && trayMenu) {
                             trayMenu.menu = modelData.menu
-                            const iconCenter = Qt.point(width / 2, height)
+                            /* const iconCenter = Qt.point(width / 2, height)
                             const iconPos = mapToItem(trayMenu.parent, 0, 0)
                             const menuX = iconPos.x - (trayMenu.width / 2) + (width / 2)
                             const menuY = iconPos.y + height + 15
-                            trayMenu.show(Qt.point(menuX, menuY), trayMenu.parent)
+                            trayMenu.show(Qt.point(menuX, menuY), trayMenu.parent) */
+                            trayMenu.show(mouse.y, trayMenu.parent)
                         }
                     }
                 }
