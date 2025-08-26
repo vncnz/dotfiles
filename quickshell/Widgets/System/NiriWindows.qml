@@ -7,6 +7,7 @@ import Qt5Compat.GraphicalEffects
 import Quickshell.Io
 import "root:/Data" as Data
 import "root:/Core" as Core
+import "root:/Widgets" as Widgets
 
 import Quickshell
 
@@ -42,7 +43,7 @@ Rectangle {
     color: "transparent" // Data.ThemeManager.bgColor
     // opacity: .5
     width: 20
-    height: windowsColumn.implicitHeight + 24
+    height: windowsColumn.implicitHeight
     
     // Smooth height animation
     Behavior on height {
@@ -59,13 +60,13 @@ Rectangle {
         spacing: 20
 
         function getAppIcon(toplevel: Toplevel): string {
-                    if (!toplevel) return "";
-                    let icon = Quickshell.iconPath(toplevel.appId?.toLowerCase(), true);
-                    if (!icon) icon = Quickshell.iconPath(toplevel.appId, true);
-                    if (!icon) icon = Quickshell.iconPath(toplevel.title?.toLowerCase(), true);
-                    if (!icon) icon = Quickshell.iconPath(toplevel.title, true);
-                    return icon || Quickshell.iconPath("application-x-executable", true);
-                }
+            if (!toplevel) return "";
+            let icon = Quickshell.iconPath(toplevel.appId?.toLowerCase(), true);
+            if (!icon) icon = Quickshell.iconPath(toplevel.appId, true);
+            if (!icon) icon = Quickshell.iconPath(toplevel.title?.toLowerCase(), true);
+            if (!icon) icon = Quickshell.iconPath(toplevel.title, true);
+            return icon || Quickshell.iconPath("application-x-executable", true);
+        }
         
         Repeater {
             model: niriService.workspaces.filter(w => w.output == currentScreen.name)
@@ -81,8 +82,7 @@ Rectangle {
 
                 property real workspace_id: modelData.id
                 // property var workspace_output: modelData.output
-                
-                // Material Design 3 inspired colors
+
                 color: "transparent"
 
                 Column {
@@ -198,6 +198,12 @@ Rectangle {
                                 onStatusChanged: if (status === Image.Error) { niriService.reloadIcons() }
                             }
                         }
+                    }
+                    Widgets.VText {
+                        text: `W${workspace_id} >`
+                        rotation: -90
+                        opacity: .6
+                        visible: !!niriService.windows.find(win => win.workspaceId == workspace_id)
                     }
                 }
                 

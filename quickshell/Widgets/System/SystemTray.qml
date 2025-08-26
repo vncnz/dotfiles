@@ -4,6 +4,7 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.SystemTray
 import "root:/Data" as Data
+import "root:/Widgets" as Widgets
 
 // System tray with optimized icon caching
 Column {
@@ -19,6 +20,9 @@ Column {
     // Custom icon cache for memory optimization
     property var iconCache: ({})
     property var iconCacheCount: ({})
+    
+    topPadding: 10
+    bottomPadding: 10
     
     // Cache cleanup to prevent memory leaks
     Timer {
@@ -179,4 +183,36 @@ Column {
             }
         }
     }
+
+    /* Rectangle {
+        width: parent.width
+        height: 1
+        color: Qt.lighter(Data.ThemeManager.accentColor, 1)
+        visible: systemTray.items.values.length > 0
+    } */
+
+    Widgets.VText {
+        text: "SYSTRAY >"
+        rotation: -90
+        opacity: .6
+    }
+    /* Rectangle {
+        width: hint.implicitHeight
+        height: hint.implicitWidth
+        color: "transparent"
+        opacity: .8
+
+        Text {
+            id: hint
+            color: Data.ThemeManager.accentColor
+            visible: systemTray.items.values.length > 0
+            text: "SYSTRAY >"
+            anchors.centerIn: parent
+            transform: Rotation {
+                origin.x: hint.implicitWidth / 2
+                origin.y: hint.implicitHeight / 2
+                angle: -90
+            }
+        }
+    } */
 }
