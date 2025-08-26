@@ -252,7 +252,7 @@ Rectangle {
         
         if (niriProcess.running) {
             niriProcess.running = false
-        }
+        } */
         if (switchProcess.running) {
             switchProcess.running = false
         }
