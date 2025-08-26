@@ -16,11 +16,11 @@ Rectangle {
     width: hint.implicitHeight
     height: hint.implicitWidth
     color: "transparent"
+    visible: true
 
     Text {
         id: hint
         color: Data.ThemeManager.accentColor
-        visible: systemTray.items.values.length > 0
         text: root.text
         anchors.centerIn: parent
         transform: Rotation {

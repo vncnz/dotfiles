@@ -219,6 +219,7 @@ Column {
         text: "SYSTRAY >"
         rotation: -90
         opacity: .6
+        visible: systemTray.items.values.length > 0
     }
     /* Rectangle {
         width: hint.implicitHeight
