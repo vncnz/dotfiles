@@ -29,7 +29,7 @@ Item {
             weatherDisplayHovered: weatherDisplay ? weatherDisplay.containsMouse : false,
             recordingButtonHovered: recordingButton ? recordingButton.isHovered : false,
             controlsHovered: controls ? controls.containsMouse : false,
-            trayHovered: trayMouseArea ? trayMouseArea.containsMouse : false,
+            // trayHovered: trayMouseArea ? trayMouseArea.containsMouse : false,
             systemTrayHovered: systemTrayModule ? systemTrayModule.containsMouse : false,
             trayMenuHovered: inlineTrayMenu ? inlineTrayMenu.containsMouse : false,
             trayMenuVisible: inlineTrayMenu ? inlineTrayMenu.visible : false

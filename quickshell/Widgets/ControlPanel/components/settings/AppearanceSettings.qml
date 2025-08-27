@@ -364,7 +364,7 @@ Column {
                                 )
                             } else if (currentFamily === "matugen") {
                                 // Use dynamic matugen colors if available
-                                if (Data.ThemeManager.matugen && Data.ThemeManager.matugen.isMatugenActive()) {
+                                if (Data.ThemeManager.matugen/* && Data.ThemeManager.matugen.isMatugenActive()*/) {
                                     themeColors.push(
                                         { name: "Primary", dark: Data.ThemeManager.matugen.getMatugenColor("primary") || "#adc6ff", light: Data.ThemeManager.matugen.getMatugenColor("primary") || "#0f62fe" },
                                         { name: "Secondary", dark: Data.ThemeManager.matugen.getMatugenColor("secondary") || "#bfc6dc", light: Data.ThemeManager.matugen.getMatugenColor("secondary") || "#6272a4" },

@@ -121,8 +121,8 @@ Item {
                     anchors.centerIn: parent
                     text: "󰎆"
                     font.family: "Symbols Nerd Font"
-                    font.pixelSize: 14 * Theme.scale(Screen)
-                    color: Qt.rgba(Theme.textPrimary.r, Theme.textPrimary.g, Theme.textPrimary.b, 0.4)
+                    font.pixelSize: 14 //  * Theme.scale(Screen)
+                    // color: Qt.rgba(Theme.textPrimary.r, Theme.textPrimary.g, Theme.textPrimary.b, 0.4)
                     visible: !albumArt.visible
                 }
 
@@ -138,7 +138,7 @@ Item {
                         anchors.centerIn: parent
                         text: musicManager.isPlaying ? "󰏤" : "󰐊"
                         font.family: "Symbols Nerd Font"
-                        font.pixelSize: 14 * Theme.scale(Screen)
+                        font.pixelSize: 14
                         color: "white"
                     }
                 }
@@ -159,7 +159,7 @@ Item {
             id: mediaText
             text: `${musicManager.trackTitle} - ${musicManager.trackArtist} (${parseInt(musicManager.currentPosition / musicManager.trackLength * 100)}%)`
             color: Data.ThemeManager.accentColor
-            font.family: Theme.fontFamily
+            // font.family: Theme.fontFamily
             font.pixelSize: 16
             elide: Text.ElideRight
             Layout.maximumWidth: 300
