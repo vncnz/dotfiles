@@ -23,7 +23,7 @@ Rectangle {
         id: hint
         color: Data.ThemeManager.fgColor
         text: root.text
-        font.weight: textBold ? Font.Bold : Font.normal
+        font.weight: textBold ? Font.Bold : Font.Normal
         anchors.centerIn: parent
         transform: Rotation {
             origin.x: hint.implicitWidth / 2
