@@ -20,7 +20,7 @@ Item {
         onMatugenColorsLoaded: {
             console.log("✓ Colors loaded signal received")
             console.log("✓ Service reports available:", isAvailable())
-            console.log("✓ Theme reports active:", Data.ThemeManager.matugen.isMatugenActive())
+            console.log("✓ Theme reports active:", undefined/*Data.ThemeManager.matugen.isMatugenActive()*/)
             
             if (Data.ThemeManager.matugen.dark) {
                 console.log("✓ Dark theme background:", Data.ThemeManager.matugen.dark.base00)

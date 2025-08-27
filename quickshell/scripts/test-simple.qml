@@ -8,7 +8,7 @@ Item {
         
         if (Data.ThemeManager.matugen) {
             console.log("✓ Matugen theme available")
-            console.log("✓ Is active:", Data.ThemeManager.matugen.isMatugenActive())
+            console.log("✓ Is active:", undefined/*Data.ThemeManager.matugen.isMatugenActive()*/)
             
             if (Data.ThemeManager.matugen.dark) {
                 console.log("✓ Dark theme available")
