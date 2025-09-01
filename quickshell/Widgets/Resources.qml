@@ -151,8 +151,12 @@ Item {
                     return Data.RatatoskrLoader.sysData?.network?.icon || "󰞃"
                 }
                 text: {
-                    if (Data.RatatoskrLoader.sysData?.network?.signal) return `${Data.RatatoskrLoader.sysData?.network?.signal}%`
-                    if (Data.RatatoskrLoader.sysData?.network?.conn_type[0] === 'e') return 'ETH'
+                    if (Data.RatatoskrLoader.sysData?.network) {
+                        if (Data.RatatoskrLoader.sysData.network.signal)
+                            return `${Data.RatatoskrLoader.sysData.network.signal}% on ${Data.RatatoskrLoader.sysData.network.ssid}`
+                        if (Data.RatatoskrLoader.sysData.network.conn_type[0] === 'e')
+                            return 'ETH'
+                    }
                     return 'N/A'
                 }
                 vcolor: {
