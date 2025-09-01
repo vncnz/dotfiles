@@ -164,7 +164,7 @@ Item {
                     if (Data.RatatoskrLoader.sysData?.network?.conn_type[0] === 'e') return 'gray'
                     return 'red'
                 }
-                warn: Data.RatatoskrLoader.sysData?.network?.warn
+                warn: Data.RatatoskrLoader.sysData?.network?.warn || .5
                 expanded: niriService.inOverview
             }
 
