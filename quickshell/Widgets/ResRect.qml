@@ -22,7 +22,7 @@ Item {
         id: itemBar
         
         // Dynamic sizing based on warn level
-        width: 5 + (warn * 20)
+        width: 5 + (warn * 15)
         height: parent.height
         // radius: width / 2
         // scale: model.isFocused ? 1.0 : 0.9
@@ -130,7 +130,7 @@ Item {
         // anchors.centerIn: parent
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: 27
+        anchors.leftMargin: 24
         width: 20
         text: icon
         // text: model.output
