@@ -33,6 +33,13 @@ PanelWindow {
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
     WlrLayershell.namespace: "quickshell-version"
 
+    property var weatherUpdated: {
+        if (Data.RatatoskrLoader.sysData?.weather?.updated) {
+            return new Date(Data.RatatoskrLoader.sysData?.weather?.updated).toLocaleTimeString('it-IT')
+        }
+        return ''
+    }
+
     Timer {
         id: startupTimer
         interval: 1500
@@ -219,7 +226,7 @@ PanelWindow {
             }
 
             Text {
-                text: `${Data.RatatoskrLoader.sysData?.weather?.locality}`
+                text: `${Data.RatatoskrLoader.sysData?.weather?.locality}, updated at ${systemVersion.weatherUpdated}`
                 color: (Data.ThemeManager.currentTheme && Data.ThemeManager.currentTheme.type === "dark") ? "#ffffff" : "#000000"
                 font.family: "SF Mono, Consolas, Monaco, monospace"
                 font.pointSize: 10
