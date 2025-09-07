@@ -1,8 +1,102 @@
-from ignis.widgets import Widget
 
-Widget.Window(
-    namespace="some-window",  # the name of the window (not title!)
-    child=Widget.Label(  # we set Widget.Label as the child widget of the window
-        label="Hello world!"  # define text here
-    ),
-)
+if False:
+    from ignis.widgets import Widget
+    Widget.Window(
+        namespace="some-window",  # the name of the window (not title!)
+        child=Widget.Label(  # we set Widget.Label as the child widget of the window
+            label="Hello world!"  # define text here
+        ),
+        layer = 'background',
+        style = 'background-color:transparent;text-shadow:1px 1px 2px black;'
+    )
+
+
+from gi.repository import Gtk, cairo
+from ignis.widgets import Window
+import ignis
+import math
+import json
+
+from ignis.services.upower import UPowerService
+p = UPowerService()
+for batt in p.batteries:
+    print(f'Battery {batt.percent}%')
+
+frames = {}
+monitors = ignis.utils.Utils.get_monitors()
+monitors = list(range(ignis.utils.Utils.get_n_monitors()))
+
+def roundrect(context, x, y, width, height, r):
+    context.move_to(x, y)
+
+    context.arc(x+r, y+r, r,
+                math.pi, 3*math.pi/2)
+
+    context.arc(x+width-r, y+r, r,
+                3*math.pi/2, 0)
+
+    context.arc(x+width-r, y+height-r,
+                r, 0, math.pi/2)
+
+    context.arc(x+r, y+height-r, r,
+                math.pi/2, math.pi)
+
+    context.close_path()
+
+def draw_frame(area, cr, width, height):
+    cr.set_source_rgba(0.2, 0.6, 0.5, 1)
+    cr.set_fill_rule(cairo.FillRule.EVEN_ODD)
+
+    # rettangolo esterno
+    cr.rectangle(0, 0, width, height)
+
+    # rettangolo interno scavato (bordo da 20px)
+    margin = 5
+    # cr.rectangle(margin, margin, width - 2*margin, height - 2*margin)
+    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 15)
+
+    cr.fill()
+
+def make_frame (output):
+    output_name = output
+    area = Gtk.DrawingArea()
+    area.set_draw_func(draw_frame)
+    area.set_hexpand(True)
+    area.set_vexpand(True)
+    area.set_content_width(1920)
+    area.set_content_height(1080)
+
+    # Finestra Ignis a schermo intero, livello overlay
+    win = Window(
+        namespace = f'screen-frame-{output_name}',
+        layer = 'top',
+        exclusivity = 'normal',
+        kb_mode = 'none',
+        style = 'background-color:transparent;',
+        input_width = 1,
+        input_height = 1,
+        monitor = output_name
+        # anchor=['top', 'left', 'bottom', 'right']
+    )
+    win.set_child(area)
+    # win.set_pass_through(True)        # click-through
+    win.present()
+    frames[output_name] = win
+    print(f'Frame created for output {output_name}')
+
+def remove_frame(output_name):
+    if output_name in frames:
+        frames[output_name].close()
+        del frames[output_name]
+        print(f"Frame removed from {output_name}")
+
+for out in monitors:
+    make_frame(out)
+
+#@ignis.on("output-added")
+#def on_output_added(output, *_):
+#    make_frame(output)
+
+#@ignis.on("output-removed")
+#def on_output_removed(output, *_):
+#    remove_frame(output)
