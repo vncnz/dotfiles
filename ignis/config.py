@@ -1,13 +1,23 @@
 
-if False:
+if True:
     from ignis.widgets import Widget
+    from ignis.services.fetch import FetchService
+    from ignis.services.upower import UPowerService
+
+    battery_label = Widget.Label(
+        label="Hello world!"
+    )
+
+    p = UPowerService()
+    battery_label.set_label(', '.join([f'Battery {batt.percent}%' for batt in p.batteries]) or 'No batteries')
+    # Utils.Poll(1000, lambda x: update_label(clock_label))
+
     Widget.Window(
         namespace="some-window",  # the name of the window (not title!)
-        child=Widget.Label(  # we set Widget.Label as the child widget of the window
-            label="Hello world!"  # define text here
-        ),
+        child = battery_label,
         layer = 'background',
-        style = 'background-color:transparent;text-shadow:1px 1px 2px black;'
+        style = 'background-color:transparent;text-shadow:1px 1px 2px black;',
+        anchor = ['bottom']
     )
 
 
@@ -16,11 +26,6 @@ from ignis.widgets import Window
 import ignis
 import math
 import json
-
-from ignis.services.upower import UPowerService
-p = UPowerService()
-for batt in p.batteries:
-    print(f'Battery {batt.percent}%')
 
 frames = {}
 monitors = ignis.utils.Utils.get_monitors()
