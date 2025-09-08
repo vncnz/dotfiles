@@ -1,31 +1,73 @@
+from ignis.widgets import Widget
+import json
+
+def read_ratatoskr_output ():
+    with open('/tmp/ratatoskr.json') as rat:
+        data = json.loads(rat.read())
+        print(data)
+        return data
+
+rat = read_ratatoskr_output()
 
 if True:
-    from ignis.widgets import Widget
     from ignis.services.fetch import FetchService
     from ignis.services.upower import UPowerService
 
-    battery_label = Widget.Label(
-        label="Hello world!"
-    )
+    from ResBox import ResBox, WeatherBox
 
-    p = UPowerService()
-    battery_label.set_label(', '.join([f'Battery {batt.percent}%' for batt in p.batteries]) or 'No batteries')
-    # Utils.Poll(1000, lambda x: update_label(clock_label))
+    class BackgroundInfos (Widget.Window):
+        def __init__(self, monitor = None):
 
-    Widget.Window(
-        namespace="some-window",  # the name of the window (not title!)
-        child = battery_label,
-        layer = 'background',
-        style = 'background-color:transparent;text-shadow:1px 1px 2px black;',
-        anchor = ['bottom']
-    )
+            weather_box = WeatherBox(rat['weather'])
 
+            # fetch = FetchService.get_default()
+            # ram = fetch.mem_info
+            # ram_used_perc = round(fetch.mem_used / fetch.mem_total * 100)
+            # swap_used_perc = round(100 - ram['SwapFree'] / ram['SwapTotal'] * 100)
+            # disk_used_perc = rat['disk']['used_percent']
+            # print(ram)
+
+            ram_used_label = ResBox('RAM {value}%', rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
+            swap_used_label = ResBox('SWAP {value}%', rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
+            disk_used_label = ResBox('Disk {value}%', rat['disk']['used_percent'], color=rat['disk']['color'])
+
+            battery_label = Widget.Label(
+                label="Hello world!"
+            )
+
+            p = UPowerService()
+            battery_label.set_label(', '.join([f'Battery {batt.percent}%' for batt in p.batteries]) or 'No batteries')
+            # Utils.Poll(1000, lambda x: update_label(clock_label))
+            
+            box = Widget.Box(
+                spacing = 6,
+                vertical = True,
+                child = [
+                    weather_box,
+                    ram_used_label,
+                    swap_used_label,
+                    disk_used_label,
+                    battery_label
+                ]
+            )
+
+            super().__init__(
+                namespace = 'background-infos',
+                monitor = monitor,
+                child = box,
+                layer = 'background',
+                style = 'background-color:transparent;text-shadow:1px 1px 2px black;',
+                anchor = ['bottom', 'left'],
+                margin_left = 100,
+                margin_bottom = 50
+            )
+
+    BackgroundInfos()
 
 from gi.repository import Gtk, cairo
 from ignis.widgets import Window
 import ignis
 import math
-import json
 
 frames = {}
 monitors = ignis.utils.Utils.get_monitors()
@@ -68,8 +110,8 @@ def make_frame (output):
     area.set_draw_func(draw_frame)
     area.set_hexpand(True)
     area.set_vexpand(True)
-    area.set_content_width(1920)
-    area.set_content_height(1080)
+    # area.set_content_width(1920)
+    # area.set_content_height(1080)
 
     # Finestra Ignis a schermo intero, livello overlay
     win = Window(
@@ -80,8 +122,8 @@ def make_frame (output):
         style = 'background-color:transparent;',
         input_width = 1,
         input_height = 1,
-        monitor = output_name
-        # anchor=['top', 'left', 'bottom', 'right']
+        monitor = output_name,
+        anchor=['top', 'left', 'bottom', 'right']
     )
     win.set_child(area)
     # win.set_pass_through(True)        # click-through
