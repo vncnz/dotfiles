@@ -1,13 +1,14 @@
 from ignis.widgets import Widget
+from ignis.utils import Utils
 import json
 
 def read_ratatoskr_output ():
     with open('/tmp/ratatoskr.json') as rat:
         data = json.loads(rat.read())
-        print(data)
         return data
 
 rat = read_ratatoskr_output()
+print(rat)
 
 if True:
     from ignis.services.fetch import FetchService
@@ -31,13 +32,22 @@ if True:
             swap_used_label = ResBox('SWAP {value}%', rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
             disk_used_label = ResBox('Disk {value}%', rat['disk']['used_percent'], color=rat['disk']['color'])
 
+            self.ram_used_label = ram_used_label
+            self.swap_used_label = swap_used_label
+            self.disk_used_label = disk_used_label
+
             battery_label = Widget.Label(
                 label="Hello world!"
             )
 
             p = UPowerService()
             battery_label.set_label(', '.join([f'Battery {batt.percent}%' for batt in p.batteries]) or 'No batteries')
-            # Utils.Poll(1000, lambda x: update_label(clock_label))
+            # Utils.Poll(1000, self.update_ratatoskr)
+            Utils.FileMonitor(
+                path="/tmp/ratatoskr.json",
+                recursive=False,
+                callback = self.update_ratatoskr # lambda _, path, event_type: print(path, event_type),
+            )
             
             box = Widget.Box(
                 spacing = 6,
@@ -61,6 +71,14 @@ if True:
                 margin_left = 100,
                 margin_bottom = 50
             )
+        
+        def update_ratatoskr (self, _, path, event_type):
+            global rat
+            rat = read_ratatoskr_output()
+
+            self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
+            self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
+            self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
 
     BackgroundInfos()
 

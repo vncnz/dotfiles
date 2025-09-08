@@ -2,11 +2,26 @@ from ignis.widgets import Widget
 from utils import get_color_gradient
 from datetime import datetime
 
+import functools
+
+def skip_if_unchanged(func):
+    last_call = {"args": None, "kwargs": None}
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if (args, kwargs) == (last_call["args"], last_call["kwargs"]):
+            return
+        last_call["args"] = args
+        last_call["kwargs"] = kwargs
+        return func(*args, **kwargs)
+
+    return wrapper
+
 class ResBox (Widget.Box):
     def __init__(self, template, value, color=None, **kwargs):
 
-        self.warn_level = [60, 90]
-        self.high_is_good = self.warn_level[0] > self.warn_level[1]
+        self.warn_level = [60, 90] # unused for now
+        self.high_is_good = self.warn_level[0] > self.warn_level[1] # unused for now
 
         value_label = Widget.Label(
             label = template.format(value=value),
@@ -32,10 +47,17 @@ class ResBox (Widget.Box):
     def compute_style (self, v, color=None):
         return f'font-size: 1.7em;color:{color or get_color_gradient(self.warn_level[0], self.warn_level[1], v, self.high_is_good)};'
     
-    def update_value(self, value):
+    @skip_if_unchanged
+    def update_value(self, value, color=None, template=None):
         # self.value = value
+        if template: self.template = template
         self.label.set_label(self.template.format(value=value))
-        self.label.set_style(self.compute_style(value))
+        self.label.set_style(self.compute_style(value, color))
+
+    #def update_template_and_value (self, template, value, color=None):
+    #    self.template = template
+    #    self.label.set_label(self.template.format(value=value))
+    #    self.label.set_style(self.compute_style(value, color))
 
 class WeatherBox (Widget.Box):
     def __init__(self, value, **kwargs):
