@@ -20,6 +20,9 @@ if True:
         def __init__(self, monitor = None):
 
             weather_box = WeatherBox(rat['weather'])
+            # battery_box = WeatherBox(rat['battery'])
+
+            self.weather_box = weather_box
 
             # fetch = FetchService.get_default()
             # ram = fetch.mem_info
@@ -42,6 +45,7 @@ if True:
 
             p = UPowerService()
             battery_label.set_label(', '.join([f'Battery {batt.percent}%' for batt in p.batteries]) or 'No batteries')
+
             # Utils.Poll(1000, self.update_ratatoskr)
             Utils.FileMonitor(
                 path="/tmp/ratatoskr.json",
@@ -76,9 +80,11 @@ if True:
             global rat
             rat = read_ratatoskr_output()
 
+            self.weather_box.update_value(rat['weather'])
             self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
             self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
             self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
+
 
     BackgroundInfos()
 

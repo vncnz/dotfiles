@@ -59,7 +59,8 @@ class ResBox (Widget.Box):
     #    self.label.set_label(self.template.format(value=value))
     #    self.label.set_style(self.compute_style(value, color))
 
-class WeatherBox (Widget.Box):
+
+class MultilineBox (Widget.Box):
     def __init__(self, value, **kwargs):
 
         # 'weather': {'icon': '\U000f0590', 'icon_name': 'overcast.svg', 'temp': 29, 'temp_real': 27, 'temp_unit': '°C', 'text': 'Overcast', 'day': '1', 'sunrise': '06:48', 'sunset': '19:42', 'sunrise_mins': 408, 'sunset_mins': 1182, 'daylight': 46482.52, 'locality': 'Desenzano Del Garda', 'humidity': 54, 'updated': '2025-09-08T10:46:21.620269155+00:00'}
@@ -97,6 +98,10 @@ class WeatherBox (Widget.Box):
             vertical = True,
             homogeneous=False,
             child = self.lines, **kwargs)
+    
+    def set_lines (self, texts):
+        for label, text in zip(self.lines, texts):
+            label.set_label(text)
 
     def compute_style (self, v):
         # return f'color:{get_color_gradient(self.warn_level[0], self.warn_level[1], v, self.high_is_good)};'
@@ -107,3 +112,24 @@ class WeatherBox (Widget.Box):
         # self.label.set_label(self.template.format(value=value))
         # self.label.set_style(self.compute_style(value))
         pass
+
+
+class WeatherBox (MultilineBox):
+    def __init__(self, value, **kwargs):
+
+        # 'weather': {'icon': '\U000f0590', 'icon_name': 'overcast.svg', 'temp': 29, 'temp_real': 27, 'temp_unit': '°C', 'text': 'Overcast', 'day': '1', 'sunrise': '06:48', 'sunset': '19:42', 'sunrise_mins': 408, 'sunset_mins': 1182, 'daylight': 46482.52, 'locality': 'Desenzano Del Garda', 'humidity': 54, 'updated': '2025-09-08T10:46:21.620269155+00:00'}
+
+        super().__init__(value)
+        
+        self.last_updated = None
+        self.update_value(value)
+
+    def update_value(self, value):
+        if value['updated'] != self.last_updated:
+            updated = datetime.fromisoformat(value['updated'])
+            self.set_lines([
+                f'{value['text']} / {value['temp']}{value['temp_unit']} / {value['humidity']}%',
+                f' {value['sunrise']}  {value['sunset']}',
+                f'{value['locality']}, updated at {updated.strftime("%H:%M")}'
+            ])
+            self.last_updated = value['updated']
