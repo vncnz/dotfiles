@@ -100,6 +100,8 @@ frames = {}
 monitors = ignis.utils.Utils.get_monitors()
 monitors = list(range(ignis.utils.Utils.get_n_monitors()))
 
+# battery_is_used = rat['battery']['state'] == 'Discharging' or rat['battery']['state'] == 'Charging'
+
 def roundrect(context, x, y, width, height, r):
     context.move_to(x, y)
 
@@ -118,16 +120,20 @@ def roundrect(context, x, y, width, height, r):
     context.close_path()
 
 def draw_frame(area, cr, width, height):
-    cr.set_source_rgba(0.2, 0.6, 0.5, 1)
+
+    #if battery_is_used:
+    #    margin = 12 - int(rat['battery']['percentage'] / 10)
+    #    cr.set_source_rgba(0.2, 0.6, 0.5, 1)
+    #else:
+    margin = 0
+    cr.set_source_rgba(0.0, 0.0, 0.0, 1)
     cr.set_fill_rule(cairo.FillRule.EVEN_ODD)
 
     # rettangolo esterno
     cr.rectangle(0, 0, width, height)
 
-    # rettangolo interno scavato (bordo da 20px)
-    margin = 5
     # cr.rectangle(margin, margin, width - 2*margin, height - 2*margin)
-    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 15)
+    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 25)
 
     cr.fill()
 
