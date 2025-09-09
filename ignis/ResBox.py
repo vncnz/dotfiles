@@ -149,7 +149,7 @@ class BatteryBox (MultilineBox):
             self.set_lines([
                 f'Battery {value['percentage']}%',
                 f'{value['state']} ({round(value['watt'], 1)} watts)',
-                f'Eta {int(e / 60)}h{int(e % 60)}m'
+                e and f'Eta {int(e / 60)}h{int(e % 60)}m' or 'Calculating'
             ])
             self.lines[0].set_style(f'font-size: 1.7em;color:{value['color']};')
         else:
