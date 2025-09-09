@@ -65,10 +65,8 @@ class MultilineBox (Widget.Box):
 
         # 'weather': {'icon': '\U000f0590', 'icon_name': 'overcast.svg', 'temp': 29, 'temp_real': 27, 'temp_unit': '°C', 'text': 'Overcast', 'day': '1', 'sunrise': '06:48', 'sunset': '19:42', 'sunrise_mins': 408, 'sunset_mins': 1182, 'daylight': 46482.52, 'locality': 'Desenzano Del Garda', 'humidity': 54, 'updated': '2025-09-08T10:46:21.620269155+00:00'}
 
-        updated = datetime.fromisoformat(value['updated'])
-
         line1 = Widget.Label(
-            label = f'{value['text']} / {value['temp']}{value['temp_unit']} / {value['humidity']}%',
+            label = 'line1',
             #use_markup=False,
             justify='left',
             #wrap=True,
@@ -79,14 +77,14 @@ class MultilineBox (Widget.Box):
             xalign=0.0
         )
         line2 = Widget.Label(
-            label = f' {value['sunrise']}  {value['sunset']}',
+            label = 'line2',
             justify='left',
             hexpand=False,
             style = 'font-size: 1.1em;',
             xalign=0.0
         )
         line3 = Widget.Label(
-            label = f'{value['locality']}, updated at {updated.strftime("%H:%M")}',
+            label = 'line3',
             justify='left',
             style = 'font-size: 1.1em;',
             xalign=0.0
@@ -130,6 +128,34 @@ class WeatherBox (MultilineBox):
             self.set_lines([
                 f'{value['text']} / {value['temp']}{value['temp_unit']} / {value['humidity']}%',
                 f' {value['sunrise']}  {value['sunset']}',
-                f'{value['locality']}, updated at {updated.strftime("%H:%M")}'
+                f'{value['locality']}, updated at {updated.astimezone().strftime("%H:%M")}'
             ])
             self.last_updated = value['updated']
+
+class BatteryBox (MultilineBox):
+    def __init__(self, value):
+
+        # 'battery': {'percentage': 0, 'capacity': 0.0, 'eta': None, 'state': 'no_battery', 'icon': '\uf1e6', 'color': None, 'watt': 0.0}
+
+        super().__init__(value)
+
+        self.update_value(value)
+
+    def update_value(self, value):
+        # import json
+        # value = json.loads('{"percentage":98,"capacity":181008.0,"eta":418.04108,"state":"Discharging","icon":"󰁹","color":"#55FF00","watt":7.106}')
+        if value['capacity'] > 0:
+            e = value['eta']
+            self.set_lines([
+                f'Battery {value['percentage']}%',
+                f'{value['state']} ({round(value['watt'], 1)} watts)',
+                f'Eta {int(e / 60)}h{int(e % 60)}m'
+            ])
+            self.lines[0].set_style(f'font-size: 1.7em;color:{value['color']};')
+        else:
+            self.set_lines([
+                f'No batteries',
+                f'Not a laptop, maybe?',
+                f'A blackout is unlikely to happen now, isn\'t it?'
+            ])
+            self.lines[0].set_style(f'font-size: 1.7em;')

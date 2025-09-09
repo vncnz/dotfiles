@@ -14,15 +14,16 @@ if True:
     from ignis.services.fetch import FetchService
     from ignis.services.upower import UPowerService
 
-    from ResBox import ResBox, WeatherBox
+    from ResBox import ResBox, WeatherBox, BatteryBox
 
     class BackgroundInfos (Widget.Window):
         def __init__(self, monitor = None):
 
             weather_box = WeatherBox(rat['weather'])
-            # battery_box = WeatherBox(rat['battery'])
+            battery_box = BatteryBox(rat['battery'])
 
             self.weather_box = weather_box
+            self.battery_box = battery_box
 
             # fetch = FetchService.get_default()
             # ram = fetch.mem_info
@@ -39,12 +40,12 @@ if True:
             self.swap_used_label = swap_used_label
             self.disk_used_label = disk_used_label
 
-            battery_label = Widget.Label(
-                label="Hello world!"
-            )
+            #battery_label = Widget.Label(
+            #     label="Hello world!"
+            # )
 
             p = UPowerService()
-            battery_label.set_label(', '.join([f'Battery {batt.percent}%' for batt in p.batteries]) or 'No batteries')
+            # battery_label.set_label(', '.join([f'Battery {batt.percent}%' for batt in p.batteries]) or 'No batteries')
 
             # Utils.Poll(1000, self.update_ratatoskr)
             Utils.FileMonitor(
@@ -61,7 +62,8 @@ if True:
                     ram_used_label,
                     swap_used_label,
                     disk_used_label,
-                    battery_label
+                    # battery_label,
+                    battery_box
                 ]
             )
 
@@ -81,6 +83,7 @@ if True:
             rat = read_ratatoskr_output()
 
             self.weather_box.update_value(rat['weather'])
+            self.battery_box.update_value(rat['battery'])
             self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
             self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
             self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
