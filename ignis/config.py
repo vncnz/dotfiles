@@ -31,10 +31,12 @@ if True:
 
             weather_box = WeatherBox(rat['weather'])
             battery_box = BatteryBox(rat['battery'])
+            memory_used_box = MemoryBox(rat['ram'])
             network_box = NetworkBox(rat['network'])
 
             self.weather_box = weather_box
             self.battery_box = battery_box
+            self.memory_used_box = memory_used_box
             self.network_box = network_box
 
             # fetch = FetchService.get_default()
@@ -44,17 +46,21 @@ if True:
             # disk_used_perc = rat['disk']['used_percent']
             # print(ram)
 
-            memory_used_box = MemoryBox(rat['ram'])
+            
 
             # ram_used_label = ResBox('RAM {value}%', rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
             # swap_used_label = ResBox('SWAP {value}%', rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
             disk_used_label = ResBox('Disk {value}%', rat['disk']['used_percent'], color=rat['disk']['color'])
-            avg_load_label = ResBox('Load {value}%', f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
+            avg_load_label = ResBox('Load {value}', f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
+
+            # {'sensor': 'Tctl', 'value': 72.125, 'color': '#55FF00', 'icon': '\uf2cb', 'warn': 0.0}
+            temp_label = ResBox('Temperature {value}°', rat['temperature']['value'], color=rat['temperature']['color'])
 
             # self.ram_used_label = ram_used_label
             # self.swap_used_label = swap_used_label
             self.disk_used_label = disk_used_label
             self.avg_load_label = avg_load_label
+            self.temp_label = temp_label
 
             #battery_label = Widget.Label(
             #     label="Hello world!"
@@ -81,6 +87,8 @@ if True:
                     # Widget.Separator(vertical=False),
                     # swap_used_label,
                     Widget.Separator(vertical=False),
+                    avg_load_label,
+                    temp_label,
                     disk_used_label,
                     Widget.Separator(vertical=False),
                     network_box,
@@ -107,10 +115,12 @@ if True:
 
             self.weather_box.update_value(rat['weather'])
             self.battery_box.update_value(rat['battery'])
+            self.memory_used_box.update_value(rat['ram'])
             # self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
             # self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
             self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
             self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
+            self.temp_label.update_value(int(rat['temperature']['value']), color=rat['temperature']['color'])
 
 
     BackgroundInfos()

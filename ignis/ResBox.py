@@ -46,7 +46,7 @@ class ResBox (Widget.Box):
             ], **kwargs)
 
     def compute_style (self, v, color=None):
-        return f'font-size: 1.7em;color:{color or get_color_gradient(self.warn_level[0], self.warn_level[1], v, self.high_is_good)};'
+        return f'font-size: 1.4em;color:{color or get_color_gradient(self.warn_level[0], self.warn_level[1], v, self.high_is_good)};'
     
     @skip_if_unchanged
     def update_value(self, value, color=None, template=None):
@@ -74,7 +74,7 @@ class MultilineBox (Widget.Box):
             #wrap_mode='word',
             #ellipsize='end',
             #max_width_chars=52,
-            style = 'font-size: 1.7em;', # self.compute_style(value)
+            style = 'font-size: 1.4em;', # self.compute_style(value)
             xalign=0.0
         )
         line2 = Widget.Label(
@@ -123,6 +123,7 @@ class WeatherBox (MultilineBox):
         self.last_updated = None
         self.update_value(value)
 
+    @skip_if_unchanged
     def update_value(self, value):
         if value:
             if value['updated'] != self.last_updated:
@@ -156,24 +157,37 @@ class BatteryBox (MultilineBox):
 
         self.update_value(value)
 
+    @skip_if_unchanged
     def update_value(self, value):
         # import json
         # value = json.loads('{"percentage":98,"capacity":181008.0,"eta":418.04108,"state":"Discharging","icon":"󰁹","color":"#55FF00","watt":7.106}')
         if value['capacity'] > 0:
-            e = value['eta']
+            if value['state'] == 'Full':
+                second = 'Full, enjoy!'
+                third = random.choice([
+                    'ETA: ∞ (give or take)',
+                    'ETA: Infinity and beyond',
+                    'Eternal uptime (ish)',
+                    'Deadline cancelled',
+                    'Next stop: entropy'
+                ])# 'Eta to infinity, I suppose'
+            else:
+                second = f'{value['state']} ({round(value['watt'], 1)} watts)'
+                e = value['eta']
+                third = e and f'Eta {int(e / 60)}h{int(e % 60)}m' or 'Calculating'
             self.set_lines([
                 f'Battery {value['percentage']}%',
-                f'{value['state']} ({round(value['watt'], 1)} watts)',
-                e and f'Eta {int(e / 60)}h{int(e % 60)}m' or 'Calculating'
+                second,
+                third
             ])
-            self.lines[0].set_style(f'font-size: 1.7em;color:{value['color']};')
+            self.lines[0].set_style(f'font-size: 1.4em;color:{value['color']};')
         else:
             self.set_lines([
                 f'No batteries',
                 f'Not a laptop, maybe?',
                 f'A blackout is unlikely to happen now, isn\'t it?'
             ])
-            self.lines[0].set_style(f'font-size: 1.7em;')
+            self.lines[0].set_style(f'font-size: 1.4em;')
 
 class MemoryBox (MultilineBox):
     def __init__(self, value, **kwargs):
@@ -183,6 +197,7 @@ class MemoryBox (MultilineBox):
         super().__init__(value)
         self.update_value(value)
 
+    @skip_if_unchanged
     def update_value(self, value):
         self.set_lines([
             f'Memory {value['mem_percent']}% / {value['swap_percent']}%',
@@ -190,7 +205,7 @@ class MemoryBox (MultilineBox):
             f'SWAP {bytes_to_human(value['used_swap'])} of {bytes_to_human(value['total_swap'])}'
         ])
         color = value['mem_color'] if value['mem_warn'] > value['swap_warn'] else value['swap_color']
-        self.lines[0].set_style(f'font-size: 1.7em;color:{color};')
+        self.lines[0].set_style(f'font-size: 1.4em;color:{color};')
 
 class NetworkBox (MultilineBox):
     def __init__(self, value, **kwargs):
@@ -200,6 +215,7 @@ class NetworkBox (MultilineBox):
         super().__init__(value)
         self.update_value(value)
 
+    @skip_if_unchanged
     def update_value(self, value):
         if value:
             if value['conn_type'] == 'wifi':
@@ -214,4 +230,4 @@ class NetworkBox (MultilineBox):
                     f'No network name',
                     f'IP address {value['ip']}'
                 ])
-            self.lines[0].set_style(f'font-size: 1.7em;color:{value['color']};')
+            self.lines[0].set_style(f'font-size: 1.4em;color:{value['color']};')
