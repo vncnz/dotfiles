@@ -2,6 +2,9 @@ from ignis.widgets import Widget
 from ignis.utils import Utils
 import json
 
+# from niri import print_test
+# print_test()
+
 from ignis.services.wallpaper import WallpaperService
 from ignis.options import options
 
