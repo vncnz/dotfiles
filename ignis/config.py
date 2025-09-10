@@ -2,6 +2,13 @@ from ignis.widgets import Widget
 from ignis.utils import Utils
 import json
 
+from ignis.services.wallpaper import WallpaperService
+from ignis.options import options
+
+WallpaperService.get_default()  # just to initialize it
+
+options.wallpaper.set_wallpaper_path("/home/vncnz/Pictures/wallpapers/paesaggi fantasy o disegni/203518.jpg")
+
 def read_ratatoskr_output ():
     with open('/tmp/ratatoskr.json') as rat:
         data = json.loads(rat.read())
@@ -14,16 +21,18 @@ if True:
     from ignis.services.fetch import FetchService
     from ignis.services.upower import UPowerService
 
-    from ResBox import ResBox, WeatherBox, BatteryBox, MemoryBox
+    from ResBox import ResBox, WeatherBox, BatteryBox, MemoryBox, NetworkBox
 
     class BackgroundInfos (Widget.Window):
         def __init__(self, monitor = None):
 
             weather_box = WeatherBox(rat['weather'])
             battery_box = BatteryBox(rat['battery'])
+            network_box = NetworkBox(rat['network'])
 
             self.weather_box = weather_box
             self.battery_box = battery_box
+            self.network_box = network_box
 
             # fetch = FetchService.get_default()
             # ram = fetch.mem_info
@@ -71,6 +80,8 @@ if True:
                     Widget.Separator(vertical=False),
                     disk_used_label,
                     Widget.Separator(vertical=False),
+                    network_box,
+                    Widget.Separator(vertical=False),
                     # battery_label,
                     battery_box
                 ]
@@ -80,8 +91,8 @@ if True:
                 namespace = 'background-infos',
                 monitor = monitor,
                 child = box,
-                layer = 'background',
-                style = 'background-color:transparent;text-shadow:1px 1px 2px black;',
+                layer = 'bottom',
+                style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;',
                 anchor = ['bottom', 'left'],
                 margin_left = 100,
                 margin_bottom = 50

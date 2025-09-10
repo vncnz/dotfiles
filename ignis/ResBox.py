@@ -2,6 +2,7 @@ from ignis.widgets import Widget
 from utils import get_color_gradient, bytes_to_human
 from datetime import datetime
 
+import random
 import functools
 
 def skip_if_unchanged(func):
@@ -123,14 +124,28 @@ class WeatherBox (MultilineBox):
         self.update_value(value)
 
     def update_value(self, value):
-        if value['updated'] != self.last_updated:
-            updated = datetime.fromisoformat(value['updated'])
+        if value:
+            if value['updated'] != self.last_updated:
+                updated = datetime.fromisoformat(value['updated'])
+                self.set_lines([
+                    f'{value['text']} / {value['temp']}{value['temp_unit']} / {value['humidity']}%',
+                    f' {value['sunrise']}  {value['sunset']}',
+                    f'{value['locality']}, updated at {updated.astimezone().strftime("%H:%M")}'
+                ])
+                self.last_updated = value['updated']
+        else:
             self.set_lines([
-                f'{value['text']} / {value['temp']}{value['temp_unit']} / {value['humidity']}%',
-                f' {value['sunrise']}  {value['sunset']}',
-                f'{value['locality']}, updated at {updated.astimezone().strftime("%H:%M")}'
+                f'No weather data',
+                f'Network still napping?',
+                random.choice([
+                    'Armageddon loading...',
+                    'The end is nigh?',
+                    'Impending doom?',
+                    'Skies on strike?',
+                    'Apocalypse scheduled?',
+                    'Judgment Day soon?'
+                ])
             ])
-            self.last_updated = value['updated']
 
 class BatteryBox (MultilineBox):
     def __init__(self, value):
@@ -176,3 +191,27 @@ class MemoryBox (MultilineBox):
         ])
         color = value['mem_color'] if value['mem_warn'] > value['swap_warn'] else value['swap_color']
         self.lines[0].set_style(f'font-size: 1.7em;color:{color};')
+
+class NetworkBox (MultilineBox):
+    def __init__(self, value, **kwargs):
+
+        # 'network': {'iface': 'wlan0', 'conn_type': 'wifi', 'ssid': 'TIM-23842378', 'signal': 43, 'ip': '192.168.1.191', 'icon': '\U000f08bd', 'color': '#FFF400', 'warn': 0.42500000000000004}
+
+        super().__init__(value)
+        self.update_value(value)
+
+    def update_value(self, value):
+        if value:
+            if value['conn_type'] == 'wifi':
+                self.set_lines([
+                    f'Connection {value['iface']} / {value['signal']}%',
+                    f'Network {value['ssid']}',
+                    f'IP address {value['ip']}'
+                ])
+            else:
+                self.set_lines([
+                    f'Connection {value['iface']} / wired',
+                    f'No network name',
+                    f'IP address {value['ip']}'
+                ])
+            self.lines[0].set_style(f'font-size: 1.7em;color:{value['color']};')
