@@ -1,5 +1,5 @@
 from ignis.widgets import Widget
-from utils import get_color_gradient
+from utils import get_color_gradient, bytes_to_human
 from datetime import datetime
 
 import functools
@@ -159,3 +159,20 @@ class BatteryBox (MultilineBox):
                 f'A blackout is unlikely to happen now, isn\'t it?'
             ])
             self.lines[0].set_style(f'font-size: 1.7em;')
+
+class MemoryBox (MultilineBox):
+    def __init__(self, value, **kwargs):
+
+        # 'ram': {'total_memory': 4099457024, 'used_memory': 2791231488, 'total_swap': 6866382848, 'used_swap': 442261504, 'mem_percent': 68, 'swap_percent': 6, 'mem_color': '#C6FF00', 'swap_color': '#55FF00', 'mem_warn': 0.26666666666666666, 'swap_warn': 0.0}
+
+        super().__init__(value)
+        self.update_value(value)
+
+    def update_value(self, value):
+        self.set_lines([
+            f'Memory {value['mem_percent']}% / {value['swap_percent']}%',
+            f'RAM {bytes_to_human(value['used_memory'])} of {bytes_to_human(value['total_memory'])}',
+            f'SWAP {bytes_to_human(value['used_swap'])} of {bytes_to_human(value['total_swap'])}'
+        ])
+        color = value['mem_color'] if value['mem_warn'] > value['swap_warn'] else value['swap_color']
+        self.lines[0].set_style(f'font-size: 1.7em;color:{color};')
