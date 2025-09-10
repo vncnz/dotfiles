@@ -27,6 +27,7 @@ stow . -t ~/.config
 |       | wl-clipboard             | for wl-copy in pipeline with cmds
 |       | skoll                    | launcher - personal project
 |pacman | iwd impala               | for wireless management through a TUI
+|pacman | nmtui                    | for wireless management through a TUI
 |pacman | bluetui                  | for bluetooth management through a TUI
 |yay    | tray-tui                 | for tray usage through a TUI
 |yay    | diskonaut                | for disk usage through a TUI
