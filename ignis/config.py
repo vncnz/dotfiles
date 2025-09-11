@@ -23,6 +23,61 @@ def read_ratatoskr_output ():
         data = json.loads(rat.read())
         return data
 
+if False:
+
+    bgnotif = None
+    def manage_notification (x, notification):
+        print(notification.app_name, notification.summary)
+        bgnotif.add_notif(notification)
+
+    try:
+        from ignis.services.notifications import NotificationService
+
+        notifications = NotificationService.get_default()
+
+        notifications.connect("notified", manage_notification)
+    except Exception as ex:
+        print(ex)
+
+
+
+    from ResBox import NotifBox
+    class BackgroundNotif (Widget.Window):
+        def __init__(self, monitor = None):
+
+            self.box = Widget.Box(
+                spacing = 6,
+                vertical = True,
+                child = [
+                    Widget.Separator(vertical=False),
+                ]
+            )
+
+            super().__init__(
+                namespace = 'background-notifs',
+                monitor = monitor,
+                child = self.box,
+                layer = 'bottom',
+                style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;',
+                anchor = ['bottom', 'right'],
+                margin_right = 70,
+                margin_bottom = 40
+            )
+        
+        def add_notif(self, notification):
+            # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
+            notif = NotifBox({})
+            self.box.child = [x for x in self.box.child] + [notif]
+            pass
+
+
+    #bgnotif = BackgroundNotif()
+    #bgnotif.add_notif(0)
+    #bgnotif.add_notif(0)
+    #bgnotif.add_notif(0)
+
+################################################################
+
 rat = read_ratatoskr_output()
 print(rat)
 
@@ -158,6 +213,7 @@ class ForegroundInfos (Widget.Window):
     def update_ratatoskr (self, rat):
         self.memory_icon.update_value(rat['ram']['mem_warn'], rat['ram']['mem_color'])
         self.disk_icon.update_value(rat['disk']['warn'], rat['disk']['color'])
+        # self.box.remove(self.memory_icon)
         # self.weather_box.update_value(rat['weather'])
 
 

@@ -286,9 +286,9 @@ class RowBox (Widget.Box):
         self.cols = [col1, col2, col3]
 
         super().__init__(
-            spacing = 5,
+            spacing = 8,
             vertical = False,
-            homogeneous=True,
+            homogeneous=False,
             style = 'font-size: 1.4em;',
             child = self.cols, **kwargs)
     
@@ -307,4 +307,47 @@ class RowBox (Widget.Box):
 
         self.cols[2].set_label(volume['value'] > 0 and f'Vol. {int(volume['value'])}%' or 'Vol. MUTED')
         self.cols[2].set_style(f'color:{volume['color'] or 'inherit'};')
-        pass
+
+class NotifBox (Widget.Box):
+    def __init__(self, notif, **kwargs):
+
+        content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non bibendum neque, in posuere eros. Curabitur condimentum mi ut nisi iaculis porta. Donec sollicitudin dolor non egestas malesuada. In tempus imperdiet lacus in ornare. Maecenas in felis vestibulum, venenatis ligula sit amet, convallis mauris. Etiam sodales accumsan purus sit amet lacinia. Donec aliquet turpis vel tempus semper. Proin eget metus in neque sodales vehicula. Mauris ac tristique nibh, sed laoreet quam. Phasellus et orci sit amet eros aliquet maximus ut eu justo. Vestibulum non enim quis metus vestibulum egestas. Proin leo ante, vulputate at quam ac, auctor rhoncus orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc suscipit erat eget euismod bibendum. Mauris eget augue semper, vestibulum nisi eget, congue ligula. Aenean sit amet bibendum dolor'
+        content = content[:157] + '...' if len(content) > 160 else content
+
+        col1 = Widget.Label(
+            label = 'Title',
+            #use_markup=False,
+            justify='left',
+            #wrap=True,
+            #wrap_mode='word',
+            #ellipsize='end',
+            #max_width_chars=52,
+            #style = 'opacity:.5;',
+            xalign=0.0
+        )
+        col2 = Widget.Label(
+            label = content,
+            justify='left',
+            wrap=True,
+            wrap_mode='word',
+            # ellipsize='end',
+            # width_chars=52,
+            style = 'opacity:.7;margin-top:-0.4rem;',
+            xalign=0.0
+        )
+        col3 = Widget.Label(
+            label = 'Important',
+            justify='left',
+            style = 'opacity:.8;color:red;font-size:1.2rem;margin-top:-0.9rem;',
+            xalign=0.0
+        )
+        self.cols = [col1, col3, col2]
+
+        super().__init__(
+            spacing = 6,
+            vertical = True,
+            homogeneous=False,
+            hexpand=True,
+            width_request=500,
+            style = 'font-size: 1.4em;',
+            child = self.cols, **kwargs)
