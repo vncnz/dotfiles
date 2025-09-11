@@ -9,8 +9,14 @@ from ignis.services.wallpaper import WallpaperService
 from ignis.options import options
 
 WallpaperService.get_default()  # just to initialize it
-
 options.wallpaper.set_wallpaper_path("/home/vncnz/Pictures/wallpapers/paesaggi fantasy o disegni/203518.jpg")
+
+# def read_settings ():
+#     with open('/home/vncnz/.config/ignis/settings.json') as settings:
+#         return json.loads(settings.read())
+
+# settings = read_settings()
+# print(settings)
 
 def read_ratatoskr_output ():
     with open('/tmp/ratatoskr.json') as rat:
@@ -20,115 +26,157 @@ def read_ratatoskr_output ():
 rat = read_ratatoskr_output()
 print(rat)
 
-if True:
-    from ignis.services.fetch import FetchService
-    from ignis.services.upower import UPowerService
+# from ignis.services.fetch import FetchService
+# from ignis.services.upower import UPowerService
 
-    from ResBox import ResBox, WeatherBox, BatteryBox, MemoryBox, NetworkBox, RowBox
+from ResBox import ResBox, WeatherBox, BatteryBox, MemoryBox, NetworkBox, RowBox, ResIcon
 
-    class BackgroundInfos (Widget.Window):
-        def __init__(self, monitor = None):
+class BackgroundInfos (Widget.Window):
+    def __init__(self, monitor = None):
 
-            weather_box = WeatherBox(rat['weather'])
-            battery_box = BatteryBox(rat['battery'])
-            memory_used_box = MemoryBox(rat['ram'])
-            network_box = NetworkBox(rat['network'])
-            multiline = RowBox()
+        weather_box = WeatherBox(rat['weather'])
+        battery_box = BatteryBox(rat['battery'])
+        memory_used_box = MemoryBox(rat['ram'])
+        network_box = NetworkBox(rat['network'])
+        multiline = RowBox()
 
-            self.weather_box = weather_box
-            self.battery_box = battery_box
-            self.memory_used_box = memory_used_box
-            self.network_box = network_box
-            self.multiline = multiline
+        self.weather_box = weather_box
+        self.battery_box = battery_box
+        self.memory_used_box = memory_used_box
+        self.network_box = network_box
+        self.multiline = multiline
 
-            # fetch = FetchService.get_default()
-            # ram = fetch.mem_info
-            # ram_used_perc = round(fetch.mem_used / fetch.mem_total * 100)
-            # swap_used_perc = round(100 - ram['SwapFree'] / ram['SwapTotal'] * 100)
-            # disk_used_perc = rat['disk']['used_percent']
-            # print(ram)
+        # fetch = FetchService.get_default()
+        # ram = fetch.mem_info
+        # ram_used_perc = round(fetch.mem_used / fetch.mem_total * 100)
+        # swap_used_perc = round(100 - ram['SwapFree'] / ram['SwapTotal'] * 100)
+        # disk_used_perc = rat['disk']['used_percent']
+        # print(ram)
 
-            
-
-            # ram_used_label = ResBox('RAM {value}%', rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
-            # swap_used_label = ResBox('SWAP {value}%', rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
-            # disk_used_label = ResBox('Disk {value}%', rat['disk']['used_percent'], color=rat['disk']['color'])
-            avg_load_label = ResBox('Load {value}', f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
-
-            # {'sensor': 'Tctl', 'value': 72.125, 'color': '#55FF00', 'icon': '\uf2cb', 'warn': 0.0}
-            temp_label = ResBox('Temperature {value}°', rat['temperature']['value'], color=rat['temperature']['color'])
-
-            # self.ram_used_label = ram_used_label
-            # self.swap_used_label = swap_used_label
-            # self.disk_used_label = disk_used_label
-            self.avg_load_label = avg_load_label
-            self.temp_label = temp_label
-
-            #battery_label = Widget.Label(
-            #     label="Hello world!"
-            # )
-
-            # p = UPowerService()
-            # battery_label.set_label(', '.join([f'Battery {batt.percent}%' for batt in p.batteries]) or 'No batteries')
-
-            # Utils.Poll(1000, self.update_ratatoskr)
-            Utils.FileMonitor(
-                path="/tmp/ratatoskr.json",
-                recursive=False,
-                callback = self.update_ratatoskr # lambda _, path, event_type: print(path, event_type),
-            )
-            
-            box = Widget.Box(
-                spacing = 6,
-                vertical = True,
-                child = [
-                    weather_box,
-                    Widget.Separator(vertical=False),
-                    memory_used_box,
-                    # ram_used_label,
-                    # Widget.Separator(vertical=False),
-                    # swap_used_label,
-                    Widget.Separator(vertical=False),
-                    avg_load_label,
-                    # temp_label,
-                    # disk_used_label,
-                    Widget.Separator(vertical=False),
-                    network_box,
-                    Widget.Separator(vertical=False),
-                    # battery_label,
-                    battery_box,
-                    Widget.Separator(vertical=False),
-                    multiline
-                ]
-            )
-
-            super().__init__(
-                namespace = 'background-infos',
-                monitor = monitor,
-                child = box,
-                layer = 'bottom',
-                style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;',
-                anchor = ['bottom', 'left'],
-                margin_left = 100,
-                margin_bottom = 50
-            )
         
-        def update_ratatoskr (self, _, path, event_type):
-            global rat
-            rat = read_ratatoskr_output()
 
-            self.weather_box.update_value(rat['weather'])
-            self.battery_box.update_value(rat['battery'])
-            self.memory_used_box.update_value(rat['ram'])
-            # self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
-            # self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
-            # self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
-            self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
-            # self.temp_label.update_value(int(rat['temperature']['value']), color=rat['temperature']['color'])
-            self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
+        # ram_used_label = ResBox('RAM {value}%', rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
+        # swap_used_label = ResBox('SWAP {value}%', rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
+        # disk_used_label = ResBox('Disk {value}%', rat['disk']['used_percent'], color=rat['disk']['color'])
+        avg_load_label = ResBox('Load {value}', f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
+
+        # {'sensor': 'Tctl', 'value': 72.125, 'color': '#55FF00', 'icon': '\uf2cb', 'warn': 0.0}
+        temp_label = ResBox('Temperature {value}°', rat['temperature']['value'], color=rat['temperature']['color'])
+
+        # self.ram_used_label = ram_used_label
+        # self.swap_used_label = swap_used_label
+        # self.disk_used_label = disk_used_label
+        self.avg_load_label = avg_load_label
+        self.temp_label = temp_label
+
+        #battery_label = Widget.Label(
+        #     label="Hello world!"
+        # )
+
+        # p = UPowerService()
+        # battery_label.set_label(', '.join([f'Battery {batt.percent}%' for batt in p.batteries]) or 'No batteries')
+
+        # Utils.Poll(1000, self.update_ratatoskr)
+        
+        box = Widget.Box(
+            spacing = 6,
+            vertical = True,
+            child = [
+                weather_box,
+                Widget.Separator(vertical=False),
+                memory_used_box,
+                # ram_used_label,
+                # Widget.Separator(vertical=False),
+                # swap_used_label,
+                Widget.Separator(vertical=False),
+                avg_load_label,
+                # temp_label,
+                # disk_used_label,
+                Widget.Separator(vertical=False),
+                network_box,
+                Widget.Separator(vertical=False),
+                # battery_label,
+                battery_box,
+                Widget.Separator(vertical=False),
+                multiline
+            ]
+        )
+
+        super().__init__(
+            namespace = 'background-infos',
+            monitor = monitor,
+            child = box,
+            layer = 'bottom',
+            style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;',
+            anchor = ['bottom', 'left'],
+            margin_left = 70,
+            margin_bottom = 40
+        )
+    
+    def update_ratatoskr (self, rat):
+        self.weather_box.update_value(rat['weather'])
+        self.battery_box.update_value(rat['battery'])
+        self.memory_used_box.update_value(rat['ram'])
+        # self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
+        # self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
+        # self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
+        self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
+        # self.temp_label.update_value(int(rat['temperature']['value']), color=rat['temperature']['color'])
+        self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
 
 
-    BackgroundInfos()
+back = BackgroundInfos()
+
+################################################################
+
+class ForegroundInfos (Widget.Window):
+    def __init__(self, monitor = None):
+
+        self.memory_icon = ResIcon('󰘚')
+        self.disk_icon = ResIcon('󰋊')
+
+        self.box = Widget.Box(
+            spacing = 6,
+            vertical = False,
+            child = [
+                self.memory_icon,
+                self.disk_icon
+            ]
+        )
+
+        super().__init__(
+            namespace = 'foreground-infos',
+            monitor = monitor,
+            child = self.box,
+            layer = 'top',
+            style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;font-size:2rem;',
+            anchor = ['bottom', 'right'],
+            margin_right = 10,
+            margin_bottom = 10
+        )
+    
+    def update_ratatoskr (self, rat):
+        self.memory_icon.update_value(rat['ram']['mem_warn'], rat['ram']['mem_color'])
+        self.disk_icon.update_value(rat['disk']['warn'], rat['disk']['color'])
+        # self.weather_box.update_value(rat['weather'])
+
+
+# fore = ForegroundInfos()
+
+def update_ratatoskr (_, path, event_type):
+    global rat
+    rat = read_ratatoskr_output()
+
+    back.update_ratatoskr(rat)
+    # fore.update_ratatoskr(rat)
+
+Utils.FileMonitor(
+    path="/tmp/ratatoskr.json",
+    recursive=False,
+    callback = update_ratatoskr # lambda _, path, event_type: print(path, event_type),
+)
+
+################################################################
 
 from gi.repository import Gtk, cairo
 from ignis.widgets import Window

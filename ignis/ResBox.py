@@ -18,6 +18,29 @@ def skip_if_unchanged(func):
 
     return wrapper
 
+class ResIcon (Widget.Label):
+    def __init__(self, icon):
+
+        super().__init__(
+            label = icon,
+            #use_markup=False,
+            #justify='left',
+            #wrap=True,
+            #wrap_mode='word',
+            #ellipsize='end',
+            #max_width_chars=52,
+            #style = self.compute_style(value, color),
+            xalign=0.0
+        )
+
+    def compute_style (self, warn, color=None):
+        return f'font-size: 1.4em;color:{color or 'inherit'};opacity:{0.2 + warn * 0.55};'
+    
+    @skip_if_unchanged
+    def update_value(self, warn, color=None):
+        self.set_style(self.compute_style(warn, color))
+
+
 class ResBox (Widget.Box):
     def __init__(self, template, value, color=None, **kwargs):
 
@@ -237,27 +260,27 @@ class RowBox (Widget.Box):
     def __init__(self, **kwargs):
 
         col1 = Widget.Label(
-            label = 'line1',
+            label = 'No temp',
             #use_markup=False,
             justify='left',
             #wrap=True,
             #wrap_mode='word',
             #ellipsize='end',
             #max_width_chars=52,
-            # style = 'font-size: 1.4em;', # self.compute_style(value)
+            style = 'opacity:.5;',
             xalign=0.0
         )
         col2 = Widget.Label(
-            label = 'line2',
+            label = 'No disk',
             justify='left',
             hexpand=False,
-            # style = 'font-size: 1.1em;',
+            style = 'opacity:.5;',
             xalign=0.0
         )
         col3 = Widget.Label(
-            label = 'line3',
+            label = 'No vol',
             justify='left',
-            # style = 'font-size: 1.1em;',
+            style = 'opacity:.5;',
             xalign=0.0
         )
         self.cols = [col1, col2, col3]
@@ -274,8 +297,9 @@ class RowBox (Widget.Box):
             label.set_label(text)
     
     def update_value(self, temp, disk, volume):
-        self.cols[0].set_label(f'Temp {int(temp['value'])}°')
-        self.cols[0].set_style(f'color:{temp['color'] or 'inherit'};')
+        if temp['value'] > 0:
+            self.cols[0].set_label(f'Temp {int(temp['value'])}°')
+            self.cols[0].set_style(f'color:{temp['color'] or 'inherit'};')
 
 
         self.cols[1].set_label(f'Disk {int(disk['used_percent'])}%')
