@@ -230,4 +230,57 @@ class NetworkBox (MultilineBox):
                     f'No network name',
                     f'IP address {value['ip']}'
                 ])
-            self.lines[0].set_style(f'font-size: 1.4em;color:{value['color']};')
+            self.lines[0].set_style(f'font-size: 1.4em;color:{value['color'] or 'inherit'};')
+
+
+class RowBox (Widget.Box):
+    def __init__(self, **kwargs):
+
+        col1 = Widget.Label(
+            label = 'line1',
+            #use_markup=False,
+            justify='left',
+            #wrap=True,
+            #wrap_mode='word',
+            #ellipsize='end',
+            #max_width_chars=52,
+            # style = 'font-size: 1.4em;', # self.compute_style(value)
+            xalign=0.0
+        )
+        col2 = Widget.Label(
+            label = 'line2',
+            justify='left',
+            hexpand=False,
+            # style = 'font-size: 1.1em;',
+            xalign=0.0
+        )
+        col3 = Widget.Label(
+            label = 'line3',
+            justify='left',
+            # style = 'font-size: 1.1em;',
+            xalign=0.0
+        )
+        self.cols = [col1, col2, col3]
+
+        super().__init__(
+            spacing = 5,
+            vertical = False,
+            homogeneous=True,
+            style = 'font-size: 1.4em;',
+            child = self.cols, **kwargs)
+    
+    def set_lines (self, texts):
+        for label, text in zip(self.cols, texts):
+            label.set_label(text)
+    
+    def update_value(self, temp, disk, volume):
+        self.cols[0].set_label(f'Temp {int(temp['value'])}°')
+        self.cols[0].set_style(f'color:{temp['color'] or 'inherit'};')
+
+
+        self.cols[1].set_label(f'Disk {int(disk['used_percent'])}%')
+        self.cols[1].set_style(f'color:{disk['color'] or 'inherit'};')
+
+        self.cols[2].set_label(volume['value'] > 0 and f'Vol. {int(volume['value'])}%' or 'Vol. MUTED')
+        self.cols[2].set_style(f'color:{volume['color'] or 'inherit'};')
+        pass

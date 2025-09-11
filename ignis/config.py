@@ -24,7 +24,7 @@ if True:
     from ignis.services.fetch import FetchService
     from ignis.services.upower import UPowerService
 
-    from ResBox import ResBox, WeatherBox, BatteryBox, MemoryBox, NetworkBox
+    from ResBox import ResBox, WeatherBox, BatteryBox, MemoryBox, NetworkBox, RowBox
 
     class BackgroundInfos (Widget.Window):
         def __init__(self, monitor = None):
@@ -33,11 +33,13 @@ if True:
             battery_box = BatteryBox(rat['battery'])
             memory_used_box = MemoryBox(rat['ram'])
             network_box = NetworkBox(rat['network'])
+            multiline = RowBox()
 
             self.weather_box = weather_box
             self.battery_box = battery_box
             self.memory_used_box = memory_used_box
             self.network_box = network_box
+            self.multiline = multiline
 
             # fetch = FetchService.get_default()
             # ram = fetch.mem_info
@@ -50,7 +52,7 @@ if True:
 
             # ram_used_label = ResBox('RAM {value}%', rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
             # swap_used_label = ResBox('SWAP {value}%', rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
-            disk_used_label = ResBox('Disk {value}%', rat['disk']['used_percent'], color=rat['disk']['color'])
+            # disk_used_label = ResBox('Disk {value}%', rat['disk']['used_percent'], color=rat['disk']['color'])
             avg_load_label = ResBox('Load {value}', f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
 
             # {'sensor': 'Tctl', 'value': 72.125, 'color': '#55FF00', 'icon': '\uf2cb', 'warn': 0.0}
@@ -58,7 +60,7 @@ if True:
 
             # self.ram_used_label = ram_used_label
             # self.swap_used_label = swap_used_label
-            self.disk_used_label = disk_used_label
+            # self.disk_used_label = disk_used_label
             self.avg_load_label = avg_load_label
             self.temp_label = temp_label
 
@@ -88,13 +90,15 @@ if True:
                     # swap_used_label,
                     Widget.Separator(vertical=False),
                     avg_load_label,
-                    temp_label,
-                    disk_used_label,
+                    # temp_label,
+                    # disk_used_label,
                     Widget.Separator(vertical=False),
                     network_box,
                     Widget.Separator(vertical=False),
                     # battery_label,
-                    battery_box
+                    battery_box,
+                    Widget.Separator(vertical=False),
+                    multiline
                 ]
             )
 
@@ -118,9 +122,10 @@ if True:
             self.memory_used_box.update_value(rat['ram'])
             # self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
             # self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
-            self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
+            # self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
             self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
-            self.temp_label.update_value(int(rat['temperature']['value']), color=rat['temperature']['color'])
+            # self.temp_label.update_value(int(rat['temperature']['value']), color=rat['temperature']['color'])
+            self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
 
 
     BackgroundInfos()
