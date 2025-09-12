@@ -72,9 +72,11 @@ class BackgroundNotif (Widget.Window):
     
     def add_notif(self, notification):
         # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
-        notif = NotifBox(notification) # TODO: add event listener for notif removal
+        notif = NotifBox(notification, lambda x: self.remove(x))
         self.box.child = [notif] + [x for x in self.box.child]
-        pass
+    
+    def remove (self, n):
+        self.box.child = [x for x in self.box.child if x != n]
 
     def check_notif_times (self, _):
         # print(time.time())
@@ -83,7 +85,7 @@ class BackgroundNotif (Widget.Window):
         max_urgency = -1
         removed = False
         for n in self.box.child[:-1]:
-            print(n.time, n.urgency)
+            # print(n.time, n.urgency)
             if n.time + 5 > now or n.urgency == 2:
                 updated_list.append(n)
                 max_urgency = max(max_urgency, n.urgency)

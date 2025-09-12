@@ -356,6 +356,8 @@ class NotifBox (Widget.EventBox):
                 xalign=1.0
             )
             self.cols.insert(1, col3)
+        
+        # notif.actions TODO
 
         super().__init__(
             spacing = 6,
