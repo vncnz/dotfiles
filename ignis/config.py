@@ -1,6 +1,7 @@
 from ignis.widgets import Widget
 from ignis.utils import Utils
 import json
+import time
 
 # from niri import print_test
 # print_test()
@@ -23,58 +24,86 @@ def read_ratatoskr_output ():
         data = json.loads(rat.read())
         return data
 
-if False:
+bgnotif = None
+def manage_notification (x, notification):
+    print(notification.app_name, notification.summary)
+    bgnotif.add_notif(notification)
 
-    bgnotif = None
-    def manage_notification (x, notification):
-        print(notification.app_name, notification.summary)
-        bgnotif.add_notif(notification)
+try:
+    from ignis.services.notifications import NotificationService
 
-    try:
-        from ignis.services.notifications import NotificationService
+    notifications = NotificationService.get_default()
 
-        notifications = NotificationService.get_default()
-
-        notifications.connect("notified", manage_notification)
-    except Exception as ex:
-        print(ex)
+    notifications.connect("notified", manage_notification)
+except Exception as ex:
+    print(ex)
 
 
 
-    from ResBox import NotifBox
-    class BackgroundNotif (Widget.Window):
-        def __init__(self, monitor = None):
+from ResBox import NotifBox
+class BackgroundNotif (Widget.Window):
+    def __init__(self, monitor = None):
 
-            self.box = Widget.Box(
-                spacing = 6,
-                vertical = True,
-                child = [
-                    Widget.Separator(vertical=False),
-                ]
-            )
+        self.box = Widget.Box(
+            spacing = 6,
+            vertical = True,
+            child = [
+                # Widget.Separator(vertical=False),
+                Widget.Box(
+                    width_request=100,
+                    height_request=5,
+                    style='background-color:red;'
+                )
+            ]
+        )
 
-            super().__init__(
-                namespace = 'background-notifs',
-                monitor = monitor,
-                child = self.box,
-                layer = 'bottom',
-                style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;',
-                anchor = ['bottom', 'right'],
-                margin_right = 70,
-                margin_bottom = 40
-            )
+        super().__init__(
+            namespace = 'background-notifs',
+            monitor = monitor,
+            child = self.box,
+            layer = 'bottom',
+            style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;',
+            anchor = ['bottom', 'right'],
+            margin_right = 30,
+            margin_bottom = 0
+        )
+        self.last_max_urgency = None
+        Utils.Poll(1000, self.check_notif_times)
+    
+    def add_notif(self, notification):
+        # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
+        notif = NotifBox(notification) # TODO: add event listener for notif removal
+        self.box.child = [notif] + [x for x in self.box.child]
+        pass
+
+    def check_notif_times (self, _):
+        # print(time.time())
+        now = time.time()
+        updated_list = []
+        max_urgency = -1
+        removed = False
+        for n in self.box.child[:-1]:
+            print(n.time, n.urgency)
+            if n.time + 5 > now or n.urgency == 2:
+                updated_list.append(n)
+                max_urgency = max(max_urgency, n.urgency)
+            else:
+                removed = True
+        if removed:
+            self.box.child = updated_list + [self.box.child[-1]]
         
-        def add_notif(self, notification):
-            # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
-            notif = NotifBox({})
-            self.box.child = [x for x in self.box.child] + [notif]
-            pass
+        if self.last_max_urgency != max_urgency:
+            if max_urgency == 2:
+                self.box.child[-1].set_style('background-color:red;')
+            elif max_urgency > -1:
+                self.box.child[-1].set_style('background-color:white;')
+            else:
+                self.box.child[-1].set_style('background-color:transparent;')
+            self.last_max_urgency = max_urgency
 
 
-    #bgnotif = BackgroundNotif()
-    #bgnotif.add_notif(0)
-    #bgnotif.add_notif(0)
-    #bgnotif.add_notif(0)
+bgnotif = BackgroundNotif()
+# bgnotif.add_notif(0)
 
 ################################################################
 

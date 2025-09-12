@@ -308,14 +308,19 @@ class RowBox (Widget.Box):
         self.cols[2].set_label(volume['value'] > 0 and f'Vol. {int(volume['value'])}%' or 'Vol. MUTED')
         self.cols[2].set_style(f'color:{volume['color'] or 'inherit'};')
 
-class NotifBox (Widget.Box):
-    def __init__(self, notif, **kwargs):
+class NotifBox (Widget.EventBox):
+    def __init__(self, notif, on_click=None, **kwargs):
 
-        content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non bibendum neque, in posuere eros. Curabitur condimentum mi ut nisi iaculis porta. Donec sollicitudin dolor non egestas malesuada. In tempus imperdiet lacus in ornare. Maecenas in felis vestibulum, venenatis ligula sit amet, convallis mauris. Etiam sodales accumsan purus sit amet lacinia. Donec aliquet turpis vel tempus semper. Proin eget metus in neque sodales vehicula. Mauris ac tristique nibh, sed laoreet quam. Phasellus et orci sit amet eros aliquet maximus ut eu justo. Vestibulum non enim quis metus vestibulum egestas. Proin leo ante, vulputate at quam ac, auctor rhoncus orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc suscipit erat eget euismod bibendum. Mauris eget augue semper, vestibulum nisi eget, congue ligula. Aenean sit amet bibendum dolor'
-        content = content[:157] + '...' if len(content) > 160 else content
+        print(notif.__dict__)
+        self.time = notif.time
+        self.urgency = notif.urgency
+
+        content = notif.body # 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non bibendum neque, in posuere eros. Curabitur condimentum mi ut nisi iaculis porta. Donec sollicitudin dolor non egestas malesuada. In tempus imperdiet lacus in ornare. Maecenas in felis vestibulum, venenatis ligula sit amet, convallis mauris. Etiam sodales accumsan purus sit amet lacinia. Donec aliquet turpis vel tempus semper. Proin eget metus in neque sodales vehicula. Mauris ac tristique nibh, sed laoreet quam. Phasellus et orci sit amet eros aliquet maximus ut eu justo. Vestibulum non enim quis metus vestibulum egestas. Proin leo ante, vulputate at quam ac, auctor rhoncus orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc suscipit erat eget euismod bibendum. Mauris eget augue semper, vestibulum nisi eget, congue ligula. Aenean sit amet bibendum dolor'
+        if content: content = content[:157] + '...' if len(content) > 160 else content
+        else: content = '[No content]'
 
         col1 = Widget.Label(
-            label = 'Title',
+            label = f'{notif.summary} ({notif.app_name})',
             #use_markup=False,
             justify='left',
             #wrap=True,
@@ -323,7 +328,7 @@ class NotifBox (Widget.Box):
             #ellipsize='end',
             #max_width_chars=52,
             #style = 'opacity:.5;',
-            xalign=0.0
+            xalign=1.0
         )
         col2 = Widget.Label(
             label = content,
@@ -333,15 +338,24 @@ class NotifBox (Widget.Box):
             # ellipsize='end',
             # width_chars=52,
             style = 'opacity:.7;margin-top:-0.4rem;',
-            xalign=0.0
+            xalign=1.0
         )
-        col3 = Widget.Label(
-            label = 'Important',
-            justify='left',
-            style = 'opacity:.8;color:red;font-size:1.2rem;margin-top:-0.9rem;',
-            xalign=0.0
-        )
-        self.cols = [col1, col3, col2]
+        self.cols = [col1, col2]
+
+        urgency_label = None
+        urgency_color = None
+        if notif.urgency == 2:
+            urgency_label = 'Important'
+            urgency_color = 'red'
+        
+        if urgency_label:
+            col3 = Widget.Label(
+                label = urgency_label,
+                justify='left',
+                style = f'opacity:.8;color:{urgency_color};font-size:1.2rem;margin-top:-0.9rem;',
+                xalign=1.0
+            )
+            self.cols.insert(1, col3)
 
         super().__init__(
             spacing = 6,
@@ -350,4 +364,5 @@ class NotifBox (Widget.Box):
             hexpand=True,
             width_request=500,
             style = 'font-size: 1.4em;',
+            on_click=on_click,
             child = self.cols, **kwargs)
