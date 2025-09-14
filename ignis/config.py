@@ -82,10 +82,15 @@ class BackgroundNotif (Widget.Window):
     
     def add_notif(self, notification):
         # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
-        notif = NotifBox(notification, lambda x: self.box.remove(x))
+        notif = NotifBox(notification, lambda x: self.remove(x))
         # self.box.child = [notif] + [x for x in self.box.child]
         # self.box.set_child([notif] + [x for x in self.box.child])
         self.box.append(notif)
+        self.update_color()
+    
+    def remove(self, x):
+        self.box.remove(x)
+        self.update_color()
     
     # def remove (self, n):
     #    self.box.child = [x for x in self.box.child if x != n]
@@ -93,35 +98,34 @@ class BackgroundNotif (Widget.Window):
     def check_notif_times (self, _):
         # print(time.time())
         now = time.time()
-        max_urgency = -1
+        removed = False
         for n in self.box.child:
             # print(now, n.time, n.urgency)
             if n.time + 5 > now or n.urgency == 2:
-                # updated_list.append(n)
-                max_urgency = max(max_urgency, n.urgency)
+                pass
             else:
+                removed = True
                 self.box.remove(n)
+
+        if removed:
+            self.update_color()
+
+    def update_color (self):
+        max_urgency = -1
+        for n in self.box.child:
+            max_urgency = max(max_urgency, n.urgency)
 
         if self.last_max_urgency != max_urgency:
             color = None
             if max_urgency == 2:
-                # self.line.set_style('background-color:red;')
                 color = 'red'
             elif max_urgency > -1:
-                # self.line.set_style('background-color:white;')
                 color = 'white'
             else:
-                # self.line.set_style('background-color:transparent;')
-                color = 'transparent'
-            self.new_color = color
-            GLib.idle_add(lambda: self.line.set_style(f'background:{color};'))
+                color = 'rgba(0, 0, 0, 0.01)'
+            self.line.set_style(f'background:{color};')
             self.last_max_urgency = max_urgency
             print("Updated max_urgency", max_urgency, color)
-        #elif self.new_color:
-        #    self.line.set_style(f'background-color:{self.new_color};')
-        #    # self.box.queue_resize()
-        #    self.new_color = None
-        #    print('color set')
 
 bgnotif = BackgroundNotif()
 # bgnotif.add_notif(0)
