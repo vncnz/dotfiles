@@ -3,6 +3,8 @@ from ignis.utils import Utils
 import json
 import time
 
+from gi.repository import GLib
+
 # from niri import print_test
 # print_test()
 
@@ -47,20 +49,27 @@ class BackgroundNotif (Widget.Window):
         self.box = Widget.Box(
             spacing = 6,
             vertical = True,
+            child = []
+        )
+        self.line = Widget.Box(
+            width_request=0,
+            height_request=5,
+            style='background-color:transparent;'
+        )
+
+        full = Widget.Box(
+            spacing = 6,
+            vertical = True,
             child = [
-                # Widget.Separator(vertical=False),
-                Widget.Box(
-                    width_request=100,
-                    height_request=5,
-                    style='background-color:red;'
-                )
+                self.box,
+                self.line
             ]
         )
 
         super().__init__(
             namespace = 'background-notifs',
             monitor = monitor,
-            child = self.box,
+            child = full,
             layer = 'bottom',
             style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;',
             anchor = ['bottom', 'right'],
@@ -68,41 +77,51 @@ class BackgroundNotif (Widget.Window):
             margin_bottom = 0
         )
         self.last_max_urgency = None
+        self.new_color = None
         Utils.Poll(1000, self.check_notif_times)
     
     def add_notif(self, notification):
         # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
-        notif = NotifBox(notification, lambda x: self.remove(x))
-        self.box.child = [notif] + [x for x in self.box.child]
+        notif = NotifBox(notification, lambda x: self.box.remove(x))
+        # self.box.child = [notif] + [x for x in self.box.child]
+        # self.box.set_child([notif] + [x for x in self.box.child])
+        self.box.append(notif)
     
-    def remove (self, n):
-        self.box.child = [x for x in self.box.child if x != n]
+    # def remove (self, n):
+    #    self.box.child = [x for x in self.box.child if x != n]
 
     def check_notif_times (self, _):
         # print(time.time())
         now = time.time()
-        updated_list = []
         max_urgency = -1
-        removed = False
-        for n in self.box.child[:-1]:
-            # print(n.time, n.urgency)
+        for n in self.box.child:
+            # print(now, n.time, n.urgency)
             if n.time + 5 > now or n.urgency == 2:
-                updated_list.append(n)
+                # updated_list.append(n)
                 max_urgency = max(max_urgency, n.urgency)
             else:
-                removed = True
-        if removed:
-            self.box.child = updated_list + [self.box.child[-1]]
-        
-        if self.last_max_urgency != max_urgency:
-            if max_urgency == 2:
-                self.box.child[-1].set_style('background-color:red;')
-            elif max_urgency > -1:
-                self.box.child[-1].set_style('background-color:white;')
-            else:
-                self.box.child[-1].set_style('background-color:transparent;')
-            self.last_max_urgency = max_urgency
+                self.box.remove(n)
 
+        if self.last_max_urgency != max_urgency:
+            color = None
+            if max_urgency == 2:
+                # self.line.set_style('background-color:red;')
+                color = 'red'
+            elif max_urgency > -1:
+                # self.line.set_style('background-color:white;')
+                color = 'white'
+            else:
+                # self.line.set_style('background-color:transparent;')
+                color = 'transparent'
+            self.new_color = color
+            GLib.idle_add(lambda: self.line.set_style(f'background:{color};'))
+            self.last_max_urgency = max_urgency
+            print("Updated max_urgency", max_urgency, color)
+        #elif self.new_color:
+        #    self.line.set_style(f'background-color:{self.new_color};')
+        #    # self.box.queue_resize()
+        #    self.new_color = None
+        #    print('color set')
 
 bgnotif = BackgroundNotif()
 # bgnotif.add_notif(0)
