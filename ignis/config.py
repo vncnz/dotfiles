@@ -80,7 +80,7 @@ except Exception as ex:
 
 
 
-from ResBox import NotifBox
+from ResBox import ClockBox, NotifBox
 class BackgroundNotif (Widget.Window):
     def __init__(self, monitor = None):
 
@@ -99,6 +99,7 @@ class BackgroundNotif (Widget.Window):
             spacing = 6,
             vertical = True,
             child = [
+                ClockBox(),
                 self.box,
                 self.line
             ]

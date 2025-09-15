@@ -255,6 +255,22 @@ class NetworkBox (MultilineBox):
                 ])
             self.lines[0].set_style(f'font-size: 1.4em;color:{value['color'] or 'inherit'};')
 
+from ignis.utils import Utils
+class ClockBox (MultilineBox):
+    def __init__(self, **kwargs):
+
+        super().__init__(None)
+        Utils.Poll(1000, self.update)
+
+    def update(self, tm):
+        now = datetime.now()
+        self.set_lines([
+            f'{now.strftime("%Y-%m-%d %H:%M")}',
+            f'{now.strftime("%A, week %V")}',
+            f''
+        ])
+        # self.lines[0].set_style(f'font-size: 1.4em;color:{value['color'] or 'inherit'};')
+
 
 class RowBox (Widget.Box):
     def __init__(self, **kwargs):
