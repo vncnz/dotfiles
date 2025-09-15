@@ -3,6 +3,8 @@ from ignis.utils import Utils
 import json
 import time
 
+import os
+
 from gi.repository import GLib
 
 # from niri import print_test
@@ -12,10 +14,10 @@ from ignis.services.wallpaper import WallpaperService
 from ignis.options import options
 
 WallpaperService.get_default()  # just to initialize it
-options.wallpaper.set_wallpaper_path("/home/vncnz/Pictures/wallpapers/paesaggi fantasy o disegni/203518.jpg")
+options.wallpaper.set_wallpaper_path(os.path.expanduser("~/Pictures/wallpapers/paesaggi fantasy o disegni/203518.jpg"))
 
 # def read_settings ():
-#     with open('/home/vncnz/.config/ignis/settings.json') as settings:
+#     with open(os.path.expanduser('~/.config/ignis/settings.json')) as settings:
 #         return json.loads(settings.read())
 
 # settings = read_settings()
