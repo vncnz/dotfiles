@@ -26,6 +26,44 @@ def read_ratatoskr_output ():
         data = json.loads(rat.read())
         return data
 
+
+import stat
+
+class CmdManager:
+    def __init__(self):
+        fifo_path = os.path.expanduser("~/.config/ignis/control")
+        # fifo_path = '/tmp/ignis_cmd'
+
+        if os.path.exists(fifo_path):
+            if not stat.S_ISFIFO(os.stat(fifo_path).st_mode):
+                os.remove(fifo_path)
+                os.mkfifo(fifo_path)
+        else:
+            os.mkfifo(fifo_path)
+        
+        fifo_fd = os.open(fifo_path, os.O_RDONLY | os.O_NONBLOCK)
+        fifo = os.fdopen(fifo_fd, "r", buffering=1)
+        GLib.io_add_watch(fifo, GLib.IO_IN, self.on_fifo_readable)
+
+    def on_fifo_readable(self, source, condition):
+        if condition & GLib.IO_IN:
+            line = source.readline()
+            if line:
+                line = line.strip()
+                print(f"[IGNIS] comando ricevuto: {line}")
+                if line == "toggle_clock":
+                    # esempio: qui metti il tuo codice per mostrare/nascondere l’orologio
+                    print("→ Azione: toggle clock")
+            else:
+                # EOF: riapri la fifo
+                return False
+        return True  # continua ad ascoltare
+CmdManager()
+
+
+
+
+
 bgnotif = None
 def manage_notification (x, notification):
     print(notification.app_name, notification.summary)
