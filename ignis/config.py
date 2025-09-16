@@ -264,15 +264,16 @@ class BackgroundInfos (Widget.Window):
         )
     
     def update_ratatoskr (self, rat):
-        self.weather_box.update_value(rat['weather'])
-        self.battery_box.update_value(rat['battery'])
-        self.memory_used_box.update_value(rat['ram'])
-        # self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
-        # self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
-        # self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
-        self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
-        # self.temp_label.update_value(int(rat['temperature']['value']), color=rat['temperature']['color'])
-        self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
+        if rat:
+            if 'weather' in rat: self.weather_box.update_value(rat['weather'])
+            if 'battery' in rat: self.battery_box.update_value(rat['battery'])
+            if 'ram' in rat: self.memory_used_box.update_value(rat['ram'])
+            # self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
+            # self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
+            # self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
+            if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
+            # self.temp_label.update_value(int(rat['temperature']['value']), color=rat['temperature']['color'])
+            if 'temperature' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
 
 
 back = BackgroundInfos()
@@ -306,8 +307,9 @@ class ForegroundInfos (Widget.Window):
         )
     
     def update_ratatoskr (self, rat):
-        self.memory_icon.update_value(rat['ram']['mem_warn'], rat['ram']['mem_color'])
-        self.disk_icon.update_value(rat['disk']['warn'], rat['disk']['color'])
+        if rat:
+            if 'ram' in rat: self.memory_icon.update_value(rat['ram']['mem_warn'], rat['ram']['mem_color'])
+            if 'disk' in rat: self.disk_icon.update_value(rat['disk']['warn'], rat['disk']['color'])
         # self.box.remove(self.memory_icon)
         # self.weather_box.update_value(rat['weather'])
 
