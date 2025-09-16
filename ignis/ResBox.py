@@ -85,7 +85,7 @@ class ResBox (Widget.Box):
 
 
 class MultilineBox (Widget.Box):
-    def __init__(self, value, **kwargs):
+    def __init__(self, value, right=False, **kwargs):
 
         # 'weather': {'icon': '\U000f0590', 'icon_name': 'overcast.svg', 'temp': 29, 'temp_real': 27, 'temp_unit': '°C', 'text': 'Overcast', 'day': '1', 'sunrise': '06:48', 'sunset': '19:42', 'sunrise_mins': 408, 'sunset_mins': 1182, 'daylight': 46482.52, 'locality': 'Desenzano Del Garda', 'humidity': 54, 'updated': '2025-09-08T10:46:21.620269155+00:00'}
 
@@ -98,20 +98,20 @@ class MultilineBox (Widget.Box):
             #ellipsize='end',
             #max_width_chars=52,
             style = 'font-size: 1.4em;', # self.compute_style(value)
-            xalign=0.0
+            xalign= 1.0 if right else 0.0
         )
         line2 = Widget.Label(
             label = 'line2',
             justify='left',
             hexpand=False,
             style = 'font-size: 1.1em;',
-            xalign=0.0
+            xalign= 1.0 if right else 0.0
         )
         line3 = Widget.Label(
             label = 'line3',
             justify='left',
             style = 'font-size: 1.1em;',
-            xalign=0.0
+            xalign= 1.0 if right else 0.0
         )
         self.lines = [line1, line2, line3]
 
@@ -259,17 +259,17 @@ from ignis.utils import Utils
 class ClockBox (MultilineBox):
     def __init__(self, **kwargs):
 
-        super().__init__(None)
+        super().__init__(None, right=True)
         Utils.Poll(1000, self.update)
 
     def update(self, tm):
         now = datetime.now()
         self.set_lines([
-            f'{now.strftime("%Y-%m-%d %H:%M")}',
-            f'{now.strftime("%A, week %V")}',
-            f''
+            f'{now.strftime("%H:%M")}',
+            f'{now.strftime("%Y-%m-%d")}',
+            f'{now.strftime("%A, week %V")}'
         ])
-        # self.lines[0].set_style(f'font-size: 1.4em;color:{value['color'] or 'inherit'};')
+        self.lines[0].set_style(f'font-size: 3.4em;')
 
 
 class RowBox (Widget.Box):
