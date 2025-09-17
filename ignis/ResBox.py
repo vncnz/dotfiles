@@ -30,11 +30,12 @@ class ResIcon (Widget.Label):
             #ellipsize='end',
             #max_width_chars=52,
             #style = self.compute_style(value, color),
+            style = 'opacity: 0.1;',
             xalign=0.0
         )
 
     def compute_style (self, warn, color=None):
-        return f'font-size: 1.4em;color:{color or 'inherit'};opacity:{0.2 + warn * 0.55};'
+        return f'font-size: 2rem;color:{color or 'inherit'};opacity:{0.3 + warn * 0.55};'
     
     @skip_if_unchanged
     def update_value(self, warn, color=None):
@@ -85,7 +86,7 @@ class ResBox (Widget.Box):
 
 
 class MultilineBox (Widget.Box):
-    def __init__(self, value, right=False, **kwargs):
+    def __init__(self, right=False, **kwargs):
 
         # 'weather': {'icon': '\U000f0590', 'icon_name': 'overcast.svg', 'temp': 29, 'temp_real': 27, 'temp_unit': '°C', 'text': 'Overcast', 'day': '1', 'sunrise': '06:48', 'sunset': '19:42', 'sunrise_mins': 408, 'sunset_mins': 1182, 'daylight': 46482.52, 'locality': 'Desenzano Del Garda', 'humidity': 54, 'updated': '2025-09-08T10:46:21.620269155+00:00'}
 
@@ -137,17 +138,13 @@ class MultilineBox (Widget.Box):
 
 
 class WeatherBox (MultilineBox):
-    def __init__(self, value, **kwargs):
-
-        # 'weather': {'icon': '\U000f0590', 'icon_name': 'overcast.svg', 'temp': 29, 'temp_real': 27, 'temp_unit': '°C', 'text': 'Overcast', 'day': '1', 'sunrise': '06:48', 'sunset': '19:42', 'sunrise_mins': 408, 'sunset_mins': 1182, 'daylight': 46482.52, 'locality': 'Desenzano Del Garda', 'humidity': 54, 'updated': '2025-09-08T10:46:21.620269155+00:00'}
-
-        super().__init__(value)
-        
+    def __init__(self, **kwargs):
+        super().__init__()
         self.last_updated = None
-        self.update_value(value)
 
     @skip_if_unchanged
     def update_value(self, value):
+        # 'weather': {'icon': '\U000f0590', 'icon_name': 'overcast.svg', 'temp': 29, 'temp_real': 27, 'temp_unit': '°C', 'text': 'Overcast', 'day': '1', 'sunrise': '06:48', 'sunset': '19:42', 'sunrise_mins': 408, 'sunset_mins': 1182, 'daylight': 46482.52, 'locality': 'Desenzano Del Garda', 'humidity': 54, 'updated': '2025-09-08T10:46:21.620269155+00:00'}
         if value:
             if value['updated'] != self.last_updated:
                 updated = datetime.fromisoformat(value['updated'])
@@ -176,7 +173,7 @@ class BatteryBox (MultilineBox):
 
         # 'battery': {'percentage': 0, 'capacity': 0.0, 'eta': None, 'state': 'no_battery', 'icon': '\uf1e6', 'color': None, 'watt': 0.0}
 
-        super().__init__(value)
+        super().__init__()
 
         self.update_value(value)
 
@@ -213,15 +210,11 @@ class BatteryBox (MultilineBox):
             self.lines[0].set_style(f'font-size: 1.4em;')
 
 class MemoryBox (MultilineBox):
-    def __init__(self, value, **kwargs):
-
-        # 'ram': {'total_memory': 4099457024, 'used_memory': 2791231488, 'total_swap': 6866382848, 'used_swap': 442261504, 'mem_percent': 68, 'swap_percent': 6, 'mem_color': '#C6FF00', 'swap_color': '#55FF00', 'mem_warn': 0.26666666666666666, 'swap_warn': 0.0}
-
-        super().__init__(value)
-        self.update_value(value)
 
     @skip_if_unchanged
     def update_value(self, value):
+        # 'ram': {'total_memory': 4099457024, 'used_memory': 2791231488, 'total_swap': 6866382848, 'used_swap': 442261504, 'mem_percent': 68, 'swap_percent': 6, 'mem_color': '#C6FF00', 'swap_color': '#55FF00', 'mem_warn': 0.26666666666666666, 'swap_warn': 0.0}
+
         self.set_lines([
             f'Memory {value['mem_percent']}% / {value['swap_percent']}%',
             f'RAM {bytes_to_human(value['used_memory'])} of {bytes_to_human(value['total_memory'])}',
@@ -231,15 +224,10 @@ class MemoryBox (MultilineBox):
         self.lines[0].set_style(f'font-size: 1.4em;color:{color};')
 
 class NetworkBox (MultilineBox):
-    def __init__(self, value, **kwargs):
-
-        # 'network': {'iface': 'wlan0', 'conn_type': 'wifi', 'ssid': 'TIM-23842378', 'signal': 43, 'ip': '192.168.1.191', 'icon': '\U000f08bd', 'color': '#FFF400', 'warn': 0.42500000000000004}
-
-        super().__init__(value)
-        self.update_value(value)
 
     @skip_if_unchanged
     def update_value(self, value):
+        # 'network': {'iface': 'wlan0', 'conn_type': 'wifi', 'ssid': 'TIM-23842378', 'signal': 43, 'ip': '192.168.1.191', 'icon': '\U000f08bd', 'color': '#FFF400', 'warn': 0.42500000000000004}
         if value:
             if value['conn_type'] == 'wifi':
                 self.set_lines([
@@ -259,7 +247,7 @@ from ignis.utils import Utils
 class ClockBox (MultilineBox):
     def __init__(self, **kwargs):
 
-        super().__init__(None, right=True)
+        super().__init__(right=True)
         Utils.Poll(1000, self.update)
 
     def update(self, tm):

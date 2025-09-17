@@ -13,6 +13,9 @@ from gi.repository import GLib
 from ignis.services.wallpaper import WallpaperService
 from ignis.options import options
 
+from BackgroundNotif import BackgroundNotif
+from ForegroundInfos import ForegroundInfos
+
 WallpaperService.get_default()  # just to initialize it
 options.wallpaper.set_wallpaper_path(os.path.expanduser("~/Pictures/wallpapers/paesaggi fantasy o disegni/203518.jpg"))
 
@@ -33,6 +36,7 @@ import stat
 
 class CmdManager:
     def __init__(self):
+        # echo "toggle_clock" > ~/.config/ignis/control
         fifo_path = os.path.expanduser("~/.config/ignis/control")
         # fifo_path = '/tmp/ignis_cmd'
 
@@ -81,93 +85,6 @@ except Exception as ex:
     print(ex)
 
 
-
-from ResBox import ClockBox, NotifBox
-class BackgroundNotif (Widget.Window):
-    def __init__(self, monitor = None):
-
-        self.box = Widget.Box(
-            spacing = 6,
-            vertical = True,
-            child = []
-        )
-        self.line = Widget.Box(
-            width_request=0,
-            height_request=5,
-            style='background-color:transparent;'
-        )
-
-        full = Widget.Box(
-            spacing = 6,
-            vertical = True,
-            child = [
-                ClockBox(),
-                self.box,
-                self.line
-            ]
-        )
-
-        super().__init__(
-            namespace = 'background-notifs',
-            monitor = monitor,
-            child = full,
-            layer = 'bottom',
-            style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;',
-            anchor = ['bottom', 'right'],
-            margin_right = 30,
-            margin_bottom = 0
-        )
-        self.last_max_urgency = None
-        self.new_color = None
-        Utils.Poll(1000, self.check_notif_times)
-    
-    def add_notif(self, notification):
-        # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
-        notif = NotifBox(notification, lambda x: self.remove(x))
-        # self.box.child = [notif] + [x for x in self.box.child]
-        # self.box.set_child([notif] + [x for x in self.box.child])
-        self.box.append(notif)
-        self.update_color()
-    
-    def remove(self, x):
-        self.box.remove(x)
-        self.update_color()
-    
-    # def remove (self, n):
-    #    self.box.child = [x for x in self.box.child if x != n]
-
-    def check_notif_times (self, _):
-        # print(time.time())
-        now = time.time()
-        removed = False
-        for n in self.box.child:
-            # print(now, n.time, n.urgency)
-            if n.time + 5 > now or n.urgency == 2:
-                pass
-            else:
-                removed = True
-                self.box.remove(n)
-
-        if removed:
-            self.update_color()
-
-    def update_color (self):
-        max_urgency = -1
-        for n in self.box.child:
-            max_urgency = max(max_urgency, n.urgency)
-
-        if self.last_max_urgency != max_urgency:
-            color = None
-            if max_urgency == 2:
-                color = 'red'
-            elif max_urgency > -1:
-                color = 'white'
-            else:
-                color = 'rgba(0, 0, 0, 0.01)'
-            self.line.set_style(f'background:{color};')
-            self.last_max_urgency = max_urgency
-            print("Updated max_urgency", max_urgency, color)
-
 bgnotif = BackgroundNotif()
 # bgnotif.add_notif(0)
 
@@ -184,10 +101,10 @@ from ResBox import ResBox, WeatherBox, BatteryBox, MemoryBox, NetworkBox, RowBox
 class BackgroundInfos (Widget.Window):
     def __init__(self, monitor = None):
 
-        weather_box = WeatherBox(rat['weather'])
+        weather_box = WeatherBox()
         battery_box = BatteryBox(rat['battery'])
-        memory_used_box = MemoryBox(rat['ram'])
-        network_box = NetworkBox(rat['network'])
+        memory_used_box = MemoryBox()
+        network_box = NetworkBox()
         multiline = RowBox()
 
         self.weather_box = weather_box
@@ -202,8 +119,6 @@ class BackgroundInfos (Widget.Window):
         # swap_used_perc = round(100 - ram['SwapFree'] / ram['SwapTotal'] * 100)
         # disk_used_perc = rat['disk']['used_percent']
         # print(ram)
-
-        
 
         # ram_used_label = ResBox('RAM {value}%', rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
         # swap_used_label = ResBox('SWAP {value}%', rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
@@ -268,6 +183,7 @@ class BackgroundInfos (Widget.Window):
             if 'weather' in rat: self.weather_box.update_value(rat['weather'])
             if 'battery' in rat: self.battery_box.update_value(rat['battery'])
             if 'ram' in rat: self.memory_used_box.update_value(rat['ram'])
+            if 'network'in rat: self.network_box.update_value(rat['network'])
             # self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
             # self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
             # self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
@@ -280,48 +196,14 @@ back = BackgroundInfos()
 
 ################################################################
 
-class ForegroundInfos (Widget.Window):
-    def __init__(self, monitor = None):
-
-        self.memory_icon = ResIcon('󰘚')
-        self.disk_icon = ResIcon('󰋊')
-
-        self.box = Widget.Box(
-            spacing = 6,
-            vertical = False,
-            child = [
-                self.memory_icon,
-                self.disk_icon
-            ]
-        )
-
-        super().__init__(
-            namespace = 'foreground-infos',
-            monitor = monitor,
-            child = self.box,
-            layer = 'top',
-            style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;font-size:2rem;',
-            anchor = ['bottom', 'right'],
-            margin_right = 10,
-            margin_bottom = 10
-        )
-    
-    def update_ratatoskr (self, rat):
-        if rat:
-            if 'ram' in rat: self.memory_icon.update_value(rat['ram']['mem_warn'], rat['ram']['mem_color'])
-            if 'disk' in rat: self.disk_icon.update_value(rat['disk']['warn'], rat['disk']['color'])
-        # self.box.remove(self.memory_icon)
-        # self.weather_box.update_value(rat['weather'])
-
-
-# fore = ForegroundInfos()
+fore = ForegroundInfos()
 
 def update_ratatoskr (_, path, event_type):
     global rat
     rat = read_ratatoskr_output()
 
     back.update_ratatoskr(rat)
-    # fore.update_ratatoskr(rat)
+    fore.update_ratatoskr(rat)
 
 Utils.FileMonitor(
     path="/tmp/ratatoskr.json",
