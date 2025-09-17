@@ -43,10 +43,13 @@ class BackgroundNotif (Widget.Window):
         Utils.Poll(1000, self.check_notif_times)
     
     def add_notif(self, notification):
+        # TODO: use id for notif replacement/update
+        # print(f'id {notification.id}')
         # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
         notif = NotifBox(notification, lambda x: self.remove(x))
         # self.box.child = [notif] + [x for x in self.box.child]
         # self.box.set_child([notif] + [x for x in self.box.child])
+        
         self.box.append(notif)
         self.update_color()
     

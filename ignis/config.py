@@ -72,7 +72,8 @@ CmdManager()
 
 bgnotif = None
 def manage_notification (x, notification):
-    print(notification.app_name, notification.summary)
+    # print(notification.app_name, notification.summary, notification.__dict__)
+    # {'_Notification__dbus': <dbus.DBusService object at 0x7fbf7db2a700 (ignis+dbus+DBusService at 0x5600f057e150)>, '_id': 64, '_app_name': 'Firefox', '_icon': '/home/vncnz/.cache/ignis/notifications/images/64', '_summary': 'Simona', '_body': ' Voice Message', '_timeout': 5000, '_time': 1758122136.296893, '_urgency': 1, '_popup': True, '_actions': [<action.NotificationAction object at 0x7fbf7db74500 (ignis+services+notifications+action+NotificationAction at 0x5600f850f160)>]}
     bgnotif.add_notif(notification)
 
 try:
