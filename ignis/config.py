@@ -189,7 +189,7 @@ class BackgroundInfos (Widget.Window):
             # self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
             if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
             # self.temp_label.update_value(int(rat['temperature']['value']), color=rat['temperature']['color'])
-            if 'temperature' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
+            if 'temperature' in rat and 'disk' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
 
 
 back = BackgroundInfos()
