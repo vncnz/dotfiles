@@ -46,7 +46,7 @@ class ForegroundInfos (Widget.Window):
                 self.update_ratatoskr_single(self.temperature_icon, rat['temperature']['warn'], rat['temperature']['color'], 'temperature')
     
     def update_ratatoskr_single (self, icon, warn, color, dbLabel = None):
-        if warn > 0:
+        if warn > 0.3:
             icon.update_value(warn, color)
             self.check_icon_presence(icon, True, dbLabel)
         else:
