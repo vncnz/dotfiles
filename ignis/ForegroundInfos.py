@@ -6,17 +6,15 @@ class ForegroundInfos (Widget.Window):
 
         self.memory_icon = ResIcon('󰘚')
         self.disk_icon = ResIcon('󰋊')
+        self.loadavg_icon = ResIcon('󰬢')
         self.battery_icon = ResIcon('B')
         self.network_icon = ResIcon('N')
+        self.temperature_icon = ResIcon('T')
 
         self.box = Widget.Box(
             spacing = 6,
             vertical = True,
-            child = [
-                # self.memory_icon,
-                # self.disk_icon,
-                # self.battery_icon
-            ]
+            child = []
         )
 
         super().__init__(
@@ -34,6 +32,7 @@ class ForegroundInfos (Widget.Window):
         if rat:
             if 'ram' in rat: self.update_ratatoskr_single(self.memory_icon, rat['ram']['mem_warn'], rat['ram']['mem_color'], 'memory')
             if 'disk' in rat: self.update_ratatoskr_single(self.disk_icon, rat['disk']['warn'], rat['disk']['color'], 'disk')
+            if 'loadavg' in rat: self.update_ratatoskr_single(self.loadavg_icon, rat['loadavg']['warn'], rat['loadavg']['color'], 'loadavg')
             if 'network' in rat:
                 self.network_icon.set_label(rat['network']['icon'])
                 self.update_ratatoskr_single(self.network_icon, rat['network']['warn'], rat['network']['color'], 'network')
@@ -42,9 +41,9 @@ class ForegroundInfos (Widget.Window):
                 if rat['battery']['state'] in ['Charging', 'Discharging']: warn = rat['percentage'] / 100.0
                 self.battery_icon.set_label(rat['battery']['icon'])
                 self.update_ratatoskr_single(self.battery_icon, warn, rat['battery']['color'], 'battery')
-            # TODO: loadavg
-            # TODO: temperature
-            # if 'temperature' in rat: self.update_ratatoskr_single(self.disk_icon, rat['temperature']['warn'], rat['temperature']['color'], 'temperature')
+            if 'temperature' in rat:
+                self.temperature_icon.set_label(rat['temperature']['icon'])
+                self.update_ratatoskr_single(self.temperature_icon, rat['temperature']['warn'], rat['temperature']['color'], 'temperature')
     
     def update_ratatoskr_single (self, icon, warn, color, dbLabel = None):
         if warn > 0:
