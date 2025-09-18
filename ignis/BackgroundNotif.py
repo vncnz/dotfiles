@@ -43,7 +43,11 @@ class BackgroundNotif (Widget.Window):
         Utils.Poll(1000, self.check_notif_times)
     
     def add_notif(self, notification):
-        # TODO: use id for notif replacement/update
+        found = next((x for x in self.box.child if x.nid == notification.id), None)
+        if found:
+            print(f'replacing notification with id {notification.id}')
+            self.remove(found)
+            # TODO: replace the notification in its previous position, instead of removing and appending?
         # print(f'id {notification.id}')
         # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
         notif = NotifBox(notification, lambda x: self.remove(x))

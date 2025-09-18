@@ -318,6 +318,7 @@ class NotifBox (Widget.EventBox):
         print(notif.__dict__)
         self.time = notif.time
         self.urgency = notif.urgency
+        self.nid = notif.id
 
         content = notif.body # 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non bibendum neque, in posuere eros. Curabitur condimentum mi ut nisi iaculis porta. Donec sollicitudin dolor non egestas malesuada. In tempus imperdiet lacus in ornare. Maecenas in felis vestibulum, venenatis ligula sit amet, convallis mauris. Etiam sodales accumsan purus sit amet lacinia. Donec aliquet turpis vel tempus semper. Proin eget metus in neque sodales vehicula. Mauris ac tristique nibh, sed laoreet quam. Phasellus et orci sit amet eros aliquet maximus ut eu justo. Vestibulum non enim quis metus vestibulum egestas. Proin leo ante, vulputate at quam ac, auctor rhoncus orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc suscipit erat eget euismod bibendum. Mauris eget augue semper, vestibulum nisi eget, congue ligula. Aenean sit amet bibendum dolor'
         if content: content = content[:157] + '...' if len(content) > 160 else content
