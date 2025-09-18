@@ -38,7 +38,7 @@ class ForegroundInfos (Widget.Window):
                 self.update_ratatoskr_single(self.network_icon, rat['network']['warn'], rat['network']['color'], 'network')
             if 'battery' in rat:
                 warn = 0
-                if rat['battery']['state'] in ['Charging', 'Discharging']: warn = max(0, min((80 - rat['percentage']) / 60.0, 1))
+                if rat['battery']['state'] in ['Charging', 'Discharging']: warn = max(0, min((80 - rat['battery']['percentage']) / 60.0, 1))
                 self.battery_icon.set_label(rat['battery']['icon'])
                 self.update_ratatoskr_single(self.battery_icon, warn, rat['battery']['color'], 'battery')
             if 'temperature' in rat:
