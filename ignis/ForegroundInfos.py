@@ -47,15 +47,16 @@ class ForegroundInfos (Widget.Window):
     
     def update_ratatoskr_single (self, icon, warn, color, dbLabel = None):
         if warn > 0.3:
-            icon.update_value(warn, color)
-            self.check_icon_presence(icon, True, dbLabel)
+            # icon.update_value(warn, color)
+            self.check_icon_presence(icon, True, warn, color, dbLabel)
         else:
-            self.check_icon_presence(icon, False, dbLabel)
+            self.check_icon_presence(icon, False, warn, color, dbLabel)
     
-    def check_icon_presence (self, icon, desired, dbLabel = None):
+    def check_icon_presence (self, icon, desired, warn, color, dbLabel = None):
         if desired and (icon not in self.box.child):
+            icon.update_value(warn, color)
             self.box.append(icon)
-            # print('Appending icon', dbLabel)
+            print('Appending icon', dbLabel)
         elif not desired and (icon in self.box.child):
             self.box.remove(icon)
-            # print('Removing icon', dbLabel)
+            print('Removing icon', dbLabel)
