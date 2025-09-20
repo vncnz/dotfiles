@@ -243,8 +243,9 @@ spawn-at-startup "swaync"
 // spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
 // spawn-at-startup "eww" "open" "batteryborder"
 spawn-at-startup "eww" "open" "microstatusbar"
-spawn-at-startup "/home/vncnz/.config/eww/scripts/music_notifier.sh"
-// spawn-at-startup "/home/vncnz/.config/niri/ratatoskr"
+// spawn-at-startup "/home/vncnz/.config/eww/scripts/music_notifier.sh"
+spawn-at-startup "/home/vncnz/.config/niri/run_wob.sh"
+spawn-at-startup "/home/vncnz/.config/niri/ratatoskr"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -327,6 +328,7 @@ binds {
     Mod+N hotkey-overlay-title="Show/hide swaync panel" { spawn "swaync-client" "-t"; }
     Mod+Shift+N hotkey-overlay-title="Reset notifications" { spawn "swaync-client" "-C"; }
     // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
+    MouseMiddle { toggle-overview; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
     Super+L hotkey-overlay-title="Lock the screen" { spawn "swaylock" "-i" "/home/vncnz/.config/wallpaper.jpg" "--show-keyboard-layout" "--show-failed-attempts"; }
@@ -349,8 +351,10 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "volume" "mute"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "mic_mute"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "5%+"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "5%-"; }
+    // XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "5%+"; }
+    // XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "5%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "brightness" "up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "brightness" "down"; }
 
     // XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "brightness_up"; }
     // XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "brightness_down"; }

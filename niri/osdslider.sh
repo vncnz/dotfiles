@@ -4,16 +4,16 @@ set -e
 
 slider="$1-osd"
 action=$2
-lockfile="$XDG_RUNTIME_DIR/$slider.lock"
+#lockfile="$XDG_RUNTIME_DIR/$slider.lock"
 
 if [[ "$slider" == "brightness-osd" ]]; then
     if [[ "$action" == "up" ]]; then
-        brightnessctl --min-value=6 --quiet --exponent=4 set +5%
+        brightnessctl --min-value=1 --quiet --exponent=1 set +10%
     else
-        brightnessctl --min-value=6 --quiet --exponent=4 set 5%-
+        brightnessctl --min-value=1 --quiet --exponent=1 set 10%-
     fi
     laststate=$(brightnessctl -m | cut -d, -f4 | tr -d '%')
-    eww update current-brightness-state="$laststate"
+#    eww update current-brightness-state="$laststate"
 else 
     if [[ "$action" == "up" ]]; then
         pactl set-sink-mute @DEFAULT_SINK@ 0
@@ -25,21 +25,21 @@ else
         pactl set-sink-mute $SINK toggle
     fi
     laststate=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $NF*100}')
-    eww update "current-volume-state=$laststate"
-    eww update "volperc=$laststate"
+#    eww update "current-volume-state=$laststate"
+#    eww update "volperc=$laststate"
 fi
 
-if [ -f "$lockfile" ]; then
-    echo $(( $(cat "$lockfile")+1 )) > "$lockfile"
-    exit 0
-fi
+#if [ -f "$lockfile" ]; then
+#    echo $(( $(cat "$lockfile")+1 )) > "$lockfile"
+#    exit 0
+#fi
 
-echo 1 > "$lockfile"
-trap "rm -rf $lockfile" EXIT
-eww open "$slider"
-sleep 0.01
-eww update "$slider-reveal=true"
-lastrun=0
+#echo 1 > "$lockfile"
+#trap "rm -rf $lockfile" EXIT
+# eww open "$slider"
+# sleep 0.01
+# eww update "$slider-reveal=true"
+#lastrun=0
 
 function getstate {
     if [[ "$1" == "brightness-osd" ]]; then
@@ -49,19 +49,21 @@ function getstate {
     fi
 }
 
-while true; do
-    currentrun=$(cat "$lockfile")
-    currentstate=$(getstate "$slider")
-    if [ "$currentrun" -eq "$lastrun" ] && [ "$currentstate" -eq "$laststate" ]; then
-        eww update "$slider-reveal=false"
-        sleep .6
-        eww close "$slider"
-        break
-    else
-        lastrun=$currentrun
-        laststate=$currentstate
-    fi
-    sleep 1
-done
+echo $(getstate "$slider") > /tmp/wobpipe
 
-rm "$lockfile"
+#while true; do
+#    currentrun=$(cat "$lockfile")
+#    currentstate=$(getstate "$slider")
+#    if [ "$currentrun" -eq "$lastrun" ] && [ "$currentstate" -eq "$laststate" ]; then
+#        eww update "$slider-reveal=false"
+#        sleep .6
+#        eww close "$slider"
+#        break
+#    else
+#        lastrun=$currentrun
+#        laststate=$currentstate
+#    fi
+#    sleep 1
+#done
+
+#rm "$lockfile"

@@ -36,7 +36,8 @@ stow . -t ~/.config
 |pacman | texlive-luatex           | latex
 |pacman | power-profiles-daemon    | Power management
 |pacman | matugen                  | generate colors for wallpaper
-|pacman | python-ignis             | (testing) Alternative for quickshell
+|pacman | python-ignis             | Alternative for quickshell/eww, swaync, swaybg
+|yay    | wob                      | Lightweight overlay bar for volume and brightness
 
 # After cfg update
 Sometimes eww freezes when you are touching its configuration...
