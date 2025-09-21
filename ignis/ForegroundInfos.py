@@ -27,7 +27,16 @@ class ForegroundInfos (Widget.Window):
             margin_left = 10,
             margin_bottom = 40
         )
-    
+
+# TODO (after standby)
+# File "/home/vncnz/.config/ignis/ForegroundInfos.py", line 37, in update_ratatoskr
+#    self.network_icon.set_label(rat['network']['icon'])
+#    │    │            │         └ {'ram': {'total_memory': 15559585792, 'used_memory': 6665543680, 'total_swap': 10737414144, 'used_swap': 380665856, 'mem_perc...
+#    │    │            └ gi.FunctionInfo(set_label)
+#    │    └ <ResBox.ResIcon object at 0x7f800bfa4280 (ResBox+ResIcon at 0x55ddc1ab1fc0)>
+#    └ <ForegroundInfos.ForegroundInfos object at 0x7f800bfad440 (ForegroundInfos+ForegroundInfos at 0x55ddc1ab4e40)>
+# TypeError: 'NoneType' object is not subscriptable
+
     def update_ratatoskr (self, rat):
         if rat:
             if 'ram' in rat: self.update_ratatoskr_single(self.memory_icon, rat['ram']['mem_warn'], rat['ram']['mem_color'], 'memory')

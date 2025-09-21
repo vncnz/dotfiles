@@ -4,6 +4,10 @@ import time
 
 from ResBox import ClockBox, NotifBox
 
+#{'_Notification__dbus': <dbus.DBusService object at 0x7f2d990ebf00 (ignis+dbus+DBusService at 0x55d66e941e50)>, '_id': 636, '_app_name': 'nemo', '_icon': 'media-removable', '_summary': 'Writing data to USB SanDisk 3.2Gen1', '_body': 'Device should not be unplugged.', '_timeout': 5000, '_time': 1758353594.31154, '_urgency': 2, '_popup': True, '_actions': []}
+#Updated max_urgency 2 red
+#{'_Notification__dbus': <dbus.DBusService object at 0x7f2d990ebf00 (ignis+dbus+DBusService at 0x55d66e941e50)>, '_id': 637, '_app_name': 'nemo', '_icon': 'media-removable', '_summary': 'USB SanDisk 3.2Gen1 can be safely unplugged', '_body': 'Device can be removed.', '_timeout': 5000, '_time': 1758353595.824744, '_urgency': 1, '_popup': True, '_actions': []}
+
 class BackgroundNotif (Widget.Window):
     def __init__(self, monitor = None):
 
