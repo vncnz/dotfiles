@@ -23,7 +23,7 @@ class ForegroundInfos (Widget.Window):
             namespace = 'foreground-infos',
             monitor = monitor,
             child = self.box,
-            layer = 'top',
+            layer = 'overlay',
             style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;font-size:2rem;',
             anchor = ['bottom', 'left'],
             margin_left = 10,
