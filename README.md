@@ -39,6 +39,7 @@ stow . -t ~/.config
 |pacman | matugen                  | generate colors for wallpaper
 |pacman | python-ignis             | Alternative for quickshell/eww, swaync, swaybg
 |yay    | wob                      | Lightweight overlay bar for volume and brightness
+|yay    | niri-screen-time         | Tracks time spent on applications
 
 # After cfg update
 Sometimes eww freezes when you are touching its configuration...
