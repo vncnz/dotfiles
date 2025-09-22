@@ -39,7 +39,7 @@ stow . -t ~/.config
 |pacman | matugen                  | generate colors for wallpaper
 |pacman | python-ignis             | Alternative for quickshell/eww, swaync, swaybg
 |yay    | wob                      | Lightweight overlay bar for volume and brightness
-|yay    | niri-screen-time         | Tracks time spent on applications
+|yay    | niri-screen-time-git     | Tracks time spent on applications
 
 # Currently in use on my screen:
 - niri (Window manager)
