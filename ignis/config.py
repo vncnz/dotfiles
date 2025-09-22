@@ -91,6 +91,12 @@ bgnotif = BackgroundNotif()
 
 ################################################################
 
+# from ignis.services.bluetooth import BluetoothService
+# blue = BluetoothService.get_default()
+# print(blue.connected_devices)
+
+################################################################
+
 rat = read_ratatoskr_output()
 print(rat)
 
