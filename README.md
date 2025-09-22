@@ -23,6 +23,7 @@ stow . -t ~/.config
 |       | playerctl                | audio info and ctrl
 |       | swaybg                   | wallpaper
 |       | swaync                   | notification center
+|       | swaylock                 | lock screen
 |       | pika-backup              | backup system
 |       | wl-clipboard             | for wl-copy in pipeline with cmds
 |       | skoll                    | launcher - personal project
