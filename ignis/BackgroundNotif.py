@@ -47,26 +47,21 @@ class BackgroundNotif (Widget.Window):
         Utils.Poll(1000, self.check_notif_times)
     
     def add_notif(self, notification):
+        print(notification.icon)
         found = next((x for x in self.box.child if x.nid == notification.id), None)
+        if not found and notification.icon == 'media-removable': # * patch for Nemo "removing usb drive" notification
+            found = next((x for x in self.box.child if x.icon == 'media-removable' and x.app_name == notification.app_name), None)
         if found:
-            print(f'replacing notification with id {notification.id}')
             self.remove(found)
             # TODO: replace the notification in its previous position, instead of removing and appending?
-        # print(f'id {notification.id}')
-        # self.box.child = [x for x in self.box.child.append(Widget.Label(label=f"{notification.app_name}, {notification.summary}"))
+
         notif = NotifBox(notification, lambda x: self.remove(x))
-        # self.box.child = [notif] + [x for x in self.box.child]
-        # self.box.set_child([notif] + [x for x in self.box.child])
-        
         self.box.append(notif)
         self.update_color()
     
     def remove(self, x):
         self.box.remove(x)
         self.update_color()
-    
-    # def remove (self, n):
-    #    self.box.child = [x for x in self.box.child if x != n]
 
     def check_notif_times (self, _):
         # print(time.time())
