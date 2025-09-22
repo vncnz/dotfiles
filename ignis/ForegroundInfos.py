@@ -14,7 +14,9 @@ class ForegroundInfos (Widget.Window):
         self.box = Widget.Box(
             spacing = 6,
             vertical = True,
-            child = []
+            child = [
+                Widget.Label(label="", width_request=1, height_request=1, style="background-color:rgba(0, 0, 0, 0.01);")
+            ]
         )
 
         super().__init__(
