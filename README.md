@@ -41,6 +41,12 @@ stow . -t ~/.config
 |yay    | wob                      | Lightweight overlay bar for volume and brightness
 |yay    | niri-screen-time         | Tracks time spent on applications
 
+# Currently in use on my screen:
+- niri (Window manager)
+- Ignis (Resources information, notifications, time, wallpaper)
+- wob (Audio and brightness bar visible briefly on changes)
+- Fuzzel, Fenrir (a project of mine) and Skoll (same) as launchers (I still have to decide)
+
 # After cfg update
 Sometimes eww freezes when you are touching its configuration...
 ```
@@ -48,5 +54,4 @@ killall eww -9; eww daemon; eww open microstatusbar
 ```
 
 # Next steps
-
-- Evaluate RGLauncher and RGBar from https://github.com/aeghn/config
+- None
