@@ -182,7 +182,7 @@ class BatteryBox (MultilineBox):
         # import json
         # value = json.loads('{"percentage":98,"capacity":181008.0,"eta":418.04108,"state":"Discharging","icon":"󰁹","color":"#55FF00","watt":7.106}')
         if value['capacity'] > 0:
-            if value['state'] == 'Full':
+            if value['state'] == 'Full' or (value['state'] == 'Unknown' and value['percentage'] > 95):
                 second = 'Full, enjoy!'
                 third = random.choice([
                     'ETA: ∞ (give or take)',
