@@ -51,6 +51,8 @@ class BackgroundNotif (Widget.Window):
         found = next((x for x in self.box.child if x.nid == notification.id), None)
         if not found and notification.icon == 'media-removable': # * patch for Nemo "removing usb drive" notification
             found = next((x for x in self.box.child if x.icon == 'media-removable' and x.app_name == notification.app_name), None)
+        if not found and notification.app_name == 'Telegram': # * patch for avoid multiple chat notifications from same user
+            found = next((x for x in self.box.child if x.summary == notification.summary), None)
         if found:
             self.remove(found)
             # TODO: replace the notification in its previous position, instead of removing and appending?
@@ -93,4 +95,4 @@ class BackgroundNotif (Widget.Window):
                 color = 'rgba(0, 0, 0, 0.01)'
             self.line.set_style(f'background:{color};')
             self.last_max_urgency = max_urgency
-            print("Updated max_urgency", max_urgency, color)
+            # print("Updated max_urgency", max_urgency, color)
