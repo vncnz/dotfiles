@@ -35,7 +35,7 @@ class ResIcon (Widget.Label):
         )
 
     def compute_style (self, warn, color=None):
-        return f'font-size: 1.3rem;color:{color or 'inherit'};opacity:{0.3 + warn * 0.55};text-shadow:1px 1px 2px black, 1px 1px 5px black;'
+        return f'font-size: 1.3rem;color:{color or 'inherit'};opacity:{0.5 + warn * 0.35};text-shadow:1px 1px 2px black, -1px -1px 5px black, 1px 1px 10px black;'
     
     @skip_if_unchanged
     def update_value(self, warn, color=None):
@@ -320,6 +320,7 @@ class NotifBox (Widget.EventBox):
         self.urgency = notif.urgency
         self.nid = notif.id
         self.app_name = notif.app_name
+        self.summary = notif.summary
         self.icon = notif.icon
 
         content = notif.body # 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non bibendum neque, in posuere eros. Curabitur condimentum mi ut nisi iaculis porta. Donec sollicitudin dolor non egestas malesuada. In tempus imperdiet lacus in ornare. Maecenas in felis vestibulum, venenatis ligula sit amet, convallis mauris. Etiam sodales accumsan purus sit amet lacinia. Donec aliquet turpis vel tempus semper. Proin eget metus in neque sodales vehicula. Mauris ac tristique nibh, sed laoreet quam. Phasellus et orci sit amet eros aliquet maximus ut eu justo. Vestibulum non enim quis metus vestibulum egestas. Proin leo ante, vulputate at quam ac, auctor rhoncus orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc suscipit erat eget euismod bibendum. Mauris eget augue semper, vestibulum nisi eget, congue ligula. Aenean sit amet bibendum dolor'
