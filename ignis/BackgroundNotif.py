@@ -51,7 +51,7 @@ class BackgroundNotif (Widget.Window):
         found = next((x for x in self.box.child if x.nid == notification.id), None)
         if not found and notification.icon == 'media-removable': # * patch for Nemo "removing usb drive" notification
             found = next((x for x in self.box.child if x.icon == 'media-removable' and x.app_name == notification.app_name), None)
-        if not found and notification.app_name == 'Telegram': # * patch for avoid multiple chat notifications from same user
+        if not found and notification.app_name == 'Firefox': # * patch for avoid multiple chat notifications from same user for chats in Firefox
             found = next((x for x in self.box.child if x.summary == notification.summary), None)
         if found:
             self.remove(found)
