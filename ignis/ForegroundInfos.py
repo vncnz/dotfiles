@@ -64,10 +64,11 @@ class ForegroundInfos (Widget.Window):
             self.check_icon_presence(icon, False, warn, color, dbLabel)
     
     def check_icon_presence (self, icon, desired, warn, color, dbLabel = None):
-        if desired and (icon not in self.box.child):
+        if desired:
+            if (icon not in self.box.child):
+                self.box.append(icon)
+                print('Appending icon', dbLabel)
             icon.update_value(warn, color)
-            self.box.append(icon)
-            print('Appending icon', dbLabel)
         elif not desired and (icon in self.box.child):
             self.box.remove(icon)
             print('Removing icon', dbLabel)
