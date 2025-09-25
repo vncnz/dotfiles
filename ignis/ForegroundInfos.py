@@ -1,5 +1,6 @@
 from ignis.widgets import Widget
 from ResBox import ResIcon
+from Bus import Bus
 
 class ForegroundInfos (Widget.Window):
     def __init__(self, monitor = None):
@@ -10,6 +11,8 @@ class ForegroundInfos (Widget.Window):
         self.battery_icon = ResIcon('B')
         self.network_icon = ResIcon('N')
         self.temperature_icon = ResIcon('T')
+        self.notification_icon = ResIcon("󰂚") # , width_request=1, height_request=1, style="background-color:rgba(0, 0, 0, 0.01);")
+        # self.notification_icon.update_value(1, 'rgba(0, 0, 0, 0.01)')
 
         self.box = Widget.Box(
             spacing = 6,
@@ -29,6 +32,13 @@ class ForegroundInfos (Widget.Window):
             margin_left = 10,
             margin_bottom = 40
         )
+
+        Bus.subscribe(lambda x: self.update_bus(x))
+    
+    def update_bus (self, x):
+        # print('event', x)
+        if x: self.update_ratatoskr_single(self.notification_icon, 1, x, 'notif')
+        else: self.update_ratatoskr_single(self.notification_icon, 0, x, 'notif')
 
 # TODO (after standby)
 # File "/home/vncnz/.config/ignis/ForegroundInfos.py", line 37, in update_ratatoskr

@@ -3,6 +3,7 @@ from ignis.utils import Utils
 import time
 
 from ResBox import ClockBox, NotifBox
+from Bus import Bus
 
 #{'_Notification__dbus': <dbus.DBusService object at 0x7f2d990ebf00 (ignis+dbus+DBusService at 0x55d66e941e50)>, '_id': 636, '_app_name': 'nemo', '_icon': 'media-removable', '_summary': 'Writing data to USB SanDisk 3.2Gen1', '_body': 'Device should not be unplugged.', '_timeout': 5000, '_time': 1758353594.31154, '_urgency': 2, '_popup': True, '_actions': []}
 #Updated max_urgency 2 red
@@ -89,10 +90,13 @@ class BackgroundNotif (Widget.Window):
             color = None
             if max_urgency == 2:
                 color = 'red'
+                Bus.publish('red')
             elif max_urgency > -1:
                 color = 'white'
+                Bus.publish('white')
             else:
                 color = 'rgba(0, 0, 0, 0.01)'
+                Bus.publish(None)
             self.line.set_style(f'background:{color};')
             self.last_max_urgency = max_urgency
             # print("Updated max_urgency", max_urgency, color)
