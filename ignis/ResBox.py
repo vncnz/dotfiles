@@ -242,6 +242,13 @@ class NetworkBox (MultilineBox):
                     f'IP address {value['ip']}'
                 ])
             self.lines[0].set_style(f'font-size: 1.4em;color:{value['color'] or 'inherit'};')
+        else:
+            self.set_lines([
+                f'No active connection',
+                f'No chat notifications, yeah!',
+                f'Ops, no researchs, too'
+            ])
+            self.lines[0].set_style(f'font-size: 1.4em;color:red;')
 
 from ignis.utils import Utils
 class ClockBox (MultilineBox):
