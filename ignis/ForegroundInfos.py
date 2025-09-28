@@ -55,8 +55,12 @@ class ForegroundInfos (Widget.Window):
             if 'disk' in rat: self.update_ratatoskr_single(self.disk_icon, rat['disk']['warn'], rat['disk']['color'], 'disk')
             if 'loadavg' in rat: self.update_ratatoskr_single(self.loadavg_icon, rat['loadavg']['warn'], rat['loadavg']['color'], 'loadavg')
             if 'network' in rat:
-                self.network_icon.set_label(rat['network']['icon'])
-                self.update_ratatoskr_single(self.network_icon, rat['network']['warn'], rat['network']['color'], 'network')
+                if rat['network']:
+                    self.network_icon.set_label(rat['network']['icon'])
+                    self.update_ratatoskr_single(self.network_icon, rat['network']['warn'], rat['network']['color'], 'network')
+                else:
+                    self.network_icon.set_label('󰞃')
+                    self.update_ratatoskr_single(self.network_icon, 1, 'red', 'network')
             if 'battery' in rat:
                 warn = 0
                 if rat['battery']['state'] in ['Charging', 'Discharging']: warn = max(0, min((80 - rat['battery']['percentage']) / 60.0, 1))
