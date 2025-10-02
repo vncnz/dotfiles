@@ -234,18 +234,17 @@ layout {
 // spawn-at-startup "alacritty" "-e" "fish"
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
-spawn-at-startup "swaybg" "--image" "/home/vncnz/.config/wallpaper.jpg" "--mode" "fill"
+// spawn-at-startup "swaybg" "--image" "/home/vncnz/.config/wallpaper.jpg" "--mode" "fill"
 spawn-at-startup "xwayland-satellite" ":12"
 // spawn-at-startup "/home/vncnz/.config/niri/change_bg.sh"
 // spawn-at-startup "dunst" "&"
-spawn-at-startup "swaync"
+// spawn-at-startup "swaync"
 // spawn-at-startup "waybar"
-// spawn-at-startup "eww" "open" "statusbar" "--arg" "stacking=fg"
-// spawn-at-startup "eww" "open" "batteryborder"
-spawn-at-startup "eww" "open" "microstatusbar"
+// spawn-at-startup "eww" "open" "microstatusbar"
 // spawn-at-startup "/home/vncnz/.config/eww/scripts/music_notifier.sh"
 spawn-at-startup "/home/vncnz/.config/niri/run_wob.sh"
 spawn-at-startup "/home/vncnz/.config/niri/ratatoskr"
+spawn-at-startup "ignis" "init"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -259,17 +258,6 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
-
-// Animation settings.
-// The wiki explains how to configure individual animations:
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
-/-animations {
-    // Uncomment to turn off all animations.
-    // off
-
-    // Slow down all animations by this factor. Values below 1 speed them up instead.
-    // slowdown 3.0
-}
 
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
@@ -325,8 +313,8 @@ binds {
     Mod+O hotkey-overlay-title="Fuzzel calculator" { spawn "/home/vncnz/Repositories/dotfiles/niri/fuzzel-calculator.sh"; }
     // Mod+O hotkey-overlay-title="Spawn app selector in fuzzel" { spawn "/home/vncnz/.config/eww/scripts/niri_spaces.sh"; }
     Mod+P hotkey-overlay-title="Spawn session control in fuzzel" { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
-    Mod+N hotkey-overlay-title="Show/hide swaync panel" { spawn "swaync-client" "-t"; }
-    Mod+Shift+N hotkey-overlay-title="Reset notifications" { spawn "swaync-client" "-C"; }
+    // Mod+N hotkey-overlay-title="Show/hide swaync panel" { spawn "swaync-client" "-t"; }
+    // Mod+Shift+N hotkey-overlay-title="Reset notifications" { spawn "swaync-client" "-C"; }
     // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
     MouseMiddle { toggle-overview; }
 
