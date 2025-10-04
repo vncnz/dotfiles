@@ -19,6 +19,7 @@ stow . -t ~/.config
 |       | iwmenu                   | network management
 |       | jq                       | json parser for bash
 |pacman | ttf-nerd-fonts-symbols*  | icons
+|yay    | googledot-cursor-theme   | a cursor theme
 |       | pactl                    | audio ctrl
 |       | playerctl                | audio info and ctrl
 |       | swaybg                   | wallpaper
@@ -40,6 +41,7 @@ stow . -t ~/.config
 |pacman | python-ignis             | Alternative for quickshell/eww, swaync, swaybg
 |yay    | wob                      | Lightweight overlay bar for volume and brightness
 |yay    | niri-screen-time-git     | Tracks time spent on applications
+|yay    | btop                     | htop alternative
 
 # Currently in use on my screen:
 - niri (Window manager)
@@ -52,6 +54,8 @@ Sometimes eww freezes when you are touching its configuration...
 ```
 killall eww -9; eww daemon; eww open microstatusbar
 ```
+# Some tips
+- "find /usr/share/icons ~/.local/share/icons ~/.icons -type d -name "cursors"" lists all cursors installed in my system
 
 # Next steps
 - None
