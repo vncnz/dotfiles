@@ -380,6 +380,7 @@ class NotifBox (Widget.EventBox):
             homogeneous=False,
             hexpand=True,
             width_request=500,
+            margin_bottom=10,
             style = 'font-size: 1.4em;',
             on_click=on_click,
             child = self.cols, **kwargs)

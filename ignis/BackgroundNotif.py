@@ -19,7 +19,7 @@ class BackgroundNotif (Widget.Window):
         )
         self.line = Widget.Box(
             width_request=0,
-            height_request=5,
+            height_request=2,
             style='background-color:transparent;'
         )
 
