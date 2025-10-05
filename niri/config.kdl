@@ -207,7 +207,7 @@ layout {
         // If you enable the border, you probably want to disable the focus ring.
         off
 
-        width 4
+        width 2
         // active-color "#ffc87f"
         inactive-color "#505050"
 
@@ -295,7 +295,7 @@ window-rule {
     // block-out-from "screencast"
 }
 
-// Supported from next release (now is 25.08)
+// Supported from next release (now is 25.08)!
 // include "config_binds.kdl"
 
 binds {
@@ -729,21 +729,18 @@ window-rule {
 }
 
 window-rule {
-    match title=r#".* Copying .*"# app-id="nemo" 
+    match title=r#".* Copying .*"# app-id="nemo" is-floating=true
     match title=r#".* Moving .*"# app-id="nemo" is-floating=true
-    default-floating-position x=12 y=32 relative-to="bottom-right"
+    default-floating-position x=12 y=12 relative-to="bottom-right"
     baba-is-float true
 
     focus-ring {
-        // Colors can be set in a variety of ways:
-        // - CSS named colors: "red"
-        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
-        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
-
-        // Color of the ring on the active monitor.
-        active-color "#ffc8ff"
-        // Color of the ring on inactive monitors.
-        inactive-color "#805050"
+        off
+    }
+    border {
+        on
+        active-color "red"
+        inactive-color "darkred"
     }
 }
 
