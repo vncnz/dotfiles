@@ -11,7 +11,17 @@
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
-    DISPLAY ":12"
+    QT_QPA_PLATFORM "wayland"
+    // DISPLAY ":12"
+    // DISPLAY null for integratex xwayland-satellite?
+}
+
+cursor {
+    xcursor-theme "GoogleDot-White"
+    xcursor-size 24
+
+    // hide-when-typing
+    hide-after-inactive-ms 5000
 }
 
 input {
@@ -115,7 +125,7 @@ layout {
     background-color "transparent"
 
     // Set gaps around windows in logical pixels.
-    gaps 16
+    gaps 8
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -207,9 +217,9 @@ layout {
 
     shadow {
         // on
-        softness 2
-        spread 6
-        offset x=3 y=3
+        softness 0
+        spread 0
+        offset x=8 y=8
         draw-behind-window true
         color "#ff000070"
         inactive-color "#00000054"
@@ -221,35 +231,35 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        left 12
-        right 12
-        // top 64
-        bottom 8
+        left 36
+        right 18
+        top 0
+        bottom 10
     }
 }
 
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
-// spawn-at-startup "alacritty" "-e" "fish"
+// spawn-sh-at-startup "alacritty -e fish"
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
-// spawn-at-startup "swaybg" "--image" "/home/vncnz/.config/wallpaper.jpg" "--mode" "fill"
-spawn-at-startup "xwayland-satellite" ":12"
-// spawn-at-startup "/home/vncnz/.config/niri/change_bg.sh"
+// spawn-sh-at-startup "swaybg" "--image" "~/.config/wallpaper.jpg" "--mode" "fill"
+// spawn-at-startup "xwayland-satellite" ":12"
+// spawn-sh-at-startup "~/.config/niri/change_bg.sh"
 // spawn-at-startup "dunst" "&"
 // spawn-at-startup "swaync"
 // spawn-at-startup "waybar"
 // spawn-at-startup "eww" "open" "microstatusbar"
-// spawn-at-startup "/home/vncnz/.config/eww/scripts/music_notifier.sh"
-spawn-at-startup "/home/vncnz/.config/niri/run_wob.sh"
-spawn-at-startup "/home/vncnz/.config/niri/ratatoskr"
-spawn-at-startup "ignis" "init"
+// spawn-sh-at-startup "~/.config/eww/scripts/music_notifier.sh"
+spawn-sh-at-startup "~/.config/niri/run_wob.sh"
+spawn-sh-at-startup "~/.config/niri/ratatoskr"
+spawn-sh-at-startup "ignis init"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some rounded corners.
-// prefer-no-csd
+prefer-no-csd
 
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
@@ -303,15 +313,15 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "alacritty"; }
-    Mod+Space { spawn "kitty" "-e" "/home/vncnz/.config/niri/fenrir"; }
-    // Mod+Shift+T { spawn "/home/vncnz/Repositories/dotfiles/niri/exec_cmd_with_fuzzel.sh"; }
+    Mod+Space hotkey-overlay-title="Spawn fenrir launcher" { spawn-sh "kitty -e ~/.config/niri/fenrir"; }
+    // Mod+Shift+T { spawn "~/Repositories/dotfiles/niri/exec_cmd_with_fuzzel.sh"; }
     // Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
     // Mod+W { toggle-column-tabbed-display; }
     Mod+D hotkey-overlay-title="Spawn fuzzel launcher" { spawn "fuzzel"; }
-    Mod+Shift+D hotkey-overlay-title="Spawn skoll launcher" { spawn "/home/vncnz/Repositories/dotfiles/niri/skoll"; }
-    Mod+Ctrl+D hotkey-overlay-title="Spawn fenrir launcher" { spawn "kitty" "--single-instance" "-e" "/home/vncnz/Repositories/dotfiles/niri/fenrir"; }
-    Mod+O hotkey-overlay-title="Fuzzel calculator" { spawn "/home/vncnz/Repositories/dotfiles/niri/fuzzel-calculator.sh"; }
-    // Mod+O hotkey-overlay-title="Spawn app selector in fuzzel" { spawn "/home/vncnz/.config/eww/scripts/niri_spaces.sh"; }
+    Mod+Shift+D hotkey-overlay-title="Spawn skoll launcher" { spawn "~/Repositories/dotfiles/niri/skoll"; }
+    Mod+Ctrl+D hotkey-overlay-title="Spawn fenrir launcher" { spawn-sh "kitty --single-instance -e ~/Repositories/dotfiles/niri/fenrir"; }
+    Mod+O hotkey-overlay-title="Fuzzel calculator" { spawn "~/Repositories/dotfiles/niri/fuzzel-calculator.sh"; }
+    // Mod+O hotkey-overlay-title="Spawn app selector in fuzzel" { spawn "~/.config/eww/scripts/niri_spaces.sh"; }
     Mod+P hotkey-overlay-title="Spawn session control in fuzzel" { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
     // Mod+N hotkey-overlay-title="Show/hide swaync panel" { spawn "swaync-client" "-t"; }
     // Mod+Shift+N hotkey-overlay-title="Reset notifications" { spawn "swaync-client" "-C"; }
@@ -319,7 +329,7 @@ binds {
     MouseMiddle { toggle-overview; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
-    Super+L hotkey-overlay-title="Lock the screen" { spawn "swaylock" "-i" "/home/vncnz/.config/wallpaper.jpg" "--show-keyboard-layout" "--show-failed-attempts"; }
+    Super+L hotkey-overlay-title="Lock the screen" { spawn-sh "swaylock -i ~/.config/wallpaper.jpg --show-keyboard-layout --show-failed-attempts"; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
@@ -331,21 +341,21 @@ binds {
     // XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     // XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-    // XF86AudioRaiseVolume allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "volume_up"; }
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "volume" "up"; }
-    // XF86AudioLowerVolume allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "volume_down"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "volume" "down"; }
-    // XF86AudioMute        allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "volume_mute"; }
-    XF86AudioMute        allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "volume" "mute"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "mic_mute"; }
+    // XF86AudioRaiseVolume allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "volume_up"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "volume" "up"; }
+    // XF86AudioLowerVolume allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "volume_down"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "volume" "down"; }
+    // XF86AudioMute        allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "volume_mute"; }
+    XF86AudioMute        allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "volume" "mute"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "mic_mute"; }
 
-    // XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "5%+"; }
-    // XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/brightness.sh" "set" "5%-"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "brightness" "up"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/niri/osdslider.sh" "brightness" "down"; }
+    // XF86MonBrightnessUp allow-when-locked=true { spawn "~/.config/eww/scripts/brightness.sh" "set" "5%+"; }
+    // XF86MonBrightnessDown allow-when-locked=true { spawn "~/.config/eww/scripts/brightness.sh" "set" "5%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "brightness" "up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "brightness" "down"; }
 
-    // XF86MonBrightnessUp allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "brightness_up"; }
-    // XF86MonBrightnessDown allow-when-locked=true { spawn "/home/vncnz/.config/eww/scripts/notif.sh" "brightness_down"; }
+    // XF86MonBrightnessUp allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "brightness_up"; }
+    // XF86MonBrightnessDown allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "brightness_down"; }
 
     XF86AudioPlay { spawn "playerctl" "play-pause"; }
     XF86AudioNext { spawn "playerctl" "next"; }
@@ -405,10 +415,6 @@ binds {
     Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
-
-    // Alternatively, there are commands to move just a single window:
-    // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
-    // ...
 
     // And you can also move a whole workspace to another monitor:
     // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
@@ -657,6 +663,19 @@ overview {
     backdrop-color "#000000"
     zoom 0.35
     // hot-corners { off }
+
+    workspace-shadow {
+        off
+        softness 0
+        spread 5
+        offset x=0 y=0
+        color "#ffffffff"
+    }
+}
+
+xwayland-satellite {
+    // off
+    // path "xwayland-satellite"
 }
 
 // Put swaybg inside the overview backdrop
