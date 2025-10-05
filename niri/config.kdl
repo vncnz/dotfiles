@@ -329,6 +329,7 @@ binds {
     // Mod+N hotkey-overlay-title="Show/hide swaync panel" { spawn "swaync-client" "-t"; }
     // Mod+Shift+N hotkey-overlay-title="Reset notifications" { spawn "swaync-client" "-C"; }
     // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
+    Mod+b hotkey-overlay-title="Spawn btop" { spawn-sh "kitty -e btop"; }
     MouseMiddle { toggle-overview; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
