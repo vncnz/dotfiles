@@ -15,6 +15,7 @@ stow . -t ~/.config
 |-------|--------------------------|-------------
 |pacman | niri                     | scrollable-tiling Wayland compositor
 |pacman | stow                     | Dotfiles management
+|pacman | nemo                     | File explorer
 |       | brightnessctl            | brightness management
 |       | (eww)                    | used by the infobar on the bottom of the screen
 |pacman | fuzzel                   | launcher
