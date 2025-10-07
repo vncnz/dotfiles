@@ -12,12 +12,12 @@ stow . -t ~/.config
 # Other packages used
 |source | name                     | description
 |-------|--------------------------|-------------
-|       | niri                     | scrollable-tiling Wayland compositor
+|pacman | niri                     | scrollable-tiling Wayland compositor
 |       | brightnessctl            | brightness management
 |       | eww                      | used by the infobar on the bottom of the screen
-|       | fuzzel                   | launcher
+|pacman | fuzzel                   | launcher
 |       | iwmenu                   | network management
-|       | jq                       | json parser for bash
+|pacman | jq                       | json parser for bash
 |pacman | ttf-nerd-fonts-symbols*  | icons
 |yay    | googledot-cursor-theme   | a cursor theme
 |       | pactl                    | audio ctrl
