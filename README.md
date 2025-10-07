@@ -10,12 +10,13 @@ stow . -t ~/.config
 ```
 
 # Other packages used
+(Deprecated if between braches)
 |source | name                     | description
 |-------|--------------------------|-------------
 |pacman | niri                     | scrollable-tiling Wayland compositor
 |pacman | stow                     | Dotfiles management
 |       | brightnessctl            | brightness management
-|       | eww                      | used by the infobar on the bottom of the screen
+|       | (eww)                    | used by the infobar on the bottom of the screen
 |pacman | fuzzel                   | launcher
 |       | iwmenu                   | network management
 |pacman | jq                       | json parser for bash
@@ -23,9 +24,9 @@ stow . -t ~/.config
 |yay    | googledot-cursor-theme   | a cursor theme
 |       | pactl                    | audio ctrl
 |       | playerctl                | audio info and ctrl
-|       | swaybg                   | wallpaper
-|       | swaync                   | notification center
-|       | swaylock                 | lock screen
+|       | (swaybg)                 | wallpaper
+|       | (swaync)                 | notification center
+|pacman | swaylock                 | lock screen
 |       | pika-backup              | backup system
 |       | wl-clipboard             | for wl-copy in pipeline with cmds
 |       | skoll                    | launcher - personal project
