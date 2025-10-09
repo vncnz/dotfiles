@@ -9,6 +9,10 @@ cd ~/Repositories/dotfiles/
 stow . -t ~/.config
 ```
 
+# Nemo configuration
+
+The content of ```nemo_actions``` folder can be manually moved/copied in ```~/.local/share/nemo/actions/``` in order to add my custom actions to Nemo context menu.
+
 # Other packages used
 (Deprecated if between braches)
 |source | name                     | description
@@ -16,6 +20,7 @@ stow . -t ~/.config
 |pacman | niri                     | scrollable-tiling Wayland compositor
 |pacman | stow                     | Dotfiles management
 |pacman | nemo                     | File explorer
+|pacman | zip                      | for archive management in command line
 |       | brightnessctl            | brightness management
 |       | (eww)                    | used by the infobar on the bottom of the screen
 |pacman | fuzzel                   | launcher

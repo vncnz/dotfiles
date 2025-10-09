@@ -1,0 +1,8 @@
+[Nemo Action]
+Name=Compress here
+Comment=Create a zip archive in this folder
+Exec=sh -c 'for f in %F; do base=$(basename "$f"); dir=$(dirname "$f"); out="$dir/$base.zip"; [ -e "$out" ] && out="$dir/$base-$(date +%Y%m%d%H%M%S).zip"; zip -r "$out" "$f"; done'
+Icon=application-zip
+Selection=S
+Extensions=any
+Quote=double
