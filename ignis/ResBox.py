@@ -5,6 +5,9 @@ from datetime import datetime
 import random
 import functools
 
+def col (theme, warn):
+    return theme['warning_gradient'][int(warn * 10)]
+
 def skip_if_unchanged(func):
     last_call = {"args": None, "kwargs": None}
 
@@ -212,15 +215,17 @@ class BatteryBox (MultilineBox):
 class MemoryBox (MultilineBox):
 
     @skip_if_unchanged
-    def update_value(self, value):
+    def update_value(self, value, theme = None):
         # 'ram': {'total_memory': 4099457024, 'used_memory': 2791231488, 'total_swap': 6866382848, 'used_swap': 442261504, 'mem_percent': 68, 'swap_percent': 6, 'mem_color': '#C6FF00', 'swap_color': '#55FF00', 'mem_warn': 0.26666666666666666, 'swap_warn': 0.0}
 
+        warn = max(value['mem_warn'], value['swap_warn'])
         self.set_lines([
             f'Memory {value['mem_percent']}% / {value['swap_percent']}%',
             f'RAM {bytes_to_human(value['used_memory'])} of {bytes_to_human(value['total_memory'])}',
             f'SWAP {bytes_to_human(value['used_swap'])} of {bytes_to_human(value['total_swap'])}'
         ])
         color = value['mem_color'] if value['mem_warn'] > value['swap_warn'] else value['swap_color']
+        if theme: color = col(theme, warn)
         self.lines[0].set_style(f'font-size: 1.4em;color:{color};')
 
 class NetworkBox (MultilineBox):
@@ -307,17 +312,17 @@ class RowBox (Widget.Box):
         for label, text in zip(self.cols, texts):
             label.set_label(text)
     
-    def update_value(self, temp, disk, volume):
+    def update_value(self, temp, disk, volume, theme):
         if temp['value'] > 0:
             self.cols[0].set_label(f'Temp {int(temp['value'])}°')
             self.cols[0].set_style(f'color:{temp['color'] or 'inherit'};')
 
-
         self.cols[1].set_label(f'Disk {int(disk['used_percent'])}%')
-        self.cols[1].set_style(f'color:{disk['color'] or 'inherit'};')
+        self.cols[1].set_style(f'color:{col(theme, disk['warn']) or 'inherit'};')
 
-        self.cols[2].set_label(volume['value'] > 0 and f'Vol. {int(volume['value'])}%' or 'Vol. MUTED')
-        self.cols[2].set_style(f'color:{volume['color'] or 'inherit'};')
+        if volume:
+            self.cols[2].set_label(volume['value'] > 0 and f'Vol. {int(volume['value'])}%' or 'Vol. MUTED')
+            self.cols[2].set_style(f'color:{volume['color'] or 'inherit'};')
 
 class NotifBox (Widget.EventBox):
     def __init__(self, notif, on_click=None, **kwargs):
