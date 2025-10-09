@@ -11,6 +11,7 @@ import.sh
 export.sh
 
 # Dots of uninstalled software
-waybar
-dunst
-networkmanager-dmenu
+#waybar
+#dunst
+#networkmanager-dmenu
+deprecated
