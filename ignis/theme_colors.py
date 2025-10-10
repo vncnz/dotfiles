@@ -12,7 +12,7 @@ def gra (value):
 def run_matugen(image_path: str) -> dict:
     """Exec matugen and returns the output"""
     result = subprocess.run(
-        ["matugen", "image", image_path, "-j", "rgb"],
+        ["matugen", "image", image_path, "-j", "rgb", "--contrast", "0"],
         capture_output=True,
         text=True,
         check=True,
