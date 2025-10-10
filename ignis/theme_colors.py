@@ -2,6 +2,12 @@ import json
 import subprocess
 import re
 
+_computed = None
+
+def gra (value):
+    if _computed:
+        return _computed['warning_gradient'][int(value * 9.999)]
+    return 'white'
 
 def run_matugen(image_path: str) -> dict:
     """Exec matugen and returns the output"""
@@ -37,18 +43,21 @@ def generate_theme(image_path: str, mode: str | None = 'dark', steps: int = 10) 
     """
     mode can be 'dark'(default), 'light' or None
     """
+    global _computed
+
     data = run_matugen(image_path)
     theme = data["colors"][mode]
 
     c1 = extract(theme["on_background"])
-    c2 = extract(theme["error_container"])
+    c2 = extract(theme["error"])
     gradient = build_warning_gradient(c1, c2, steps)
 
     print(theme["on_background"], c1)
 
-    return {
+    _computed = {
         "mode": mode or "dark",
         "on_background": hex_from_rgb(c1),
         "error": hex_from_rgb(c2),
         "warning_gradient": gradient,
     }
+    return _computed

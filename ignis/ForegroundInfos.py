@@ -2,6 +2,8 @@ from ignis.widgets import Widget
 from ResBox import ResIcon
 from Bus import Bus
 
+from theme_colors import gra
+
 class ForegroundInfos (Widget.Window):
     def __init__(self, monitor = None):
 
@@ -51,13 +53,13 @@ class ForegroundInfos (Widget.Window):
 
     def update_ratatoskr (self, rat):
         if rat:
-            if 'ram' in rat: self.update_ratatoskr_single(self.memory_icon, rat['ram']['mem_warn'], rat['ram']['mem_color'], 'memory')
-            if 'disk' in rat: self.update_ratatoskr_single(self.disk_icon, rat['disk']['warn'], rat['disk']['color'], 'disk')
-            if 'loadavg' in rat: self.update_ratatoskr_single(self.loadavg_icon, rat['loadavg']['warn'], rat['loadavg']['color'], 'loadavg')
+            if 'ram' in rat: self.update_ratatoskr_single(self.memory_icon, rat['ram']['mem_warn'], None, 'memory')
+            if 'disk' in rat: self.update_ratatoskr_single(self.disk_icon, rat['disk']['warn'], None, 'disk')
+            if 'loadavg' in rat: self.update_ratatoskr_single(self.loadavg_icon, rat['loadavg']['warn'], None, 'loadavg')
             if 'network' in rat:
                 if rat['network']:
                     self.network_icon.set_label(rat['network']['icon'])
-                    self.update_ratatoskr_single(self.network_icon, rat['network']['warn'], rat['network']['color'], 'network')
+                    self.update_ratatoskr_single(self.network_icon, rat['network']['warn'], None, 'network')
                 else:
                     self.network_icon.set_label('󰞃')
                     self.update_ratatoskr_single(self.network_icon, 1, 'red', 'network')
@@ -68,9 +70,10 @@ class ForegroundInfos (Widget.Window):
                 self.update_ratatoskr_single(self.battery_icon, warn, rat['battery']['color'], 'battery')
             if 'temperature' in rat:
                 self.temperature_icon.set_label(rat['temperature']['icon'])
-                self.update_ratatoskr_single(self.temperature_icon, rat['temperature']['warn'], rat['temperature']['color'], 'temperature')
+                self.update_ratatoskr_single(self.temperature_icon, rat['temperature']['warn'], None, 'temperature')
     
-    def update_ratatoskr_single (self, icon, warn, color, dbLabel = None):
+    def update_ratatoskr_single (self, icon, warn, color = None, dbLabel = None):
+        if not color: color = gra(warn)
         if warn > 0.3:
             # icon.update_value(warn, color)
             self.check_icon_presence(icon, True, warn, color, dbLabel)
