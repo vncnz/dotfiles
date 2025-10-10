@@ -45,7 +45,7 @@ The content of ```nemo_actions``` folder can be manually moved/copied in ```~/.l
 |pacman | lf                       | for file exploring through a TUI
 |pacman | texlive-luatex           | latex
 |pacman | power-profiles-daemon    | Power management
-|pacman | matugen                  | generate colors for wallpaper
+|yay    | matugen                  | generate colors for wallpaper
 |pacman | python-ignis             | Alternative for quickshell/eww, swaync, swaybg
 |yay    | wob                      | Lightweight overlay bar for volume and brightness
 |yay    | niri-screen-time-git     | Tracks time spent on applications
