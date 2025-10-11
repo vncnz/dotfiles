@@ -61,6 +61,7 @@ The content of ```nemo_actions``` folder can be manually moved/copied in ```~/.l
 - ```find /usr/share/icons ~/.local/share/icons ~/.icons -type d -name "cursors"``` lists all cursors installed in my system
 
 # Next steps
+- evaluate using pywal instead of matugen
 - make matugen optional
 - use external settings file for Ignis
 - Who knows?
