@@ -2,7 +2,7 @@ from ignis.widgets import Widget
 from ResBox import ResIcon
 from Bus import Bus
 
-from theme_colors import gra
+from theme_colors import gra, get_theme
 
 class ForegroundInfos (Widget.Window):
     def __init__(self, monitor = None):
@@ -16,12 +16,20 @@ class ForegroundInfos (Widget.Window):
         self.notification_icon = ResIcon("󰂚") # , width_request=1, height_request=1, style="background-color:rgba(0, 0, 0, 0.01);")
         # self.notification_icon.update_value(1, 'rgba(0, 0, 0, 0.01)')
 
+        chi = [Widget.Label(label="", width_request=1, height_request=1, style="background-color:rgba(0, 0, 0, 0.01);")]
+        if False:
+            theme = get_theme()
+            chi = chi + [
+                Widget.Label(label="", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{theme['error']};"),
+                Widget.Label(label="󱗜", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{theme['on_background']};")
+            ] + [
+                Widget.Label(label="", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{c};") for c in theme['warning_gradient']
+            ]
+
         self.box = Widget.Box(
             spacing = 6,
             vertical = True,
-            child = [
-                Widget.Label(label="", width_request=1, height_request=1, style="background-color:rgba(0, 0, 0, 0.01);")
-            ]
+            child = chi
         )
 
         super().__init__(
