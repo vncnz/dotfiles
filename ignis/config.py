@@ -48,7 +48,7 @@ Utils.FileMonitor(
 
 from WallpaperManager import set_wallpaper
 
-if 'wallpaper' in settings:
+if settings and ('wallpaper' in settings):
     wallpaper = settings['wallpaper'] # wallpaper = "~/Pictures/wallpapers/68d977081ada6ea065d5f020_nebulae-01.jpg"
 else:
     wallpaper = "~/Repositories/dotfiles/wallpaper.jpg"
