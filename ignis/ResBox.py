@@ -325,7 +325,7 @@ class RowBox (Widget.Box):
 class NotifBox (Widget.EventBox):
     def __init__(self, notif, on_click=None, **kwargs):
 
-        print(notif.__dict__)
+        # print(notif.__dict__)
         self.time = notif.time
         self.urgency = notif.urgency
         self.nid = notif.id

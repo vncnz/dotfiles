@@ -61,8 +61,8 @@ wallpaper = set_wallpaper(wallpaper)
 
 from theme_colors import col, generate_theme, gra, toggle_mode
 theme = generate_theme(wallpaper, 'dark')
-print('\nCREATED THEME:')
-print(theme)
+#print('\nCREATED THEME:')
+#print(theme)
 
 import stat
 class CmdManager:
@@ -139,8 +139,8 @@ def read_ratatoskr_output ():
         return data
 
 rat = read_ratatoskr_output()
-print('\nRATATOSKR FIRST READ:')
-print(rat)
+#print('\nRATATOSKR FIRST READ:')
+#print(rat)
 
 # from ignis.services.fetch import FetchService
 # from ignis.services.upower import UPowerService
