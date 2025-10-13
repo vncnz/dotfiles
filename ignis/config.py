@@ -1,7 +1,7 @@
 from ignis.widgets import Widget
 from ignis.utils import Utils
 import json
-import time
+# import time
 
 import os
 
@@ -10,38 +10,66 @@ from gi.repository import GLib
 # from niri import print_test
 # print_test()
 
-from ignis.services.wallpaper import WallpaperService
-from ignis.options import options
+from ignis.app import IgnisApp
+app = IgnisApp.get_default()
 
 from BackgroundNotif import BackgroundNotif
 from ForegroundInfos import ForegroundInfos
 
-wallpaper = "~/Pictures/wallpapers/68d977081ada6ea065d5f020_nebulae-01.jpg"
-wallpaper = os.path.expanduser(wallpaper)
+def read_settings ():
+    try:
+        with open(os.path.expanduser('~/.config/ignis/settings.json')) as settings:
+            return json.loads(settings.read())
+    except:
+        return None
 
-WallpaperService.get_default()  # just to initialize it
-options.wallpaper.set_wallpaper_path(wallpaper)
-# cmd = f"matugen image {wallpaper} -j hsl"
+settings = read_settings()
+print("\nSETTINGS:")
+print(settings)
+
+def reload_settings (_, path, event_type):
+    print('\n\nRELOADING SETTINGS\n\n')
+    global settings
+    # old_settings = settings
+    settings = read_settings()
+    # changed_wallpaper = not (old_settings and ('wallpaper' in old_settings) and settings and ('wallpaper' in settings) and settings['wallpaper'] == old_settings['wallpaper'])
+    # if changed_wallpaper:
+    #     wallpaper = os.path.expanduser(settings['wallpaper'])
+    #     options.wallpaper.set_wallpaper_path(wallpaper)
+    app.reload()
+
+Utils.FileMonitor(
+    path=os.path.expanduser('~/.config/ignis/settings.json'),
+    recursive=False,
+    callback = reload_settings # lambda _, path, event_type: print(path, event_type),
+)
+
+
+
+from WallpaperManager import set_wallpaper
+
+if 'wallpaper' in settings:
+    wallpaper = settings['wallpaper'] # wallpaper = "~/Pictures/wallpapers/68d977081ada6ea065d5f020_nebulae-01.jpg"
+else:
+    wallpaper = "~/Repositories/dotfiles/wallpaper.jpg"
+
+#wallpaper = os.path.expanduser(wallpaper)
+#WallpaperService.get_default()  # just to initialize it
+#options.wallpaper.set_wallpaper_path(wallpaper)
+wallpaper = set_wallpaper(wallpaper)
+# wallpaper = os.path.expanduser(wallpaper)
 
 from theme_colors import generate_theme, gra
 theme = generate_theme(wallpaper, 'dark')
+print('\nCREATED THEME:')
 print(theme)
-
-# def read_settings ():
-#     with open(os.path.expanduser('~/.config/ignis/settings.json')) as settings:
-#         return json.loads(settings.read())
-
-# settings = read_settings()
-# print(settings)
 
 def read_ratatoskr_output ():
     with open('/tmp/ratatoskr.json') as rat:
         data = json.loads(rat.read())
         return data
 
-
 import stat
-
 class CmdManager:
     def __init__(self):
         # echo "toggle_clock" > ~/.config/ignis/control
@@ -54,20 +82,21 @@ class CmdManager:
                 os.mkfifo(fifo_path)
         else:
             os.mkfifo(fifo_path)
-        
+
         fifo_fd = os.open(fifo_path, os.O_RDONLY | os.O_NONBLOCK)
         fifo = os.fdopen(fifo_fd, "r", buffering=1)
         GLib.io_add_watch(fifo, GLib.IO_IN, self.on_fifo_readable)
 
     def on_fifo_readable(self, source, condition):
+        global wallpaper
         if condition & GLib.IO_IN:
             line = source.readline()
             if line:
                 line = line.strip()
                 print(f"[IGNIS] comando ricevuto: {line}")
-                if line == "toggle_clock":
-                    # esempio: qui metti il tuo codice per mostrare/nascondere l’orologio
-                    print("→ Azione: toggle clock")
+                # if line == "toggle_clock": print("→ Azione: toggle clock")
+                if line == "wallpaper_prev": wallpaper = set_wallpaper(wallpaper, False)
+                elif line == "wallpaper_next": wallpaper = set_wallpaper(wallpaper, True)
             else:
                 # EOF: riapri la fifo
                 return False
@@ -106,6 +135,7 @@ bgnotif = BackgroundNotif()
 ################################################################
 
 rat = read_ratatoskr_output()
+print('\nRATATOSKR FIRST READ:')
 print(rat)
 
 # from ignis.services.fetch import FetchService
@@ -297,6 +327,7 @@ def remove_frame(output_name):
         del frames[output_name]
         print(f"Frame removed from {output_name}")
 
+print('')
 for out in monitors:
     make_frame(out)
 

@@ -556,6 +556,9 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+
+    Alt+Right { spawn-sh "echo \"wallpaper_next\" > ~/.config/ignis/control"; }
+    Alt+Left { spawn-sh "echo \"wallpaper_prev\" > ~/.config/ignis/control"; }
 }
 
 animations {
