@@ -38,9 +38,14 @@ from ignis.services.wallpaper import WallpaperService
 from ignis.options import options
 import os
 
-WallpaperService.get_default()
+USE_SWWW = False
+
+if not USE_SWWW: WallpaperService.get_default()
+else: pass # TODO: start swww-daemon?
+import subprocess
 def set_wallpaper(wp, next=None):
 
+    angle = 15
     if next != None:
         root = "~/Pictures/wallpapers"
         wallpapers = list_wallpapers(root)
@@ -49,11 +54,20 @@ def set_wallpaper(wp, next=None):
             wp = next_wallpaper(wp, wallpapers, +1)
         else:
             wp = next_wallpaper(wp, wallpapers, -1)
+            angle += 180
 
         # print("Next:", next_wp)
         # print("Prev:", prev_wp)
         print('Setting wallpaper', wp)
         
 
-    options.wallpaper.set_wallpaper_path(os.path.expanduser(wp))
+    if not USE_SWWW:
+        options.wallpaper.set_wallpaper_path(os.path.expanduser(wp))
+    else:
+        result = subprocess.run(
+            ["swww", "img", "--transition-type", "wipe", "--transition-angle", str(angle), "--transition-step", "60", "--transition-fps", "60", "--transition-duration", "1", os.path.expanduser(wp)],
+            capture_output=True,
+            text=True,
+            check=True
+        )
     return wp
