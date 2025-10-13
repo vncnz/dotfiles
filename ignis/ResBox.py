@@ -5,6 +5,8 @@ from datetime import datetime
 import random
 import functools
 
+from theme_colors import gra
+
 def skip_if_unchanged(func):
     last_call = {"args": None, "kwargs": None}
 
@@ -127,7 +129,6 @@ class MultilineBox (Widget.Box):
             label.set_label(text)
 
     def compute_style (self, v):
-        # return f'color:{get_color_gradient(self.warn_level[0], self.warn_level[1], v, self.high_is_good)};'
         return ''
     
     def update_value(self, value):
@@ -215,12 +216,14 @@ class MemoryBox (MultilineBox):
     def update_value(self, value):
         # 'ram': {'total_memory': 4099457024, 'used_memory': 2791231488, 'total_swap': 6866382848, 'used_swap': 442261504, 'mem_percent': 68, 'swap_percent': 6, 'mem_color': '#C6FF00', 'swap_color': '#55FF00', 'mem_warn': 0.26666666666666666, 'swap_warn': 0.0}
 
+        warn = max(value['mem_warn'], value['swap_warn'])
         self.set_lines([
             f'Memory {value['mem_percent']}% / {value['swap_percent']}%',
             f'RAM {bytes_to_human(value['used_memory'])} of {bytes_to_human(value['total_memory'])}',
             f'SWAP {bytes_to_human(value['used_swap'])} of {bytes_to_human(value['total_swap'])}'
         ])
-        color = value['mem_color'] if value['mem_warn'] > value['swap_warn'] else value['swap_color']
+        # color = value['mem_color'] if value['mem_warn'] > value['swap_warn'] else value['swap_color']
+        color = gra(warn)
         self.lines[0].set_style(f'font-size: 1.4em;color:{color};')
 
 class NetworkBox (MultilineBox):
@@ -241,7 +244,7 @@ class NetworkBox (MultilineBox):
                     f'No network name',
                     f'IP address {value['ip']}'
                 ])
-            self.lines[0].set_style(f'font-size: 1.4em;color:{value['color'] or 'inherit'};')
+            self.lines[0].set_style(f'font-size: 1.4em;color:{gra(value['warn']) or 'inherit'};')
         else:
             self.set_lines([
                 f'No active connection',
@@ -310,14 +313,14 @@ class RowBox (Widget.Box):
     def update_value(self, temp, disk, volume):
         if temp['value'] > 0:
             self.cols[0].set_label(f'Temp {int(temp['value'])}°')
-            self.cols[0].set_style(f'color:{temp['color'] or 'inherit'};')
-
+            self.cols[0].set_style(f'color:{gra(temp['warn']) if temp['sensor'] else 'inherit'};')
 
         self.cols[1].set_label(f'Disk {int(disk['used_percent'])}%')
-        self.cols[1].set_style(f'color:{disk['color'] or 'inherit'};')
+        self.cols[1].set_style(f'color:{gra(disk['warn']) or 'inherit'};')
 
-        self.cols[2].set_label(volume['value'] > 0 and f'Vol. {int(volume['value'])}%' or 'Vol. MUTED')
-        self.cols[2].set_style(f'color:{volume['color'] or 'inherit'};')
+        if volume:
+            self.cols[2].set_label(volume['value'] > 0 and f'Vol. {int(volume['value'])}%' or 'Vol. MUTED')
+            self.cols[2].set_style(f'color:{gra(volume['value'] / 100) or 'inherit'};')
 
 class NotifBox (Widget.EventBox):
     def __init__(self, notif, on_click=None, **kwargs):

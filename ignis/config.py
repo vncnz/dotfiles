@@ -16,8 +16,16 @@ from ignis.options import options
 from BackgroundNotif import BackgroundNotif
 from ForegroundInfos import ForegroundInfos
 
+wallpaper = "~/Pictures/wallpapers/68d977081ada6ea065d5f020_nebulae-01.jpg"
+wallpaper = os.path.expanduser(wallpaper)
+
 WallpaperService.get_default()  # just to initialize it
-options.wallpaper.set_wallpaper_path(os.path.expanduser("~/Pictures/wallpapers/paesaggi fantasy o disegni/203518.jpg"))
+options.wallpaper.set_wallpaper_path(wallpaper)
+# cmd = f"matugen image {wallpaper} -j hsl"
+
+from theme_colors import generate_theme, gra
+theme = generate_theme(wallpaper, 'dark')
+print(theme)
 
 # def read_settings ():
 #     with open(os.path.expanduser('~/.config/ignis/settings.json')) as settings:
@@ -123,17 +131,11 @@ class BackgroundInfos (Widget.Window):
         # fetch = FetchService.get_default()
         # ram = fetch.mem_info
         # ram_used_perc = round(fetch.mem_used / fetch.mem_total * 100)
-        # swap_used_perc = round(100 - ram['SwapFree'] / ram['SwapTotal'] * 100)
-        # disk_used_perc = rat['disk']['used_percent']
-        # print(ram)
 
-        # ram_used_label = ResBox('RAM {value}%', rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
-        # swap_used_label = ResBox('SWAP {value}%', rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
-        # disk_used_label = ResBox('Disk {value}%', rat['disk']['used_percent'], color=rat['disk']['color'])
-        avg_load_label = ResBox('Load {value}', f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
+        avg_load_label = ResBox('Load {value}', f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=gra(rat['loadavg']['warn']))
 
         # {'sensor': 'Tctl', 'value': 72.125, 'color': '#55FF00', 'icon': '\uf2cb', 'warn': 0.0}
-        temp_label = ResBox('Temperature {value}°', rat['temperature']['value'], color=rat['temperature']['color'])
+        temp_label = ResBox('Temperature {value}°', rat['temperature']['value'], color=gra(rat['temperature']['warn']))
 
         # self.ram_used_label = ram_used_label
         # self.swap_used_label = swap_used_label
@@ -179,7 +181,7 @@ class BackgroundInfos (Widget.Window):
             monitor = monitor,
             child = box,
             layer = 'bottom',
-            style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;',
+            style = f'background-color:transparent;text-shadow:1px 1px 2px black;color:{theme['on_background']};',
             anchor = ['bottom', 'left'],
             margin_left = 70,
             margin_bottom = 40
@@ -191,12 +193,8 @@ class BackgroundInfos (Widget.Window):
             if 'battery' in rat: self.battery_box.update_value(rat['battery'])
             if 'ram' in rat: self.memory_used_box.update_value(rat['ram'])
             if 'network'in rat: self.network_box.update_value(rat['network'])
-            # self.ram_used_label.update_value(rat['ram']['mem_percent'], color=rat['ram']['mem_color'])
-            # self.swap_used_label.update_value(rat['ram']['swap_percent'], color=rat['ram']['swap_color'])
-            # self.disk_used_label.update_value(rat['disk']['used_percent'], color=rat['disk']['color'])
-            if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=rat['loadavg']['color'])
-            # self.temp_label.update_value(int(rat['temperature']['value']), color=rat['temperature']['color'])
-            if 'temperature' in rat and 'disk' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
+            if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=gra(rat['loadavg']['warn']))
+            if 'temperature' in rat and 'disk' in rat and 'volume' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
 
 
 back = BackgroundInfos()
