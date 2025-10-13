@@ -254,6 +254,7 @@ spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 // spawn-sh-at-startup "~/.config/eww/scripts/music_notifier.sh"
 spawn-sh-at-startup "~/.config/niri/run_wob.sh"
 spawn-sh-at-startup "~/.config/niri/ratatoskr"
+spawn-sh-at-startup "swww-daemon"
 spawn-sh-at-startup "ignis init"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
