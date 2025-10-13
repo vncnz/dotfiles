@@ -60,7 +60,7 @@ wallpaper = set_wallpaper(wallpaper)
 # wallpaper = os.path.expanduser(wallpaper)
 
 from theme_colors import col, generate_theme, gra, toggle_mode
-theme = generate_theme(wallpaper, 'dark')
+theme = generate_theme(wallpaper)
 #print('\nCREATED THEME:')
 #print(theme)
 
@@ -96,6 +96,7 @@ class CmdManager:
                     toggle_mode()
                     generate_theme(wallpaper)
                     back.update_theme()
+                    fore.update_style()
             else:
                 # EOF: riapri la fifo
                 return False
@@ -231,7 +232,7 @@ class BackgroundInfos (Widget.Window):
             if 'temperature' in rat and 'disk' in rat and 'volume' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
 
     def update_theme (self):
-        self.set_style(f'background-color:transparent;text-shadow:1px 1px 2px {col('background')};color:{col('on_background')};')
+        self.set_style(f'background-color:transparent;color:{col('on_background')};')
 
 back = BackgroundInfos()
 

@@ -123,6 +123,7 @@ def generate_theme(image_path: str, mode: str | None = None, steps: int = 10) ->
     back = extract(theme["background"])
     # c2 = extract(theme["error"])
     pri = extract(theme["primary"])
+    on_pri = extract(theme["on_primary"])
     pri_container = extract(theme["primary_container"])
     # c1_hsl = rgb_to_hsl(on_back)
     pri_hsl = rgb_to_hsl(pri)
@@ -143,7 +144,9 @@ def generate_theme(image_path: str, mode: str | None = None, steps: int = 10) ->
         "background": hex_from_rgb(back),
         "on_background": hex_from_rgb(on_back),
         "primary": hex_from_rgb(pri),
+        "inverse_primary": hex_from_rgb(extract(theme['inverse_primary'])),
         "primary_container": hex_from_rgb(pri_container),
+        "on_primary": hex_from_rgb(on_pri),
         "error": hex_from_rgb(red),
         "warning_gradient": gradient,
     }

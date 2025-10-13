@@ -20,7 +20,7 @@ class ForegroundInfos (Widget.Window):
         if False:
             theme = get_theme()
             chi = chi + [
-                Widget.Label(label="󱗜", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{theme['on_background']};")
+                Widget.Label(label="󱗜", width_request=1, height_request=1, style=f"font-size:1.2rem;")
             ] + [
                 Widget.Label(label="", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{c};") for c in theme['warning_gradient']
             ] + [
@@ -53,20 +53,11 @@ class ForegroundInfos (Widget.Window):
     def update_style (self):
         opacity = 0.001 if self.empty else 1
         self.set_style(f'background-color:{col('background')};color:{col('on_background')};font-size:2rem;padding:5px;border:1px solid {col('primary')};border-radius:10px;opacity:{opacity};')
-    
+
     def update_bus (self, x):
         # print('event', x)
         if x: self.update_ratatoskr_single(self.notification_icon, 1, x, 'notif')
         else: self.update_ratatoskr_single(self.notification_icon, 0, x, 'notif')
-
-# TODO (after standby)
-# File "/home/vncnz/.config/ignis/ForegroundInfos.py", line 37, in update_ratatoskr
-#    self.network_icon.set_label(rat['network']['icon'])
-#    │    │            │         └ {'ram': {'total_memory': 15559585792, 'used_memory': 6665543680, 'total_swap': 10737414144, 'used_swap': 380665856, 'mem_perc...
-#    │    │            └ gi.FunctionInfo(set_label)
-#    │    └ <ResBox.ResIcon object at 0x7f800bfa4280 (ResBox+ResIcon at 0x55ddc1ab1fc0)>
-#    └ <ForegroundInfos.ForegroundInfos object at 0x7f800bfad440 (ForegroundInfos+ForegroundInfos at 0x55ddc1ab4e40)>
-# TypeError: 'NoneType' object is not subscriptable
 
     def update_ratatoskr (self, rat):
         if rat:
