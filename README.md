@@ -47,13 +47,15 @@ The content of ```nemo_actions``` folder can be manually moved/copied in ```~/.l
 |pacman | power-profiles-daemon    | Power management
 |yay    | matugen                  | generate colors for wallpaper
 |pacman | python-ignis             | Alternative for quickshell/eww, swaync, swaybg
+|pacman | swww                     | Wallpaper manager with nice transition
 |yay    | wob                      | Lightweight overlay bar for volume and brightness
 |yay    | niri-screen-time-git     | Tracks time spent on applications
 |yay    | btop                     | htop alternative
 
 # Currently in use on my screen:
 - niri (Window manager)
-- ignis (Resources information, notifications, time, wallpaper)
+- ignis (Resources information, notifications, time, optional wallpaper)
+- swww (for wallpaper management, alternative to the one integrated in Ignis)
 - wob (Audio and brightness bar visible briefly on changes)
 - Fuzzel, Fenrir (a project of mine) and Skoll (same) as launchers (I still have to decide)
 

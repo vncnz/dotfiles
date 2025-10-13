@@ -42,7 +42,7 @@ from ignis.services.wallpaper import WallpaperService
 from ignis.options import options
 import os
 
-USE_SWWW = False
+USE_SWWW = True
 
 if not USE_SWWW: WallpaperService.get_default()
 else: pass # TODO: start swww-daemon?
