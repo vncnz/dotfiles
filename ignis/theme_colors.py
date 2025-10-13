@@ -96,11 +96,15 @@ def hsl_to_rgb(color):
     return round(r * 255), round(g * 255), round(b * 255)
 
 
+import os
 def generate_theme(image_path: str, mode: str | None = 'dark', steps: int = 10) -> dict:
     """
     mode can be 'dark'(default), 'light' or None
     """
     global _computed
+
+    if '~' in image_path:
+        image_path = os.path.expanduser(image_path)
 
     data = run_matugen(image_path)
     theme = data["colors"][mode]
