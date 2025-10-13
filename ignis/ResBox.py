@@ -37,7 +37,7 @@ class ResIcon (Widget.Label):
         )
 
     def compute_style (self, warn, color=None):
-        return f'font-size: 1.3rem;color:{color or 'inherit'};opacity:{0.5 + warn * 0.35};text-shadow:1px 1px 2px black, -1px -1px 5px black, 1px 1px 10px black;'
+        return f'font-size: 1.3rem;color:{color or 'inherit'};text-shadow:1px 1px 2px black, -1px -1px 5px black, 1px 1px 10px black;' # opacity:{0.5 + warn * 0.35};
     
     @skip_if_unchanged
     def update_value(self, warn, color=None):

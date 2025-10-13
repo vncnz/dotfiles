@@ -105,27 +105,29 @@ def generate_theme(image_path: str, mode: str | None = 'dark', steps: int = 10) 
     data = run_matugen(image_path)
     theme = data["colors"][mode]
 
-    c1 = extract(theme["on_background"])
+    on_back = extract(theme["on_background"])
+    back = extract(theme["background"])
     # c2 = extract(theme["error"])
     pri = extract(theme["primary"])
     pri_container = extract(theme["primary_container"])
-    # c1_hsl = rgb_to_hsl(c1)
+    # c1_hsl = rgb_to_hsl(on_back)
     pri_hsl = rgb_to_hsl(pri)
     # red_hsl = (0, pri_hsl[1], pri_hsl[2])
     red = (255, 0, 0) # hsl_to_rgb(red_hsl)
     # c2_hsl = rgb_to_hsl(c2)
     #c2 = rgb_to_hsl(c2)
-    # gradient = build_warning_gradient(c1, red, steps)
+    # gradient = build_warning_gradient(on_back, red, steps)
     gradient = build_warning_gradient_hsl((90, pri_hsl[1]*100, 80), (0,100,50), steps)
 
-    # print('on_background', theme["on_background"], c1)
+    # print('on_background', theme["on_background"], on_back)
     # print('primary', theme["primary"], pri_hsl)
     # print('myred', red, red_hsl)
     # print(hsl_to_rgb(rgb_to_hsl((30, 50, 50))))
 
     _computed = {
         "mode": mode or "dark",
-        "on_background": hex_from_rgb(c1),
+        "background": hex_from_rgb(back),
+        "on_background": hex_from_rgb(on_back),
         "primary": hex_from_rgb(pri),
         "primary_container": hex_from_rgb(pri_container),
         "error": hex_from_rgb(red),

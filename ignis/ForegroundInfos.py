@@ -16,7 +16,7 @@ class ForegroundInfos (Widget.Window):
         self.notification_icon = ResIcon("󰂚") # , width_request=1, height_request=1, style="background-color:rgba(0, 0, 0, 0.01);")
         # self.notification_icon.update_value(1, 'rgba(0, 0, 0, 0.01)')
 
-        chi = [Widget.Label(label="", width_request=1, height_request=1, style="background-color:rgba(0, 0, 0, 0.01);")]
+        chi = [] # [Widget.Label(label="", width_request=1, height_request=1, style="background-color:rgba(0, 0, 0, 0.01);")]
         if False:
             theme = get_theme()
             chi = chi + [
@@ -33,18 +33,27 @@ class ForegroundInfos (Widget.Window):
             child = chi
         )
 
+        self.empty = len(chi) == 0
+
         super().__init__(
             namespace = 'foreground-infos',
             monitor = monitor,
             child = self.box,
             layer = 'overlay',
-            style = 'background-color:transparent;text-shadow:1px 1px 2px black;color:whitesmoke;font-size:2rem;',
+            # style = f'background-color:{theme['primary_container']};text-shadow:1px 1px 2px black;color:whitesmoke;font-size:2rem;padding:5px;border:1px solid {theme['primary']};border-radius:8px;',
             anchor = ['bottom', 'left'],
             margin_left = 8,
-            margin_bottom = 8
+            margin_bottom = 18
         )
 
+        self.update_style()
+
         Bus.subscribe(lambda x: self.update_bus(x))
+    
+    def update_style (self):
+        theme = get_theme()
+        opacity = 0.001 if self.empty else 1
+        self.set_style(f'background-color:{theme['background']};text-shadow:1px 1px 2px black;color:whitesmoke;font-size:2rem;padding:5px;border:1px solid {theme['primary']};border-radius:10px;opacity:{opacity};')
     
     def update_bus (self, x):
         # print('event', x)
@@ -95,6 +104,10 @@ class ForegroundInfos (Widget.Window):
                 self.box.append(icon)
                 print('Appending icon', dbLabel)
             icon.update_value(warn, color)
+            self.empty = len(self.box.child) == 0
+            self.update_style()
         elif not desired and (icon in self.box.child):
             self.box.remove(icon)
             print('Removing icon', dbLabel)
+            self.empty = len(self.box.child) == 0
+            self.update_style()

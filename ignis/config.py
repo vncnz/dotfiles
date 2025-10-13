@@ -260,7 +260,7 @@ def draw_frame(area, cr, width, height):
     cr.rectangle(0, 0, width, height)
 
     # cr.rectangle(margin, margin, width - 2*margin, height - 2*margin)
-    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 25)
+    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30)
 
     cr.fill()
 
