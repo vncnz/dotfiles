@@ -557,8 +557,9 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 
-    Alt+Right { spawn-sh "echo \"wallpaper_next\" > ~/.config/ignis/control"; }
-    Alt+Left { spawn-sh "echo \"wallpaper_prev\" > ~/.config/ignis/control"; }
+    Ctrl+Alt+Right { spawn-sh "echo \"wallpaper_next\" > ~/.config/ignis/control"; }
+    Ctrl+Alt+Left { spawn-sh "echo \"wallpaper_prev\" > ~/.config/ignis/control"; }
+    Ctrl+Alt+Up { spawn-sh "echo \"theme_toggle\" > ~/.config/ignis/control"; }
 }
 
 animations {

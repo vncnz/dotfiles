@@ -1,5 +1,9 @@
 from pathlib import Path
 
+from theme_colors import generate_theme
+
+_wallpaper = None
+
 def list_wallpapers(root: str, exts={'.jpg', '.jpeg', '.png', '.bmp', '.webp'}):
     root = Path(root).expanduser()
     wallpapers = []
@@ -42,8 +46,9 @@ USE_SWWW = False
 
 if not USE_SWWW: WallpaperService.get_default()
 else: pass # TODO: start swww-daemon?
-import subprocess
+import subprocess, random
 def set_wallpaper(wp, next=None):
+    global _wallpaper
 
     angle = 15
     if next != None:
@@ -70,4 +75,6 @@ def set_wallpaper(wp, next=None):
             text=True,
             check=True
         )
+    _wallpaper = wp
+    generate_theme(wp)
     return wp

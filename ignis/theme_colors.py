@@ -3,6 +3,11 @@ import subprocess
 import re
 
 _computed = None
+_mode = 'dark'
+
+def toggle_mode ():
+    global _mode
+    _mode = 'light' if _mode == 'dark' else 'dark'
 
 def get_theme():
     return _computed
@@ -11,6 +16,11 @@ def gra (value):
     if _computed:
         return _computed['warning_gradient'][int(value * 9.999)]
     return 'white'
+
+def col (name):
+    if name in _computed:
+        return _computed[name]
+    return None
 
 def run_matugen(image_path: str) -> dict:
     """Exec matugen and returns the output"""
@@ -97,7 +107,7 @@ def hsl_to_rgb(color):
 
 
 import os
-def generate_theme(image_path: str, mode: str | None = 'dark', steps: int = 10) -> dict:
+def generate_theme(image_path: str, mode: str | None = None, steps: int = 10) -> dict:
     """
     mode can be 'dark'(default), 'light' or None
     """
@@ -107,7 +117,7 @@ def generate_theme(image_path: str, mode: str | None = 'dark', steps: int = 10) 
         image_path = os.path.expanduser(image_path)
 
     data = run_matugen(image_path)
-    theme = data["colors"][mode]
+    theme = data["colors"][mode or _mode]
 
     on_back = extract(theme["on_background"])
     back = extract(theme["background"])
@@ -121,7 +131,7 @@ def generate_theme(image_path: str, mode: str | None = 'dark', steps: int = 10) 
     # c2_hsl = rgb_to_hsl(c2)
     #c2 = rgb_to_hsl(c2)
     # gradient = build_warning_gradient(on_back, red, steps)
-    gradient = build_warning_gradient_hsl((90, pri_hsl[1]*100, 80), (0,100,50), steps)
+    gradient = build_warning_gradient_hsl((90, pri_hsl[1]*100, pri_hsl[2]*100), (0,100,50), steps)
 
     # print('on_background', theme["on_background"], on_back)
     # print('primary', theme["primary"], pri_hsl)
@@ -129,7 +139,7 @@ def generate_theme(image_path: str, mode: str | None = 'dark', steps: int = 10) 
     # print(hsl_to_rgb(rgb_to_hsl((30, 50, 50))))
 
     _computed = {
-        "mode": mode or "dark",
+        "mode": mode or _mode,
         "background": hex_from_rgb(back),
         "on_background": hex_from_rgb(on_back),
         "primary": hex_from_rgb(pri),

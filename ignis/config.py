@@ -59,7 +59,7 @@ else:
 wallpaper = set_wallpaper(wallpaper)
 # wallpaper = os.path.expanduser(wallpaper)
 
-from theme_colors import generate_theme, gra
+from theme_colors import col, generate_theme, gra, toggle_mode
 theme = generate_theme(wallpaper, 'dark')
 print('\nCREATED THEME:')
 print(theme)
@@ -92,6 +92,10 @@ class CmdManager:
                 # if line == "toggle_clock": print("→ Azione: toggle clock")
                 if line == "wallpaper_prev": wallpaper = set_wallpaper(wallpaper, False)
                 elif line == "wallpaper_next": wallpaper = set_wallpaper(wallpaper, True)
+                elif line == "theme_toggle":
+                    toggle_mode()
+                    generate_theme(wallpaper)
+                    back.update_theme()
             else:
                 # EOF: riapri la fifo
                 return False
@@ -211,11 +215,11 @@ class BackgroundInfos (Widget.Window):
             monitor = monitor,
             child = box,
             layer = 'bottom',
-            style = f'background-color:transparent;text-shadow:1px 1px 2px black;color:{theme['on_background']};',
             anchor = ['bottom', 'left'],
             margin_left = 70,
             margin_bottom = 40
         )
+        self.update_theme()
     
     def update_ratatoskr (self, rat):
         if rat:
@@ -226,6 +230,8 @@ class BackgroundInfos (Widget.Window):
             if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=gra(rat['loadavg']['warn']))
             if 'temperature' in rat and 'disk' in rat and 'volume' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
 
+    def update_theme (self):
+        self.set_style(f'background-color:transparent;text-shadow:1px 1px 2px {col('background')};color:{col('on_background')};')
 
 back = BackgroundInfos()
 

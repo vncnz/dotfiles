@@ -2,7 +2,7 @@ from ignis.widgets import Widget
 from ResBox import ResIcon
 from Bus import Bus
 
-from theme_colors import gra, get_theme
+from theme_colors import col, gra, get_theme
 
 class ForegroundInfos (Widget.Window):
     def __init__(self, monitor = None):
@@ -51,9 +51,8 @@ class ForegroundInfos (Widget.Window):
         Bus.subscribe(lambda x: self.update_bus(x))
     
     def update_style (self):
-        theme = get_theme()
         opacity = 0.001 if self.empty else 1
-        self.set_style(f'background-color:{theme['background']};text-shadow:1px 1px 2px black;color:whitesmoke;font-size:2rem;padding:5px;border:1px solid {theme['primary']};border-radius:10px;opacity:{opacity};')
+        self.set_style(f'background-color:{col('background')};color:{col('on_background')};font-size:2rem;padding:5px;border:1px solid {col('primary')};border-radius:10px;opacity:{opacity};')
     
     def update_bus (self, x):
         # print('event', x)
