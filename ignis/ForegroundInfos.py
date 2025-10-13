@@ -20,10 +20,11 @@ class ForegroundInfos (Widget.Window):
         if False:
             theme = get_theme()
             chi = chi + [
-                Widget.Label(label="", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{theme['error']};"),
                 Widget.Label(label="󱗜", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{theme['on_background']};")
             ] + [
                 Widget.Label(label="", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{c};") for c in theme['warning_gradient']
+            ] + [
+                Widget.Label(label="", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{theme['error']};")
             ]
 
         self.box = Widget.Box(
