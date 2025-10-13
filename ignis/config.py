@@ -64,11 +64,6 @@ theme = generate_theme(wallpaper, 'dark')
 print('\nCREATED THEME:')
 print(theme)
 
-def read_ratatoskr_output ():
-    with open('/tmp/ratatoskr.json') as rat:
-        data = json.loads(rat.read())
-        return data
-
 import stat
 class CmdManager:
     def __init__(self):
@@ -133,6 +128,11 @@ bgnotif = BackgroundNotif()
 # print(blue.connected_devices)
 
 ################################################################
+
+def read_ratatoskr_output ():
+    with open('/tmp/ratatoskr.json') as rat:
+        data = json.loads(rat.read())
+        return data
 
 rat = read_ratatoskr_output()
 print('\nRATATOSKR FIRST READ:')
