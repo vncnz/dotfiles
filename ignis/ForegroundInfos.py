@@ -102,12 +102,12 @@ class ForegroundInfos (Widget.Window):
         if desired:
             if (icon not in self.box.child):
                 self.box.append(icon)
-                print('Appending icon', dbLabel)
+                # print('Appending icon', dbLabel)
             icon.update_value(warn, color)
             self.empty = len(self.box.child) == 0
             self.update_style()
         elif not desired and (icon in self.box.child):
             self.box.remove(icon)
-            print('Removing icon', dbLabel)
+            # print('Removing icon', dbLabel)
             self.empty = len(self.box.child) == 0
             self.update_style()
