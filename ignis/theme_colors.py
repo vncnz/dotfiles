@@ -136,7 +136,7 @@ def generate_theme(image_path: str, mode: str | None = None, steps: int = 10) ->
     #c2 = rgb_to_hsl(c2)
     # gradient = build_warning_gradient(on_back, red, steps)
     lum = 70 if _mode == 'dark' else 30
-    gradient = build_warning_gradient_hsl((90, pri_hsl[1]*100, lum), (0,100,lum), steps)
+    gradient = build_warning_gradient_hsl((90, pri_hsl[1]*100, pri_hsl[2]*100), (0,100,50), steps)
 
     # print('on_background', theme["on_background"], on_back)
     # print('primary', theme["primary"], pri_hsl)
