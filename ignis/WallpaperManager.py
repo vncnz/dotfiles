@@ -50,7 +50,7 @@ import subprocess, random
 def set_wallpaper(wp, next=None):
     global _wallpaper
 
-    angle = 15
+    angle = 20
     if next != None:
         root = "~/Pictures/wallpapers"
         wallpapers = list_wallpapers(root)
@@ -70,7 +70,7 @@ def set_wallpaper(wp, next=None):
         options.wallpaper.set_wallpaper_path(os.path.expanduser(wp))
     else:
         result = subprocess.run(
-            ["swww", "img", "--transition-type", "wipe", "--transition-angle", str(angle), "--transition-step", "60", "--transition-fps", "60", "--transition-duration", "1", os.path.expanduser(wp)],
+            ["swww", "img", "--transition-type", "wipe", "--transition-angle", str(angle), "--transition-step", "30", "--transition-fps", "30", "--transition-duration", "0.5", os.path.expanduser(wp)],
             capture_output=True,
             text=True,
             check=True
