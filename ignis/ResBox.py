@@ -5,17 +5,19 @@ from datetime import datetime
 import random
 import functools
 
-from theme_colors import gra
+from theme_colors import gra, get_mode
 
 def skip_if_unchanged(func):
-    last_call = {"args": None, "kwargs": None}
+    last_call = {"args": None, "kwargs": None,'mode':None}
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        if (args, kwargs) == (last_call["args"], last_call["kwargs"]):
+        mode = get_mode()
+        if (args, kwargs, mode) == (last_call["args"], last_call["kwargs"], last_call['mode']):
             return
         last_call["args"] = args
         last_call["kwargs"] = kwargs
+        last_call['mode'] = mode
         return func(*args, **kwargs)
 
     return wrapper

@@ -9,6 +9,9 @@ def toggle_mode ():
     global _mode
     _mode = 'light' if _mode == 'dark' else 'dark'
 
+def get_mode ():
+    return _mode
+
 def get_theme():
     return _computed
 
@@ -132,7 +135,8 @@ def generate_theme(image_path: str, mode: str | None = None, steps: int = 10) ->
     # c2_hsl = rgb_to_hsl(c2)
     #c2 = rgb_to_hsl(c2)
     # gradient = build_warning_gradient(on_back, red, steps)
-    gradient = build_warning_gradient_hsl((90, pri_hsl[1]*100, pri_hsl[2]*100), (0,100,50), steps)
+    lum = 70 if _mode == 'dark' else 30
+    gradient = build_warning_gradient_hsl((90, pri_hsl[1]*100, lum), (0,100,lum), steps)
 
     # print('on_background', theme["on_background"], on_back)
     # print('primary', theme["primary"], pri_hsl)
