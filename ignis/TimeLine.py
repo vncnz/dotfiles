@@ -32,7 +32,7 @@ class TimeLine (Widget.Window):
         self.battery_end = Widget.Label(
             label="",
             width_request=2,
-            height_request=self.h
+            height_request=1
         )
         self.box2.put(self.battery_end, 0, 0)
 
