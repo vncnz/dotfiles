@@ -108,3 +108,5 @@ class TimeLine (Widget.Window):
             end = start + (battery[1] * 60 / 86400.0 * self.h)
             self.battery.set_style(f"filter:blur(2px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(0)} {end}px, transparent {end}px);")
         # self.set_style(f"background-image:linear-gradient(to top, transparent {start}px, {gra(0)} {start}px, {gra(1)} {end}px, transparent {end}px);")
+        else:
+            self.battery.set_style(f"")
