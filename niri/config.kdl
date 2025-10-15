@@ -12,8 +12,8 @@
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     QT_QPA_PLATFORM "wayland"
+    LIBGL_ALWAYS_SOFTWARE "1"
     // DISPLAY ":12"
-    // DISPLAY null for integratex xwayland-satellite?
 }
 
 cursor {
@@ -30,8 +30,9 @@ input {
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
 
-            layout "it"
-            // variant "intl"
+            // layout "it"
+            layout "us"
+            variant "intl"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
 
@@ -332,6 +333,7 @@ binds {
     // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
     Mod+b hotkey-overlay-title="Spawn btop" { spawn-sh "kitty -e btop"; }
     MouseMiddle { toggle-overview; }
+    KP_Left { toggle-overview; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
     Super+L hotkey-overlay-title="Lock the screen" { spawn-sh "swaylock -i ~/.config/wallpaper.jpg --show-keyboard-layout --show-failed-attempts"; }

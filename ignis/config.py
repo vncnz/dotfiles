@@ -12,6 +12,7 @@ from gi.repository import GLib
 
 from ignis.app import IgnisApp
 app = IgnisApp.get_default()
+battery_eta = (0, 1, .5)
 
 from BackgroundNotif import BackgroundNotif
 from ForegroundInfos import ForegroundInfos
@@ -63,6 +64,10 @@ from theme_colors import col, generate_theme, gra, toggle_mode
 theme = generate_theme(wallpaper)
 #print('\nCREATED THEME:')
 #print(theme)
+
+from TimeLine import TimeLine
+tm = TimeLine()
+Utils.Poll(1000, lambda x: tm.update_time(None, battery_eta))
 
 import stat
 class CmdManager:
@@ -223,6 +228,8 @@ class BackgroundInfos (Widget.Window):
         self.update_theme()
     
     def update_ratatoskr (self, rat):
+        global battery_eta
+
         if rat:
             if 'weather' in rat: self.weather_box.update_value(rat['weather'])
             if 'battery' in rat: self.battery_box.update_value(rat['battery'])
@@ -230,6 +237,8 @@ class BackgroundInfos (Widget.Window):
             if 'network'in rat: self.network_box.update_value(rat['network'])
             if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=gra(rat['loadavg']['warn']))
             if 'temperature' in rat and 'disk' in rat and 'volume' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
+
+            if True: battery_eta = (1, 273, .95)
 
     def update_theme (self):
         self.set_style(f'background-color:transparent;color:{col('on_background')};')
@@ -267,15 +276,17 @@ monitors = list(range(ignis.utils.Utils.get_n_monitors()))
 # battery_is_used = rat['battery']['state'] == 'Discharging' or rat['battery']['state'] == 'Charging'
 
 def roundrect(context, x, y, width, height, r):
+    right = 4
+
     context.move_to(x, y)
 
     context.arc(x+r, y+r, r,
                 math.pi, 3*math.pi/2)
 
-    context.arc(x+width-r, y+r, r,
+    context.arc(x+width-r-right, y+r, r,
                 3*math.pi/2, 0)
 
-    context.arc(x+width-r, y+height-r,
+    context.arc(x+width-r-right, y+height-r,
                 r, 0, math.pi/2)
 
     context.arc(x+r, y+height-r, r,
