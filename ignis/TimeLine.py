@@ -11,7 +11,7 @@ from theme_colors import col, gra
 class TimeLine (Widget.Window):
     def __init__(self, monitor = None):
 
-        self.h = 950
+        self.h = 750
 
         self.line_now = Widget.Label(
             label = '',
@@ -22,15 +22,22 @@ class TimeLine (Widget.Window):
 
         self.box2 = Gtk.Fixed(width_request=6, height_request=self.h)
 
-        self.battery = Widget.Label(
+        # self.battery = Widget.Label(
+        #     label="",
+        #     width_request=2,
+        #     height_request=self.h
+        # )
+        # self.box2.put(self.battery, 12, 0)
+
+        self.battery_end = Widget.Label(
             label="",
             width_request=2,
             height_request=self.h
         )
-        self.box2.put(self.battery, 12, 0)
+        self.box2.put(self.battery_end, 0, 0)
 
         self.hours = []
-        for h in range(1,24,1):
+        for h in range(0,25,1):
             if h % 6 == 0: size, color = '1.5rem', col('primary')
             elif h % 3 == 0: size, color = '1.2rem', 'white'
             else: size, color = '1rem', 'gray'
@@ -102,15 +109,27 @@ class TimeLine (Widget.Window):
         eta = battery[1] or 0
         if battery[0] == -1:
             start = self.h - top
-            end = start + (eta * 60 / 86400.0 * self.h)
+            end = (start + (eta * 60 / 86400.0 * self.h)) % self.h
             # print('battery gradient', start, end)
-            self.battery.set_style(f"filter:blur(2px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(1)} {end}px, transparent {end}px);")
+            # self.battery.set_style(f"filter:blur(2px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(1)} {end}px, transparent {end}px);")
+            self.battery_end.set_label("󰯆")
+            self.battery_end.set_style(f"color:{gra(1)};")
+            self.box2.move(self.battery_end, 0, self.vadjust(self.battery_end, self.h - end))
         elif battery[0] == 1:
             start = self.h - top
-            end = start + (eta * 60 / 86400.0 * self.h)
-            self.battery.set_style(f"filter:blur(1px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(0)} {end}px, transparent {end}px);")
+            end = (start + (eta * 60 / 86400.0 * self.h)) % self.h
+            # self.battery.set_style(f"filter:blur(1px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(0)} {end}px, transparent {end}px);")
+            self.battery_end.set_label("󰂄")
+            self.battery_end.set_style(f"color:{gra(0)};")
+            self.box2.move(self.battery_end, 0, self.vadjust(self.battery_end, self.h - end))
         # self.set_style(f"background-image:linear-gradient(to top, transparent {start}px, {gra(0)} {start}px, {gra(1)} {end}px, transparent {end}px);")
+        # else:
+            # self.battery.set_style(f"")
+        if battery[0]:
+            self.line_now.set_style(f"color:{gra(battery[2])};text-shadow:0 0 1px red;")
         else:
-            self.battery.set_style(f"")
+            self.line_now.set_style(f"color:red;")
+
+
         
         # TODO: gestire la situazione in cui l'area batteria è a cavallo della mezzanotte interpolando e sdoppiando la sfumatura
