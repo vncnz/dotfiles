@@ -6,7 +6,7 @@ from Bus import Bus
 
 from gi.repository import Gtk
 
-from theme_colors import col, gra, get_theme
+from theme_colors import col, gra
 
 class TimeLine (Widget.Window):
     def __init__(self, monitor = None):
@@ -14,7 +14,7 @@ class TimeLine (Widget.Window):
         self.h = 950
 
         self.line_now = Widget.Label(
-            label = '',
+            label = '',
             justify='left',
             style = 'font-size: 1.5em;color:red;',
             xalign= 1.0
@@ -22,14 +22,23 @@ class TimeLine (Widget.Window):
 
         self.box2 = Gtk.Fixed(width_request=6, height_request=self.h)
 
+        self.battery = Widget.Label(
+            label="",
+            width_request=2,
+            height_request=self.h
+        )
+        self.box2.put(self.battery, 12, 0)
+
         self.hours = []
-        for h in range(3,24,3):
-            size = '1.0em' if h % 6 else '1.2em'
+        for h in range(1,24,1):
+            if h % 6 == 0: size, color = '1.5rem', col('primary')
+            elif h % 3 == 0: size, color = '1.2rem', 'white'
+            else: size, color = '1rem', 'gray'
             # m = (self.h / 12) * (h - 12)
             dict = {
-                'label': '',
+                'label': '󰍞',
                 'justify': 'left',
-                'style': f'font-size: {size};color:white;',
+                'style': f'font-size: {size};color:{color};',
                 'xalign': 1.0,
             }
             # if m > 0: dict['margin_bottom'] = m
@@ -40,23 +49,15 @@ class TimeLine (Widget.Window):
             label = Widget.Label(**dict)
             m = (self.h / 24) * h
             # m = self.vadjust(label, m)
-            self.box2.put(label, 0, m)
+            self.box2.put(label, 50, m)
             self.hours.append(label)
             # print(f'time {h} pos {m}')
-
-        self.battery = Widget.Label(
-            label="",
-            # style=f"background-image:linear-gradient(to top, transparent 0, transparent {start}px, {gra(0)} {start}px, {gra(1)} {end}px, transparent {end}px);",
-            width_request=2,
-            height_request=self.h
-        )
 
         #self.box = Widget.Overlay(
         #    child=Widget.Label(label="", width_request=20, height_request=self.h),
         #    overlays = [ self.battery ] + self.hours + [ self.line_now ]
         #)
 
-        self.box2.put(self.battery, 12, 0)
         self.box2.put(self.line_now, 0, self.h / 2)
 
         super().__init__(
@@ -81,7 +82,7 @@ class TimeLine (Widget.Window):
             if h.get_allocation().height > 0:
                 m = h.get_allocation().y
                 m = self.vadjust(h, m)
-                self.box2.move(h, 0, m)
+                self.box2.move(h, 10, m)
                 self.fixed = True
 
     def vadjust (self, elem, y):
@@ -110,3 +111,5 @@ class TimeLine (Widget.Window):
         # self.set_style(f"background-image:linear-gradient(to top, transparent {start}px, {gra(0)} {start}px, {gra(1)} {end}px, transparent {end}px);")
         else:
             self.battery.set_style(f"")
+        
+        # TODO: gestire la situazione in cui l'area batteria è a cavallo della mezzanotte interpolando e sdoppiando la sfumatura
