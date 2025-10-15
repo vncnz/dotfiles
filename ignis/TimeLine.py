@@ -95,7 +95,7 @@ class TimeLine (Widget.Window):
 
             if not self.fixed: self.fix_hours()
         top = self.h - (time / 86400.0 * self.h)
-        print('time shift', top, battery)
+        # print('time shift', top, battery)
         self.box2.move(self.line_now, 0, self.vadjust(self.line_now, top))
 
         if battery[0] == -1:
