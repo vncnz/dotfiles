@@ -232,13 +232,19 @@ class BackgroundInfos (Widget.Window):
 
         if rat:
             if 'weather' in rat: self.weather_box.update_value(rat['weather'])
-            if 'battery' in rat: self.battery_box.update_value(rat['battery'])
+            if 'battery' in rat:
+                b = rat["battery"]
+                self.battery_box.update_value(b)
+                state = 0
+                if b["state"] == 'Discharging': state = -1
+                elif b["state"] == 'Charging': state = 1
+                battery_eta = (state, b["eta"], (100 - b["percentage"])*0.01)
             if 'ram' in rat: self.memory_used_box.update_value(rat['ram'])
             if 'network'in rat: self.network_box.update_value(rat['network'])
             if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=gra(rat['loadavg']['warn']))
             if 'temperature' in rat and 'disk' in rat and 'volume' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
 
-            if True: battery_eta = (1, 273, .95)
+            if False: battery_eta = (1, 273, .95)
 
     def update_theme (self):
         self.set_style(f'background-color:transparent;color:{col('on_background')};')

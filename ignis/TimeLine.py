@@ -99,15 +99,16 @@ class TimeLine (Widget.Window):
         # print('time shift', top, battery)
         self.box2.move(self.line_now, 0, self.vadjust(self.line_now, top))
 
+        eta = battery[1] or 0
         if battery[0] == -1:
             start = self.h - top
-            end = start + (battery[1] * 60 / 86400.0 * self.h)
+            end = start + (eta * 60 / 86400.0 * self.h)
             # print('battery gradient', start, end)
             self.battery.set_style(f"filter:blur(2px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(1)} {end}px, transparent {end}px);")
         elif battery[0] == 1:
             start = self.h - top
-            end = start + (battery[1] * 60 / 86400.0 * self.h)
-            self.battery.set_style(f"filter:blur(2px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(0)} {end}px, transparent {end}px);")
+            end = start + (eta * 60 / 86400.0 * self.h)
+            self.battery.set_style(f"filter:blur(1px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(0)} {end}px, transparent {end}px);")
         # self.set_style(f"background-image:linear-gradient(to top, transparent {start}px, {gra(0)} {start}px, {gra(1)} {end}px, transparent {end}px);")
         else:
             self.battery.set_style(f"")
