@@ -281,8 +281,7 @@ monitors = list(range(ignis.utils.Utils.get_n_monitors()))
 
 # battery_is_used = rat['battery']['state'] == 'Discharging' or rat['battery']['state'] == 'Charging'
 
-def roundrect(context, x, y, width, height, r):
-    right = 4
+def roundrect(context, x, y, width, height, r, right=0):
 
     context.move_to(x, y)
 
@@ -300,7 +299,7 @@ def roundrect(context, x, y, width, height, r):
 
     context.close_path()
 
-def draw_frame(area, cr, width, height):
+def draw_frame(area, cr, width, height, right=0):
 
     #if battery_is_used:
     #    margin = 12 - int(rat['battery']['percentage'] / 10)
@@ -314,14 +313,16 @@ def draw_frame(area, cr, width, height):
     cr.rectangle(0, 0, width, height)
 
     # cr.rectangle(margin, margin, width - 2*margin, height - 2*margin)
-    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30)
+    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
 
     cr.fill()
 
 def make_frame (output):
     output_name = output
     area = Gtk.DrawingArea()
-    area.set_draw_func(draw_frame)
+    right = 0
+    if output == 0: right = 4
+    area.set_draw_func(lambda *args, **kwargs: draw_frame(*args, **kwargs, right=right))
     area.set_hexpand(True)
     area.set_vexpand(True)
     # area.set_content_width(1920)
