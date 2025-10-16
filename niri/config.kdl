@@ -245,18 +245,11 @@ layout {
 // spawn-sh-at-startup "alacritty -e fish"
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
-// spawn-sh-at-startup "swaybg" "--image" "~/.config/wallpaper.jpg" "--mode" "fill"
-// spawn-at-startup "xwayland-satellite" ":12"
-// spawn-sh-at-startup "~/.config/niri/change_bg.sh"
-// spawn-at-startup "dunst" "&"
-// spawn-at-startup "swaync"
-// spawn-at-startup "waybar"
-// spawn-at-startup "eww" "open" "microstatusbar"
-// spawn-sh-at-startup "~/.config/eww/scripts/music_notifier.sh"
 spawn-sh-at-startup "~/.config/niri/run_wob.sh"
 spawn-sh-at-startup "~/.config/niri/ratatoskr"
 spawn-sh-at-startup "swww-daemon"
 spawn-sh-at-startup "ignis init"
+spawn-sh-at-startup "niri-screen-time -daemon"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
