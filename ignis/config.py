@@ -100,7 +100,7 @@ class CmdManager:
                 elif line == "theme_toggle":
                     toggle_mode()
                     generate_theme(wallpaper)
-                    back.update_theme()
+                    if back: back.update_theme()
                     fore.update_style()
             else:
                 # EOF: riapri la fifo
@@ -228,17 +228,11 @@ class BackgroundInfos (Widget.Window):
         self.update_theme()
     
     def update_ratatoskr (self, rat):
-        global battery_eta
-
         if rat:
             if 'weather' in rat: self.weather_box.update_value(rat['weather'])
             if 'battery' in rat:
                 b = rat["battery"]
                 self.battery_box.update_value(b)
-                state = 0
-                if b["state"] == 'Discharging': state = -1
-                elif b["state"] == 'Charging': state = 1
-                battery_eta = (state, b["eta"], (100 - b["percentage"])*0.01)
             if 'ram' in rat: self.memory_used_box.update_value(rat['ram'])
             if 'network'in rat: self.network_box.update_value(rat['network'])
             if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=gra(rat['loadavg']['warn']))
@@ -256,11 +250,18 @@ back = BackgroundInfos()
 fore = ForegroundInfos()
 
 def update_ratatoskr (_, path, event_type):
-    global rat
+    global rat, battery_eta
     rat = read_ratatoskr_output()
 
-    back.update_ratatoskr(rat)
+    if back: back.update_ratatoskr(rat)
     fore.update_ratatoskr(rat)
+
+    if 'battery' in rat:
+        b = rat['battery']
+        state = 0
+        if b["state"] == 'Discharging': state = -1
+        elif b["state"] == 'Charging': state = 1
+        battery_eta = (state, b["eta"], (100 - b["percentage"])*0.01)
 
 Utils.FileMonitor(
     path="/tmp/ratatoskr.json",
