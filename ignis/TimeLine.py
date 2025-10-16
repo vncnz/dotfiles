@@ -22,13 +22,6 @@ class TimeLine (Widget.Window):
 
         self.box2 = Gtk.Fixed(width_request=6, height_request=self.h)
 
-        # self.battery = Widget.Label(
-        #     label="",
-        #     width_request=2,
-        #     height_request=self.h
-        # )
-        # self.box2.put(self.battery, 12, 0)
-
         self.battery_end = Widget.Label(
             label="",
             width_request=2,
@@ -45,25 +38,16 @@ class TimeLine (Widget.Window):
             dict = {
                 'label': '󰍞',
                 'justify': 'left',
-                'style': f'font-size: {size};color:{color};',
+                'style': f'font-size:{size};color:{color};',
                 'xalign': 1.0,
+                'width_request': 10
             }
-            # if m > 0: dict['margin_bottom'] = m
-            # elif m < 0: dict['margin_top'] = -m
-            # self.hours.append(
-            #     Widget.Label(**dict)
-            # )
             label = Widget.Label(**dict)
             m = (self.h / 24) * h
             # m = self.vadjust(label, m)
             self.box2.put(label, 50, m)
             self.hours.append(label)
-            # print(f'time {h} pos {m}')
 
-        #self.box = Widget.Overlay(
-        #    child=Widget.Label(label="", width_request=20, height_request=self.h),
-        #    overlays = [ self.battery ] + self.hours + [ self.line_now ]
-        #)
 
         self.box2.put(self.line_now, 0, self.h / 2)
 
@@ -72,20 +56,14 @@ class TimeLine (Widget.Window):
             monitor = monitor,
             child = self.box2,
             layer = 'overlay',
-            style = 'background:transparent;',
+            style = 'background:rgba(128, 50, 50, 0);',
             anchor = ['right'],
             margin_right = 0
         )
         self.fixed = False
-        # self.update_time(43200, 435)
-
-        # self.update_style()
-
-        # Bus.subscribe(lambda x: self.update_bus(x))
     
     def fix_hours (self):
         for h in self.hours:
-            # print(h.get_allocation().y, h.get_allocation().height)
             if h.get_allocation().height > 0:
                 m = h.get_allocation().y
                 m = self.vadjust(h, m)
@@ -94,9 +72,12 @@ class TimeLine (Widget.Window):
 
     def vadjust (self, elem, y):
         alloc = elem.get_allocation()
-        return y - (alloc.height // 2)
+        return y - (alloc.height // 2) + 8
     
     def update_time (self, time, battery):
+
+        iconsize = '2em'
+
         if time is None:
             now = datetime.now()
             time = now.hour * 3600 + now.minute * 60 + now.second
@@ -110,26 +91,19 @@ class TimeLine (Widget.Window):
         if battery[0] == -1:
             start = self.h - top
             end = (start + (eta * 60 / 86400.0 * self.h)) % self.h
-            # print('battery gradient', start, end)
-            # self.battery.set_style(f"filter:blur(2px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(1)} {end}px, transparent {end}px);")
             self.battery_end.set_label("󰯆")
-            self.battery_end.set_style(f"color:{gra(1)};")
+            self.battery_end.set_style(f"font-size: {iconsize};color:{gra(1)};")
             self.box2.move(self.battery_end, 0, self.vadjust(self.battery_end, self.h - end))
         elif battery[0] == 1:
             start = self.h - top
             end = (start + (eta * 60 / 86400.0 * self.h)) % self.h
-            # self.battery.set_style(f"filter:blur(1px);background-image:linear-gradient(to top, transparent {start}px, {gra(battery[2])} {start}px, {gra(0)} {end}px, transparent {end}px);")
             self.battery_end.set_label("󰂄")
-            self.battery_end.set_style(f"color:{gra(0)};")
+            self.battery_end.set_style(f"font-size: {iconsize};color:{gra(0)};")
             self.box2.move(self.battery_end, 0, self.vadjust(self.battery_end, self.h - end))
         # self.set_style(f"background-image:linear-gradient(to top, transparent {start}px, {gra(0)} {start}px, {gra(1)} {end}px, transparent {end}px);")
         # else:
             # self.battery.set_style(f"")
         if battery[0]:
-            self.line_now.set_style(f"color:{gra(battery[2])};text-shadow:0 0 1px red;")
+            self.line_now.set_style(f"font-size: {iconsize};color:{gra(battery[2])};text-shadow:0 0 1px red;")
         else:
-            self.line_now.set_style(f"color:red;")
-
-
-        
-        # TODO: gestire la situazione in cui l'area batteria è a cavallo della mezzanotte interpolando e sdoppiando la sfumatura
+            self.line_now.set_style(f"font-size: {iconsize};color:red;")
