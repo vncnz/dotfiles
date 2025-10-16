@@ -76,7 +76,7 @@ class TimeLine (Widget.Window):
     
     def update_time (self, time, battery):
 
-        iconsize = '2em'
+        iconsize = '1.5em'
 
         if time is None:
             now = datetime.now()
@@ -104,6 +104,6 @@ class TimeLine (Widget.Window):
         # else:
             # self.battery.set_style(f"")
         if battery[0]:
-            self.line_now.set_style(f"font-size: {iconsize};color:{gra(battery[2])};text-shadow:0 0 1px red;")
+            self.line_now.set_style(f"font-size: 2em;color:{gra(battery[2])};text-shadow:0 0 1px black;")
         else:
-            self.line_now.set_style(f"font-size: {iconsize};color:red;")
+            self.line_now.set_style(f"font-size: 2em;color:red;")
