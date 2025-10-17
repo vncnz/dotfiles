@@ -12,6 +12,7 @@ from gi.repository import GLib
 
 from ignis.app import IgnisApp
 app = IgnisApp.get_default()
+battery_eta = (0, 1, .5)
 
 from BackgroundNotif import BackgroundNotif
 from ForegroundInfos import ForegroundInfos
@@ -64,6 +65,10 @@ theme = generate_theme(wallpaper)
 #print('\nCREATED THEME:')
 #print(theme)
 
+from TimeLine import TimeLine
+tm = TimeLine()
+Utils.Poll(1000, lambda x: tm.update_time(None, battery_eta))
+
 import stat
 class CmdManager:
     def __init__(self):
@@ -95,7 +100,7 @@ class CmdManager:
                 elif line == "theme_toggle":
                     toggle_mode()
                     generate_theme(wallpaper)
-                    back.update_theme()
+                    if back: back.update_theme()
                     fore.update_style()
             else:
                 # EOF: riapri la fifo
@@ -225,11 +230,15 @@ class BackgroundInfos (Widget.Window):
     def update_ratatoskr (self, rat):
         if rat:
             if 'weather' in rat: self.weather_box.update_value(rat['weather'])
-            if 'battery' in rat: self.battery_box.update_value(rat['battery'])
+            if 'battery' in rat:
+                b = rat["battery"]
+                self.battery_box.update_value(b)
             if 'ram' in rat: self.memory_used_box.update_value(rat['ram'])
             if 'network'in rat: self.network_box.update_value(rat['network'])
             if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=gra(rat['loadavg']['warn']))
             if 'temperature' in rat and 'disk' in rat and 'volume' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
+
+            if False: battery_eta = (1, 273, .95)
 
     def update_theme (self):
         self.set_style(f'background-color:transparent;color:{col('on_background')};')
@@ -241,11 +250,18 @@ back = BackgroundInfos()
 fore = ForegroundInfos()
 
 def update_ratatoskr (_, path, event_type):
-    global rat
+    global rat, battery_eta
     rat = read_ratatoskr_output()
 
-    back.update_ratatoskr(rat)
+    if back: back.update_ratatoskr(rat)
     fore.update_ratatoskr(rat)
+
+    if 'battery' in rat:
+        b = rat['battery']
+        state = 0
+        if b["state"] == 'Discharging': state = -1
+        elif b["state"] == 'Charging': state = 1
+        battery_eta = (state, b["eta"], (100 - b["percentage"])*0.01)
 
 Utils.FileMonitor(
     path="/tmp/ratatoskr.json",
@@ -266,16 +282,17 @@ monitors = list(range(ignis.utils.Utils.get_n_monitors()))
 
 # battery_is_used = rat['battery']['state'] == 'Discharging' or rat['battery']['state'] == 'Charging'
 
-def roundrect(context, x, y, width, height, r):
+def roundrect(context, x, y, width, height, r, right=0):
+
     context.move_to(x, y)
 
     context.arc(x+r, y+r, r,
                 math.pi, 3*math.pi/2)
 
-    context.arc(x+width-r, y+r, r,
+    context.arc(x+width-r-right, y+r, r,
                 3*math.pi/2, 0)
 
-    context.arc(x+width-r, y+height-r,
+    context.arc(x+width-r-right, y+height-r,
                 r, 0, math.pi/2)
 
     context.arc(x+r, y+height-r, r,
@@ -283,7 +300,7 @@ def roundrect(context, x, y, width, height, r):
 
     context.close_path()
 
-def draw_frame(area, cr, width, height):
+def draw_frame(area, cr, width, height, right=0):
 
     #if battery_is_used:
     #    margin = 12 - int(rat['battery']['percentage'] / 10)
@@ -297,14 +314,16 @@ def draw_frame(area, cr, width, height):
     cr.rectangle(0, 0, width, height)
 
     # cr.rectangle(margin, margin, width - 2*margin, height - 2*margin)
-    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30)
+    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
 
     cr.fill()
 
 def make_frame (output):
     output_name = output
     area = Gtk.DrawingArea()
-    area.set_draw_func(draw_frame)
+    right = 0
+    if output == 0: right = 4
+    area.set_draw_func(lambda *args, **kwargs: draw_frame(*args, **kwargs, right=right))
     area.set_hexpand(True)
     area.set_vexpand(True)
     # area.set_content_width(1920)

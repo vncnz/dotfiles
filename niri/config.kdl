@@ -12,6 +12,7 @@
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     QT_QPA_PLATFORM "wayland"
+    // LIBGL_ALWAYS_SOFTWARE "1"
 }
 
 cursor {
@@ -29,6 +30,7 @@ input {
             // For more information, see xkeyboard-config(7).
 
             layout "it"
+            // layout "us"
             // variant "intl"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
@@ -242,18 +244,11 @@ layout {
 // spawn-sh-at-startup "alacritty -e fish"
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
-// spawn-sh-at-startup "swaybg" "--image" "~/.config/wallpaper.jpg" "--mode" "fill"
-// spawn-at-startup "xwayland-satellite" ":12"
-// spawn-sh-at-startup "~/.config/niri/change_bg.sh"
-// spawn-at-startup "dunst" "&"
-// spawn-at-startup "swaync"
-// spawn-at-startup "waybar"
-// spawn-at-startup "eww" "open" "microstatusbar"
-// spawn-sh-at-startup "~/.config/eww/scripts/music_notifier.sh"
 spawn-sh-at-startup "~/.config/niri/run_wob.sh"
 spawn-sh-at-startup "~/.config/niri/ratatoskr"
 spawn-sh-at-startup "swww-daemon"
 spawn-sh-at-startup "ignis init"
+spawn-sh-at-startup "niri-screen-time -daemon"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -330,6 +325,7 @@ binds {
     // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
     Mod+b hotkey-overlay-title="Spawn btop" { spawn-sh "kitty -e btop"; }
     MouseMiddle { toggle-overview; }
+    KP_Left { toggle-overview; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
     Super+L hotkey-overlay-title="Lock the screen" { spawn-sh "swaylock -i ~/.config/wallpaper.jpg --show-keyboard-layout --show-failed-attempts"; }
