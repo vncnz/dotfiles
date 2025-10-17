@@ -12,8 +12,6 @@
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     QT_QPA_PLATFORM "wayland"
-    // DISPLAY ":12"
-    // DISPLAY null for integratex xwayland-satellite?
 }
 
 cursor {
