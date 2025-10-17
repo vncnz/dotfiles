@@ -101,8 +101,8 @@ class TimeLine (Widget.Window):
             self.battery_end.set_style(f"font-size: {iconsize};color:{gra(0)};")
             self.box2.move(self.battery_end, 0, self.vadjust(self.battery_end, self.h - end))
         # self.set_style(f"background-image:linear-gradient(to top, transparent {start}px, {gra(0)} {start}px, {gra(1)} {end}px, transparent {end}px);")
-        # else:
-            # self.battery.set_style(f"")
+        else:
+            self.battery_end.set_label("")
         if battery[0]:
             self.line_now.set_style(f"font-size: 2em;color:{gra(battery[2])};text-shadow:0 0 1px black;")
         else:
