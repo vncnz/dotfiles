@@ -56,6 +56,7 @@ The content of ```aliases``` is a list of my aliases.
 |pacman | termdown                 | An utility for timers and countdowns
 |yay    | niri-screen-time-git     | Tracks time spent on applications
 |yay    | btop                     | htop alternative
+|pacman | tig                      | Git log viewer TUI
 
 # Currently in use on my screen:
 - niri (Window manager)
