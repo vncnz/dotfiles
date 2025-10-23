@@ -21,9 +21,14 @@ from ForegroundInfos import ForegroundInfos
 def read_settings ():
     try:
         with open(os.path.expanduser('~/.config/ignis/settings.json')) as settings:
-            return json.loads(settings.read())
+            obj = json.loads(settings.read())
+            if "sentences" not in obj: obj["sentences"] = None
+            return obj
     except:
-        return None
+        return {
+            "wallpaper": None,
+            "sentences": []
+        }
 
 settings = read_settings()
 print("\nSETTINGS:")
