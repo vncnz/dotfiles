@@ -19,16 +19,17 @@ from BackgroundSentence import BackgroundSentence
 from ForegroundInfos import ForegroundInfos
 
 def read_settings ():
+    default = {
+        "wallpaper": None,
+        "sentences": []
+    }
     try:
         with open(os.path.expanduser('~/.config/ignis/settings.json')) as settings:
             obj = json.loads(settings.read())
-            if "sentences" not in obj: obj["sentences"] = None
-            return obj
+            # if "sentences" not in obj: obj["sentences"] = None
+            return default | obj
     except:
-        return {
-            "wallpaper": None,
-            "sentences": []
-        }
+        return default
 
 settings = read_settings()
 print("\nSETTINGS:")
