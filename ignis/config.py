@@ -15,6 +15,7 @@ app = IgnisApp.get_default()
 battery_eta = (0, 1, .5)
 
 from BackgroundNotif import BackgroundNotif
+from BackgroundSentence import BackgroundSentence
 from ForegroundInfos import ForegroundInfos
 
 def read_settings ():
@@ -247,47 +248,7 @@ back = BackgroundInfos()
 
 ################################################################
 
-import random
-class BackgroundSentence (Widget.Window):
-    def __init__(self, monitor = None):
-
-        self.box = Widget.Box(
-            spacing = 6,
-            vertical = True,
-            child = []
-        )
-
-        super().__init__(
-            namespace = 'background-sentence',
-            monitor = monitor,
-            child = self.box,
-            layer = 'bottom',
-            anchor = ['top'],
-            margin_top = 40
-        )
-        self.update_theme()
-        random_sentence = random.choice([
-            ("私の心はバグです", "My heart is a bug", "Watashi no kokoro wa bagu desu"),
-            ("私は死んだ", "I'm dead", "Watashiwashinda")
-        ])
-        self.box.set_child(self.generate(random_sentence))
-
-    def update_theme (self):
-        self.set_style(f'background-color:transparent;color:{col('on_background')};')
-    
-    def generate (self, sentence):
-        ''' sentence format must be (main, *translate, *transliteration)'''
-        lst = [
-            Widget.Label(label=sentence[0], style="font-size:210%;"),
-        ]
-        if len(sentence) > 2 and sentence[2]:
-            lst.append(Widget.Label(label=sentence[2], style="font-size:80%;"))
-        if len(sentence) > 1 and sentence[1]:
-            lst.append(Widget.Separator(vertical=False))
-            lst.append(Widget.Label(label=sentence[1]))
-        return lst
-
-sentence = BackgroundSentence()
+sentence = BackgroundSentence(settings['sentences'])
 
 ################################################################
 
