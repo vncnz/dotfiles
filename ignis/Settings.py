@@ -46,8 +46,11 @@ def reload_config ():
 
 class _ConfigProxy:
     def __getattr__(self, name):
-        # delega automaticamente all'oggetto reale
         return getattr(_config, name)
+    def __setattr__(self, name, value):
+        if name.startswith('_'):
+            super().__setattr__(name, value)
+        else:
+            setattr(_config, name, value)
 
-# istanza “magica” che puoi usare come se fosse la config
 config = _ConfigProxy()
