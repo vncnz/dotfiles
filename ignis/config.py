@@ -14,36 +14,15 @@ from ignis.app import IgnisApp
 app = IgnisApp.get_default()
 battery_eta = (0, 1, .5)
 
+from Settings import config, reload_config
+
 from BackgroundNotif import BackgroundNotif
 from BackgroundSentence import BackgroundSentence
 from ForegroundInfos import ForegroundInfos
 
-def read_settings ():
-    default = {
-        "wallpaper": None,
-        "sentences": []
-    }
-    try:
-        with open(os.path.expanduser('~/.config/ignis/settings.json')) as settings:
-            obj = json.loads(settings.read())
-            # if "sentences" not in obj: obj["sentences"] = None
-            return default | obj
-    except:
-        return default
-
-settings = read_settings()
-print("\nSETTINGS:")
-print(settings)
-
 def reload_settings (_, path, event_type):
     print('\n\nRELOADING SETTINGS\n\n')
-    global settings
-    # old_settings = settings
-    settings = read_settings()
-    # changed_wallpaper = not (old_settings and ('wallpaper' in old_settings) and settings and ('wallpaper' in settings) and settings['wallpaper'] == old_settings['wallpaper'])
-    # if changed_wallpaper:
-    #     wallpaper = os.path.expanduser(settings['wallpaper'])
-    #     options.wallpaper.set_wallpaper_path(wallpaper)
+    reload_config()
     app.reload()
 
 Utils.FileMonitor(
@@ -56,8 +35,8 @@ Utils.FileMonitor(
 
 from WallpaperManager import set_wallpaper
 
-if settings and ('wallpaper' in settings):
-    wallpaper = settings['wallpaper'] # wallpaper = "~/Pictures/wallpapers/68d977081ada6ea065d5f020_nebulae-01.jpg"
+if config:
+    wallpaper = config.wallpaper # wallpaper = "~/Pictures/wallpapers/68d977081ada6ea065d5f020_nebulae-01.jpg"
 else:
     wallpaper = "~/Repositories/dotfiles/wallpaper.jpg"
 
@@ -254,7 +233,7 @@ back = BackgroundInfos()
 
 ################################################################
 
-sentence = BackgroundSentence(settings['sentences'])
+sentence = BackgroundSentence(config.sentences)
 
 ################################################################
 
