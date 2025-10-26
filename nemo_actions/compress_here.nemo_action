@@ -2,6 +2,7 @@
 Name=Compress here
 Comment=Create a zip archive in this folder
 Exec=sh -c 'for f in %F; do base=$(basename "$f"); dir=$(dirname "$f"); out="$dir/$base.zip"; [ -e "$out" ] && out="$dir/$base-$(date +%Y%m%d%H%M%S).zip"; zip -r "$out" "$f"; done'
+;;Exec=kitty sh -c '~/.local/bin/nemo_compress_in_terminal %F'
 Icon=application-zip
 Selection=S
 Extensions=any

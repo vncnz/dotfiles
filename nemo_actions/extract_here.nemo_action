@@ -1,0 +1,8 @@
+[Nemo Action]
+Name=Extract here
+Comment=Extract the archive in a new folder here
+Exec=kitty sh -c '~/Repositories/dotfiles/nemo_actions/nemo_extract.sh %F'
+Icon=folder-extract
+Selection=any
+Extensions=zip;tar;tar.gz;tgz;tar.bz2;tbz2;tar.xz;txz;rar;
+Quote=double
