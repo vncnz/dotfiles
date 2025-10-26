@@ -724,11 +724,13 @@ window-rule {
 }
 
 window-rule {
-    match title=" Properties"
+    match title="Properties"
     open-floating true
 }
 
 window-rule {
+    match title=r#".* Preparing .*"# app-id="nemo" is-floating=true
+    match title=r#".* Deleting .*"# app-id="nemo" is-floating=true
     match title=r#".* Copying .*"# app-id="nemo" is-floating=true
     match title=r#".* Moving .*"# app-id="nemo" is-floating=true
     default-floating-position x=12 y=12 relative-to="bottom-right"
@@ -740,7 +742,7 @@ window-rule {
     border {
         on
         active-color "red"
-        inactive-color "darkred"
+        inactive-color "red"
     }
 }
 
