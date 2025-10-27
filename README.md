@@ -70,6 +70,8 @@ The content of ```aliases``` is a list of my aliases.
 
 # Next steps
 - handle notification bursts by introducing a short delay and showing only the latest one
+- special management for reboot request by pacman via notification (for example, reboot icon in Foreground widget instead of the usual bell icon)
 - better theme using / color computing
 - evaluate to make matugen optional and insert colors in settings.json
 - evaluate to make swww optional
+- show song info / lyrics in overpression?
