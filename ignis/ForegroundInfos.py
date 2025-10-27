@@ -20,11 +20,11 @@ class ForegroundInfos (Widget.Window):
         if False:
             theme = get_theme()
             chi = chi + [
-                Widget.Label(label="󱗜", width_request=1, height_request=1, style=f"font-size:1.2rem;")
+                Widget.Label(label="󱗜", width_request=1, height_request=1, style=f"")
             ] + [
-                Widget.Label(label="", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{c};") for c in theme['warning_gradient']
+                Widget.Label(label="", width_request=1, height_request=1, style=f"color:{c};") for c in theme['warning_gradient']
             ] + [
-                Widget.Label(label="", width_request=1, height_request=1, style=f"font-size:1.2rem;color:{theme['error']};")
+                Widget.Label(label="", width_request=1, height_request=1, style=f"color:{theme['error']};")
             ]
 
         self.box = Widget.Box(
@@ -51,8 +51,9 @@ class ForegroundInfos (Widget.Window):
         Bus.subscribe(lambda x: self.update_bus(x))
     
     def update_style (self):
-        opacity = 0.001 if self.empty else 1
-        self.set_style(f'background-color:{col('background')};color:{col('on_background')};font-size:2rem;padding:5px;border:1px solid {col('primary')};border-radius:10px;opacity:{opacity};')
+        opacity = 0.001 if self.empty else .8
+        self.set_style(f'background-color:{col('background')};color:{col('on_background')};font-size:1.5rem;padding:5px;border:1px solid {col('primary')};border-radius:10px;opacity:{opacity};')
+        # self.set_style(f'background:transparent;color:{col('on_background')};font-size:2rem;padding:1rem 5px;opacity:{opacity};')
 
     def update_bus (self, x):
         # print('event', x)
