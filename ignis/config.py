@@ -274,7 +274,7 @@ monitors = list(range(ignis.utils.Utils.get_n_monitors()))
 
 def roundrect(context, x, y, width, height, r, right=0):
 
-    context.move_to(x, y)
+    context.move_to(x, y+r)
 
     context.arc(x+r, y+r, r,
                 math.pi, 3*math.pi/2)
@@ -307,12 +307,16 @@ def draw_frame(area, cr, width, height, right=0):
     roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
 
     cr.fill()
+    
+    # roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
+    # cr.set_source_rgba(1.0, 0.0, 0.0, 1)
+    # cr.stroke()
 
 def make_frame (output):
     output_name = output
     area = Gtk.DrawingArea()
     right = 0
-    if output == 0: right = 4
+    if output == 0: right = 5
     area.set_draw_func(lambda *args, **kwargs: draw_frame(*args, **kwargs, right=right))
     area.set_hexpand(True)
     area.set_vexpand(True)
