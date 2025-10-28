@@ -275,9 +275,6 @@ def update_ratatoskr (_, path, event_type):
     
     m = max(*[rat[k]['warn'] for k in ['loadavg', 'disk', 'temperature']], rat['ram']['mem_warn'], 0)
     color = (0,0,0,.5) if m < 0.3 else gra_rgb(m)
-    # print('m is', m)
-    refresh_frames(color)
-
     Bus.publish(color, topic='frame-color')
 
 Utils.FileMonitor(
