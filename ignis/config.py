@@ -23,6 +23,9 @@ from Frame import Frame
 from Bus import Bus
 import ignis
 
+
+import mpris
+
 #######################################
 areas = []
 
