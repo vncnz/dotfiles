@@ -95,7 +95,7 @@ class ForegroundInfos (Widget.Window):
         if desired:
             if (icon not in self.box.child):
                 self.box.append(icon)
-                self.on_resize_delayed()
+                self.on_resize()
                 # print('Appending icon', dbLabel)
             icon.update_value(warn, color)
             self.empty = len(self.box.child) == 0
@@ -105,12 +105,13 @@ class ForegroundInfos (Widget.Window):
             # print('Removing icon', dbLabel)
             self.empty = len(self.box.child) == 0
             self.update_style()
-            self.on_resize_delayed()
+            self.on_resize()
     
 
-    def on_resize_delayed (self):
-        Utils.Timeout(ms=50, target=self.on_resize)
+    # def on_resize_delayed (self):
+    #     Utils.Timeout(ms=50, target=self.on_resize)
 
+    @Utils.debounce(50)
     def on_resize(self):
         w = self.box.get_allocated_width() + 10 # 10 is the (double) padding
         h = self.box.get_allocated_height()
