@@ -283,6 +283,8 @@ Utils.FileMonitor(
     callback = update_ratatoskr # lambda _, path, event_type: print(path, event_type),
 )
 
+import Applications
+
 ################################################################
 
 # from gi.repository import Gtk, cairo
