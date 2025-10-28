@@ -48,6 +48,7 @@ class BackgroundNotif (Widget.Window):
         Utils.Poll(1000, self.check_notif_times)
     
     def add_notif(self, notification):
+        # TODO: Implement something like @Utils.debounce(50) but sender-specific
         found = next((x for x in self.box.child if x.nid == notification.id), None)
         if not found and notification.icon == 'media-removable': # * patch for Nemo "removing usb drive" notification
             found = next((x for x in self.box.child if x.icon == 'media-removable' and x.app_name == notification.app_name), None)
