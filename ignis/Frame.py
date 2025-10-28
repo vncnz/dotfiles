@@ -9,6 +9,7 @@ class Frame (Widget.Window):
 
         self.border_color = (0, 0, 0, .5)
         self.last_size = (0,0)
+        self.output = output
 
         area = Gtk.DrawingArea()
         right = 0
@@ -85,5 +86,6 @@ class Frame (Widget.Window):
         self.area.queue_draw()
     
     def update_angle(self, size):
-        self.last_size = size
-        self.area.queue_draw()
+        if self.output == 0:
+            self.last_size = size
+            self.area.queue_draw()
