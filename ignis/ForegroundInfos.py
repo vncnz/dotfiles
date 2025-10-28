@@ -2,6 +2,8 @@ from ignis.widgets import Widget
 from ResBox import ResIcon
 from Bus import Bus
 
+from ignis.utils import Utils
+
 from theme_colors import col, gra, get_theme
 
 class ForegroundInfos (Widget.Window):
@@ -42,21 +44,20 @@ class ForegroundInfos (Widget.Window):
             layer = 'overlay',
             # style = f'background-color:{theme['primary_container']};text-shadow:1px 1px 2px black;color:whitesmoke;font-size:2rem;padding:5px;border:1px solid {theme['primary']};border-radius:8px;',
             anchor = ['bottom', 'left'],
-            margin_left = 8,
-            margin_bottom = 18
+            margin_left = 0,
+            margin_bottom = 0
         )
 
         self.update_style()
 
-        Bus.subscribe(lambda x: self.update_bus(x))
+        Bus.subscribe(lambda x: self.update_bus(x), topic='notif')
     
     def update_style (self):
         opacity = 0.001 if self.empty else .8
-        self.set_style(f'background-color:{col('background')};color:{col('on_background')};font-size:1.5rem;padding:5px;border:1px solid {col('primary')};border-radius:10px;opacity:{opacity};')
+        self.set_style(f'background-color:transparent;color:{col('on_background')};font-size:1.5rem;padding:5px;border-radius:10px;opacity:{opacity};')
         # self.set_style(f'background:transparent;color:{col('on_background')};font-size:2rem;padding:1rem 5px;opacity:{opacity};')
 
     def update_bus (self, x):
-        # print('event', x)
         if x: self.update_ratatoskr_single(self.notification_icon, 1, x, 'notif')
         else: self.update_ratatoskr_single(self.notification_icon, 0, x, 'notif')
 
@@ -81,6 +82,7 @@ class ForegroundInfos (Widget.Window):
                 self.temperature_icon.set_label(rat['temperature']['icon'])
                 self.update_ratatoskr_single(self.temperature_icon, rat['temperature']['warn'], None, 'temperature')
     
+    
     def update_ratatoskr_single (self, icon, warn, color = None, dbLabel = None):
         if not color: color = gra(warn)
         if warn > 0.3:
@@ -93,6 +95,7 @@ class ForegroundInfos (Widget.Window):
         if desired:
             if (icon not in self.box.child):
                 self.box.append(icon)
+                self.on_resize_delayed()
                 # print('Appending icon', dbLabel)
             icon.update_value(warn, color)
             self.empty = len(self.box.child) == 0
@@ -102,3 +105,13 @@ class ForegroundInfos (Widget.Window):
             # print('Removing icon', dbLabel)
             self.empty = len(self.box.child) == 0
             self.update_style()
+            self.on_resize_delayed()
+    
+
+    def on_resize_delayed (self):
+        Utils.Timeout(ms=50, target=self.on_resize)
+
+    def on_resize(self):
+        w = self.box.get_allocated_width() + 10 # 10 is the (double) padding
+        h = self.box.get_allocated_height()
+        Bus.publish((w,h), topic='fore-icons-size')

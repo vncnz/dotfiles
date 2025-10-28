@@ -89,13 +89,13 @@ class BackgroundNotif (Widget.Window):
             color = None
             if max_urgency == 2:
                 color = 'red'
-                Bus.publish('red')
+                Bus.publish('red', topic='notif')
             elif max_urgency > -1:
                 color = 'white'
-                Bus.publish('white')
+                Bus.publish('white', topic='notif')
             else:
                 color = 'rgba(0, 0, 0, 0.01)'
-                Bus.publish(None)
+                Bus.publish(None, topic='notif')
             self.line.set_style(f'background:{color};')
             self.last_max_urgency = max_urgency
             # print("Updated max_urgency", max_urgency, color)

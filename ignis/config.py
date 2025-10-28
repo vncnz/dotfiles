@@ -19,23 +19,22 @@ from Settings import config, reload_config
 from BackgroundNotif import BackgroundNotif
 from BackgroundSentence import BackgroundSentence
 from ForegroundInfos import ForegroundInfos
+from Frame import Frame
+from Bus import Bus
+import ignis
 
 #######################################
-from random import random
 areas = []
-color = (0.0, 0.0, 0.0, 1)
+
+monitors = ignis.utils.Utils.get_monitors()
+monitors = list(range(ignis.utils.Utils.get_n_monitors()))
+
+for out in monitors:
+    areas.append(Frame(out))
 
 def refresh_frames (new_color):
-    global color
-
-    if type(new_color) == str:
-        hex = new_color[-6:]
-        new_color = tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
-
-    # color = (random(), random(), random(), 1)
-    color = new_color
     for area in areas:
-        area.queue_draw()
+        area.update_color(new_color)
 #######################################
 
 def reload_settings (_, path, event_type):
@@ -272,7 +271,11 @@ def update_ratatoskr (_, path, event_type):
         battery_eta = (state, b["eta"], (100 - b["percentage"])*0.01)
     
     m = max(*[rat[k]['warn'] for k in ['loadavg', 'disk', 'temperature']], rat['ram']['mem_warn'], 0)
-    refresh_frames(gra_rgb(m))
+    color = (0,0,0,.5) if m < 0.3 else gra_rgb(m)
+    # print('m is', m)
+    refresh_frames(color)
+
+    Bus.publish(color, topic='frame-color')
 
 Utils.FileMonitor(
     path="/tmp/ratatoskr.json",
@@ -282,96 +285,95 @@ Utils.FileMonitor(
 
 ################################################################
 
-from gi.repository import Gtk, cairo
-from ignis.widgets import Window
-import ignis
-import math
+# from gi.repository import Gtk, cairo
+# from ignis.widgets import Window
+# import ignis
+# import math
 
-frames = {}
-monitors = ignis.utils.Utils.get_monitors()
-monitors = list(range(ignis.utils.Utils.get_n_monitors()))
+# frames = {}
+
 
 # battery_is_used = rat['battery']['state'] == 'Discharging' or rat['battery']['state'] == 'Charging'
 
-def roundrect(context, x, y, width, height, r, right=0):
+# def roundrect(context, x, y, width, height, r, right=0):
 
-    context.move_to(x, y+r)
+#     context.move_to(x, y+r)
 
-    context.arc(x+r, y+r, r,
-                math.pi, 3*math.pi/2)
+#     context.arc(x+r, y+r, r,
+#                 math.pi, 3*math.pi/2)
 
-    context.arc(x+width-r-right, y+r, r,
-                3*math.pi/2, 0)
+#     context.arc(x+width-r-right, y+r, r,
+#                 3*math.pi/2, 0)
 
-    context.arc(x+width-r-right, y+height-r,
-                r, 0, math.pi/2)
+#     context.arc(x+width-r-right, y+height-r,
+#                 r, 0, math.pi/2)
 
-    context.arc(x+r, y+height-r, r,
-                math.pi/2, math.pi)
+#     context.arc(x+r, y+height-r, r,
+#                 math.pi/2, math.pi)
 
-    context.close_path()
+#     context.close_path()
 
-def draw_frame(area, cr, width, height, right=0):
+# def draw_frame(area, cr, width, height, right=0):
 
-    #if battery_is_used:
-    #    margin = 12 - int(rat['battery']['percentage'] / 10)
-    #    cr.set_source_rgba(0.2, 0.6, 0.5, 1)
-    #else:
-    margin = 0
-    cr.set_source_rgba(0.0, 0.0, 0.0, 1)
-    cr.set_fill_rule(cairo.FillRule.EVEN_ODD)
+#     #if battery_is_used:
+#     #    margin = 12 - int(rat['battery']['percentage'] / 10)
+#     #    cr.set_source_rgba(0.2, 0.6, 0.5, 1)
+#     #else:
+#     margin = 0
+#     cr.set_source_rgba(0.0, 0.0, 0.0, 1)
+#     cr.set_fill_rule(cairo.FillRule.EVEN_ODD)
 
-    # rettangolo esterno
-    cr.rectangle(0, 0, width, height)
+#     # rettangolo esterno
+#     cr.rectangle(0, 0, width, height)
 
-    # cr.rectangle(margin, margin, width - 2*margin, height - 2*margin)
-    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
+#     # cr.rectangle(margin, margin, width - 2*margin, height - 2*margin)
+#     roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
 
-    cr.fill()
+#     cr.fill()
     
-    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
-    cr.set_source_rgba(*color)
-    cr.stroke()
+#     roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
+#     cr.set_source_rgba(*color)
+#     cr.stroke()
 
-def make_frame (output):
-    output_name = output
-    area = Gtk.DrawingArea()
-    right = 0
-    if output == 0: right = 5
-    area.set_draw_func(lambda *args, **kwargs: draw_frame(*args, **kwargs, right=right))
-    area.set_hexpand(True)
-    area.set_vexpand(True)
-    # area.set_content_width(1920)
-    # area.set_content_height(1080)
+# def make_frame (output):
+#     output_name = output
+#     area = Gtk.DrawingArea()
+#     right = 0
+#     if output == 0: right = 5
+#     area.set_draw_func(lambda *args, **kwargs: draw_frame(*args, **kwargs, right=right))
+#     area.set_hexpand(True)
+#     area.set_vexpand(True)
+#     # area.set_content_width(1920)
+#     # area.set_content_height(1080)
 
-    # Finestra Ignis a schermo intero, livello overlay
-    win = Window(
-        namespace = f'screen-frame-{output_name}',
-        layer = 'top',
-        exclusivity = 'normal',
-        kb_mode = 'none',
-        style = 'background-color:transparent;',
-        input_width = 1,
-        input_height = 1,
-        monitor = output_name,
-        anchor=['top', 'left', 'bottom', 'right']
-    )
-    win.set_child(area)
-    # win.set_pass_through(True)        # click-through
-    win.present()
-    frames[output_name] = win
-    print(f'Frame created for output {output_name}')
-    return area
+#     # Finestra Ignis a schermo intero, livello overlay
+#     win = Window(
+#         namespace = f'screen-frame-{output_name}',
+#         layer = 'top',
+#         exclusivity = 'normal',
+#         kb_mode = 'none',
+#         style = 'background-color:transparent;',
+#         input_width = 1,
+#         input_height = 1,
+#         monitor = output_name,
+#         anchor=['top', 'left', 'bottom', 'right']
+#     )
+#     win.set_child(area)
+#     # win.set_pass_through(True)        # click-through
+#     win.present()
+#     frames[output_name] = win
+#     print(f'Frame created for output {output_name}')
+#     return area
 
-def remove_frame(output_name):
-    if output_name in frames:
-        frames[output_name].close()
-        del frames[output_name]
-        print(f"Frame removed from {output_name}")
+# def remove_frame(output_name):
+#     if output_name in frames:
+#         frames[output_name].close()
+#         del frames[output_name]
+#         print(f"Frame removed from {output_name}")
 
-print('')
-for out in monitors:
-    areas.append(make_frame(out))
+# print('')
+# for out in monitors:
+#     areas.append(make_frame(out))
 
 #def test ():
 #    m = 0.1
