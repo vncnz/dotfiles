@@ -86,5 +86,4 @@ class Frame (Widget.Window):
     
     def update_angle(self, size):
         self.last_size = size
-        print('size', size)
         self.area.queue_draw()
