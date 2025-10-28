@@ -20,6 +20,24 @@ from BackgroundNotif import BackgroundNotif
 from BackgroundSentence import BackgroundSentence
 from ForegroundInfos import ForegroundInfos
 
+#######################################
+from random import random
+areas = []
+color = (0.0, 0.0, 0.0, 1)
+
+def refresh_frames (new_color):
+    global color
+
+    if type(new_color) == str:
+        hex = new_color[-6:]
+        new_color = tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+
+    # color = (random(), random(), random(), 1)
+    color = new_color
+    for area in areas:
+        area.queue_draw()
+#######################################
+
 def reload_settings (_, path, event_type):
     print('\n\nRELOADING SETTINGS\n\n')
     reload_config()
@@ -46,7 +64,7 @@ else:
 wallpaper = set_wallpaper(wallpaper)
 # wallpaper = os.path.expanduser(wallpaper)
 
-from theme_colors import col, generate_theme, gra, toggle_mode
+from theme_colors import col, generate_theme, gra, gra_rgb, toggle_mode
 theme = generate_theme(wallpaper)
 #print('\nCREATED THEME:')
 #print(theme)
@@ -252,6 +270,9 @@ def update_ratatoskr (_, path, event_type):
         if b["state"] == 'Discharging': state = -1
         elif b["state"] == 'Charging': state = 1
         battery_eta = (state, b["eta"], (100 - b["percentage"])*0.01)
+    
+    m = max(*[rat[k]['warn'] for k in ['loadavg', 'disk', 'temperature']], rat['ram']['mem_warn'], 0)
+    refresh_frames(gra_rgb(m))
 
 Utils.FileMonitor(
     path="/tmp/ratatoskr.json",
@@ -308,9 +329,9 @@ def draw_frame(area, cr, width, height, right=0):
 
     cr.fill()
     
-    # roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
-    # cr.set_source_rgba(1.0, 0.0, 0.0, 1)
-    # cr.stroke()
+    roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
+    cr.set_source_rgba(*color)
+    cr.stroke()
 
 def make_frame (output):
     output_name = output
@@ -340,6 +361,7 @@ def make_frame (output):
     win.present()
     frames[output_name] = win
     print(f'Frame created for output {output_name}')
+    return area
 
 def remove_frame(output_name):
     if output_name in frames:
@@ -349,7 +371,14 @@ def remove_frame(output_name):
 
 print('')
 for out in monitors:
-    make_frame(out)
+    areas.append(make_frame(out))
+
+#def test ():
+#    m = 0.1
+#    print('m is', m, gra_rgb(m))
+#    refresh_frames(gra_rgb(m))
+
+#Utils.Timeout(ms=3000, target=test)
 
 #@ignis.on("output-added")
 #def on_output_added(output, *_):

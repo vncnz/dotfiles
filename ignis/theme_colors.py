@@ -20,6 +20,33 @@ def gra (value):
         return _computed['warning_gradient'][int(value * 9.999)]
     return 'white'
 
+
+import colorsys
+import re
+
+def hsl_str_to_rgb(hsl_str):
+    # Estrae i valori numerici
+    h, s, l = map(float, re.findall(r'[\d.]+', hsl_str))
+    
+    # Normalizza e converte (colorsys usa valori 0–1)
+    h /= 360
+    s /= 100
+    l /= 100
+    r, g, b = colorsys.hls_to_rgb(h, l, s)
+    
+    # Ritorna valori 0–255 come interi
+    return tuple(round(x * 255) for x in (r, g, b))
+
+# print(hsl_to_rgb("hsl(40,95%,63%)"))  # → (242, 185, 33)
+
+
+def gra_rgb (value):
+    c = gra(value)
+    if c[0] == 'h':
+        rgb = hsl_str_to_rgb(c)
+        return [channel/255.0 for channel in rgb]
+    return c
+
 def col (name):
     if name in _computed:
         return _computed[name]
