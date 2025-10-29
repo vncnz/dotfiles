@@ -269,8 +269,7 @@ def update_ratatoskr (_, path, event_type):
         battery_eta = (state, b["eta"], (100 - b["percentage"])*0.01)
     
     m = max(*[rat[k]['warn'] for k in ['loadavg', 'disk', 'temperature']], rat['ram']['mem_warn'], 0)
-    color = (0,0,0,.5) if m < 0.3 else gra_rgb(m)
-    # print(m)
+    color = (0,0,0,.5) if m <= 0.3 else gra_rgb(m)
     Bus.publish(color, topic='frame-color')
 
 Utils.FileMonitor(
