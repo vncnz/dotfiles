@@ -33,7 +33,6 @@ class ForegroundInfos (Widget.Window):
             spacing = 6,
             vertical = True,
             child = chi
-            # style='background:transparent;'
         )
 
         self.empty = len(chi) == 0
@@ -56,7 +55,6 @@ class ForegroundInfos (Widget.Window):
     def update_style (self):
         opacity = 0.001 if self.empty else .8
         self.set_style(f'background-color:{col('background')};color:{col('on_background')};font-size:1.5rem;padding:5px;border-radius:10px;opacity:{opacity};')
-        # self.set_style(f'background:transparent;color:{col('on_background')};font-size:2rem;padding:1rem 5px;opacity:{opacity};')
 
     def update_bus (self, x):
         if x: self.update_ratatoskr_single(self.notification_icon, 1, x, 'notif')
