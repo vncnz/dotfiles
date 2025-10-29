@@ -7,9 +7,6 @@ import os
 
 from gi.repository import GLib
 
-# from niri import print_test
-# print_test()
-
 from ignis.app import IgnisApp
 app = IgnisApp.get_default()
 battery_eta = (0, 1, .5)
@@ -25,9 +22,6 @@ import ignis
 
 
 import mpris
-
-#######################################
-areas = []
 
 monitors = ignis.utils.Utils.get_monitors()
 monitors = list(range(ignis.utils.Utils.get_n_monitors()))
@@ -283,111 +277,22 @@ Utils.FileMonitor(
     callback = update_ratatoskr # lambda _, path, event_type: print(path, event_type),
 )
 
-import Applications
-
-################################################################
-
-# from gi.repository import Gtk, cairo
-# from ignis.widgets import Window
-# import ignis
-# import math
-
-# frames = {}
 
 
-# battery_is_used = rat['battery']['state'] == 'Discharging' or rat['battery']['state'] == 'Charging'
 
-# def roundrect(context, x, y, width, height, r, right=0):
 
-#     context.move_to(x, y+r)
 
-#     context.arc(x+r, y+r, r,
-#                 math.pi, 3*math.pi/2)
 
-#     context.arc(x+width-r-right, y+r, r,
-#                 3*math.pi/2, 0)
 
-#     context.arc(x+width-r-right, y+height-r,
-#                 r, 0, math.pi/2)
+########################################################
+################## Experimental stuff ##################
+########################################################
 
-#     context.arc(x+r, y+height-r, r,
-#                 math.pi/2, math.pi)
+#import Applications
+#import niri
+#niri.w()
 
-#     context.close_path()
+# from Navigation import Navigation
+# navi = Navigation()
 
-# def draw_frame(area, cr, width, height, right=0):
-
-#     #if battery_is_used:
-#     #    margin = 12 - int(rat['battery']['percentage'] / 10)
-#     #    cr.set_source_rgba(0.2, 0.6, 0.5, 1)
-#     #else:
-#     margin = 0
-#     cr.set_source_rgba(0.0, 0.0, 0.0, 1)
-#     cr.set_fill_rule(cairo.FillRule.EVEN_ODD)
-
-#     # rettangolo esterno
-#     cr.rectangle(0, 0, width, height)
-
-#     # cr.rectangle(margin, margin, width - 2*margin, height - 2*margin)
-#     roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
-
-#     cr.fill()
-    
-#     roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
-#     cr.set_source_rgba(*color)
-#     cr.stroke()
-
-# def make_frame (output):
-#     output_name = output
-#     area = Gtk.DrawingArea()
-#     right = 0
-#     if output == 0: right = 5
-#     area.set_draw_func(lambda *args, **kwargs: draw_frame(*args, **kwargs, right=right))
-#     area.set_hexpand(True)
-#     area.set_vexpand(True)
-#     # area.set_content_width(1920)
-#     # area.set_content_height(1080)
-
-#     # Finestra Ignis a schermo intero, livello overlay
-#     win = Window(
-#         namespace = f'screen-frame-{output_name}',
-#         layer = 'top',
-#         exclusivity = 'normal',
-#         kb_mode = 'none',
-#         style = 'background-color:transparent;',
-#         input_width = 1,
-#         input_height = 1,
-#         monitor = output_name,
-#         anchor=['top', 'left', 'bottom', 'right']
-#     )
-#     win.set_child(area)
-#     # win.set_pass_through(True)        # click-through
-#     win.present()
-#     frames[output_name] = win
-#     print(f'Frame created for output {output_name}')
-#     return area
-
-# def remove_frame(output_name):
-#     if output_name in frames:
-#         frames[output_name].close()
-#         del frames[output_name]
-#         print(f"Frame removed from {output_name}")
-
-# print('')
-# for out in monitors:
-#     areas.append(make_frame(out))
-
-#def test ():
-#    m = 0.1
-#    print('m is', m, gra_rgb(m))
-#    refresh_frames(gra_rgb(m))
-
-#Utils.Timeout(ms=3000, target=test)
-
-#@ignis.on("output-added")
-#def on_output_added(output, *_):
-#    make_frame(output)
-
-#@ignis.on("output-removed")
-#def on_output_removed(output, *_):
-#    remove_frame(output)
+# import mpris
