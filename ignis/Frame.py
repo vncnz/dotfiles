@@ -24,7 +24,7 @@ class Frame (Widget.Window):
             layer = 'top',
             exclusivity = 'normal',
             kb_mode = 'none',
-            style = 'background-color:transparent;',
+            style = 'background-color:rgba(0,0,0,0.0000001);',
             input_width = 1,
             input_height = 1,
             monitor = output,

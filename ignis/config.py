@@ -241,7 +241,7 @@ class BackgroundInfos (Widget.Window):
             if False: battery_eta = (1, 273, .95)
 
     def update_theme (self):
-        self.set_style(f'background-color:transparent;color:{col('on_background')};')
+        self.set_style(f'background-color:rgba(0,0,0,0.00001);color:{col('on_background')};')
 
 back = BackgroundInfos()
 
