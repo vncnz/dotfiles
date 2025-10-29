@@ -2,6 +2,7 @@ import math
 from gi.repository import Gtk, cairo
 from ignis.widgets import Widget
 from Bus import Bus
+from theme_colors import col
 
 class Frame (Widget.Window):
 
@@ -65,8 +66,10 @@ class Frame (Widget.Window):
     
     def draw_frame(self, area, cr, width, height, right=0):
 
-        margin = 0
-        cr.set_source_rgba(0.0, 0.0, 0.0, 1)
+        margin = 1
+        # cr.set_source_rgba(0.0, 0.0, 0.0, 1)
+        hex = col('background')[-6:]
+        cr.set_source_rgba(*tuple(int(hex[i:i+2], 16)/255.0 for i in (0, 2, 4)), 1)
         cr.set_fill_rule(cairo.FillRule.EVEN_ODD)
         cr.rectangle(0, 0, width, height)
         # self.roundrect(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right)
@@ -75,6 +78,7 @@ class Frame (Widget.Window):
         
         self.roundrect_with_angle(cr, margin, margin, width - 2*margin, height - 2*margin, 30, right=right, w=self.last_size[0], h=self.last_size[1])
         cr.set_source_rgba(*self.border_color)
+        cr.set_line_width(1)
         cr.stroke()
 
     def update_color(self, new_color):
