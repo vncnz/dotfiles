@@ -20,8 +20,8 @@ from Frame import Frame
 from Bus import Bus
 import ignis
 
-
-import mpris
+#######################################
+areas = []
 
 monitors = ignis.utils.Utils.get_monitors()
 monitors = list(range(ignis.utils.Utils.get_n_monitors()))
@@ -258,7 +258,8 @@ def update_ratatoskr (_, path, event_type):
     rat = read_ratatoskr_output()
 
     if back: back.update_ratatoskr(rat)
-    fore.update_ratatoskr(rat)
+    # fore.update_ratatoskr(rat)
+    Bus.publish(rat, topic='ratatoskr')
 
     if 'battery' in rat:
         b = rat['battery']

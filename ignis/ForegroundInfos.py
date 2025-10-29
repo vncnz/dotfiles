@@ -33,6 +33,7 @@ class ForegroundInfos (Widget.Window):
             spacing = 6,
             vertical = True,
             child = chi
+            # style='background:transparent;'
         )
 
         self.empty = len(chi) == 0
@@ -42,7 +43,6 @@ class ForegroundInfos (Widget.Window):
             monitor = monitor,
             child = self.box,
             layer = 'overlay',
-            # style = f'background-color:{theme['primary_container']};text-shadow:1px 1px 2px black;color:whitesmoke;font-size:2rem;padding:5px;border:1px solid {theme['primary']};border-radius:8px;',
             anchor = ['bottom', 'left'],
             margin_left = 0,
             margin_bottom = 0
@@ -50,6 +50,7 @@ class ForegroundInfos (Widget.Window):
 
         self.update_style()
 
+        Bus.subscribe(lambda x: self.update_ratatoskr(x), topic='ratatoskr')
         Bus.subscribe(lambda x: self.update_bus(x), topic='notif')
     
     def update_style (self):
