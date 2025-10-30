@@ -73,8 +73,8 @@ class ResBox (Widget.Box):
                 self.label
             ], **kwargs)
 
-    def compute_style (self, v, color=None):
-        return f'font-size: 1.4em;color:{color or get_color_gradient(self.warn_level[0], self.warn_level[1], v, self.high_is_good)};'
+    def compute_style (self, v, color='inherit'):
+        return f'font-size: 1.4em;color:{color or 'inherit'};'
     
     @skip_if_unchanged
     def update_value(self, value, color=None, template=None):
@@ -178,7 +178,8 @@ class BatteryBox (MultilineBox):
 
         super().__init__()
 
-        self.update_value(value)
+        if value:
+            self.update_value(value)
 
     @skip_if_unchanged
     def update_value(self, value):
