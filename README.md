@@ -57,6 +57,7 @@ The content of ```aliases``` is a list of my aliases.
 |yay    | niri-screen-time-git     | Tracks time spent on applications
 |yay    | btop                     | htop alternative
 |pacman | tig                      | Git log viewer TUI
+|pacman | entr                     | File watcher that re-exec cmd on file updates
 
 # Currently in use on my screen:
 - niri (Window manager)
