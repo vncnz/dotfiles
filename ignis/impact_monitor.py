@@ -63,7 +63,7 @@ def main():
     parser.add_argument("pid", type=int, help="PID del processo Ignis")
     parser.add_argument("--sample-ms", type=int, default=50, help="Intervallo di campionamento in millisecondi")
     parser.add_argument("--report", type=int, default=5, help="Intervallo di report in secondi")
-    parser.add_argument("--out", default="ignis_load.csv", help="File di output CSV")
+    parser.add_argument("--out", default="load.csv", help="File di output CSV")
     args = parser.parse_args()
 
     print(f"Inizio monitoraggio PID {args.pid} "
