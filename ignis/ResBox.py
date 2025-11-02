@@ -314,7 +314,7 @@ class RowBox (Widget.Box):
             label.set_label(text)
     
     def update_value(self, temp, disk, volume):
-        if temp['value'] > 0:
+        if temp and temp['value'] > 0:
             self.cols[0].set_label(f'Temp {int(temp['value'])}°')
             self.cols[0].set_style(f'color:{gra(temp['warn']) if temp['sensor'] else 'inherit'};')
 
