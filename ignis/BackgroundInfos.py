@@ -78,7 +78,7 @@ class BackgroundInfos (Widget.Window):
                 self.battery_box.update_value(b)
             if 'ram' in rat: self.memory_used_box.update_value(rat['ram'])
             if 'network'in rat: self.network_box.update_value(rat['network'])
-            if 'loadavg' in rat: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=gra(rat['loadavg']['warn']))
+            if 'loadavg' in rat and rat['loadavg']: self.avg_load_label.update_value(f'{rat['loadavg']['m1']} {rat['loadavg']['m5']} {rat['loadavg']['m15']}', color=gra(rat['loadavg']['warn']))
             if 'temperature' in rat and 'disk' in rat and 'volume' in rat: self.multiline.update_value(rat['temperature'], rat['disk'], rat['volume'])
 
             if False: battery_eta = (1, 273, .95)
