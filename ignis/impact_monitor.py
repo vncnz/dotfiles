@@ -4,6 +4,26 @@ import time
 import math
 import argparse
 from datetime import datetime
+from subprocess import check_output
+
+def get_pid(name):
+    try:
+        return check_output(["pidof",name])
+    except:
+        return None
+
+def find_process_by_name(partial_name: str):
+    matches = []
+    for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+        try:
+            name = proc.info['name'] or ''
+            # cmdline = ' '.join(proc.info['cmdline'] or [])
+            if partial_name.lower() in name.lower(): # or partial_name.lower() in cmdline.lower():
+                matches.append(proc.info)
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+    return matches
+
 
 def estimate_microload(pid, sample_ms=50, report_interval=5):
     """Stima un 'micro load average' simile a quello del sistema."""
@@ -57,21 +77,52 @@ def estimate_microload(pid, sample_ms=50, report_interval=5):
             print("\nMonitoraggio interrotto.")
             break
 
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
 
 def main():
     parser = argparse.ArgumentParser(description="Monitora Ignis e stima micro-load isolato.")
-    parser.add_argument("pid", type=int, help="PID del processo Ignis")
+    parser.add_argument("pid", help="PID del processo Ignis")
     parser.add_argument("--sample-ms", type=int, default=50, help="Intervallo di campionamento in millisecondi")
     parser.add_argument("--report", type=int, default=5, help="Intervallo di report in secondi")
     parser.add_argument("--out", default="load.csv", help="File di output CSV")
     args = parser.parse_args()
 
-    print(f"Inizio monitoraggio PID {args.pid} "
+    if args.pid.isnumeric():
+        pid = int(args.pid)
+    else:
+        pid = get_pid(args.pid)
+        if not pid:
+            matches = find_process_by_name(args.pid)
+            if len(matches):
+                m = matches[0]
+                if len(matches) > 1:
+                    print('Multiple processes found, choosing the first')
+                    print(color.BOLD + f'{m['pid']} - {m['name']}' + color.END)
+                    for match in matches[1:]:
+                        print(f'{match['pid']} - {match['name']}')
+                else: print(f'One process found: {color.BOLD}{m['name']}{color.END}')
+                pid = int(m['pid'])
+            else:
+                print('No processes found')
+                exit(0)
+        else:
+            pid = int(pid)
+    print(f"Inizio monitoraggio PID {pid} "
           f"(sample={args.sample_ms}ms, report={args.report}s)...\n")
 
     with open(args.out, "w") as f:
         f.write("timestamp,microload,sysload,cpu,mem\n")
-        for data in estimate_microload(args.pid, args.sample_ms, args.report):
+        for data in estimate_microload(pid, args.sample_ms, args.report):
             f.write(
                 f"{data['timestamp']},{data['microload']:.2f},"
                 f"{data['sysload']:.2f},{data['cpu']:.1f},{data['mem']:.1f}\n"
