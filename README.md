@@ -61,10 +61,19 @@ The content of ```aliases``` is a list of my aliases.
 
 # Currently in use on my screen:
 - niri (Window manager)
-- ignis (Resources information, notifications, time, optional wallpaper)
+- ~~ignis (Resources information, notifications, time, optional wallpaper)~~
+- Heimdallr, a project of mine, as desktop-shell and notification manager
 - swww (for wallpaper management, alternative to the one integrated in Ignis)
 - wob (Audio and brightness bar visible briefly on changes)
 - Fuzzel, Fenrir (a project of mine) and Skoll (same) as launchers (I still have to decide)
+
+## Screenshots
+
+Heimdallr, neofetch and fenrir on kitty, two resource alarms (RAM and disk):
+![heimdallr fenrir neofetch](./screenshots/heimdallr%20and%20fenrir.png)
+
+Heimdallr, neofetch and fenrir on kitty, two resource alarms (RAM and disk), notification shown:
+![heimdallr fenrir neofetch notification](./screenshots/heimdallr%20and%20fenrir%20and%20notification.png)
 
 # Some tips
 - ```find /usr/share/icons ~/.local/share/icons ~/.icons -type d -name "cursors"``` lists all cursors installed in my system
