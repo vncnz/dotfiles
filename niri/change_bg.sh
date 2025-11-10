@@ -6,7 +6,6 @@
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
 SWWW_CMD="swww img"
 # TRANSITION_OPTS="--transition-type any --transition-duration 1"
-TRANSITION_OPTS="--transition-type wipe --transition-angle 30 --transition-step 30 --transition-fps 30 --transition-duration 0.5"
 
 # === FUNZIONI ===
 get_current_wallpaper() {
@@ -48,15 +47,15 @@ change_wallpaper() {
         new_index=0
     else
         case "$direction" in
-            next) new_index=$(( (current_index + 1) % count )) ;;
-            prev) new_index=$(( (current_index - 1 + count) % count )) ;;
+            next) new_index=$(( (current_index + 1) % count )); angle="30" ;;
+            prev) new_index=$(( (current_index - 1 + count) % count )); angle="210" ;;
             *) echo "Uso: $0 next | prev"; exit 1 ;;
         esac
     fi
 
     new_wallpaper="${wallpapers[$new_index]}"
     echo "✅ Setting $new_wallpaper"
-    $SWWW_CMD "$new_wallpaper" $TRANSITION_OPTS
+    $SWWW_CMD "$new_wallpaper" "--transition-type" "wipe" "--transition-angle" $angle "--transition-step" "30" "--transition-fps" "30" "--transition-duration" "0.5"
 }
 
 # === MAIN ===
