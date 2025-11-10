@@ -9,7 +9,7 @@ SWWW_CMD="swww img"
 
 # === FUNZIONI ===
 get_current_wallpaper() {
-    swww query | grep "image:" | sed 's/.*image: //'
+    swww query 2>/dev/null | grep "image:" | head -n 1 | sed 's/.*image: //'
 }
 
 get_all_wallpapers() {
@@ -21,7 +21,7 @@ change_wallpaper() {
     local current
     local wallpapers
     local count
-    local current_index
+    local current_index=-1
     local new_index
     local new_wallpaper
 
@@ -42,6 +42,7 @@ change_wallpaper() {
         fi
     done
 
+    angle="0"
     if [[ $current_index -eq -1 ]]; then
         echo "⚠️ Current wallpaper not found in folder. Selecting the first one"
         new_index=0
@@ -49,12 +50,40 @@ change_wallpaper() {
         case "$direction" in
             next) new_index=$(( (current_index + 1) % count )); angle="30" ;;
             prev) new_index=$(( (current_index - 1 + count) % count )); angle="210" ;;
+            next_folder)
+                local current_dir
+                current_dir=$(dirname "${wallpapers[$current_index]}")
+                new_index=$current_index
+                for (( i=1; i<=count; i++ )); do
+                    local test_index=$(( (current_index + i) % count ))
+                    local test_dir
+                    test_dir=$(dirname "${wallpapers[$test_index]}")
+                    if [[ "$test_dir" != "$current_dir" ]]; then
+                        new_index=$test_index
+                        break
+                    fi
+                done
+                ;;
+            prev_folder)
+                local current_dir
+                current_dir=$(dirname "${wallpapers[$current_index]}")
+                new_index=$current_index
+                for (( i=1; i<=count; i++ )); do
+                    local test_index=$(( (current_index - i + count) % count ))
+                    local test_dir
+                    test_dir=$(dirname "${wallpapers[$test_index]}")
+                    if [[ "$test_dir" != "$current_dir" ]]; then
+                        new_index=$test_index
+                        break
+                    fi
+                done
+                ;;
             *) echo "Uso: $0 next | prev"; exit 1 ;;
         esac
     fi
 
     new_wallpaper="${wallpapers[$new_index]}"
-    echo "✅ Setting $new_wallpaper"
+    echo "✅ Setting $new_wallpaper $angle"
     $SWWW_CMD "$new_wallpaper" "--transition-type" "wipe" "--transition-angle" $angle "--transition-step" "30" "--transition-fps" "30" "--transition-duration" "0.5"
 }
 
