@@ -558,6 +558,10 @@ binds {
 
     Ctrl+Alt+Right { spawn-sh "~/.config/niri/change_bg.sh next"; }
     Ctrl+Alt+Left { spawn-sh "~/.config/niri/change_bg.sh prev"; }
+
+    Ctrl+Shift+Down { spawn-sh "echo hide_notification > /tmp/heimdallr_cmds"; }
+    Ctrl+Shift+Left { spawn-sh "echo prev_notification > /tmp/heimdallr_cmds"; }
+    Ctrl+Shift+Right { spawn-sh "echo next_notification > /tmp/heimdallr_cmds"; }
 }
 
 animations {
