@@ -13,8 +13,11 @@ get_current_wallpaper() {
 }
 
 get_all_wallpapers() {
-    find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | sort
+    find "$WALLPAPER_DIR" -type f \
+        \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
+        -print | sort
 }
+
 
 change_wallpaper() {
     local direction="$1"
@@ -78,7 +81,9 @@ change_wallpaper() {
                     fi
                 done
                 ;;
-            *) echo "Uso: $0 next | prev"; exit 1 ;;
+            random)
+                new_index=$(( RANDOM % count )) ;;
+            *) echo "Uso: $0 next | prev | next_folder | prev_folder | random"; exit 1 ;;
         esac
     fi
 

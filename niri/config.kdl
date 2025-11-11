@@ -558,6 +558,7 @@ binds {
 
     Ctrl+Alt+Right { spawn-sh "~/.config/niri/change_bg.sh next"; }
     Ctrl+Alt+Left { spawn-sh "~/.config/niri/change_bg.sh prev"; }
+    Ctrl+Alt+Down { spawn-sh "~/.config/niri/change_bg.sh random"; }
     Ctrl+Alt+Shift+Right { spawn-sh "~/.config/niri/change_bg.sh next_folder"; }
     Ctrl+Alt+Shift+Left { spawn-sh "~/.config/niri/change_bg.sh prev_folder"; }
 
