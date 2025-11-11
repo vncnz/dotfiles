@@ -328,7 +328,7 @@ binds {
     KP_Left { toggle-overview; }
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
-    Super+L hotkey-overlay-title="Lock the screen" { spawn-sh "swaylock -i ~/.config/wallpaper.jpg --show-keyboard-layout --show-failed-attempts"; }
+    Super+L hotkey-overlay-title="Lock the screen" { spawn-sh "~/.config/niri/lock.sh"; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
