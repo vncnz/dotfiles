@@ -62,10 +62,10 @@ The content of ```aliases``` is a list of my aliases.
 # Currently in use on my screen:
 - niri (Window manager)
 - ~~ignis (Resources information, notifications, time, optional wallpaper)~~
-- Heimdallr, a project of mine, as desktop-shell and notification manager
-- swww (for wallpaper management, alternative to the one integrated in Ignis)
+- [Heimdallr](https://github.com/vncnz/heimdallr), a project of mine, as desktop-shell and notification manager
+- swww (for wallpaper management)
 - wob (Audio and brightness bar visible briefly on changes)
-- Fuzzel, Fenrir (a project of mine) and Skoll (same) as launchers (I still have to decide)
+- Fuzzel, [Fenrir](https://github.com/vncnz/fenrir) (a project of mine) and Skoll (same) as launchers (I still have to decide)
 
 ## Screenshots
 
