@@ -233,8 +233,8 @@ layout {
     struts {
         left 22
         right 22
-        top 0
-        bottom 0
+        top 4
+        bottom 4
     }
 }
 
@@ -245,10 +245,11 @@ layout {
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 spawn-sh-at-startup "~/.config/niri/run_wob.sh"
-spawn-sh-at-startup "~/.config/niri/ratatoskr"
+spawn-sh-at-startup "~/.config/niri/sock-ratatoskr"
 spawn-sh-at-startup "swww-daemon"
-spawn-sh-at-startup "ignis init"
+// spawn-sh-at-startup "ignis init"
 spawn-sh-at-startup "niri-screen-time -daemon"
+spawn-sh-at-startup "~/.config/niri/heimdallr"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -309,7 +310,8 @@ binds {
     Mod+Shift+BackSlash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T { spawn "alacritty"; }
+    Mod+Shift+T { spawn "alacritty"; }
+    Mod+T { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Spawn fenrir launcher" { spawn-sh "kitty -e ~/.config/niri/fenrir"; }
     // Mod+Shift+T { spawn "~/Repositories/dotfiles/niri/exec_cmd_with_fuzzel.sh"; }
     // Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
@@ -743,7 +745,7 @@ window-rule {
     match title=r#".* Deleting .*"# app-id="nemo" is-floating=true
     match title=r#".* Copying .*"# app-id="nemo" is-floating=true
     match title=r#".* Moving .*"# app-id="nemo" is-floating=true
-    default-floating-position x=12 y=12 relative-to="bottom-right"
+    default-floating-position x=12 y=12 relative-to="bottom"
     baba-is-float true
 
     focus-ring {
