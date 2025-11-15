@@ -1,0 +1,8 @@
+[Nemo Action]
+Name=Set as Wallpaper (swww)
+Comment=Set the selected image as wallpaper using swww
+Exec=bash -c 'set -- %F; swww img "$1"'
+Icon=preferences-desktop-wallpaper
+Selection=any
+Extensions=png;jpg;jpeg;webp;avif;bmp;tiff;gif
+Quote=double
