@@ -15,9 +15,10 @@ get_current_wallpaper() {
 get_all_wallpapers() {
     find "$WALLPAPER_DIR" -type f \
         \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
-        -print | sort
+        -print0 \
+    | sort -z 2>/dev/null || cat
+    # NOTE: output is NUL-separated
 }
-
 
 change_wallpaper() {
     local direction="$1"
@@ -28,7 +29,8 @@ change_wallpaper() {
     local new_index
     local new_wallpaper
 
-    wallpapers=($(get_all_wallpapers))
+    # wallpapers=($(get_all_wallpapers))
+    mapfile -d $'\0' -t wallpapers < <(get_all_wallpapers)
     count=${#wallpapers[@]}
 
     if [[ $count -eq 0 ]]; then
