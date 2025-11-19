@@ -39,7 +39,6 @@ The content of ```aliases``` is a list of my aliases.
 |pacman | swaylock                 | lock screen
 |       | pika-backup              | backup system
 |       | wl-clipboard             | for wl-copy in pipeline with cmds
-|       | skoll                    | launcher - personal project
 |pacman | iwd impala               | for wireless management through a TUI
 |pacman | nmtui                    | for wireless management through a TUI
 |pacman | bluetui                  | for bluetooth management through a TUI
@@ -65,7 +64,7 @@ The content of ```aliases``` is a list of my aliases.
 - [Heimdallr](https://github.com/vncnz/heimdallr), a project of mine, as desktop-shell and notification manager
 - swww (for wallpaper management)
 - wob (Audio and brightness bar visible briefly on changes)
-- Fuzzel, [Fenrir](https://github.com/vncnz/fenrir) (a project of mine) and Skoll (same) as launchers (I still have to decide)
+- Fuzzel, [Fenrir](https://github.com/vncnz/fenrir) (a project of mine) and [Skoll](https://github.com/vncnz/skoll) (same) as launchers (I still have to decide)
 
 ## Screenshots
 
