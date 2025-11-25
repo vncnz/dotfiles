@@ -313,6 +313,7 @@ binds {
     Mod+Shift+T { spawn "alacritty"; }
     Mod+T { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Spawn fenrir launcher" { spawn-sh "kitty -e ~/.config/niri/fenrir"; }
+    Mod+G hotkey-overlay-title="Spawn galdrar" { spawn-sh "kitty -e ~/.config/niri/galdrar"; }
     // Mod+Shift+T { spawn "~/Repositories/dotfiles/niri/exec_cmd_with_fuzzel.sh"; }
     // Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
     // Mod+W { toggle-column-tabbed-display; }
