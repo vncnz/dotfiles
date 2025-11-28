@@ -57,6 +57,7 @@ The content of ```aliases``` is a list of my aliases.
 |yay    | btop                     | htop alternative
 |pacman | tig                      | Git log viewer TUI
 |pacman | entr                     | File watcher that re-exec cmd on file updates
+|pacman | bandwhich                | Network monitor
 
 # Currently in use on my screen:
 - niri (Window manager)
