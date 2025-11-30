@@ -292,6 +292,7 @@ window-rule {
 
 // Supported from next release (now is 25.08)!
 // include "config_binds.kdl"
+include "config_machine.kdl"
 
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
