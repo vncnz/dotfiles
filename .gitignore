@@ -12,3 +12,4 @@ settings.json
 *_bck.qml
 quickshell_noctalia/
 ignis/__pycache__/*.pyc
+niri/config_machine.kdl
