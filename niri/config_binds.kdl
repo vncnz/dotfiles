@@ -33,7 +33,8 @@ binds {
     // Mod+N { spawn "networkmanager_dmenu" "-w" "50"; }
     Mod+b hotkey-overlay-title="Spawn btop" { spawn-sh "kitty -e btop"; }
     MouseMiddle { toggle-overview; }
-    KP_Begin { spawn-sh "~/.config/niri/fuzzel_windows.sh"; } // KP_begin is the central key in numeric keypad
+    KP_Begin { toggle-overview; } // KP_begin is the central key in numeric keypad
+    // KP_Begin { spawn-sh "~/.config/niri/fuzzel_windows.sh"; } 
 
     // printf "yes\nno" | fuzzel -p "Are you sure?" -d
     Super+L hotkey-overlay-title="Lock the screen" { spawn-sh "~/.config/niri/lock.sh"; }
@@ -264,15 +265,11 @@ binds {
     // Ctrl+Alt+Left { spawn-sh "echo \"wallpaper_prev\" > ~/.config/ignis/control"; }
     // Ctrl+Alt+Up { spawn-sh "echo \"theme_toggle\" > ~/.config/ignis/control"; }
 
-    // Ctrl+Alt+Right { spawn-sh "~/.config/niri/change_bg.sh next"; }
-    // Ctrl+Alt+Left { spawn-sh "~/.config/niri/change_bg.sh prev"; }
-    // Ctrl+Alt+Down { spawn-sh "~/.config/niri/change_bg.sh random"; }
-
     Ctrl+KP_Right { spawn-sh "~/.config/niri/change_bg.sh next"; }
     Ctrl+KP_Begin { spawn-sh "~/.config/niri/change_bg.sh random"; }
     Ctrl+KP_left { spawn-sh "~/.config/niri/change_bg.sh prev"; }
-    Ctrl+Alt+Shift+Right { spawn-sh "~/.config/niri/change_bg.sh next_folder"; }
-    Ctrl+Alt+Shift+Left { spawn-sh "~/.config/niri/change_bg.sh prev_folder"; }
+    Ctrl+Shift+KP_Right { spawn-sh "~/.config/niri/change_bg.sh next_folder"; }
+    Ctrl+Shift+KP_left { spawn-sh "~/.config/niri/change_bg.sh prev_folder"; }
 
     Ctrl+Shift+Down { spawn-sh "echo hide_notification > /tmp/heimdallr_cmds"; }
     Ctrl+Shift+Left { spawn-sh "echo prev_notification > /tmp/heimdallr_cmds"; }
