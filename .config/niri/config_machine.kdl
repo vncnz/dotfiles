@@ -1,0 +1,14 @@
+environment {
+    LIBGL_ALWAYS_SOFTWARE "1"
+}
+
+input {
+    focus-follows-mouse max-scroll-amount="10%"
+
+    keyboard {
+        xkb {
+            layout "us"
+            variant "intl"
+        }
+    }
+}

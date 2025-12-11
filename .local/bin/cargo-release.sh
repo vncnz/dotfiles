@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-DEST_DIR="$HOME/.config/niri"
+DEST_DIR="$HOME/.local/bin"
 
 # Se viene passato un argomento, è il nome del binario
 if [[ -n "$1" ]]; then

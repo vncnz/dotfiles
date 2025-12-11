@@ -17,14 +17,13 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Shift+T { spawn "alacritty"; }
     Mod+T { spawn "kitty"; }
-    Mod+Space hotkey-overlay-title="Spawn fenrir launcher" { spawn-sh "kitty -e ~/.config/niri/fenrir"; }
-    Mod+G hotkey-overlay-title="Spawn galdrar" { spawn-sh "kitty -e ~/.config/niri/galdrar"; }
+    Mod+Space hotkey-overlay-title="Spawn fenrir launcher" { spawn-sh "kitty --single-instance -e fenrir"; }
+    Mod+G hotkey-overlay-title="Spawn galdrar" { spawn-sh "kitty -e galdrar"; }
     // Mod+Shift+T { spawn "~/Repositories/dotfiles/niri/exec_cmd_with_fuzzel.sh"; }
     // Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
     // Mod+W { toggle-column-tabbed-display; }
     Mod+D hotkey-overlay-title="Spawn fuzzel launcher" { spawn "fuzzel"; }
-    Mod+Shift+D hotkey-overlay-title="Spawn skoll launcher" { spawn "~/Repositories/dotfiles/niri/skoll"; }
-    Mod+Ctrl+D hotkey-overlay-title="Spawn fenrir launcher" { spawn-sh "kitty --single-instance -e ~/Repositories/dotfiles/niri/fenrir"; }
+    Mod+Shift+D hotkey-overlay-title="Spawn skoll launcher" { spawn "skoll"; }
     Mod+O hotkey-overlay-title="Fuzzel calculator" { spawn "~/Repositories/dotfiles/niri/fuzzel-calculator.sh"; }
     // Mod+O hotkey-overlay-title="Spawn app selector in fuzzel" { spawn "~/.config/eww/scripts/niri_spaces.sh"; }
     Mod+P hotkey-overlay-title="Spawn session control in fuzzel" { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
@@ -36,11 +35,7 @@ binds {
     KP_Begin { toggle-overview; } // KP_begin is the central key in numeric keypad
     // KP_Begin { spawn-sh "~/.config/niri/fuzzel_windows.sh"; } 
 
-    // printf "yes\nno" | fuzzel -p "Are you sure?" -d
-    Super+L hotkey-overlay-title="Lock the screen" { spawn-sh "~/.config/niri/lock.sh"; }
-
-    // You can also use a shell:
-    // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
+    Super+L hotkey-overlay-title="Lock the screen" { spawn-sh "lock.sh"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -50,17 +45,15 @@ binds {
     // XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     // XF86AudioRaiseVolume allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "volume_up"; }
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "volume" "up"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "osdslider.sh volume up"; }
     // XF86AudioLowerVolume allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "volume_down"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "volume" "down"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "osdslider.sh volume down"; }
     // XF86AudioMute        allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "volume_mute"; }
-    XF86AudioMute        allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "volume" "mute"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "osdslider.sh volume mute"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "mic_mute"; }
 
-    // XF86MonBrightnessUp allow-when-locked=true { spawn "~/.config/eww/scripts/brightness.sh" "set" "5%+"; }
-    // XF86MonBrightnessDown allow-when-locked=true { spawn "~/.config/eww/scripts/brightness.sh" "set" "5%-"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "brightness" "up"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "~/.config/niri/osdslider.sh" "brightness" "down"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "osdslider.sh brightness up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "osdslider.sh brightness down"; }
 
     // XF86MonBrightnessUp allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "brightness_up"; }
     // XF86MonBrightnessDown allow-when-locked=true { spawn "~/.config/eww/scripts/notif.sh" "brightness_down"; }
@@ -261,15 +254,11 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 
-    // Ctrl+Alt+Right { spawn-sh "echo \"wallpaper_next\" > ~/.config/ignis/control"; }
-    // Ctrl+Alt+Left { spawn-sh "echo \"wallpaper_prev\" > ~/.config/ignis/control"; }
-    // Ctrl+Alt+Up { spawn-sh "echo \"theme_toggle\" > ~/.config/ignis/control"; }
-
-    Ctrl+KP_Right { spawn-sh "~/.config/niri/change_bg.sh next"; }
-    Ctrl+KP_Begin { spawn-sh "~/.config/niri/change_bg.sh random"; }
-    Ctrl+KP_left { spawn-sh "~/.config/niri/change_bg.sh prev"; }
-    Ctrl+Shift+KP_Right { spawn-sh "~/.config/niri/change_bg.sh next_folder"; }
-    Ctrl+Shift+KP_left { spawn-sh "~/.config/niri/change_bg.sh prev_folder"; }
+    Ctrl+KP_Right { spawn-sh "change_bg.sh next"; }
+    Ctrl+KP_Begin { spawn-sh "change_bg.sh random"; }
+    Ctrl+KP_left { spawn-sh "change_bg.sh prev"; }
+    Ctrl+Shift+KP_Right { spawn-sh "change_bg.sh next_folder"; }
+    Ctrl+Shift+KP_left { spawn-sh "change_bg.sh prev_folder"; }
 
     Ctrl+Shift+Down { spawn-sh "echo hide_notification > /tmp/heimdallr_cmds"; }
     Ctrl+Shift+Left { spawn-sh "echo prev_notification > /tmp/heimdallr_cmds"; }

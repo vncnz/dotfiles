@@ -2,7 +2,7 @@
 README.md
 \.git
 \.gitignore
-wallpaper[\d]+.jpg
+wallpaper[\d]?.jpg
 
 # Scripts
 wallpaper_download.py

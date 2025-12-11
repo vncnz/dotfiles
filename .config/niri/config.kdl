@@ -242,11 +242,11 @@ layout {
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 spawn-sh-at-startup "~/.config/niri/run_wob.sh"
-spawn-sh-at-startup "~/.config/niri/sock-ratatoskr"
+spawn-sh-at-startup "sock-ratatoskr"
 spawn-sh-at-startup "swww-daemon"
 // spawn-sh-at-startup "ignis init"
 spawn-sh-at-startup "niri-screen-time -daemon"
-spawn-sh-at-startup "~/.config/niri/heimdallr"
+spawn-sh-at-startup "heimdallr"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -401,11 +401,41 @@ overview {
     // hot-corners { off }
 
     workspace-shadow {
-        off
-        softness 0
-        spread 5
+        // off
+        softness 20
+        spread 3
         offset x=0 y=0
-        color "#ffffffff"
+        color "#ffffff99"
+    }
+}
+
+recent-windows {
+    // off
+    debounce-ms 750
+    open-delay-ms 250
+
+    highlight {
+        active-color "#99ddccff"
+        urgent-color "#ff9999ff"
+        padding 2
+        corner-radius 8
+    }
+
+    previews {
+        // max-height 480
+        max-scale 0.35
+    }
+
+    binds {
+        Alt+Tab         { next-window; }
+        // Alt+Shift+Tab   { previous-window; }
+        // Alt+grave       { next-window     filter="app-id"; }
+        // Alt+Shift+grave { previous-window filter="app-id"; }
+
+        // Mod+Tab         { next-window; }
+        // Mod+Shift+Tab   { previous-window; }
+        // Mod+grave       { next-window     filter="app-id"; }
+        // Mod+Shift+grave { previous-window filter="app-id"; }
     }
 }
 
@@ -414,11 +444,12 @@ xwayland-satellite {
     // path "xwayland-satellite"
 }
 
-// Put swaybg inside the overview backdrop
-/* layer-rule {
-    match namespace="^wallpaper$"
+layer-rule {
+    // match namespace="^wallpaper$"
+    match namespace="swww-daemon"
     place-within-backdrop true
-} */
+    // opacity 0.5
+}
 
 workspace "default"
 // workspace "work"
@@ -533,19 +564,14 @@ window-rule {
 } */
 
 window-rule {
-  match app-id="firefox"
-  exclude title="Open File"
-  exclude title="About"
-  exclude title="Library"
-  exclude title="Preferences"
-//  match app-id="com.raggesilver.BlackBox"
-//  match app-id="google-chrome"
-//  match app-id="org.telegram.desktop"
-//  match app-id="libreoffice-calc"
-//  match app-id="libreoffice-writer"
-//  default-column-width { proportion 1.0; }
-  open-maximized true
-  focus-ring {
+    match app-id="firefox"
+    exclude title="Open File"
+    exclude title="About"
+    exclude title="Library"
+    exclude title="Preferences"
+    // default-column-width { proportion 1.0; }
+    open-maximized true
+    focus-ring {
         // Colors can be set in a variety of ways:
         // - CSS named colors: "red"
         // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
@@ -555,5 +581,5 @@ window-rule {
         // active-color "#ffc8ff"
         // Color of the ring on inactive monitors.
         // inactive-color "#805050"
-  }
+    }
 }

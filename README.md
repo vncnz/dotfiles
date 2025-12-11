@@ -6,16 +6,8 @@ A simple repository for my dotfiles
 
 ```
 cd ~/Repositories/dotfiles/
-stow . -t ~/.config
+stow -t ~ .
 ```
-
-# Nemo configuration
-
-The content of ```nemo_actions``` folder can be manually moved/copied in ```~/.local/share/nemo/actions/``` in order to add my custom actions to Nemo context menu.
-
-# Custom aliases
-
-The content of ```aliases``` is a list of my aliases.
 
 # Other packages used
 (Deprecated if between braches)
