@@ -14,7 +14,7 @@ get_current_wallpaper() {
 
 get_all_wallpapers() {
     find "$WALLPAPER_DIR" -type f \
-        \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
+        \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) \
         -print0 \
     | sort -z 2>/dev/null || cat
     # NOTE: output is NUL-separated
