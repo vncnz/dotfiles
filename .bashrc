@@ -7,8 +7,12 @@
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+
 PS1='[\u@\h \W]\$ '
 alias gitdraw="git log --graph --abbrev-commit --decorate --format=format:'%C(yellow)%h%C(reset)%C(auto)%d%C(reset) %C(normal)%s%C(reset) %C(dim white)%an%C(reset) %C(dim blue)(%ar)%C     (reset)' --all"
+
+# Make rm always interactive. If you want to remove a lot of files without confirm, you can pipeline yes and rm (yes | rm ...)
+alias rm='rm -i'
 
 shutdown() {
     # read -r -p "Shutdown the system? [y/N] " ans
