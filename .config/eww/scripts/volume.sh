@@ -36,8 +36,12 @@ get_percentage () {
   fi
 }
 
+get_headphones () {
+  pactl list sinks | grep "Active Port" | grep "headphones" | wc -l
+}
+
 get_icon () {
-  local headphones=$(pactl list sinks | grep "Active Port" | grep "headphones" | wc -l)
+  local headphones=$(get_headphones)
   if [[ $headphones == "1" ]]; then
     echo ""
   else
@@ -65,10 +69,11 @@ get_vol () {
 }
 
 get_json () {
+  HEADPHONES=$(get_headphones)
   PERCENTAGE=$(get_vol)
   ICON=$(get_icon)
   CLAZZ=$(get_class)
-  echo '{"value": '$PERCENTAGE', "icon": "'"$ICON"'", "clazz": "'"$CLAZZ"'"}'
+  echo '{"value": '$PERCENTAGE', "icon": "'"$ICON"'", "clazz": "'"$CLAZZ"'", "headphones": '"$HEADPHONES"'}'
 }
 
 if [[ $1 == "json" ]]; then
