@@ -51,6 +51,7 @@ stow -t ~ .
 |pacman | entr                     | File watcher that re-exec cmd on file updates
 |pacman | bandwhich                | Network monitor
 |pacman | bat                      | Quick text file viewer in terminal with syntx highlighting
+|pacman | exiftool                 | Read and write meta information in file
 
 # Currently in use on my screen:
 - niri (Window manager)
