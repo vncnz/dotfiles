@@ -25,5 +25,46 @@ reboot() {
     [[ $ans =~ ^[yY](es)?$ ]] && systemctl reboot
 }
 
+ff720() {
+  if [ -z "$1" ]; then
+    echo "Use: ff720 <file_input> [crf]"
+    return 1
+  fi
+
+  input="$1"
+  crf="${2:-22}"
+  output="${input%.*}_720p_hevc.mkv"
+
+  ffmpeg -i "$input" \
+    -map 0:v:0 -map 0:a? \
+    -map 0:s? \
+    -vf "scale=-2:720" \
+    -c:v libx265 -preset medium -crf "$crf" \
+    -c:a copy \
+    "$output"
+}
+
+ff720hw () {
+    if [ -z "$1" ]; then
+    echo "Use: ff720 <file_input> [crf]"
+    return 1
+  fi
+
+  input="$1"
+  bitrate="${2:-2500}"
+  output="${input%.*}_720p_hevc_hw.mkv"
+
+  ffmpeg -hwaccel vaapi -vaapi_device /dev/dri/renderD128 \
+    -i "$input" \
+    -map 0:s? \
+    -vf 'format=nv12,hwupload,scale_vaapi=w=-2:h=720' \
+    -c:v hevc_vaapi -rc_mode VBR -b:v "${bitrate}k" -maxrate 3500k -bufsize 5000k \
+    -c:a copy \
+    "$output"
+  # -c:v hevc_vaapi -qp "$qp" \
+  # -c:v hevc_vaapi -rc_mode ICQ -global_quality 27 \
+}
+
+
 # Add user-specific bin directory to PATH
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
