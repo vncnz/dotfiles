@@ -32,6 +32,10 @@ reboot() {
     [[ $ans =~ ^[yY](es)?$ ]] && systemctl reboot
 }
 
+calc () {
+    awk "BEGIN{print $*}";
+}
+
 ff720() {
   if [ -z "$1" ]; then
     echo "Use: ff720 <file_input> [crf]"
