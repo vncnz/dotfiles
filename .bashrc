@@ -18,7 +18,14 @@ command -v xo > /dev/null || xo () {
   # nohup xdg-open "$1" > /dev/null 2>&1 &
   setsid xdg-open "$1" > /dev/null 2>&1 &
   disown
-  echo -e "\n\033[0;32m\033[1mDetached open request sent\033[0m"
+  echo -e "\n\033[0;32m\033[1mDetached open request sent for $1\033[0m"
+}
+
+command -v deta > /dev/null || deta () {
+  # nohup xdg-open "$1" > /dev/null 2>&1 &
+  setsid $1 > /dev/null 2>&1 &
+  disown
+  echo -e "\n\033[0;32m\033[1mDetached $1 started\033[0m"
 }
 
 shutdown() {
