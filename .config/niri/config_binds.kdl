@@ -216,6 +216,7 @@ binds {
     Mod+Shift+R { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+W { toggle-window-floating; }
+    Mod+Shift+W { switch-focus-between-floating-and-tiling; }
     Mod+Shift+F { fullscreen-window; }
     Mod+C { center-column; }
 
