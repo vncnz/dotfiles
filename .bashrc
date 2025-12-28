@@ -14,16 +14,27 @@ alias gitdraw="git log --graph --abbrev-commit --decorate --format=format:'%C(ye
 # Make rm always interactive. If you want to remove a lot of files without confirm, you can pipeline yes and rm (yes | rm ...)
 alias rm='rm -i'
 
-command -v xo > /dev/null || xo () {
-  # nohup xdg-open "$1" > /dev/null 2>&1 &
-  setsid xdg-open "$1" > /dev/null 2>&1 &
-  disown
-  echo -e "\n\033[0;32m\033[1mDetached open request sent for $1\033[0m"
-}
+if ! command -v xo >/dev/null; then
+  command -v xo > /dev/null || xo () {
+    # nohup xdg-open "$1" > /dev/null 2>&1 &
+    setsid xdg-open "$1" > /dev/null 2>&1 &
+    disown
+    echo -e "\n\033[0;32m\033[1mDetached open request sent for $1\033[0m"
+  }
+
+  _xo_complete() {
+    local cur
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    COMPREPLY=( $(compgen -f -- "$cur") )
+  }
+
+  complete -F _xo_complete xo
+
+fi
 
 
 # command -v deta > /dev/null || deta () {
-if ! command -v detaa >/dev/null; then
+if ! command -v deta >/dev/null; then
   deta () {
     # nohup xdg-open "$1" > /dev/null 2>&1 &
     setsid $1 > /dev/null 2>&1 &
