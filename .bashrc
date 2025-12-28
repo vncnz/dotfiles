@@ -21,12 +21,29 @@ command -v xo > /dev/null || xo () {
   echo -e "\n\033[0;32m\033[1mDetached open request sent for $1\033[0m"
 }
 
-command -v deta > /dev/null || deta () {
-  # nohup xdg-open "$1" > /dev/null 2>&1 &
-  setsid $1 > /dev/null 2>&1 &
-  disown
-  echo -e "\n\033[0;32m\033[1mDetached $1 started\033[0m"
-}
+
+# command -v deta > /dev/null || deta () {
+if ! command -v detaa >/dev/null; then
+  deta () {
+    # nohup xdg-open "$1" > /dev/null 2>&1 &
+    setsid $1 > /dev/null 2>&1 &
+    disown
+    echo -e "\n\033[0;32m\033[1mDetached $1 started\033[0m"
+  }
+
+  _customrun_complete() {
+      local cur
+      cur="${COMP_WORDS[COMP_CWORD]}"
+
+      COMPREPLY=( $(compgen -c -- "$cur") )
+  }
+
+  complete -F _customrun_complete deta
+fi
+
+
+
+
 
 shutdown() {
     # read -r -p "Shutdown the system? [y/N] " ans
