@@ -33,6 +33,7 @@ binds {
     MouseMiddle { toggle-overview; }
     KP_Begin { toggle-overview; } // KP_begin is the central key in numeric keypad
     // KP_Begin { spawn-sh "~/.config/niri/fuzzel_windows.sh"; } 
+    Mod+e { spawn-sh "unipicker --command \"fuzzel --dmenu\" --copy-command \"wl-copy\""; }
 
     Super+L hotkey-overlay-title="Lock the screen" { spawn-sh "lock.sh"; }
 
@@ -253,4 +254,6 @@ binds {
     Ctrl+Shift+Down { spawn-sh "echo hide_notification > /tmp/heimdallr_cmds"; }
     Ctrl+Shift+Left { spawn-sh "echo prev_notification > /tmp/heimdallr_cmds"; }
     Ctrl+Shift+Right { spawn-sh "echo next_notification > /tmp/heimdallr_cmds"; }
+
+
 }

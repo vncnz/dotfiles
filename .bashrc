@@ -30,6 +30,8 @@ PS1='[\u@\h \W]\$ '
 # Throw it all together 
 # PS1="${RESET}\[\033[177;1m\]\h${NORMAL} \`${SELECT}\` ${YELLOW}>${NORMAL} "
 
+alias emo="unipicker --copy-command \"wl-copy\""
+
 alias gitdraw="git log --graph --abbrev-commit --decorate --format=format:'%C(yellow)%h%C(reset)%C(auto)%d%C(reset) %C(normal)%s%C(reset) %C(dim white)%an%C(reset) %C(dim blue)(%ar)%C     (reset)' --all"
 
 # Make rm always interactive. If you want to remove a lot of files without confirm, you can pipeline yes and rm (yes | rm ...)
