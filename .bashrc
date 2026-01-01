@@ -12,6 +12,24 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
 PS1='[\u@\h \W]\$ '
+
+# PS1="\[\e[00;32m\][\u / \W]\[\e[0m\] "
+
+# PS1=" \$(if [ \$? -eq 0 ]; then echo '\e[32m✔\e[0m'; else echo '\e[31m✘\e[0m'; fi) \u \w > "
+# PS1="\${?#0} \$ "
+
+
+# RESET="\[\017\]"
+# NORMAL="\[\033[0m\]"
+# RED="\[\033[31;1m\]"
+# YELLOW="\[\033[33;1m\]"
+# WHITE="\[\033[37;1m\]"
+# SMILEY="${WHITE}:)${NORMAL}"
+# FROWNY="${RED}:(${NORMAL}"
+# SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
+# Throw it all together 
+# PS1="${RESET}\[\033[177;1m\]\h${NORMAL} \`${SELECT}\` ${YELLOW}>${NORMAL} "
+
 alias gitdraw="git log --graph --abbrev-commit --decorate --format=format:'%C(yellow)%h%C(reset)%C(auto)%d%C(reset) %C(normal)%s%C(reset) %C(dim white)%an%C(reset) %C(dim blue)(%ar)%C     (reset)' --all"
 
 # Make rm always interactive. If you want to remove a lot of files without confirm, you can pipeline yes and rm (yes | rm ...)
