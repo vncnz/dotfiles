@@ -53,6 +53,7 @@ stow -t ~ .
 |pacman | bat                      | Quick text file viewer in terminal with syntx highlighting
 |pacman | dictd                    | Dictionary lookup in the terminal
 |pacman | exiftool                 | Read and write meta information in file
+|yay    | unipicker                | Find an unicode character (emojis included) through fzf or custom dmenu-like program
 
 # Currently in use on my screen:
 - niri (Window manager)
