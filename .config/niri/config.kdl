@@ -520,6 +520,14 @@ window-rule {
 }
 
 window-rule {
+    match title="ratatoskr-ui"
+    open-maximized true
+    open-fullscreen false
+
+    // max-width 700
+}
+
+window-rule {
     match app-id="org.freedesktop.Xwayland"
     open-maximized true
 }
