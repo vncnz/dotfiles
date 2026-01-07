@@ -40,8 +40,8 @@ stow -t ~ .
 |pacman | lf                       | for file exploring through a TUI
 |pacman | texlive-luatex           | latex
 |pacman | power-profiles-daemon    | Power management
-|yay    | matugen                  | generate colors for wallpaper
-|pacman | python-ignis             | Alternative for quickshell/eww, swaync, swaybg
+|yay    | (matugen)                | generate colors for wallpaper
+|pacman | (python-ignis)           | Alternative for quickshell/eww, swaync, swaybg
 |pacman | swww                     | Wallpaper manager with nice transition
 |yay    | wob                      | Lightweight overlay bar for volume and brightness
 |pacman | termdown                 | An utility for timers and countdowns
@@ -75,9 +75,5 @@ Heimdallr, neofetch and fenrir on kitty, two resource alarms (RAM and disk), not
 - ```find /usr/share/icons ~/.local/share/icons ~/.icons -type d -name "cursors"``` lists all cursors installed in my system
 
 # Next steps
-- handle notification bursts by introducing a short delay and showing only the latest one
-- special management for reboot request by pacman via notification (for example, reboot icon in Foreground widget instead of the usual bell icon)
 - better theme using / color computing
-- evaluate to make matugen optional and insert colors in settings.json
-- evaluate to make swww optional
 - show song info / lyrics in overpression?
