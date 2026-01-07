@@ -230,8 +230,8 @@ layout {
     struts {
         left 22
         right 22
-        top 4
-        bottom 4
+        top 0
+        bottom 0
     }
 }
 
@@ -396,14 +396,14 @@ animations {
 }
 
 overview {
-    backdrop-color "#000000"
+    // backdrop-color "#000000"
     zoom 0.35
     // hot-corners { off }
 
     workspace-shadow {
-        // off
+        off
         softness 20
-        spread 3
+        spread 20
         offset x=0 y=0
         color "#ffffff99"
     }
