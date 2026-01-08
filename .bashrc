@@ -134,6 +134,41 @@ ff720hw () {
   # -c:v hevc_vaapi -rc_mode ICQ -global_quality 27 \
 }
 
+music() {
+  echo "$@"
+  if [ -t 0 ]; then
+    kmp3 -v 100 /run/media/vncnz/Dati/Music/$@
+  else
+    kmp3 -v 100
+  fi
+}
+
+_music_complete() {
+  local base="/run/media/vncnz/Dati/Music"
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+
+  # If globbing is already in play, do nothing
+  [[ "$cur" == *[\*\?\[]* ]] && return 0
+
+  local IFS=$'\n'
+  local matches=($(compgen -f -- "$base/$cur"))
+
+  COMPREPLY=()
+  for m in "${matches[@]}"; do
+    local rel="${m#$base/}"
+    if [ -d "$m" ]; then
+      COMPREPLY+=( "$rel/" )
+    else
+      COMPREPLY+=( "$rel" )
+    fi
+  done
+}
+
+
+complete -o nospace -F _music_complete music
+
+
+
 
 # Add user-specific bin directory to PATH
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
