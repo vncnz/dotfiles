@@ -135,7 +135,6 @@ ff720hw () {
 }
 
 music() {
-  echo "$@"
   if [ -t 0 ]; then
     kmp3 -v 100 /run/media/vncnz/Dati/Music/$@
   else
