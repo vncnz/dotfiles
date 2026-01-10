@@ -134,6 +134,30 @@ ff720hw () {
   # -c:v hevc_vaapi -rc_mode ICQ -global_quality 27 \
 }
 
+mp () {
+  local base="/run/media/vncnz/Dati/Music"
+
+(
+  cd $base || exit
+  local selection
+  selection=$(find . -type f |
+              fzf --multi --extended --exact --highlight-line \
+                  --delimiter='/' --nth=1,2,3 --with-nth=2..\
+                  --bind 'ctrl-t:toggle-all' \
+                  --bind 'tab:toggle+up' \
+                  --bind 'ctrl-a:select-all' \
+                  --bind 'ctrl-d:clear-multi')
+                  # --prompt="🎵 ")
+  # Add --exact or keep fuzzy search?
+
+  if [ -n "$selection" ]; then
+    printf '%s\n' "$selection" | kmp3 -v 100
+  #else
+  #   find . -type f | kmp3 -v 100
+  fi
+)
+}
+
 music() {
   if [ -t 0 ]; then
     kmp3 -v 100 /run/media/vncnz/Dati/Music/$@
@@ -165,8 +189,6 @@ _music_complete() {
 
 
 complete -o nospace -F _music_complete music
-
-
 
 
 # Add user-specific bin directory to PATH
