@@ -48,7 +48,7 @@ stow -t ~ .
 |yay    | niri-screen-time-git     | Tracks time spent on applications
 |yay    | btop                     | htop alternative
 |pacman | tig                      | Git log viewer TUI
-|pacman | entr                     | File watcher that re-exec cmd on file updates
+|pacman | (entr)                   | File watcher that re-exec cmd on file updates
 |pacman | bandwhich                | Network monitor
 |pacman | bat                      | Quick text file viewer in terminal with syntx highlighting
 |pacman | dictd                    | Dictionary lookup in the terminal
