@@ -6,7 +6,7 @@
 [[ $- != *i* ]] && return
 
 export HISTCONTROL=ignoreboth:erasedups
-export HISTIGNORE="ls:pwd:history:clear:shutdown:reboot"
+export HISTIGNORE="ls:pwd:history:clear:shutdown:reboot:date:man:mp"
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
