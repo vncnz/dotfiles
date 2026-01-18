@@ -54,6 +54,7 @@ stow -t ~ .
 |pacman | dictd                    | Dictionary lookup in the terminal
 |pacman | exiftool                 | Read and write meta information in file
 |yay    | unipicker                | Find an unicode character (emojis included) through fzf or custom dmenu-like program
+|pacman | progress                 | Displays the percentage of copied data of running basic commands like cp, mv, dd, zip and so on
 
 # Currently in use on my screen:
 - niri (Window manager)
