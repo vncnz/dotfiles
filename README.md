@@ -24,18 +24,18 @@ stow -t ~ .
 |pacman | jq                       | json parser for bash
 |pacman | ttf-nerd-fonts-symbols*  | icons
 |yay    | googledot-cursor-theme   | a cursor theme
-|       | pactl                    | audio ctrl
-|       | playerctl                | audio info and ctrl
+|yay    | pactl                    | audio ctrl
+|pacman | playerctl                | audio info and ctrl
 |       | (swaybg)                 | wallpaper
 |       | (swaync)                 | notification center
 |pacman | swaylock                 | lock screen
-|       | pika-backup              | backup system
-|       | wl-clipboard             | for wl-copy in pipeline with cmds
+|pacman | pika-backup              | backup system
+|pacman | wl-clipboard             | for wl-copy in pipeline with cmds
 |pacman | iwd impala               | for wireless management through a TUI
 |pacman | nmtui                    | for wireless management through a TUI
 |pacman | bluetui                  | for bluetooth management through a TUI
 |yay    | tray-tui                 | for tray usage through a TUI
-|yay    | diskonaut                | for disk usage through a TUI
+|pacman | diskonaut                | for disk usage through a TUI
 |pacman | gdu                      | for disk usage
 |pacman | lf                       | for file exploring through a TUI
 |pacman | texlive-luatex           | latex
@@ -55,6 +55,7 @@ stow -t ~ .
 |pacman | exiftool                 | Read and write meta information in file
 |yay    | unipicker                | Find an unicode character (emojis included) through fzf or custom dmenu-like program
 |pacman | progress                 | Displays the percentage of copied data of running basic commands like cp, mv, dd, zip and so on
+|yay    | kmp3-git                 | Just a light mp3 player for my local music library
 
 # Currently in use on my screen:
 - niri (Window manager)
