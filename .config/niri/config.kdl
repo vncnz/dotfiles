@@ -396,7 +396,7 @@ animations {
     }
 
     window-open {
-        duration-ms 300
+        duration-ms 200
 
         curve "linear"
 
@@ -418,7 +418,17 @@ animations {
 
                 // Materialization logic: as progress increases, alpha increases
                 // Window content is hidden where noise > progress
-                float alpha = smoothstep(1.0 - progress - 0.1, 1.0 - progress, 1.0 - noise) * step(coords_geo.y, beam_pos - 0.01);
+                // float alpha = smoothstep(1.0 - progress - 0.1, 1.0 - progress, 1.0 - noise) * step(coords_geo.y, beam_pos - 0.01);
+
+                // Alpha logic:
+                // - Above beam: alpha depends on noise and progress (dissolve effect)
+                // - Below beam: alpha is always 1 (solid)
+                float alpha;
+                if (coords_geo.y > beam_pos) {
+                    alpha = 0.0;
+                } else {
+                    alpha = smoothstep(1.0 - progress - 0.1, 1.0 - progress, 1.0 - noise) * step(coords_geo.y, beam_pos - 0.01);
+                }
 
                 // Sample the window texture
                 vec4 color = texture2D(niri_tex, coords_geo.xy);
@@ -437,7 +447,7 @@ animations {
     }
     
     window-close {
-        duration-ms 300
+        duration-ms 200
 
         curve "linear"
 
