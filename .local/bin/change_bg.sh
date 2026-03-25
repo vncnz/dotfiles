@@ -4,12 +4,12 @@
 
 # === CONFIG ===
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
-SWWW_CMD="swww img"
+AWWW_CMD="awww img"
 # TRANSITION_OPTS="--transition-type any --transition-duration 1"
 
 # === FUNZIONI ===
 get_current_wallpaper() {
-    swww query 2>/dev/null | grep "image:" | head -n 1 | sed 's/.*image: //'
+    awww query 2>/dev/null | grep "image:" | head -n 1 | sed 's/.*image: //'
 }
 
 get_all_wallpapers() {
@@ -91,7 +91,7 @@ change_wallpaper() {
 
     new_wallpaper="${wallpapers[$new_index]}"
     echo "✅ Setting $new_wallpaper $angle"
-    $SWWW_CMD "$new_wallpaper" "--transition-type" "wipe" "--transition-angle" $angle "--transition-step" "30" "--transition-fps" "30" "--transition-duration" "0.5"
+    $AWWW_CMD "$new_wallpaper" "--transition-type" "wipe" "--transition-angle" $angle "--transition-step" "30" "--transition-fps" "30" "--transition-duration" "0.5"
 }
 
 # === MAIN ===

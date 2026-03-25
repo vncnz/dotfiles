@@ -1,2 +1,2 @@
-current_bg="swww query 2>/dev/null | grep "image:" | head -n 1 | sed 's/.*image: //'"
-swaylock -i "$(swww query 2>/dev/null | grep 'image:' | head -n 1 | sed 's/.*image: //')" --show-keyboard-layout --show-failed-attempts
+current_bg="awww query 2>/dev/null | grep "image:" | head -n 1 | sed 's/.*image: //'"
+swaylock -i "$(awww query 2>/dev/null | grep 'image:' | head -n 1 | sed 's/.*image: //')" --show-keyboard-layout --show-failed-attempts

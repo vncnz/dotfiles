@@ -42,7 +42,7 @@ stow -t ~ .
 |pacman | power-profiles-daemon    | Power management
 |yay    | (matugen)                | generate colors for wallpaper
 |pacman | (python-ignis)           | Alternative for quickshell/eww, swaync, swaybg
-|pacman | swww                     | Wallpaper manager with nice transition
+|pacman | awww                     | Wallpaper manager with nice transition
 |yay    | wob                      | Lightweight overlay bar for volume and brightness
 |pacman | termdown                 | An utility for timers and countdowns
 |yay    | niri-screen-time-git     | Tracks time spent on applications
@@ -61,7 +61,7 @@ stow -t ~ .
 - niri (Window manager)
 - ~~ignis (Resources information, notifications, time, optional wallpaper)~~
 - [Heimdallr](https://github.com/vncnz/heimdallr), a project of mine, as desktop-shell and notification manager
-- swww (for wallpaper management)
+- awww (for wallpaper management)
 - wob (Audio and brightness bar visible briefly on changes)
 - Fuzzel, [Fenrir](https://github.com/vncnz/fenrir) (a project of mine) and [Skoll](https://github.com/vncnz/skoll) (same) as launchers (I still have to decide)
 
