@@ -1,0 +1,120 @@
+animations {
+    window-open {
+        duration-ms 200
+
+        curve "linear"
+
+        custom-shader r"
+
+// Noise cellulare/casuale per dare un ID unico a ogni zona
+float hash21(vec2 p) {
+    p = fract(p * vec2(123.34, 456.21));
+    p += dot(p, p + 45.32);
+    return fract(p.x * p.y);
+}
+
+// Genera una griglia di valori casuali morbidi
+float random_spots(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    
+    // Invece di gradienti, usiamo valori casuali puri per cella
+    float a = hash21(i);
+    float b = hash21(i + vec2(1.0, 0.0));
+    float c = hash21(i + vec2(0.0, 1.0));
+    float d = hash21(i + vec2(1.0, 1.0));
+    
+    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+    float within_bounds = step(0.0, coords_geo.x) * step(coords_geo.x, 1.0) *
+                          step(0.0, coords_geo.y) * step(coords_geo.y, 1.0);
+
+    float progress = niri_clamped_progress;
+
+    // 1. Noise a singolo pixel (il DNA del tuo effetto originale)
+    float pixel_noise = fract(sin(dot(coords_geo.xy, vec2(12.9898, 78.233))) * 43758.5453);
+
+    // 2. Mappa di apparizione CASUALE
+    // Qui definiamo la scala delle macchie. 8.0 crea molte macchie medie.
+    float birth_map = random_spots(coords_geo.xy * 8.0);
+
+    // 3. COMBINAZIONE
+    // Un pixel appare se il suo (valore casuale di zona + piccolo rumore locale) è minore di progress
+    // Questo fa sì che le macchie appaiano in ordine casuale in giro per lo schermo
+    float appearance_value = mix(birth_map, pixel_noise, 0.3);
+    
+    // Apparizione netta (pixel per pixel)
+    float alpha = step(appearance_value, progress * 1.1);
+    
+    // Il bagliore appare solo sui pixel che sono giovani (appena nati)
+    // Usiamo il tempo del progresso per capire quali pixel sono apparsi negli ultimi 0.1 secondi
+    float age = progress - appearance_value;
+    float glow_mask = smoothstep(0.0, 0.1, age) * (1.0 - smoothstep(0.1, 0.2, age));
+
+    vec4 color = texture(niri_tex, coords_geo.xy);
+
+    // Colore Plasma/Neon
+    vec3 plasma = mix(vec3(0.5, 0.2, 1.0), vec3(0.1, 0.8, 1.0), birth_map);
+    vec3 final_glow = plasma * glow_mask * 4.0;
+    
+    // Scintille bianche sui pixel appena nati
+    float sparks = step(0.98, pixel_noise) * glow_mask * 5.0;
+
+    color.rgb += final_glow + sparks;
+
+    return color * alpha * within_bounds;
+}
+        "
+    }
+    
+    window-close {
+        duration-ms 200
+
+        curve "linear"
+
+        custom-shader r"
+            vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+                // Confine to window boundaries
+                float within_bounds = step(0.0, coords_geo.x) * step(coords_geo.x, 1.0) *
+                                    step(0.0, coords_geo.y) * step(coords_geo.y, 1.0);
+
+                float progress = niri_clamped_progress;
+                float inverse_progress = 1.0 - progress;
+
+                // Vertical beam sweep (moves top to bottom as progress increases)
+                float beam_pos = progress * 1.2 - 0.1;
+                float beam = smoothstep(beam_pos - 0.01, beam_pos, coords_geo.y) *
+                            smoothstep(beam_pos + 0.01, beam_pos, coords_geo.y);
+
+                // Glittering noise effect
+                float noise = fract(sin(dot(coords_geo.xy, vec2(12.9898, 78.233))) * 43758.5453);
+                float sparkle = step(0.95, fract(noise + progress * 5.0));
+
+                // Alpha logic:
+                // - Above beam: alpha depends on noise and progress (dissolve effect)
+                // - Below beam: alpha is always 1 (solid)
+                float alpha;
+                if (coords_geo.y > beam_pos) {
+                    alpha = 1.0;
+                } else {
+                    alpha = smoothstep(progress - 0.1, progress, 1.0 - noise);
+                }
+
+                // Sample texture
+                vec4 color = texture2D(niri_tex, coords_geo.xy);
+
+                // Transporter red-white glow
+                vec3 beam_color = vec3(0.9, 0.6, 1.0) * (beam * 2.0 + sparkle);
+
+                // Mix window color with beam glow
+                color.rgb = mix(color.rgb, beam_color, (1.0 - alpha) + beam);
+
+                // Combine and clip
+                return (color * alpha + vec4(beam_color * beam, 0.0)) * within_bounds;
+            }
+        "
+    }
+}

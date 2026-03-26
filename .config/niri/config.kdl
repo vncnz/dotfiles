@@ -290,7 +290,7 @@ window-rule {
 
 include "config_binds.kdl"
 include "config_machine.kdl"
-include "config_animations.kdl"
+include "config_animations_impact_pop.kdl"
 
 animations {
     slowdown 1.0
