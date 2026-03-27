@@ -1,0 +1,108 @@
+animations {
+    window-open {
+        duration-ms 250
+
+        curve "linear"
+
+        custom-shader r"
+vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+    float progress = niri_clamped_progress;
+    
+    // 1. Easing: veloce all'inizio, morbido alla fine
+    float ease = 1.0 - pow(1.0 - progress, 3.0);
+    
+    // Forza dell'interferenza: cala man mano che il progresso avanza
+    float interference = pow(1.0 - progress, 2.0);
+
+    // 2. Onde di distorsione (Wobble)
+    float wave = sin(coords_geo.y * 20.0 + progress * 10.0) * 0.03 * interference;
+    
+    // 3. Instabilità di fase (Linee che scivolano)
+    // Usiamo le coordinate stesse per generare un finto noise casuale
+    float line_jitter = fract(sin(floor(coords_geo.y * 300.0) + progress) * 100.0);
+    float shift = step(0.8, line_jitter) * 0.01 * interference;
+
+    // 4. Distorsione Sferica
+    vec2 uv = coords_geo.xy - 0.5;
+    float curve = interference * 0.9;
+    uv.x *= 1.0 + (uv.y * uv.y) * curve;
+    uv.y *= 1.0 + (uv.x * uv.x) * curve;
+    
+    vec2 distorted_coords = uv + 0.5;
+    distorted_coords.x += wave + shift; //Commented out squares on the right
+
+    // 5. Espansione Verticale (Reveal)
+    float reveal = smoothstep(0.0, 0.1, ease - abs(coords_geo.y - 0.5) * 1.2);
+
+    // 6. Aberrazione Cromatica (RGB Split)
+    float rgb_split = 0.04 * interference;
+    
+    // Usiamo texture2D che è lo standard GLSL più compatibile
+    float r = texture2D(niri_tex, distorted_coords + vec2(rgb_split, 0.0)).r;
+    float g = texture2D(niri_tex, distorted_coords).g;
+    float b = texture2D(niri_tex, distorted_coords - vec2(rgb_split, 0.0)).b;
+    
+    vec3 rgb = vec3(r, g, b);
+
+    // 7. Flash di accensione centrale
+    float flash = exp(-abs(coords_geo.y - 0.5) * 30.0) * interference;
+    rgb += vec3(0.5, 0.8, 1.0) * flash;
+
+    // 8. Controllo bordi
+    float within_bounds = step(0.0, distorted_coords.x) * step(distorted_coords.x, 1.0) *
+                          step(0.0, distorted_coords.y) * step(distorted_coords.y, 1.0);
+
+    // Niri vuole un vec4: moltiplichiamo l'alfa per il reveal e il bounds
+    return vec4(rgb, 1.0) * reveal * within_bounds * ease;
+}
+        "
+    }
+    
+    window-close {
+        duration-ms 200
+
+        curve "linear"
+
+        custom-shader r"
+            vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+                // Confine to window boundaries
+                float within_bounds = step(0.0, coords_geo.x) * step(coords_geo.x, 1.0) *
+                                    step(0.0, coords_geo.y) * step(coords_geo.y, 1.0);
+
+                float progress = niri_clamped_progress;
+                float inverse_progress = 1.0 - progress;
+
+                // Vertical beam sweep (moves top to bottom as progress increases)
+                float beam_pos = progress * 1.2 - 0.1;
+                float beam = smoothstep(beam_pos - 0.01, beam_pos, coords_geo.y) *
+                            smoothstep(beam_pos + 0.01, beam_pos, coords_geo.y);
+
+                // Glittering noise effect
+                float noise = fract(sin(dot(coords_geo.xy, vec2(12.9898, 78.233))) * 43758.5453);
+                float sparkle = step(0.95, fract(noise + progress * 5.0));
+
+                // Alpha logic:
+                // - Above beam: alpha depends on noise and progress (dissolve effect)
+                // - Below beam: alpha is always 1 (solid)
+                float alpha;
+                if (coords_geo.y > beam_pos) {
+                    alpha = 1.0;
+                } else {
+                    alpha = smoothstep(progress - 0.1, progress, 1.0 - noise);
+                }
+
+                // Sample texture
+                vec4 color = texture2D(niri_tex, coords_geo.xy);
+
+                // Transporter red-white glow
+                vec3 beam_color = vec3(0.9, 0.6, 1.0) * (beam * 2.0 + sparkle);
+
+                // Mix window color with beam glow
+                color.rgb = mix(color.rgb, beam_color, (1.0 - alpha) + beam);
+
+                // Combine and clip
+                return (color * alpha + vec4(beam_color * beam, 0.0)) * within_bounds;
+            }
+        "
+    }
+}

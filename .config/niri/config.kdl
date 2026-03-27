@@ -290,7 +290,7 @@ window-rule {
 
 include "config_binds.kdl"
 include "config_machine.kdl"
-include "config_animations_impact_pop.kdl"
+include "config_animations_smoke.kdl"
 
 animations {
     slowdown 1.0
@@ -324,6 +324,10 @@ animations {
                 return color;
             }
         "
+    }
+
+    overview-open-close {
+        spring damping-ratio=0.85 stiffness=800 epsilon=0.0001
     }
 }
 

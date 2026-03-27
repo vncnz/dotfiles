@@ -1,95 +1,124 @@
 animations {
-    window-open {
-        duration-ms 350
-
-        curve "linear"
+    window-close {
+        duration-ms 1200
+        curve "ease-out-quad"
 
         custom-shader r"
-vec4 open_color(vec3 coords_geo, vec3 size_geo) {
-    float progress = niri_clamped_progress;
-    
-    // 1. Easing ultra-veloce: la finestra deve essere quasi tutta presente al 50% del tempo
-    float ease = smoothstep(0.0, 1.0, progress);
-    
-    // 2. Logica del Glitch (attiva solo nella prima metà dell'animazione)
-    float glitch_strength = smoothstep(0.5, 0.0, progress); // Svanisce rapidamente
-    
-    // Creiamo delle fette orizzontali basate sulla coordinata Y
-    // Moltiplicando per un numero alto creiamo strisce sottili
-    float slice = floor(coords_geo.y * 30.0); 
-    
-    // Generiamo uno spostamento casuale per ogni fetta
-    float slice_hash = fract(sin(slice * 123.456) * 456.789);
-    
-    // Lo spostamento è laterale (asse X) e dipende dalla forza del glitch
-    // Alterniamo destra e sinistra usando (slice_hash - 0.5)
-    float x_offset = (slice_hash - 0.5) * 0.1 * glitch_strength;
-    
-    // 3. Coordinate distorte
-    vec2 distorted_coords = coords_geo.xy;
-    distorted_coords.x += x_offset;
+            float gh(float n) {
+                return fract(sin(n) * 43758.5453);
+            }
 
-    // 4. Cromatismo durante il glitch (Red/Cyan shift)
-    // Spostiamo i canali colore solo quando le fette si muovono
-    float col_shift = 0.02 * glitch_strength * slice_hash;
-    
-    float r = texture(niri_tex, distorted_coords + vec2(col_shift, 0.0)).r;
-    float g = texture(niri_tex, distorted_coords).g;
-    float b = texture(niri_tex, distorted_coords - vec2(col_shift, 0.0)).b;
-    
-    // 5. Apparizione (Alpha + un leggero stretching verticale)
-    float within_bounds = step(0.0, distorted_coords.x) * step(distorted_coords.x, 1.0);
-    float alpha = ease;
+            vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+                float p = niri_clamped_progress;
+                vec2 uv = coords_geo.xy;
 
-    return vec4(r, g, b, alpha) * within_bounds;
-}
+                float intensity = p * p;
+
+                float tick = floor(p * 60.0) + niri_random_seed * 1000.0;
+                float r1 = gh(tick * 1.13);
+                float r2 = gh(tick * 2.37);
+                float r3 = gh(tick * 3.71);
+                float r4 = gh(tick * 4.19);
+                float r5 = gh(tick * 5.53);
+                float r6 = gh(tick * 6.91);
+
+                vec2 off_r = vec2(r1 - 0.5, r2 - 0.5) * intensity * 0.15;
+                vec2 off_g = vec2(r3 - 0.5, r4 - 0.5) * intensity * 0.15;
+                vec2 off_b = vec2(r5 - 0.5, r6 - 0.5) * intensity * 0.15;
+
+                float slice = floor(uv.y * 20.0);
+                float slice_offset = (gh(slice + tick) - 0.5) * intensity * 0.12;
+
+                vec2 uv_r = uv + off_r + vec2(slice_offset * 0.7, 0.0);
+                vec2 uv_g = uv + off_g + vec2(slice_offset * -0.5, 0.0);
+                vec2 uv_b = uv + off_b + vec2(slice_offset * 0.3, 0.0);
+
+                vec3 tc_r = niri_geo_to_tex * vec3(uv_r, 1.0);
+                vec3 tc_g = niri_geo_to_tex * vec3(uv_g, 1.0);
+                vec3 tc_b = niri_geo_to_tex * vec3(uv_b, 1.0);
+
+                vec4 color;
+                color.r = texture2D(niri_tex, tc_r.st).r;
+                color.g = texture2D(niri_tex, tc_g.st).g;
+                color.b = texture2D(niri_tex, tc_b.st).b;
+                color.a = max(max(
+                    texture2D(niri_tex, tc_r.st).a,
+                    texture2D(niri_tex, tc_g.st).a),
+                    texture2D(niri_tex, tc_b.st).a);
+
+                float big_glitch = step(0.8 - p * 0.3, gh(tick * 0.77));
+                vec2 shift = vec2((gh(tick * 1.5) - 0.5) * 0.08 * big_glitch * intensity, 0.0);
+                vec3 tc_shift = niri_geo_to_tex * vec3(uv + shift, 1.0);
+                vec4 shifted = texture2D(niri_tex, tc_shift.st);
+                color = mix(color, shifted, big_glitch * intensity * 0.5);
+
+                float scanline = 1.0 - sin(uv.y * size_geo.y * 3.14159) * 0.08 * intensity;
+                color.rgb *= scanline;
+
+                float alpha = smoothstep(1.0, 0.6, p);
+                return color * alpha;
+            }
         "
     }
-    
-    window-close {
-        duration-ms 200
 
+    window-open {
+        duration-ms 500
         curve "linear"
 
         custom-shader r"
-            vec4 close_color(vec3 coords_geo, vec3 size_geo) {
-                // Confine to window boundaries
-                float within_bounds = step(0.0, coords_geo.x) * step(coords_geo.x, 1.0) *
-                                    step(0.0, coords_geo.y) * step(coords_geo.y, 1.0);
+            float gh(float n) {
+                return fract(sin(n) * 43758.5453);
+            }
 
-                float progress = niri_clamped_progress;
-                float inverse_progress = 1.0 - progress;
+            vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+                float p = niri_clamped_progress;
+                vec2 uv = coords_geo.xy;
 
-                // Vertical beam sweep (moves top to bottom as progress increases)
-                float beam_pos = progress * 1.2 - 0.1;
-                float beam = smoothstep(beam_pos - 0.01, beam_pos, coords_geo.y) *
-                            smoothstep(beam_pos + 0.01, beam_pos, coords_geo.y);
+                float intensity = (1.0 - p) * (1.0 - p);
 
-                // Glittering noise effect
-                float noise = fract(sin(dot(coords_geo.xy, vec2(12.9898, 78.233))) * 43758.5453);
-                float sparkle = step(0.95, fract(noise + progress * 5.0));
+                float tick = floor(p * 60.0) + niri_random_seed * 1000.0;
+                float r1 = gh(tick * 1.13);
+                float r2 = gh(tick * 2.37);
+                float r3 = gh(tick * 3.71);
+                float r4 = gh(tick * 4.19);
+                float r5 = gh(tick * 5.53);
+                float r6 = gh(tick * 6.91);
 
-                // Alpha logic:
-                // - Above beam: alpha depends on noise and progress (dissolve effect)
-                // - Below beam: alpha is always 1 (solid)
-                float alpha;
-                if (coords_geo.y > beam_pos) {
-                    alpha = 1.0;
-                } else {
-                    alpha = smoothstep(progress - 0.1, progress, 1.0 - noise);
-                }
+                vec2 off_r = vec2(r1 - 0.5, r2 - 0.5) * intensity * 0.12;
+                vec2 off_g = vec2(r3 - 0.5, r4 - 0.5) * intensity * 0.12;
+                vec2 off_b = vec2(r5 - 0.5, r6 - 0.5) * intensity * 0.12;
 
-                // Sample texture
-                vec4 color = texture2D(niri_tex, coords_geo.xy);
+                float slice = floor(uv.y * 20.0);
+                float slice_offset = (gh(slice + tick) - 0.5) * intensity * 0.08;
 
-                // Transporter red-white glow
-                vec3 beam_color = vec3(0.9, 0.6, 1.0) * (beam * 2.0 + sparkle);
+                vec2 uv_r = uv + off_r + vec2(slice_offset * 0.7, 0.0);
+                vec2 uv_g = uv + off_g + vec2(slice_offset * -0.5, 0.0);
+                vec2 uv_b = uv + off_b + vec2(slice_offset * 0.3, 0.0);
 
-                // Mix window color with beam glow
-                color.rgb = mix(color.rgb, beam_color, (1.0 - alpha) + beam);
+                vec3 tc_r = niri_geo_to_tex * vec3(uv_r, 1.0);
+                vec3 tc_g = niri_geo_to_tex * vec3(uv_g, 1.0);
+                vec3 tc_b = niri_geo_to_tex * vec3(uv_b, 1.0);
 
-                // Combine and clip
-                return (color * alpha + vec4(beam_color * beam, 0.0)) * within_bounds;
+                vec4 color;
+                color.r = texture2D(niri_tex, tc_r.st).r;
+                color.g = texture2D(niri_tex, tc_g.st).g;
+                color.b = texture2D(niri_tex, tc_b.st).b;
+                color.a = max(max(
+                    texture2D(niri_tex, tc_r.st).a,
+                    texture2D(niri_tex, tc_g.st).a),
+                    texture2D(niri_tex, tc_b.st).a);
+
+                float big_glitch = step(0.85, gh(tick * 0.77));
+                vec2 shift = vec2((gh(tick * 1.5) - 0.5) * 0.06 * big_glitch * intensity, 0.0);
+                vec3 tc_shift = niri_geo_to_tex * vec3(uv + shift, 1.0);
+                vec4 shifted = texture2D(niri_tex, tc_shift.st);
+                color = mix(color, shifted, big_glitch * intensity * 0.4);
+
+                float scanline = 1.0 - sin(uv.y * size_geo.y * 3.14159) * 0.06 * intensity;
+                color.rgb *= scanline;
+
+                float alpha = smoothstep(0.0, 0.15, p);
+                return color * alpha;
             }
         "
     }
