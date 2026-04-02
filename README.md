@@ -43,7 +43,7 @@ stow -t ~ .
 |yay    | (matugen)                | generate colors for wallpaper
 |pacman | (python-ignis)           | Alternative for quickshell/eww, swaync, swaybg
 |pacman | awww                     | Wallpaper manager with nice transition
-|yay    | wob                      | Lightweight overlay bar for volume and brightness
+|yay    | (wob)                    | Lightweight overlay bar for volume and brightness
 |pacman | termdown                 | An utility for timers and countdowns
 |yay    | niri-screen-time-git     | Tracks time spent on applications
 |yay    | btop                     | htop alternative
@@ -62,7 +62,7 @@ stow -t ~ .
 - ~~ignis (Resources information, notifications, time, optional wallpaper)~~
 - [Heimdallr](https://github.com/vncnz/heimdallr), a project of mine, as desktop-shell and notification manager
 - awww (for wallpaper management)
-- wob (Audio and brightness bar visible briefly on changes)
+- ~~wob (Audio and brightness bar visible briefly on changes)~~ Now integrated in Heimdallr
 - Fuzzel, [Fenrir](https://github.com/vncnz/fenrir) (a project of mine) and [Skoll](https://github.com/vncnz/skoll) (same) as launchers (I still have to decide)
 
 ## Screenshots
