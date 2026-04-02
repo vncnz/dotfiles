@@ -1,7 +1,7 @@
 [Nemo Action]
 Name=Set as Wallpaper (awww)
 Comment=Set the selected image as wallpaper using awww
-Exec=bash -c 'set -- %F; awww img "$1"'
+Exec=bash -c 'set -- %F; awww img "$1" "--transition-type" "wipe" "--transition-angle" "30" "--transition-step" "30" "--transition-fps" "30" "--transition-duration" "0.5"'
 Icon=preferences-desktop-wallpaper
 Selection=any
 Extensions=png;jpg;jpeg;webp;avif;bmp;tiff;gif
