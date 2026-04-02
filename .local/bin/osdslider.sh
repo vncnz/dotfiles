@@ -49,7 +49,8 @@ function getstate {
     fi
 }
 
-echo $(getstate "$slider") > /tmp/wobpipe
+# echo $(getstate "$slider") > /tmp/wobpipe
+echo $(getstate "$slider") | awk '{print $NF/100}' > /tmp/heimdallr_cmds
 
 #while true; do
 #    currentrun=$(cat "$lockfile")
