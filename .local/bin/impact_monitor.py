@@ -37,7 +37,7 @@ def estimate_microload(pid, sample_ms=50, report_interval=5):
     while True:
         try:
             if not proc.is_running():
-                print(f"[{datetime.now().strftime('%H:%M:%S')}] Ignis terminato.")
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] Process exited.")
                 break
 
             # Controlla stato
@@ -90,11 +90,11 @@ class color:
    END = '\033[0m'
 
 def main():
-    parser = argparse.ArgumentParser(description="Monitora Ignis e stima micro-load isolato.")
-    parser.add_argument("pid", help="PID del processo Ignis")
-    parser.add_argument("--sample-ms", type=int, default=50, help="Intervallo di campionamento in millisecondi")
-    parser.add_argument("--report", type=int, default=5, help="Intervallo di report in secondi")
-    parser.add_argument("--out", default="load.csv", help="File di output CSV")
+    parser = argparse.ArgumentParser(description="Monitor a process and estimate its micro-load.")
+    parser.add_argument("pid", help="Process ID")
+    parser.add_argument("--sample-ms", type=int, default=50, help="Sampling interval (milliseconds)")
+    parser.add_argument("--report", type=int, default=5, help="Report interval (seconds)")
+    parser.add_argument("--out", default="load.csv", help="Output CSV filename")
     args = parser.parse_args()
 
     if args.pid.isnumeric():
@@ -117,7 +117,7 @@ def main():
                 exit(0)
         else:
             pid = int(pid)
-    print(f"Inizio monitoraggio PID {pid} "
+    print(f"Started to monitor PID {pid} "
           f"(sample={args.sample_ms}ms, report={args.report}s)...\n")
 
     with open(args.out, "w") as f:
@@ -129,7 +129,7 @@ def main():
             )
             f.flush()
 
-    print(f"\nDati salvati in {args.out}")
+    print(f"\nSaved data in {args.out}")
 
 if __name__ == "__main__":
     main()
