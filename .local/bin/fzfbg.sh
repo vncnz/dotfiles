@@ -10,12 +10,12 @@ if [ ! -f /usr/bin/fzf ]; then
 fi
 
 choosen=$(
-  find "$WALLPAPERS_DIR" -maxdepth 1 -type f | fzf \
+  find "$WALLPAPERS_DIR" -type f | fzf \
     --layout=reverse \
-    --preview-window=top:50% \
+    --preview-window="top:24,wrap" \
     --preview-border=none \
     --bind 'ctrl-j:down,ctrl-k:up,alt-j:preview-down,alt-k:preview-up' \
-    --preview "chafa --clear --size=90x24 --probe-mode=stdio {}"
+    --preview "chafa -s $(tput cols)x24 --fill=block --watch {} --clear --probe=on"
 )
 
 if [ -n "$choosen" ]; then
