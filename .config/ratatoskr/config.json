@@ -7,5 +7,6 @@
     "threshold_battery": null,
     "threshold_volume_headphones": null,
     "threshold_volume_speakers": null,
-    "threshold_bluetooth_battery": null
+    "threshold_bluetooth_battery": null,
+    "write_json": false
 }
