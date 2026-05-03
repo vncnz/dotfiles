@@ -242,7 +242,7 @@ layout {
 
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 // spawn-sh-at-startup "~/.config/niri/run_wob.sh"
-spawn-sh-at-startup "sock-ratatoskr"
+spawn-sh-at-startup "ratatoskr"
 spawn-sh-at-startup "awww-daemon"
 // spawn-sh-at-startup "ignis init"
 spawn-sh-at-startup "niri-screen-time -daemon"
