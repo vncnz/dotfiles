@@ -1,0 +1,6 @@
+{
+    "threshold_ram": null,
+    "threshold_swap": null,
+    "threshold_disk": null,
+    "threshold_temperature": null
+}
