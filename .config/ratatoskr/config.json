@@ -2,5 +2,9 @@
     "threshold_ram": null,
     "threshold_swap": null,
     "threshold_disk": null,
-    "threshold_temperature": null
+    "threshold_temperature": null,
+    "threshold_avg_load": null,
+    "threshold_battery": null,
+    "threshold_volume_headphones": null,
+    "threshold_volume_speakers": null
 }
