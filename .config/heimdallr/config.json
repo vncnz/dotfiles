@@ -1,4 +1,6 @@
 {
-    "frame_color": [0.2, 0.6, 1.0, 1.0],
-    "show_clock": "clock2"
+    "frame_color": [0.5, 0.7, 1.0, 1.0],
+    "show_clock": "clock2",
+    "show_always_bluetooth": true,
+    "hide_missing_ratatoskr": false
 }
