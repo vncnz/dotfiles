@@ -187,6 +187,11 @@ _music_complete() {
   done
 }
 
+tm() {
+    echo "timer $1" > /tmp/heimdallr_cmds
+}
+
+
 
 complete -o nospace -F _music_complete music
 
