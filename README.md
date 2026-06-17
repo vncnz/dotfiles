@@ -24,7 +24,7 @@ stow -t ~ .
 |pacman | jq                       | json parser for bash
 |pacman | ttf-nerd-fonts-symbols*  | icons
 |AUR    | googledot-cursor-theme   | a cursor theme
-|AUR    | pactl                    | audio ctrl
+|pacman | pipewire-pulse           | audio ctrl (for pactl command)
 |pacman | playerctl                | audio info and ctrl
 |       | (swaybg)                 | wallpaper
 |       | (swaync)                 | notification center
@@ -46,7 +46,7 @@ stow -t ~ .
 |AUR    | (wob)                    | Lightweight overlay bar for volume and brightness
 |pacman | termdown                 | An utility for timers and countdowns
 |AUR    | niri-screen-time-git     | Tracks time spent on applications
-|AUR    | btop                     | htop alternative
+|pacman | btop                     | htop alternative
 |pacman | tig                      | Git log viewer TUI
 |pacman | (entr)                   | File watcher that re-exec cmd on file updates
 |pacman | bandwhich                | Network monitor
