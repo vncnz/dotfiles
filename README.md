@@ -56,6 +56,7 @@ stow -t ~ .
 |AUR    | unipicker                | Find an unicode character (emojis included) through fzf or custom dmenu-like program
 |pacman | progress                 | Displays the percentage of copied data of running basic commands like cp, mv, dd, zip and so on
 |AUR    | kmp3-git                 | Just a light mp3 player for my local music library
+|AUR    | numr                     | A text calculator for natural language expressions with a vim-style TUI
 
 # Currently in use on my screen:
 - niri (Window manager)
@@ -63,7 +64,7 @@ stow -t ~ .
 - [Heimdallr](https://github.com/vncnz/heimdallr), a project of mine, as desktop-shell and notification manager
 - awww (for wallpaper management)
 - ~~wob (Audio and brightness bar visible briefly on changes)~~ Now integrated in Heimdallr
-- Fuzzel, [Fenrir](https://github.com/vncnz/fenrir) (a project of mine) and [Skoll](https://github.com/vncnz/skoll) (same) as launchers (I still have to decide)
+- Fuzzel, [Fenrir](https://github.com/vncnz/fenrir) (a project of mine) and [Skoll](https://github.com/vncnz/skoll) (same) as launchers. Fenrir is the main one in my workflow.
 
 ## Screenshots
 
