@@ -230,7 +230,7 @@ layout {
     struts {
         left 22
         right 22
-        top 0
+        top 8
         bottom 0
     }
 }
@@ -399,6 +399,11 @@ window-rule {
     match title="Flip" app-id="python3"
     match title="Nim" app-id="python3"
     open-floating true
+}
+
+window-rule {
+    match title="burp-StartBurp"
+    open-maximized true
 }
 
 window-rule {
