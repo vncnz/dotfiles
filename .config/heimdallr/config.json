@@ -1,6 +1,6 @@
 {
     "frame_color": [1.0, 1.0, 1.0, 0.25],
-    "show_always_bluetooth": true,
+    "show_devices_battery_max_level": 75,
     "hide_missing_ratatoskr": false,
     "show_watts": false
 }
