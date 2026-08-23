@@ -51,6 +51,7 @@ binds {
 
     XF86MonBrightnessUp allow-when-locked=true { spawn-sh "osdslider.sh brightness up"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn-sh "osdslider.sh brightness down"; }
+    Mod+a { spawn-sh "bluetooth_audio_switch.sh"; }
 
     XF86AudioPlay { spawn "playerctl" "play-pause"; }
     XF86AudioNext { spawn "playerctl" "next"; }
