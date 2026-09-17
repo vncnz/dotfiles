@@ -121,7 +121,8 @@ binds {
     Mod+Ctrl+U         { move-column-to-workspace-down; }
     Mod+Ctrl+I         { move-column-to-workspace-up; }
 
-    Mod+U { spawn-sh "echo focus_next_urgent_window > /tmp/heimdallr_cmds"; }
+    // Mod+U { spawn-sh "echo focus_next_urgent_window > /tmp/heimdallr_cmds"; }
+    Mod+U { spawn-sh "niri msg -j windows | jq -r 'map(select(.is_urgent)) | first | .id // empty' | xargs -r -I {} niri msg action focus-window --id {}"; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
