@@ -191,6 +191,42 @@ tm() {
     echo "timer $1" > /tmp/heimdallr_cmds
 }
 
+# Convert all FLACs in current directory to 320k MP3, preserving metadata/artwork and skipping existing MP3s
+flac2mp3() {
+  local flac_count
+  flac_count=$(find . -maxdepth 1 -type f -name "*.flac" | wc -l)
+
+  if [ "$flac_count" -eq 0 ]; then
+    echo "No .flac files found in the current directory."
+    return 1
+  fi
+
+  echo "Found $flac_count FLAC file(s). Starting conversion..."
+
+  for f in *.flac; do
+    [ -e "$f" ] || continue
+    
+    local out="${f%.flac}.mp3"
+    
+    if [ -f "$out" ]; then
+      echo "--> Skipping '$f' (MP3 already exists)"
+      continue
+    fi
+
+    echo "--> Converting '$f'..."
+    ffmpeg -hide_banner -loglevel error -stats \
+      -i "$f" \
+      -c:a libmp3lame -b:a 320k \
+      -map 0:a:0 -map 0:v? \
+      -c:v copy \
+      -id3v2_version 3 \
+      -metadata:s:v title="Album cover" \
+      -metadata:s:v comment="Cover (front)" \
+      "$out"
+  done
+
+  echo "Done!"
+}
 
 
 complete -o nospace -F _music_complete music
