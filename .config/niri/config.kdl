@@ -474,7 +474,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"(firefox|org.gnome.Meld|code-url-handler)"#
+    match app-id=r#"(firefox|org.gnome.Meld|code-url-handler|code)"#
     exclude title=r#"(Open File|Save As|File Upload)"#
     open-maximized true
 }
