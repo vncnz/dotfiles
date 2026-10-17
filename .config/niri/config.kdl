@@ -244,9 +244,9 @@ spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 // spawn-sh-at-startup "~/.config/niri/run_wob.sh"
 spawn-sh-at-startup "ratatoskr"
 spawn-sh-at-startup "awww-daemon"
-// spawn-sh-at-startup "ignis init"
 spawn-sh-at-startup "niri-screen-time -daemon"
 spawn-sh-at-startup "heimdallr"
+spawn-sh-at-startup "skoll"
 spawn-sh-at-startup "muninn-daemon"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.

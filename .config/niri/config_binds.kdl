@@ -23,7 +23,8 @@ binds {
     // Mod+W { spawn "iwmenu" "-m" "fuzzel"; }
     // Mod+W { toggle-column-tabbed-display; }
     Mod+D hotkey-overlay-title="Spawn fuzzel launcher" { spawn "fuzzel"; }
-    Mod+Shift+D hotkey-overlay-title="Spawn skoll launcher" { spawn "skoll"; }
+    // Mod+Shift+D hotkey-overlay-title="Spawn skoll launcher" { spawn "skoll"; }
+    Mod+x hotkey-overlay-title="Toggle skoll launcher layer" { spawn-sh "echo toggle > /tmp/skoll_cmds"; }
     Mod+O hotkey-overlay-title="Fuzzel calculator" { spawn "~/Repositories/dotfiles/niri/fuzzel-calculator.sh"; }
     Mod+P hotkey-overlay-title="Spawn session control in fuzzel" { spawn "~/.config/niri/session_ctrl_fuzzel.sh"; }
     // Mod+N hotkey-overlay-title="Show/hide swaync panel" { spawn "swaync-client" "-t"; }
