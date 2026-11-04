@@ -71,11 +71,18 @@ stow -t ~ .
 
 (Screenshots to be updated!)
 
-Heimdallr, neofetch and fenrir on kitty, two resource alarms (RAM and disk):
-![heimdallr fenrir neofetch](./screenshots/heimdallr%20and%20fenrir.png)
+Heimdallr, with one resource alarm (network), battery is charging (almost full):
+![heimdallr](./screenshots/heimdallr.png)
 
-Heimdallr, neofetch and fenrir on kitty, two resource alarms (RAM and disk), notification shown:
-![heimdallr fenrir neofetch notification](./screenshots/heimdallr%20and%20fenrir%20and%20notification.png)
+Skoll (the GUI launcher):
+![heimdallr](./screenshots/skoll.png)
+
+Heimdallr, neofetch and fenrir (the TUI launcher) on kitty, one resource alarm (wlan):
+![heimdallr, fenrir and neofetch](./screenshots/fenrir_and_neofetch.png)
+
+
+Heimdallr showing a notification:
+![heimdallr notification](./screenshots/heimdallr_notification.png)
 
 # Some tips
 - ```find /usr/share/icons ~/.local/share/icons ~/.icons -type d -name "cursors"``` lists all cursors installed in my system
