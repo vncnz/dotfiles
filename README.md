@@ -10,7 +10,8 @@ stow -t ~ .
 ```
 
 # Other packages used
-(Deprecated if between braches)
+
+(Deprecated if between brackets)
 |source | name                     | description
 |-------|--------------------------|-------------
 |pacman | niri                     | scrollable-tiling Wayland compositor
@@ -64,9 +65,11 @@ stow -t ~ .
 - [Heimdallr](https://github.com/vncnz/heimdallr), a project of mine, as desktop-shell and notification manager
 - awww (for wallpaper management)
 - ~~wob (Audio and brightness bar visible briefly on changes)~~ Now integrated in Heimdallr
-- Fuzzel, [Fenrir](https://github.com/vncnz/fenrir) (a project of mine) and [Skoll](https://github.com/vncnz/skoll) (same) as launchers. Fenrir is the main one in my workflow.
+- [Skoll](https://github.com/vncnz/skoll_v2) (a project of mine) and [Fenrir](https://github.com/vncnz/fenrir) (same) as GUI and TUI launchers
 
 ## Screenshots
+
+(Screenshots to be updated!)
 
 Heimdallr, neofetch and fenrir on kitty, two resource alarms (RAM and disk):
 ![heimdallr fenrir neofetch](./screenshots/heimdallr%20and%20fenrir.png)
