@@ -1,1 +1,4 @@
-{}
+{
+    "hide_missing_ratatoskr": false,
+    "ratatoskr_update_logic": 2
+}
