@@ -109,12 +109,6 @@ output "eDP-1" {
     position x=1920 y=0
 }
 
-output "Virtual-1" {
-    mode "2560x1314@10"
-    scale 1.0
-    transform "normal"
-}
-
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
@@ -384,6 +378,16 @@ layer-rule {
     // match namespace="^wallpaper$"
     match namespace="awww-daemon"
     place-within-backdrop true
+    // opacity 0.5
+}
+
+/- layer-rule {
+    match namespace="heimdallr-workspaces"
+    geometry-corner-radius 46
+    background-effect {
+        blur true
+        xray false
+    }
     // opacity 0.5
 }
 
